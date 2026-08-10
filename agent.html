@@ -2,23 +2,16 @@
 <html lang="fr">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Espace agent - SICTOM Zone de Dole</title>
-
 
 <style>
 
 * {
     box-sizing: border-box;
 }
-
 
 body {
     margin: 0;
@@ -27,7 +20,6 @@ body {
     color: #17231b;
 }
 
-
 header {
     background: #17231b;
     color: white;
@@ -35,24 +27,20 @@ header {
     padding: 28px 15px;
 }
 
-
 header h1 {
     margin: 0;
     font-size: 27px;
 }
 
-
 header p {
-    margin-bottom: 0;
+    margin: 8px 0 0;
 }
-
 
 .container {
     max-width: 700px;
     margin: auto;
     padding: 20px;
 }
-
 
 .retour {
     display: inline-block;
@@ -62,7 +50,6 @@ header p {
     font-weight: bold;
 }
 
-
 .carte {
     background: white;
     padding: 20px;
@@ -70,7 +57,6 @@ header p {
     margin-bottom: 20px;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
-
 
 select {
     width: 100%;
@@ -81,17 +67,14 @@ select {
     background: white;
 }
 
-
 .flux {
     border-top: 1px solid #eee;
     padding: 20px 0;
 }
 
-
 .flux:first-child {
     border-top: none;
 }
-
 
 .nom {
     font-size: 19px;
@@ -99,13 +82,11 @@ select {
     margin-bottom: 12px;
 }
 
-
 .boutons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
 }
-
 
 .bouton {
     border: 3px solid transparent;
@@ -114,42 +95,56 @@ select {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
-
 
 .vert {
     background: #d9f7e5;
     color: #087f3d;
 }
 
-
 .orange {
     background: #fff0c2;
     color: #8a5c00;
 }
-
 
 .rouge {
     background: #ffdede;
     color: #c62828;
 }
 
-
 .selectionne {
     border: 3px solid #111 !important;
 }
 
-
-#message {
+.chargement {
     display: none;
-    margin-top: 20px;
-    padding: 16px;
+    background: #eef2f0;
+    color: #49554e;
+    padding: 15px;
     border-radius: 10px;
-    background: #d9f7e5;
-    color: #087f3d;
+    margin-top: 20px;
     font-weight: bold;
 }
 
+.message {
+    display: none;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.succes {
+    background: #d9f7e5;
+    color: #087f3d;
+}
+
+.erreur {
+    background: #ffdede;
+    color: #c62828;
+}
 
 .info {
     background: #fff8df;
@@ -158,7 +153,6 @@ select {
     border-radius: 10px;
     font-size: 14px;
 }
-
 
 @media (max-width: 600px) {
 
@@ -174,7 +168,6 @@ select {
 }
 
 </style>
-
 </head>
 
 
@@ -193,10 +186,7 @@ select {
 <div class="container">
 
 
-<a
-    href="./index.html"
-    class="retour"
->
+<a href="./index.html" class="retour">
 ← Retour à la carte
 </a>
 
@@ -205,44 +195,17 @@ select {
 
 <h2>📍 Déchèterie</h2>
 
-
 <select id="dechetterie">
 
-<option value="Chaussin">
-Chaussin
-</option>
-
-<option value="Dole">
-Dole
-</option>
-
-<option value="Brevans">
-Brevans
-</option>
-
-<option value="Tavaux">
-Tavaux
-</option>
-
-<option value="Dampierre">
-Dampierre
-</option>
-
-<option value="Mont-sous-Vaudrey">
-Mont-sous-Vaudrey
-</option>
-
-<option value="Montmirey-le-Château">
-Montmirey-le-Château
-</option>
-
-<option value="Saligney">
-Saligney
-</option>
-
-<option value="Villers-Farlay">
-Villers-Farlay
-</option>
+<option value="Chaussin">Chaussin</option>
+<option value="Dole">Dole</option>
+<option value="Brevans">Brevans</option>
+<option value="Tavaux">Tavaux</option>
+<option value="Dampierre">Dampierre</option>
+<option value="Mont-sous-Vaudrey">Mont-sous-Vaudrey</option>
+<option value="Montmirey-le-Château">Montmirey-le-Château</option>
+<option value="Saligney">Saligney</option>
+<option value="Villers-Farlay">Villers-Farlay</option>
 
 </select>
 
@@ -258,44 +221,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🪵 Bois A
-</div>
-
+<div class="nom">🪵 Bois A</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Bois A"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="bois-a"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Bois A"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="bois-a"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Bois A"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="bois-a"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -303,44 +251,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🪵 Bois B
-</div>
-
+<div class="nom">🪵 Bois B</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Bois B"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="bois-b"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Bois B"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="bois-b"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Bois B"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="bois-b"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -348,44 +281,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🛋️ Mobilier
-</div>
-
+<div class="nom">🛋️ Mobilier</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Mobilier"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="mobilier"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Mobilier"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="mobilier"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Mobilier"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="mobilier"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -393,44 +311,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-📦 Carton
-</div>
-
+<div class="nom">📦 Carton</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Carton"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="carton"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Carton"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="carton"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Carton"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="carton"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -438,44 +341,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🪨 Gravats
-</div>
-
+<div class="nom">🪨 Gravats</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Gravats"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="gravats"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Gravats"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="gravats"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Gravats"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="gravats"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -483,44 +371,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🔩 Ferraille
-</div>
-
+<div class="nom">🔩 Ferraille</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Ferraille"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="ferraille"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Ferraille"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="ferraille"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Ferraille"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="ferraille"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -528,44 +401,29 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🧴 Plastique dur
-</div>
-
+<div class="nom">🧴 Plastique dur</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Plastique dur"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="plastique-dur"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Plastique dur"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="plastique-dur"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Plastique dur"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="plastique-dur"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
@@ -573,48 +431,40 @@ Villers-Farlay
 
 <div class="flux">
 
-<div class="nom">
-🗑️ Non recyclable / Tout-venant
-</div>
-
+<div class="nom">🗑️ Non recyclable / Tout-venant</div>
 
 <div class="boutons">
 
-<button
-    type="button"
-    class="bouton vert"
-    data-flux="Tout-venant"
-    data-statut="Disponible"
->
+<button class="bouton vert"
+data-flux="tout-venant"
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-
-<button
-    type="button"
-    class="bouton orange"
-    data-flux="Tout-venant"
-    data-statut="Presque pleine"
->
+<button class="bouton orange"
+data-flux="tout-venant"
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-
-<button
-    type="button"
-    class="bouton rouge"
-    data-flux="Tout-venant"
-    data-statut="Pleine"
->
+<button class="bouton rouge"
+data-flux="tout-venant"
+data-statut="pleine">
 🔴 Pleine
 </button>
 
 </div>
-
 </div>
 
 
-<div id="message"></div>
+<div id="chargement" class="chargement">
+⏳ Enregistrement dans Firebase...
+</div>
+
+
+<div id="succes" class="message succes"></div>
+
+<div id="erreur" class="message erreur"></div>
 
 
 </div>
@@ -622,13 +472,13 @@ Villers-Farlay
 
 <div class="info">
 
-💡 Sélectionne une déchèterie puis
-l'état de chaque benne.
+💡 Les changements sont enregistrés
+automatiquement dans Firebase.
 
 <br><br>
 
-Cette version sert d'abord à vérifier
-que les boutons fonctionnent correctement.
+En revenant sur cette page,
+les derniers statuts sont rechargés.
 
 </div>
 
@@ -637,129 +487,243 @@ que les boutons fonctionnent correctement.
 
 
 <!-- ==================================================
-     JAVASCRIPT DE TEST
+     FIREBASE
 ================================================== -->
 
-
-<script>
-
-
-/*
-    TEST DU JAVASCRIPT
-
-    Si tu vois cette fenêtre,
-    le JavaScript fonctionne.
-*/
+<script type="module">
 
 
-window.addEventListener(
-    "load",
-    function() {
-
-        alert("TEST OK");
-
-    }
-);
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
-/*
-    Récupération des boutons
-*/
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    collection,
+    getDocs,
+    serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
+
+/* CONFIGURATION */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+
+    authDomain:
+    "sictom-zone-de-dole-17296.firebaseapp.com",
+
+    projectId:
+    "sictom-zone-de-dole-17296",
+
+    storageBucket:
+    "sictom-zone-de-dole-17296.firebasestorage.app",
+
+    messagingSenderId:
+    "378183859073",
+
+    appId:
+    "1:378183859073:web:3b347f84a072fb0cb54680"
+
+};
+
+
+/* INITIALISATION */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+
+/* ELEMENTS */
+
+const select =
+document.getElementById("dechetterie");
 
 const boutons =
-document.querySelectorAll(
-    ".bouton"
-);
+document.querySelectorAll(".bouton");
+
+const chargement =
+document.getElementById("chargement");
+
+const succes =
+document.getElementById("succes");
+
+const erreur =
+document.getElementById("erreur");
 
 
-/*
-    Pour chaque bouton
-*/
+/* CREER UN ID PROPRE */
+
+function siteId(nom) {
+
+    return nom
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+
+}
 
 
-boutons.forEach(
-    function(bouton) {
+/* SELECTIONNER VISUELLEMENT */
+
+function selectionner(flux, statut) {
+
+    document
+    .querySelectorAll(
+        '.bouton[data-flux="' + flux + '"]'
+    )
+    .forEach(function(bouton) {
+
+        bouton.classList.remove(
+            "selectionne"
+        );
+
+    });
 
 
-        bouton.addEventListener(
-            "click",
-            function() {
+    const bouton =
+    document.querySelector(
+        '.bouton[data-flux="' +
+        flux +
+        '"][data-statut="' +
+        statut +
+        '"]'
+    );
 
 
-                /*
-                    Flux concerné
-                */
+    if (bouton) {
 
-                const flux =
-                bouton.dataset.flux;
+        bouton.classList.add(
+            "selectionne"
+        );
 
+    }
 
-                /*
-                    Statut choisi
-                */
-
-                const statut =
-                bouton.dataset.statut;
+}
 
 
-                /*
-                    Enlever la sélection
-                    des autres boutons
-                    du même flux
-                */
+/* AFFICHER ERREUR */
 
-                document
-                .querySelectorAll(
-                    '.bouton[data-flux="' +
-                    flux +
-                    '"]'
-                )
-                .forEach(
-                    function(autreBouton) {
+function afficherErreur(error) {
 
-                        autreBouton
-                        .classList
-                        .remove(
-                            "selectionne"
-                        );
+    chargement.style.display =
+    "none";
 
+    succes.style.display =
+    "none";
+
+    erreur.innerHTML =
+    "❌ Erreur Firebase<br><br>" +
+    "<strong>Code :</strong> " +
+    (error.code || "inconnu") +
+    "<br><br>" +
+    "<strong>Message :</strong> " +
+    (error.message || error);
+
+    erreur.style.display =
+    "block";
+
+    console.error(
+        "Erreur Firebase :",
+        error
+    );
+
+}
+
+
+/* CLIQUE SUR UN BOUTON */
+
+boutons.forEach(function(bouton) {
+
+
+    bouton.addEventListener(
+        "click",
+        async function() {
+
+
+            const flux =
+            bouton.dataset.flux;
+
+            const statut =
+            bouton.dataset.statut;
+
+            const site =
+            select.value;
+
+
+            /* Sélection immédiate */
+
+            selectionner(
+                flux,
+                statut
+            );
+
+
+            chargement.style.display =
+            "block";
+
+            succes.style.display =
+            "none";
+
+            erreur.style.display =
+            "none";
+
+
+            try {
+
+
+                /* DOCUMENT FIRESTORE */
+
+                const reference =
+                doc(
+                    db,
+                    "dechetteries",
+                    siteId(site),
+                    "flux",
+                    flux
+                );
+
+
+                /* ENREGISTREMENT */
+
+                await setDoc(
+                    reference,
+                    {
+
+                        site: site,
+
+                        flux: flux,
+
+                        statut: statut,
+
+                        miseAJour:
+                        serverTimestamp()
+
+                    },
+                    {
+                        merge: true
                     }
                 );
 
 
-                /*
-                    Sélectionner
-                    le bouton cliqué
-                */
+                /* SUCCÈS */
 
-                bouton
-                .classList
-                .add(
-                    "selectionne"
-                );
+                chargement.style.display =
+                "none";
 
-
-                /*
-                    Afficher le message
-                */
-
-                const site =
-                document
-                .getElementById(
-                    "dechetterie"
-                )
-                .value;
-
-
-                const message =
-                document
-                .getElementById(
-                    "message"
-                );
-
-
-                message.innerHTML =
+                succes.innerHTML =
                 "✅ " +
                 site +
                 " — " +
@@ -767,18 +731,126 @@ boutons.forEach(
                 " : " +
                 statut;
 
-
-                message.style.display =
+                succes.style.display =
                 "block";
 
 
             }
+
+            catch(error) {
+
+                afficherErreur(
+                    error
+                );
+
+            }
+
+        }
+
+    );
+
+});
+
+
+/* CHARGER LES STATUTS */
+
+async function chargerStatuts() {
+
+
+    const site =
+    select.value;
+
+
+    try {
+
+
+        const reference =
+        collection(
+            db,
+            "dechetteries",
+            siteId(site),
+            "flux"
+        );
+
+
+        const resultat =
+        await getDocs(
+            reference
+        );
+
+
+        resultat.forEach(
+            function(document) {
+
+
+                const data =
+                document.data();
+
+
+                if (
+                    data.flux &&
+                    data.statut
+                ) {
+
+                    selectionner(
+                        data.flux,
+                        data.statut
+                    );
+
+                }
+
+            }
+        );
+
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Erreur chargement :",
+            error
         );
 
     }
 
+}
 
+
+/* CHANGEMENT DE SITE */
+
+select.addEventListener(
+    "change",
+    function() {
+
+
+        boutons.forEach(
+            function(bouton) {
+
+                bouton.classList.remove(
+                    "selectionne"
+                );
+
+            }
+        );
+
+
+        succes.style.display =
+        "none";
+
+        erreur.style.display =
+        "none";
+
+
+        chargerStatuts();
+
+    }
 );
+
+
+/* CHARGEMENT INITIAL */
+
+chargerStatuts();
 
 
 </script>
