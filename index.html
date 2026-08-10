@@ -3,51 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon premier site</title>
+
+    <title>Sitcom Zone de Dole</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #111;
-            color: white;
-            text-align: center;
+            background: #f4f7f5;
+            color: #17231b;
         }
 
         header {
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #6c5ce7, #00cec9);
+            background: linear-gradient(135deg, #087f3d, #18a558);
+            color: white;
+            padding: 28px 20px 35px;
+            text-align: center;
         }
 
-        h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
+        header h1 {
+            margin: 0;
+            font-size: 30px;
         }
 
-        p {
-            font-size: 18px;
+        header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
         }
 
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 25px;
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .search {
             background: white;
-            color: #111;
-            text-decoration: none;
+            padding: 18px;
+            border-radius: 16px;
+            margin-top: -25px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
             border-radius: 10px;
+            font-size: 16px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        .dechetterie {
+            background: white;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 16px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .dechetterie h3 {
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        .location {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .benne {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: bold;
+        }
+
+        .available {
+            background: #d9f7e5;
+            color: #087f3d;
+        }
+
+        .almost {
+            background: #fff0c2;
+            color: #9a6500;
+        }
+
+        .full {
+            background: #ffdede;
+            color: #c62828;
+        }
+
+        .update {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .map {
+            height: 250px;
+            background: #dfe8df;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #53665a;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 13px;
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Bienvenue sur mon site 🚀</h1>
-        <p>Mon premier site créé entièrement depuis mon téléphone.</p>
-        <a class="button" href="https://github.com/">Mon GitHub</a>
-    </header>
+<header>
+    <h1>♻️ Sitcom Zone de Dole</h1>
+    <p>Vérifiez avant de vous déplacer.</p>
+</header>
+
+<div class="container">
+
+    <div class="search">
+        <input
+            type="text"
+            placeholder="🔎 Que voulez-vous déposer ?"
+        >
+    </div>
+
+    <h2>🗺️ Les déchetteries</h2>
+
+    <div class="map">
+        📍 Carte des déchetteries
+    </div>
+
+    <div class="dechetterie">
+
+        <h3>📍 Déchetterie de Dole</h3>
+
+        <div class="location">
+            Dole, Jura
+        </div>
+
+        <div class="benne">
+            <span>🪵 Bois</span>
+            <span class="status available">Disponible</span>
+        </div>
+
+        <div class="benne">
+            <span>📦 Cartons</span>
+            <span class="status available">Disponible</span>
+        </div>
+
+        <div class="benne">
+            <span>🌿 Déchets verts</span>
+            <span class="status almost">Presque pleine</span>
+        </div>
+
+        <div class="benne">
+            <span>🛋️ Encombrants</span>
+            <span class="status full">Pleine</span>
+        </div>
+
+        <div class="benne">
+            <span>🪨 Gravats</span>
+            <span class="status available">Disponible</span>
+        </div>
+
+        <div class="benne">
+            <span>🔩 Métaux</span>
+            <span class="status available">Disponible</span>
+        </div>
+
+        <div class="update">
+            Dernière mise à jour : aujourd'hui à 13h42
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    Sitcom Zone de Dole — Projet local ♻️
+</footer>
 
 </body>
 </html>
