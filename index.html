@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     />
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -133,6 +135,15 @@
             margin-bottom: 20px;
         }
 
+        .important {
+            background: #e9f8ef;
+            border-left: 4px solid #18a558;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
         .benne {
             display: flex;
             justify-content: space-between;
@@ -140,6 +151,10 @@
             padding: 13px 0;
             border-top: 1px solid #eee;
             gap: 10px;
+        }
+
+        .benne-name {
+            font-weight: 500;
         }
 
         .statut {
@@ -163,6 +178,11 @@
         .pleine {
             background: #ffdede;
             color: #c62828;
+        }
+
+        .collecte {
+            background: #edf0f2;
+            color: #58636b;
         }
 
         .mise-a-jour {
@@ -191,20 +211,21 @@
             font-weight: bold;
         }
 
+        .type-site {
+            display: inline-block;
+            padding: 6px 10px;
+            background: #e7f5ec;
+            color: #087f3d;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
             color: #777;
-            font-size: 13px;
-        }
-
-        .popup-title {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .popup-status {
-            margin-top: 8px;
             font-size: 13px;
         }
 
@@ -226,29 +247,51 @@
                 font-size: 12px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
 
+
 <header>
+
     <h1>♻️ Sitcom Zone de Dole</h1>
-    <p>Vérifiez avant de vous déplacer.</p>
+
+    <p>
+        Vérifiez avant de vous déplacer.
+    </p>
+
 </header>
+
 
 <div class="container">
 
+
+    <!-- RECHERCHE -->
+
     <div class="search">
+
         <input
             type="text"
             id="search"
-            placeholder="🔎 Rechercher une déchetterie..."
+            placeholder="🔎 Rechercher une déchetterie ou un déchet..."
         >
+
     </div>
 
-    <h2>🗺️ Déchetteries autour de Dole</h2>
+
+    <!-- CARTE -->
+
+    <h2>
+        🗺️ Déchetteries autour de Dole
+    </h2>
 
     <div id="map"></div>
+
+
+    <!-- LEGENDE -->
 
     <div class="legend">
 
@@ -269,313 +312,747 @@
 
     </div>
 
+
+    <!-- FICHE DYNAMIQUE -->
+
     <div id="fiche-container"></div>
+
 
 </div>
 
+
 <footer>
+
     Sitcom Zone de Dole — Projet local ♻️
+
 </footer>
+
+
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+
 <script>
 
-    /* =========================
-       CARTE
-    ========================= */
 
-    const map = L.map("map").setView([47.09, 5.49], 10);
+/* =====================================================
+   CARTE
+===================================================== */
 
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            attribution: "&copy; OpenStreetMap contributors"
-        }
-    ).addTo(map);
+const map = L.map("map").setView(
+    [47.09, 5.49],
+    10
+);
 
 
-    /* =========================
-       DONNÉES DES DÉCHETTERIES
-       ========================= */
-
-    const dechetteries = [
-
-        {
-            nom: "Dole",
-            lat: 47.092,
-            lng: 5.486,
-            adresse: "Dole, Jura"
-        },
-
-        {
-            nom: "Brevans",
-            lat: 47.087,
-            lng: 5.455,
-            adresse: "Brevans, Jura"
-        },
-
-        {
-            nom: "Tavaux",
-            lat: 47.044,
-            lng: 5.405,
-            adresse: "Tavaux, Jura"
-        },
-
-        {
-            nom: "Chaussin",
-            lat: 46.966,
-            lng: 5.408,
-            adresse: "Chaussin, Jura"
-        },
-
-        {
-            nom: "Dampierre",
-            lat: 47.151,
-            lng: 5.675,
-            adresse: "Dampierre, Jura"
-        },
-
-        {
-            nom: "Mont-sous-Vaudrey",
-            lat: 46.999,
-            lng: 5.584,
-            adresse: "Mont-sous-Vaudrey, Jura"
-        },
-
-        {
-            nom: "Montmirey-le-Château",
-            lat: 47.217,
-            lng: 5.609,
-            adresse: "Montmirey-le-Château, Jura"
-        },
-
-        {
-            nom: "Saligney",
-            lat: 47.208,
-            lng: 5.653,
-            adresse: "Saligney, Jura"
-        },
-
-        {
-            nom: "Villers-Farlay",
-            lat: 46.984,
-            lng: 5.718,
-            adresse: "Villers-Farlay, Jura"
-        },
-
-        {
-            nom: "Saint-Aubin",
-            lat: 46.944,
-            lng: 5.314,
-            adresse: "Saint-Aubin, Jura — Végéterie"
-        }
-
-    ];
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        attribution:
+        "&copy; OpenStreetMap contributors"
+    }
+).addTo(map);
 
 
-    /* =========================
-       ÉTAT DES BENNES
-    ========================= */
 
-    const bennes = [
+/* =====================================================
+   TYPES DE FLUX SUIVIS
+===================================================== */
 
-        {
-            nom: "🪵 Bois",
-            statut: "disponible",
-            texte: "Disponible"
-        },
+/*
+    Ce sont les flux que notre système pourra
+    surveiller pour le remplissage.
 
-        {
-            nom: "📦 Cartons",
-            statut: "disponible",
-            texte: "Disponible"
-        },
-
-        {
-            nom: "🌿 Déchets verts",
-            statut: "presque",
-            texte: "Presque pleine"
-        },
-
-        {
-            nom: "🛋️ Encombrants",
-            statut: "pleine",
-            texte: "Pleine"
-        },
-
-        {
-            nom: "🪨 Gravats",
-            statut: "disponible",
-            texte: "Disponible"
-        },
-
-        {
-            nom: "🔩 Métaux",
-            statut: "disponible",
-            texte: "Disponible"
-        }
-
-    ];
+    Les points comme papier, verre, piles, etc.
+    pourront être ajoutés plus tard comme
+    "points de collecte" plutôt que comme bennes.
+*/
 
 
-    /* =========================
-       CRÉATION DES MARQUEURS
-    ========================= */
+const fluxStandards = [
 
-    dechetteries.forEach((dechetterie) => {
+    {
+        nom: "🗑️ Tout-venant",
+        statut: "disponible"
+    },
 
-        const marker = L.marker([
-            dechetterie.lat,
-            dechetterie.lng
-        ]).addTo(map);
+    {
+        nom: "📦 Carton",
+        statut: "disponible"
+    },
+
+    {
+        nom: "🪨 Gravats",
+        statut: "disponible"
+    },
+
+    {
+        nom: "🔩 Ferraille",
+        statut: "disponible"
+    },
+
+    {
+        nom: "🪵 Bois A",
+        statut: "presque"
+    },
+
+    {
+        nom: "🪵 Bois B",
+        statut: "disponible"
+    },
+
+    {
+        nom: "🛋️ Mobilier",
+        statut: "pleine"
+    },
+
+    {
+        nom: "🧱 Plâtre",
+        statut: "disponible"
+    },
+
+    {
+        nom: "🧴 Plastiques durs",
+        statut: "disponible"
+    },
+
+    {
+        nom: "🛍️ Plastiques souples",
+        statut: "disponible"
+    }
+
+];
 
 
-        marker.bindPopup(`
-            <div class="popup-title">
-                ♻️ Déchèterie de ${dechetterie.nom}
-            </div>
 
-            <div class="popup-status">
-                📍 ${dechetterie.adresse}
-            </div>
-        `);
+/* =====================================================
+   DECHETTERIES
+===================================================== */
+
+const dechetteries = [
 
 
-        marker.on("click", function() {
+    {
+        nom: "Dole",
 
-            afficherFiche(dechetterie);
+        lat: 47.092,
 
-        });
+        lng: 5.486,
 
-    });
+        adresse: "Rue Costes et Bellonte",
 
+        type: "Déchèterie",
 
-    /* =========================
-       AFFICHER UNE FICHE
-    ========================= */
+        professionnels: false,
 
-    function afficherFiche(dechetterie) {
+        flux: fluxStandards
 
-        const container =
-            document.getElementById("fiche-container");
+    },
 
 
-        let html = `
+    {
+        nom: "Brevans",
 
-            <div class="fiche">
+        lat: 47.087,
 
-                <h3>
-                    ♻️ Déchèterie de ${dechetterie.nom}
-                </h3>
+        lng: 5.455,
 
-                <div class="adresse">
-                    📍 ${dechetterie.adresse}
-                </div>
+        adresse: "22 allée du bois",
 
-                <h4>
-                    État des bennes
-                </h4>
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Tavaux",
+
+        lat: 47.044,
+
+        lng: 5.405,
+
+        adresse: "10 Rue du Luxembourg",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Chaussin",
+
+        lat: 46.966,
+
+        lng: 5.408,
+
+        adresse: "Zone industrielle",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: [
+
+            {
+                nom: "🗑️ Tout-venant",
+                statut: "disponible"
+            },
+
+            {
+                nom: "📦 Carton",
+                statut: "disponible"
+            },
+
+            {
+                nom: "🪨 Gravats",
+                statut: "disponible"
+            },
+
+            {
+                nom: "🔩 Ferraille",
+                statut: "disponible"
+            },
+
+            {
+                nom: "🪵 Bois A",
+                statut: "pleine",
+                important: true
+            },
+
+            {
+                nom: "🪵 Bois B",
+                statut: "presque"
+            },
+
+            {
+                nom: "🛋️ Mobilier",
+                statut: "pleine",
+                important: true
+            },
+
+            {
+                nom: "🧴 Plastiques durs",
+                statut: "disponible"
+            },
+
+            {
+                nom: "🛍️ Plastiques souples",
+                statut: "disponible"
+            },
+
+            {
+                nom: "🧱 Plâtre",
+                statut: "disponible"
+            }
+
+        ]
+
+    },
+
+
+    {
+        nom: "Dampierre",
+
+        lat: 47.151,
+
+        lng: 5.675,
+
+        adresse: "6 Chemin du Tissage",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Mont-sous-Vaudrey",
+
+        lat: 46.999,
+
+        lng: 5.584,
+
+        adresse: "18 Route de Dole",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Montmirey-le-Château",
+
+        lat: 47.217,
+
+        lng: 5.609,
+
+        adresse: "Le Charme",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Saligney",
+
+        lat: 47.208,
+
+        lng: 5.653,
+
+        adresse: "Rue Principale",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Villers-Farlay",
+
+        lat: 46.984,
+
+        lng: 5.718,
+
+        adresse: "Rue du Val d'Amour",
+
+        type: "Déchèterie",
+
+        professionnels: true,
+
+        flux: fluxStandards
+
+    },
+
+
+    {
+        nom: "Saint-Aubin",
+
+        lat: 46.944,
+
+        lng: 5.314,
+
+        adresse: "Rue de Fragnot",
+
+        type: "Végéterie",
+
+        professionnels: false,
+
+        flux: [
+
+            {
+                nom: "🌿 Végétaux",
+                statut: "disponible"
+            }
+
+        ]
+
+    }
+
+];
+
+
+
+/* =====================================================
+   COULEUR DU STATUT
+===================================================== */
+
+function statutHTML(statut) {
+
+    if (statut === "disponible") {
+
+        return `
+            <span class="statut disponible">
+                🟢 Disponible
+            </span>
         `;
 
+    }
 
-        bennes.forEach((benne) => {
+
+    if (statut === "presque") {
+
+        return `
+            <span class="statut presque">
+                🟠 Presque pleine
+            </span>
+        `;
+
+    }
+
+
+    if (statut === "pleine") {
+
+        return `
+            <span class="statut pleine">
+                🔴 Pleine
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="statut collecte">
+            ℹ️ Point de collecte
+        </span>
+    `;
+
+}
+
+
+
+/* =====================================================
+   AFFICHAGE D'UNE FICHE
+===================================================== */
+
+function afficherFiche(site) {
+
+
+    const container =
+        document.getElementById(
+            "fiche-container"
+        );
+
+
+    let html = `
+
+        <div class="fiche">
+
+            <span class="type-site">
+                ${site.type}
+            </span>
+
+            <h3>
+                ♻️ ${site.nom}
+            </h3>
+
+            <div class="adresse">
+
+                📍 ${site.adresse}
+
+            </div>
+
+    `;
+
+
+    /*
+       Information spéciale pour Chaussin
+    */
+
+    if (site.nom === "Chaussin") {
+
+        html += `
+
+            <div class="important">
+
+                ⭐ <strong>Flux particulièrement surveillés</strong>
+
+                <br><br>
+
+                🪵 Bois
+                <br>
+
+                🛋️ Mobilier
+
+                <br><br>
+
+                L'état de ces flux pourra être mis à jour
+                directement par l'agent de déchèterie.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+       Dole
+    */
+
+    if (site.nom === "Dole") {
+
+        html += `
+
+            <div class="important">
+
+                ℹ️ Cette déchèterie est actuellement
+                indiquée comme <strong>interdite aux professionnels</strong>.
+
+            </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+        <h4>
+            État des flux suivis
+        </h4>
+
+    `;
+
+
+    /*
+       Affichage des flux
+    */
+
+    site.flux.forEach(
+        function(flux) {
 
             html += `
 
                 <div class="benne">
 
-                    <span>
-                        ${benne.nom}
+                    <span class="benne-name">
+
+                        ${flux.nom}
+
                     </span>
 
-                    <span class="statut ${benne.statut}">
-                        ${benne.statut === "disponible" ? "🟢" : ""}
-                        ${benne.statut === "presque" ? "🟠" : ""}
-                        ${benne.statut === "pleine" ? "🔴" : ""}
-                        ${benne.texte}
-                    </span>
+                    ${statutHTML(flux.statut)}
 
                 </div>
 
             `;
 
-        });
+        }
+    );
 
 
-        html += `
+    /*
+       Dernière mise à jour
+    */
 
-                <div class="mise-a-jour">
+    html += `
 
-                    🕐 Dernière mise à jour :
-                    aujourd'hui à 13h42
+        <div class="mise-a-jour">
 
-                </div>
+            🕐 Dernière mise à jour :
+            aujourd'hui à 13h42
 
-                <div class="demo">
-
-                    ⚠️ Données de démonstration.
-                    Les états des bennes ne sont pas encore
-                    connectés aux données réelles.
-
-                </div>
-
-                <a
-                    class="itineraire"
-                    href="https://www.google.com/maps/dir/?api=1&destination=${dechetterie.lat},${dechetterie.lng}"
-                    target="_blank"
-                >
-                    📍 Itinéraire
-                </a>
-
-            </div>
-
-        `;
+        </div>
 
 
-        container.innerHTML = html;
+        <div class="demo">
+
+            ⚠️ <strong>Données de démonstration.</strong>
+
+            <br><br>
+
+            Les niveaux de remplissage ne sont pas encore
+            connectés aux agents de déchèterie.
+
+            Cette fonctionnalité sera ajoutée avec
+            la base de données.
+
+        </div>
 
 
-        container.scrollIntoView({
-            behavior: "smooth"
-        });
+        <a
+            class="itineraire"
+
+            href="https://www.google.com/maps/dir/?api=1&destination=${site.lat},${site.lng}"
+
+            target="_blank"
+        >
+
+            📍 Itinéraire
+
+        </a>
+
+
+        </div>
+
+    `;
+
+
+    container.innerHTML = html;
+
+
+    container.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+/* =====================================================
+   MARQUEURS DE LA CARTE
+===================================================== */
+
+dechetteries.forEach(
+    function(site) {
+
+
+        const marker =
+            L.marker([
+                site.lat,
+                site.lng
+            ]).addTo(map);
+
+
+        marker.bindPopup(`
+
+            <strong>
+                ♻️ ${site.nom}
+            </strong>
+
+            <br><br>
+
+            ${site.type}
+
+            <br>
+
+            📍 ${site.adresse}
+
+        `);
+
+
+        marker.on(
+            "click",
+            function() {
+
+                afficherFiche(site);
+
+            }
+        );
 
     }
+);
 
 
-    /* =========================
-       RECHERCHE
-    ========================= */
 
-    document
-        .getElementById("search")
-        .addEventListener("input", function() {
+/* =====================================================
+   RECHERCHE
+===================================================== */
+
+document
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        function() {
+
 
             const recherche =
-                this.value.toLowerCase().trim();
+                this.value
+                    .toLowerCase()
+                    .trim();
 
 
-            const resultat =
-                dechetteries.find((dechetterie) =>
-                    dechetterie.nom
-                        .toLowerCase()
-                        .includes(recherche)
+            if (recherche === "") {
+
+                return;
+
+            }
+
+
+            /*
+               Recherche d'une déchetterie
+            */
+
+            const site =
+                dechetteries.find(
+                    function(site) {
+
+                        return site.nom
+                            .toLowerCase()
+                            .includes(recherche);
+
+                    }
                 );
 
 
-            if (resultat) {
+            if (site) {
 
                 map.setView(
                     [
-                        resultat.lat,
-                        resultat.lng
+                        site.lat,
+                        site.lng
                     ],
                     14
                 );
 
+                afficherFiche(site);
+
+                return;
+
             }
 
-        });
+
+            /*
+               Recherche d'un type de déchet
+            */
+
+            for (
+                let i = 0;
+                i < dechetteries.length;
+                i++
+            ) {
+
+
+                const trouve =
+                    dechetteries[i].flux.some(
+                        function(flux) {
+
+                            return flux.nom
+                                .toLowerCase()
+                                .includes(recherche);
+
+                        }
+                    );
+
+
+                if (trouve) {
+
+                    map.setView(
+                        [
+                            dechetteries[i].lat,
+                            dechetteries[i].lng
+                        ],
+                        11
+                    );
+
+                    afficherFiche(
+                        dechetteries[i]
+                    );
+
+                    break;
+
+                }
+
+            }
+
+        }
+    );
+
 
 </script>
 
