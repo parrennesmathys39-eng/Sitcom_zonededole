@@ -4,17 +4,14 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sitcom Zone de Dole</title>
-
 
 <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 >
-
 
 <style>
 
@@ -164,6 +161,36 @@ h2 {
     font-size: 14px;
 }
 
+.compteurs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.compteur {
+    padding: 12px 6px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.compteur-vert {
+    background: #d9f7e5;
+    color: #087f3d;
+}
+
+.compteur-orange {
+    background: #fff0c2;
+    color: #9a6500;
+}
+
+.compteur-rouge {
+    background: #ffdede;
+    color: #c62828;
+}
+
 .benne {
     display: flex;
     justify-content: space-between;
@@ -206,7 +233,7 @@ h2 {
     color: #777;
 }
 
-.demo {
+.info-live {
     margin-top: 15px;
     padding: 12px;
     border-radius: 10px;
@@ -260,6 +287,10 @@ footer {
 
     .statut {
         font-size: 12px;
+    }
+
+    .compteurs {
+        grid-template-columns: 1fr;
     }
 
 }
@@ -351,10 +382,6 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
 
-<!-- ==================================================
-     FIREBASE + APPLICATION
-================================================== -->
-
 <script type="module">
 
 
@@ -404,7 +431,6 @@ const firebaseConfig = {
 const app =
 initializeApp(firebaseConfig);
 
-
 const db =
 getFirestore(app);
 
@@ -432,7 +458,7 @@ L.tileLayer(
 
 
 /* ==================================================
-   FLUX PAR DEFAUT
+   FLUX
 ================================================== */
 
 function creerFlux() {
@@ -515,7 +541,6 @@ const dechetteries = [
         flux: creerFlux()
     },
 
-
     {
         nom: "Brevans",
         lat: 47.087,
@@ -525,7 +550,6 @@ const dechetteries = [
         professionnels: true,
         flux: creerFlux()
     },
-
 
     {
         nom: "Tavaux",
@@ -537,7 +561,6 @@ const dechetteries = [
         flux: creerFlux()
     },
 
-
     {
         nom: "Chaussin",
         lat: 46.966,
@@ -547,7 +570,6 @@ const dechetteries = [
         professionnels: true,
         flux: creerFlux()
     },
-
 
     {
         nom: "Dampierre",
@@ -559,7 +581,6 @@ const dechetteries = [
         flux: creerFlux()
     },
 
-
     {
         nom: "Mont-sous-Vaudrey",
         lat: 46.999,
@@ -569,7 +590,6 @@ const dechetteries = [
         professionnels: true,
         flux: creerFlux()
     },
-
 
     {
         nom: "Montmirey-le-Château",
@@ -581,7 +601,6 @@ const dechetteries = [
         flux: creerFlux()
     },
 
-
     {
         nom: "Saligney",
         lat: 47.208,
@@ -592,7 +611,6 @@ const dechetteries = [
         flux: creerFlux()
     },
 
-
     {
         nom: "Villers-Farlay",
         lat: 46.984,
@@ -602,7 +620,6 @@ const dechetteries = [
         professionnels: true,
         flux: creerFlux()
     },
-
 
     {
         nom: "Saint-Aubin",
@@ -653,11 +670,10 @@ function siteId(nom) {
 
 
 /* ==================================================
-   STATUT HTML
+   STATUT
 ================================================== */
 
 function statutHTML(statut) {
-
 
     if (statut === "disponible") {
 
@@ -669,7 +685,6 @@ function statutHTML(statut) {
 
     }
 
-
     if (statut === "presque") {
 
         return `
@@ -680,7 +695,6 @@ function statutHTML(statut) {
 
     }
 
-
     if (statut === "pleine") {
 
         return `
@@ -690,7 +704,6 @@ function statutHTML(statut) {
         `;
 
     }
-
 
     return `
         <span class="statut">
@@ -703,24 +716,18 @@ function statutHTML(statut) {
 
 
 /* ==================================================
-   DERNIERE MISE A JOUR
+   DATE
 ================================================== */
 
 function dateMiseAJour(date) {
 
-
     if (!date) {
-
         return "Aucune mise à jour";
-
     }
-
 
     try {
 
-        const d =
-        date.toDate();
-
+        const d = date.toDate();
 
         return d.toLocaleString(
             "fr-FR",
@@ -753,13 +760,44 @@ let siteActuel = null;
 
 function afficherFiche(site) {
 
-
     siteActuel = site;
 
-
     const container =
-    document.getElementById(
-        "fiche-container"
+        document.getElementById(
+            "fiche-container"
+        );
+
+
+    let disponibles = 0;
+    let presque = 0;
+    let pleines = 0;
+
+
+    site.flux.forEach(
+        function(flux) {
+
+            if (
+                flux.statut ===
+                "disponible"
+            ) {
+                disponibles++;
+            }
+
+            if (
+                flux.statut ===
+                "presque"
+            ) {
+                presque++;
+            }
+
+            if (
+                flux.statut ===
+                "pleine"
+            ) {
+                pleines++;
+            }
+
+        }
     );
 
 
@@ -779,10 +817,33 @@ function afficherFiche(site) {
                 📍 ${site.adresse}
             </div>
 
+
+            <div class="compteurs">
+
+                <div class="compteur compteur-vert">
+                    🟢 ${disponibles}
+                    disponible${disponibles > 1 ? "s" : ""}
+                </div>
+
+                <div class="compteur compteur-orange">
+                    🟠 ${presque}
+                    presque pleine${presque > 1 ? "s" : ""}
+                </div>
+
+                <div class="compteur compteur-rouge">
+                    🔴 ${pleines}
+                    pleine${pleines > 1 ? "s" : ""}
+                </div>
+
+            </div>
+
     `;
 
 
-    if (site.nom === "Chaussin") {
+    if (
+        site.nom ===
+        "Chaussin"
+    ) {
 
         html += `
 
@@ -795,7 +856,9 @@ function afficherFiche(site) {
                 <br><br>
 
                 🪵 Bois A / Bois B
+
                 <br>
+
                 🛋️ Mobilier
 
             </div>
@@ -847,11 +910,10 @@ function afficherFiche(site) {
         </div>
 
 
-        <div class="demo">
+        <div class="info-live">
 
-            🔴 Les statuts sont maintenant
-            <strong>mis à jour automatiquement</strong>
-            depuis les informations transmises
+            🟢 Les informations sont
+            mises à jour automatiquement
             par les agents.
 
         </div>
@@ -871,7 +933,12 @@ function afficherFiche(site) {
 
 
     container.innerHTML =
-    html;
+        html;
+
+
+    container.scrollIntoView({
+        behavior: "smooth"
+    });
 
 }
 
@@ -884,12 +951,11 @@ function afficherFiche(site) {
 dechetteries.forEach(
     function(site) {
 
-
         const marker =
-        L.marker([
-            site.lat,
-            site.lng
-        ]).addTo(map);
+            L.marker([
+                site.lat,
+                site.lng
+            ]).addTo(map);
 
 
         marker.bindPopup(`
@@ -913,14 +979,12 @@ dechetteries.forEach(
             "click",
             function() {
 
-                afficherFiche(site);
+                afficherFiche(
+                    site
+                );
 
             }
         );
-
-
-        site.marker =
-        marker;
 
     }
 );
@@ -936,48 +1000,50 @@ dechetteries.forEach(
 
 
         const reference =
-        collection(
-            db,
-            "dechetteries",
-            siteId(site.nom),
-            "flux"
-        );
+            collection(
+                db,
+                "dechetteries",
+                siteId(
+                    site.nom
+                ),
+                "flux"
+            );
 
 
         onSnapshot(
             reference,
+
             function(snapshot) {
 
 
                 let derniereDate =
-                null;
+                    null;
 
 
                 snapshot.forEach(
                     function(document) {
 
-
                         const data =
-                        document.data();
+                            document.data();
 
 
                         const flux =
-                        site.flux.find(
-                            function(f) {
+                            site.flux.find(
+                                function(f) {
 
-                                return (
-                                    f.id ===
-                                    data.flux
-                                );
+                                    return (
+                                        f.id ===
+                                        data.flux
+                                    );
 
-                            }
-                        );
+                                }
+                            );
 
 
                         if (flux) {
 
                             flux.statut =
-                            data.statut;
+                                data.statut;
 
                         }
 
@@ -987,7 +1053,7 @@ dechetteries.forEach(
                         ) {
 
                             derniereDate =
-                            data.miseAJour;
+                                data.miseAJour;
 
                         }
 
@@ -998,24 +1064,18 @@ dechetteries.forEach(
                 if (derniereDate) {
 
                     site.derniereMiseAJour =
-                    dateMiseAJour(
-                        derniereDate
-                    );
+                        dateMiseAJour(
+                            derniereDate
+                        );
 
                 }
                 else {
 
                     site.derniereMiseAJour =
-                    "Aucune";
+                        "Aucune";
 
                 }
 
-
-                /*
-                 * Si la fiche affichée
-                 * correspond à cette déchèterie,
-                 * on la rafraîchit immédiatement.
-                 */
 
                 if (
                     siteActuel &&
@@ -1023,18 +1083,18 @@ dechetteries.forEach(
                     site.nom
                 ) {
 
-                    afficherFiche(site);
+                    afficherFiche(
+                        site
+                    );
 
                 }
 
             },
 
-
             function(error) {
 
                 console.error(
-                    "Erreur Firebase pour " +
-                    site.nom,
+                    "Erreur Firebase :",
                     error
                 );
 
@@ -1057,11 +1117,10 @@ document
     "input",
     function() {
 
-
         const recherche =
-        this.value
-        .toLowerCase()
-        .trim();
+            this.value
+            .toLowerCase()
+            .trim();
 
 
         if (
@@ -1074,21 +1133,20 @@ document
 
 
         const site =
-        dechetteries.find(
-            function(site) {
+            dechetteries.find(
+                function(site) {
 
-                return site.nom
-                .toLowerCase()
-                .includes(
-                    recherche
-                );
+                    return site.nom
+                        .toLowerCase()
+                        .includes(
+                            recherche
+                        );
 
-            }
-        );
+                }
+            );
 
 
         if (site) {
-
 
             map.setView(
                 [
@@ -1098,11 +1156,9 @@ document
                 14
             );
 
-
             afficherFiche(
                 site
             );
-
 
             return;
 
@@ -1115,23 +1171,23 @@ document
             i++
         ) {
 
-
             const trouve =
-            dechetteries[i].flux.some(
-                function(flux) {
+                dechetteries[i]
+                .flux
+                .some(
+                    function(flux) {
 
-                    return flux.nom
-                    .toLowerCase()
-                    .includes(
-                        recherche
-                    );
+                        return flux.nom
+                            .toLowerCase()
+                            .includes(
+                                recherche
+                            );
 
-                }
-            );
+                    }
+                );
 
 
             if (trouve) {
-
 
                 map.setView(
                     [
@@ -1141,11 +1197,9 @@ document
                     11
                 );
 
-
                 afficherFiche(
                     dechetteries[i]
                 );
-
 
                 break;
 
@@ -1158,7 +1212,6 @@ document
 
 
 </script>
-
 
 </body>
 
