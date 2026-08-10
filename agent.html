@@ -2,7 +2,6 @@
 <html lang="fr">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,13 +11,11 @@
 
     <title>Espace agent - SICTOM Zone de Dole</title>
 
-
     <style>
 
         * {
             box-sizing: border-box;
         }
-
 
         body {
             margin: 0;
@@ -26,7 +23,6 @@
             background: #f4f7f5;
             color: #17231b;
         }
-
 
         header {
             background: linear-gradient(
@@ -36,24 +32,18 @@
             );
 
             color: white;
-
             padding: 30px 20px;
-
             text-align: center;
         }
-
 
         header h1 {
             margin: 0;
             font-size: 28px;
         }
 
-
         header p {
             margin-bottom: 0;
-            opacity: 0.9;
         }
-
 
         .container {
             max-width: 700px;
@@ -61,197 +51,133 @@
             padding: 20px;
         }
 
-
         .retour {
             display: inline-block;
-
             margin-bottom: 20px;
-
             color: #087f3d;
-
             text-decoration: none;
-
             font-weight: bold;
         }
 
-
         .carte {
             background: white;
-
             padding: 22px;
-
             border-radius: 18px;
-
-            box-shadow:
-                0 3px 15px rgba(0,0,0,0.08);
-
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
             margin-bottom: 20px;
         }
-
 
         .carte h2 {
             margin-top: 0;
         }
 
-
         label {
             display: block;
-
             font-weight: bold;
-
             margin-bottom: 8px;
         }
 
-
         select {
             width: 100%;
-
             padding: 15px;
-
             border: 1px solid #ccc;
-
             border-radius: 10px;
-
             font-size: 17px;
-
             background: white;
         }
 
-
         .flux {
             border-top: 1px solid #eee;
-
             padding: 20px 0;
         }
-
 
         .flux:first-child {
             border-top: none;
         }
 
-
         .flux-nom {
             font-size: 19px;
-
             font-weight: bold;
-
             margin-bottom: 14px;
         }
 
-
         .boutons {
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr 1fr;
-
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
         }
 
-
         button {
-            border: none;
-
+            border: 3px solid transparent;
             border-radius: 10px;
-
             padding: 13px 5px;
-
             font-size: 14px;
-
             font-weight: bold;
-
             cursor: pointer;
+            transition: 0.15s;
         }
-
 
         .btn-vert {
             background: #d9f7e5;
             color: #087f3d;
         }
 
-
         .btn-orange {
             background: #fff0c2;
             color: #8a5c00;
         }
-
 
         .btn-rouge {
             background: #ffdede;
             color: #c62828;
         }
 
+        /* BOUTON SELECTIONNE */
 
-        .bouton-actif {
-            outline: 4px solid #17231b;
+        button.selectionne {
+            border: 3px solid #17231b;
+            transform: scale(1.02);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.18);
         }
-
 
         .confirmation {
             display: none;
-
             background: #d9f7e5;
-
             color: #087f3d;
-
             padding: 15px;
-
             border-radius: 10px;
-
             margin-top: 20px;
-
             font-weight: bold;
         }
-
 
         .erreur {
             display: none;
-
             background: #ffdede;
-
             color: #c62828;
-
             padding: 15px;
-
             border-radius: 10px;
-
             margin-top: 20px;
-
             font-weight: bold;
         }
-
 
         .chargement {
             display: none;
-
             background: #eef2f0;
-
             color: #49554e;
-
             padding: 15px;
-
             border-radius: 10px;
-
             margin-top: 20px;
-
             font-weight: bold;
         }
 
-
         .information {
             background: #fff8df;
-
             color: #795c00;
-
             padding: 15px;
-
             border-radius: 10px;
-
             font-size: 14px;
-
             margin-top: 20px;
         }
-
 
         @media (max-width: 600px) {
 
@@ -259,15 +185,12 @@
                 font-size: 24px;
             }
 
-
             .boutons {
                 grid-template-columns: 1fr;
             }
 
-
             button {
                 padding: 16px;
-
                 font-size: 16px;
             }
 
@@ -283,9 +206,7 @@
 
 <header>
 
-    <h1>
-        👷 Espace agent
-    </h1>
+    <h1>👷 Espace agent</h1>
 
     <p>
         Mise à jour de l'état des flux
@@ -305,21 +226,15 @@
     </a>
 
 
-    <!-- CHOIX DE LA DECHETTERIE -->
-
     <div class="carte">
 
         <h2>
             📍 Ma déchèterie
         </h2>
 
-
         <label for="dechetterie">
-
             Sélectionnez votre site
-
         </label>
-
 
         <select id="dechetterie">
 
@@ -364,8 +279,6 @@
     </div>
 
 
-    <!-- ETAT DES FLUX -->
-
     <div class="carte">
 
         <h2>
@@ -381,46 +294,31 @@
                 🪵 Bois A
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Bois A',
-                            'disponible'
-                        )
-                    "
+                    data-flux="bois-a"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Bois A',
-                            'presque'
-                        )
-                    "
+                    data-flux="bois-a"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Bois A',
-                            'pleine'
-                        )
-                    "
+                    data-flux="bois-a"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -438,46 +336,31 @@
                 🪵 Bois B
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Bois B',
-                            'disponible'
-                        )
-                    "
+                    data-flux="bois-b"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Bois B',
-                            'presque'
-                        )
-                    "
+                    data-flux="bois-b"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Bois B',
-                            'pleine'
-                        )
-                    "
+                    data-flux="bois-b"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -495,46 +378,31 @@
                 🛋️ Mobilier
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Mobilier',
-                            'disponible'
-                        )
-                    "
+                    data-flux="mobilier"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Mobilier',
-                            'presque'
-                        )
-                    "
+                    data-flux="mobilier"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Mobilier',
-                            'pleine'
-                        )
-                    "
+                    data-flux="mobilier"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -552,46 +420,31 @@
                 📦 Carton
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Carton',
-                            'disponible'
-                        )
-                    "
+                    data-flux="carton"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Carton',
-                            'presque'
-                        )
-                    "
+                    data-flux="carton"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Carton',
-                            'pleine'
-                        )
-                    "
+                    data-flux="carton"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -609,46 +462,31 @@
                 🪨 Gravats
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Gravats',
-                            'disponible'
-                        )
-                    "
+                    data-flux="gravats"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Gravats',
-                            'presque'
-                        )
-                    "
+                    data-flux="gravats"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Gravats',
-                            'pleine'
-                        )
-                    "
+                    data-flux="gravats"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -666,46 +504,31 @@
                 🔩 Ferraille
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Ferraille',
-                            'disponible'
-                        )
-                    "
+                    data-flux="ferraille"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Ferraille',
-                            'presque'
-                        )
-                    "
+                    data-flux="ferraille"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Ferraille',
-                            'pleine'
-                        )
-                    "
+                    data-flux="ferraille"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -723,46 +546,31 @@
                 🧴 Plastique dur
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Plastique dur',
-                            'disponible'
-                        )
-                    "
+                    data-flux="plastique-dur"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Plastique dur',
-                            'presque'
-                        )
-                    "
+                    data-flux="plastique-dur"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Plastique dur',
-                            'pleine'
-                        )
-                    "
+                    data-flux="plastique-dur"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -780,46 +588,31 @@
                 🗑️ Non recyclable / Tout-venant
             </div>
 
-
             <div class="boutons">
 
                 <button
+                    type="button"
                     class="btn-vert"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Tout-venant',
-                            'disponible'
-                        )
-                    "
+                    data-flux="tout-venant"
+                    data-statut="disponible"
                 >
                     🟢 Disponible
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-orange"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Tout-venant',
-                            'presque'
-                        )
-                    "
+                    data-flux="tout-venant"
+                    data-statut="presque"
                 >
                     🟠 Presque pleine
                 </button>
 
-
                 <button
+                    type="button"
                     class="btn-rouge"
-                    onclick="
-                        changerEtat(
-                            this,
-                            'Tout-venant',
-                            'pleine'
-                        )
-                    "
+                    data-flux="tout-venant"
+                    data-statut="pleine"
                 >
                     🔴 Pleine
                 </button>
@@ -828,8 +621,6 @@
 
         </div>
 
-
-        <!-- MESSAGES -->
 
         <div
             id="chargement"
@@ -852,24 +643,22 @@
         >
         </div>
 
-
     </div>
 
 
     <div class="information">
 
-        💡 <strong>Fonctionnement :</strong>
+        💡 <strong>Important :</strong>
 
         <br><br>
 
-        Sélectionnez votre déchèterie puis choisissez
+        Choisis la déchèterie puis indique
         l'état réel de chaque flux.
 
         <br><br>
 
-        Le changement est enregistré dans Firebase
-        et pourra ensuite être affiché sur la carte
-        publique.
+        La modification est enregistrée
+        dans Firebase.
 
     </div>
 
@@ -877,192 +666,382 @@
 </div>
 
 
-<!-- ==================================================
-     FIREBASE
-================================================== -->
-
-
 <script type="module">
 
 
-    /*
-     * Firebase
-     *
-     * SDK chargé directement depuis le CDN.
-     */
+/* ==================================================
+   FIREBASE
+================================================== */
 
 
-    import {
-        initializeApp
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
-    import {
-        getFirestore,
-        doc,
-        setDoc,
-        serverTimestamp
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
-    /*
-     * Configuration de ton projet Firebase
-     */
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+
+    authDomain:
+    "sictom-zone-de-dole-17296.firebaseapp.com",
+
+    projectId:
+    "sictom-zone-de-dole-17296",
+
+    storageBucket:
+    "sictom-zone-de-dole-17296.firebasestorage.app",
+
+    messagingSenderId:
+    "378183859073",
+
+    appId:
+    "1:378183859073:web:3b347f84a072fb0cb54680"
+
+};
 
 
-    const firebaseConfig = {
-
-        apiKey:
-        "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
-
-        authDomain:
-        "sictom-zone-de-dole-17296.firebaseapp.com",
-
-        projectId:
-        "sictom-zone-de-dole-17296",
-
-        storageBucket:
-        "sictom-zone-de-dole-17296.firebasestorage.app",
-
-        messagingSenderId:
-        "378183859073",
-
-        appId:
-        "1:378183859073:web:3b347f84a072fb0cb54680"
-
-    };
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
 
-    /*
-     * Initialisation Firebase
-     */
+const db =
+    getFirestore(app);
 
 
-    const app =
-        initializeApp(firebaseConfig);
+/* ==================================================
+   ELEMENTS
+================================================== */
 
 
-    /*
-     * Connexion à Firestore
-     */
+const selectDechetterie =
+    document.getElementById(
+        "dechetterie"
+    );
 
 
-    const db =
-        getFirestore(app);
+const chargement =
+    document.getElementById(
+        "chargement"
+    );
 
 
-    /*
-     * Fonction appelée par les boutons
-     */
+const confirmation =
+    document.getElementById(
+        "confirmation"
+    );
 
 
-    window.changerEtat =
-    async function(
-        bouton,
-        flux,
-        etat
-    ) {
+const erreur =
+    document.getElementById(
+        "erreur"
+    );
 
 
-        /*
-         * Récupérer le site choisi
-         */
-
-        const site =
-            document
-                .getElementById(
-                    "dechetterie"
-                )
-                .value;
+/* ==================================================
+   BOUTONS
+================================================== */
 
 
-        /*
-         * Réinitialiser les boutons
-         * du même flux
-         */
-
-        const parent =
-            bouton.parentElement;
+const boutons =
+    document.querySelectorAll(
+        "button[data-flux]"
+    );
 
 
-        const boutons =
-            parent.querySelectorAll(
-                "button"
-            );
+boutons.forEach(
+    bouton => {
+
+        bouton.addEventListener(
+            "click",
+            function() {
+
+                const flux =
+                    this.dataset.flux;
 
 
-        boutons.forEach(
-            function(b) {
+                const statut =
+                    this.dataset.statut;
 
-                b.classList.remove(
-                    "bouton-actif"
+
+                /*
+                 * Sélection visuelle
+                 */
+
+                document
+                    .querySelectorAll(
+                        `button[data-flux="${flux}"]`
+                    )
+                    .forEach(
+                        b => {
+
+                            b.classList.remove(
+                                "selectionne"
+                            );
+
+                        }
+                    );
+
+
+                this.classList.add(
+                    "selectionne"
+                );
+
+
+                /*
+                 * Enregistrement Firebase
+                 */
+
+                enregistrerEtat(
+                    flux,
+                    statut,
+                    this
                 );
 
             }
         );
 
+    }
+);
 
-        bouton.classList.add(
-            "bouton-actif"
-        );
+
+/* ==================================================
+   ENREGISTRER DANS FIREBASE
+================================================== */
+
+
+async function enregistrerEtat(
+    flux,
+    statut,
+    bouton
+) {
+
+
+    const site =
+        selectDechetterie.value;
+
+
+    chargement.style.display =
+        "block";
+
+
+    confirmation.style.display =
+        "none";
+
+
+    erreur.style.display =
+        "none";
+
+
+    try {
 
 
         /*
-         * Messages
+         * Exemple :
+         *
+         * dechetteries
+         *   └── chaussin
+         *        └── flux
+         *             └── bois-a
          */
 
-        const chargement =
-            document.getElementById(
-                "chargement"
+
+        const reference =
+            doc(
+                db,
+                "dechetteries",
+                convertirId(site),
+                "flux",
+                flux
             );
 
 
-        const confirmation =
-            document.getElementById(
-                "confirmation"
-            );
+        await setDoc(
+            reference,
+            {
 
+                site: site,
 
-        const erreur =
-            document.getElementById(
-                "erreur"
-            );
+                flux: flux,
+
+                statut: statut,
+
+                miseAJour:
+                    serverTimestamp()
+
+            },
+            {
+                merge: true
+            }
+        );
 
 
         chargement.style.display =
-            "block";
+            "none";
 
 
         confirmation.style.display =
+            "block";
+
+
+        confirmation.innerHTML =
+            "✅ " +
+            traduireFlux(flux) +
+            " → " +
+            traduireStatut(statut);
+
+
+    }
+    catch (error) {
+
+
+        console.error(
+            "Erreur Firebase :",
+            error
+        );
+
+
+        chargement.style.display =
             "none";
 
 
         erreur.style.display =
-            "none";
+            "block";
 
 
-        try {
+        erreur.innerHTML =
+            "❌ Erreur d'enregistrement : " +
+            error.code;
 
 
-            /*
-             * Nettoyage du nom de la
-             * déchèterie pour créer
-             * un identifiant Firestore
-             */
+    }
 
-            const siteId =
-                site
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(
-                        /[\u0300-\u036f]/g,
-                        ""
-                    )
-                    .replace(
-                        /[^a-z0-9]+/g,
-                        "-"
- 
+}
+
+
+/* ==================================================
+   CONVERTIR LE NOM EN ID
+================================================== */
+
+
+function convertirId(nom) {
+
+    return nom
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+        .replace(
+            /[^a-z0-9]+/g,
+            "-"
+        )
+        .replace(
+            /^-|-$/g,
+            ""
+        );
+
+}
+
+
+/* ==================================================
+   TRADUCTIONS
+================================================== */
+
+
+function traduireFlux(flux) {
+
+    const noms = {
+
+        "bois-a":
+            "🪵 Bois A",
+
+        "bois-b":
+            "🪵 Bois B",
+
+        "mobilier":
+            "🛋️ Mobilier",
+
+        "carton":
+            "📦 Carton",
+
+        "gravats":
+            "🪨 Gravats",
+
+        "ferraille":
+            "🔩 Ferraille",
+
+        "plastique-dur":
+            "🧴 Plastique dur",
+
+        "tout-venant":
+            "🗑️ Tout-venant"
+
+    };
+
+
+    return noms[flux] || flux;
+
+}
+
+
+function traduireStatut(statut) {
+
+    if (
+        statut === "disponible"
+    ) {
+        return "🟢 Disponible";
+    }
+
+
+    if (
+        statut === "presque"
+    ) {
+        return "🟠 Presque pleine";
+    }
+
+
+    if (
+        statut === "pleine"
+    ) {
+        return "🔴 Pleine";
+    }
+
+
+    return statut;
+
+}
+
+
+/* ==================================================
+   CHANGEMENT DE DECHETERIE
+================================================== */
+
+
+selectDechetterie.addEventListener(
+    "change",
+    function() {
+
+
+        /*
+         * On retire les anciennes
+         * sélections visuelles.
+         */
+
+        boutons.f
