@@ -2,201 +2,160 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
 
-    <title>Espace agent - SICTOM Zone de Dole</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<title>Espace agent - SICTOM Zone de Dole</title>
 
-        * {
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7f5;
-            color: #17231b;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        header {
-            background: linear-gradient(
-                135deg,
-                #17231b,
-                #2d4635
-            );
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7f5;
+    color: #17231b;
+}
 
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
+header {
+    background: #17231b;
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
+header h1 {
+    margin: 0;
+    font-size: 26px;
+}
 
-        header p {
-            margin-bottom: 0;
-        }
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+}
 
-        .container {
-            max-width: 700px;
-            margin: auto;
-            padding: 20px;
-        }
+.retour {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #087f3d;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-        .retour {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #087f3d;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.carte {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
 
-        .carte {
-            background: white;
-            padding: 22px;
-            border-radius: 18px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
-        }
+select {
+    width: 100%;
+    padding: 15px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: white;
+}
 
-        .carte h2 {
-            margin-top: 0;
-        }
+.flux {
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+}
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+.flux:first-child {
+    border-top: none;
+}
 
-        select {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 17px;
-            background: white;
-        }
+.nom-flux {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
 
-        .flux {
-            border-top: 1px solid #eee;
-            padding: 20px 0;
-        }
+.boutons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
 
-        .flux:first-child {
-            border-top: none;
-        }
+.bouton {
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 14px 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
 
-        .flux-nom {
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 14px;
-        }
+.vert {
+    background: #d9f7e5;
+    color: #087f3d;
+}
 
-        .boutons {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-        }
+.orange {
+    background: #fff0c2;
+    color: #8a5c00;
+}
 
-        button {
-            border: 3px solid transparent;
-            border-radius: 10px;
-            padding: 13px 5px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.15s;
-        }
+.rouge {
+    background: #ffdede;
+    color: #c62828;
+}
 
-        .btn-vert {
-            background: #d9f7e5;
-            color: #087f3d;
-        }
+.selectionne {
+    border: 3px solid #111 !important;
+    box-shadow: 0 0 0 2px white inset;
+}
 
-        .btn-orange {
-            background: #fff0c2;
-            color: #8a5c00;
-        }
+.message {
+    display: none;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
 
-        .btn-rouge {
-            background: #ffdede;
-            color: #c62828;
-        }
+.succes {
+    background: #d9f7e5;
+    color: #087f3d;
+}
 
-        /* BOUTON SELECTIONNE */
+.erreur {
+    background: #ffdede;
+    color: #c62828;
+}
 
-        button.selectionne {
-            border: 3px solid #17231b;
-            transform: scale(1.02);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.18);
-        }
+.info {
+    background: #fff8df;
+    color: #795c00;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+}
 
-        .confirmation {
-            display: none;
-            background: #d9f7e5;
-            color: #087f3d;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
+@media (max-width: 600px) {
 
-        .erreur {
-            display: none;
-            background: #ffdede;
-            color: #c62828;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
+    .boutons {
+        grid-template-columns: 1fr;
+    }
 
-        .chargement {
-            display: none;
-            background: #eef2f0;
-            color: #49554e;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
+    .bouton {
+        padding: 17px;
+        font-size: 16px;
+    }
 
-        .information {
-            background: #fff8df;
-            color: #795c00;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-        }
+}
 
-        @media (max-width: 600px) {
-
-            header h1 {
-                font-size: 24px;
-            }
-
-            .boutons {
-                grid-template-columns: 1fr;
-            }
-
-            button {
-                padding: 16px;
-                font-size: 16px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -206,11 +165,9 @@
 
 <header>
 
-    <h1>👷 Espace agent</h1>
+<h1>👷 Espace agent</h1>
 
-    <p>
-        Mise à jour de l'état des flux
-    </p>
+<p>État des bennes</p>
 
 </header>
 
@@ -218,460 +175,355 @@
 <div class="container">
 
 
-    <a
-        href="./index.html"
-        class="retour"
-    >
-        ← Retour à la carte
-    </a>
+<a href="./index.html" class="retour">
+← Retour à la carte
+</a>
 
 
-    <div class="carte">
+<div class="carte">
 
-        <h2>
-            📍 Ma déchèterie
-        </h2>
+<h2>📍 Déchèterie</h2>
 
-        <label for="dechetterie">
-            Sélectionnez votre site
-        </label>
+<select id="dechetterie">
 
-        <select id="dechetterie">
+<option value="Chaussin">
+Chaussin
+</option>
 
-            <option value="Chaussin">
-                Chaussin
-            </option>
+<option value="Dole">
+Dole
+</option>
 
-            <option value="Dole">
-                Dole
-            </option>
+<option value="Brevans">
+Brevans
+</option>
 
-            <option value="Brevans">
-                Brevans
-            </option>
+<option value="Tavaux">
+Tavaux
+</option>
 
-            <option value="Tavaux">
-                Tavaux
-            </option>
+<option value="Dampierre">
+Dampierre
+</option>
 
-            <option value="Dampierre">
-                Dampierre
-            </option>
+<option value="Mont-sous-Vaudrey">
+Mont-sous-Vaudrey
+</option>
 
-            <option value="Mont-sous-Vaudrey">
-                Mont-sous-Vaudrey
-            </option>
+<option value="Montmirey-le-Château">
+Montmirey-le-Château
+</option>
 
-            <option value="Montmirey-le-Château">
-                Montmirey-le-Château
-            </option>
+<option value="Saligney">
+Saligney
+</option>
 
-            <option value="Saligney">
-                Saligney
-            </option>
+<option value="Villers-Farlay">
+Villers-Farlay
+</option>
 
-            <option value="Villers-Farlay">
-                Villers-Farlay
-            </option>
+</select>
 
-        </select>
+</div>
 
-    </div>
 
+<div class="carte">
 
-    <div class="carte">
+<h2>♻️ État des bennes</h2>
 
-        <h2>
-            ♻️ État des flux
-        </h2>
 
+<!-- BOIS A -->
 
-        <!-- BOIS A -->
+<div class="flux">
 
-        <div class="flux">
+<div class="nom-flux">
+🪵 Bois A
+</div>
 
-            <div class="flux-nom">
-                🪵 Bois A
-            </div>
+<div class="boutons">
 
-            <div class="boutons">
+<button class="bouton vert"
+data-flux="bois-a"
+data-statut="disponible">
+🟢 Disponible
+</button>
 
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="bois-a"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
+<button class="bouton orange"
+data-flux="bois-a"
+data-statut="presque">
+🟠 Presque pleine
+</button>
 
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="bois-a"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
+<button class="bouton rouge"
+data-flux="bois-a"
+data-statut="pleine">
+🔴 Pleine
+</button>
 
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="bois-a"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+</div>
 
-            </div>
+</div>
 
-        </div>
 
+<!-- BOIS B -->
 
-        <!-- BOIS B -->
+<div class="flux">
 
-        <div class="flux">
+<div class="nom-flux">
+🪵 Bois B
+</div>
 
-            <div class="flux-nom">
-                🪵 Bois B
-            </div>
-
-            <div class="boutons">
-
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="bois-b"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="bois-b"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="bois-b"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+<div class="boutons">
 
-            </div>
+<button class="bouton vert"
+data-flux="bois-b"
+data-statut="disponible">
+🟢 Disponible
+</button>
 
-        </div>
+<button class="bouton orange"
+data-flux="bois-b"
+data-statut="presque">
+🟠 Presque pleine
+</button>
 
+<button class="bouton rouge"
+data-flux="bois-b"
+data-statut="pleine">
+🔴 Pleine
+</button>
 
-        <!-- MOBILIER -->
-
-        <div class="flux">
+</div>
 
-            <div class="flux-nom">
-                🛋️ Mobilier
-            </div>
-
-            <div class="boutons">
-
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="mobilier"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="mobilier"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="mobilier"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+</div>
 
-            </div>
 
-        </div>
+<!-- MOBILIER -->
 
-
-        <!-- CARTON -->
-
-        <div class="flux">
-
-            <div class="flux-nom">
-                📦 Carton
-            </div>
-
-            <div class="boutons">
-
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="carton"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="carton"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="carton"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+<div class="flux">
 
-            </div>
+<div class="nom-flux">
+🛋️ Mobilier
+</div>
 
-        </div>
-
-
-        <!-- GRAVATS -->
-
-        <div class="flux">
-
-            <div class="flux-nom">
-                🪨 Gravats
-            </div>
-
-            <div class="boutons">
-
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="gravats"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="gravats"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="gravats"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+<div class="boutons">
 
-            </div>
-
-        </div>
-
-
-        <!-- FERRAILLE -->
-
-        <div class="flux">
-
-            <div class="flux-nom">
-                🔩 Ferraille
-            </div>
-
-            <div class="boutons">
-
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="ferraille"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="ferraille"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="ferraille"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- PLASTIQUE DUR -->
-
-        <div class="flux">
-
-            <div class="flux-nom">
-                🧴 Plastique dur
-            </div>
-
-            <div class="boutons">
-
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="plastique-dur"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
+<button class="bouton vert"
+data-flux="mobilier"
+data-statut="disponible">
+🟢 Disponible
+</button>
 
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="plastique-dur"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
+<button class="bouton orange"
+data-flux="mobilier"
+data-statut="presque">
+🟠 Presque pleine
+</button>
 
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="plastique-dur"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+<button class="bouton rouge"
+data-flux="mobilier"
+data-statut="pleine">
+🔴 Pleine
+</button>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
 
-        <!-- TOUT VENANT -->
+<!-- CARTON -->
 
-        <div class="flux">
+<div class="flux">
 
-            <div class="flux-nom">
-                🗑️ Non recyclable / Tout-venant
-            </div>
+<div class="nom-flux">
+📦 Carton
+</div>
 
-            <div class="boutons">
+<div class="boutons">
 
-                <button
-                    type="button"
-                    class="btn-vert"
-                    data-flux="tout-venant"
-                    data-statut="disponible"
-                >
-                    🟢 Disponible
-                </button>
+<button class="bouton vert"
+data-flux="carton"
+data-statut="disponible">
+🟢 Disponible
+</button>
 
-                <button
-                    type="button"
-                    class="btn-orange"
-                    data-flux="tout-venant"
-                    data-statut="presque"
-                >
-                    🟠 Presque pleine
-                </button>
+<button class="bouton orange"
+data-flux="carton"
+data-statut="presque">
+🟠 Presque pleine
+</button>
 
-                <button
-                    type="button"
-                    class="btn-rouge"
-                    data-flux="tout-venant"
-                    data-statut="pleine"
-                >
-                    🔴 Pleine
-                </button>
+<button class="bouton rouge"
+data-flux="carton"
+data-statut="pleine">
+🔴 Pleine
+</button>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div
-            id="chargement"
-            class="chargement"
-        >
-            ⏳ Enregistrement...
-        </div>
+<!-- GRAVATS -->
 
+<div class="flux">
 
-        <div
-            id="confirmation"
-            class="confirmation"
-        >
-        </div>
+<div class="nom-flux">
+🪨 Gravats
+</div>
 
+<div class="boutons">
 
-        <div
-            id="erreur"
-            class="erreur"
-        >
-        </div>
+<button class="bouton vert"
+data-flux="gravats"
+data-statut="disponible">
+🟢 Disponible
+</button>
 
-    </div>
+<button class="bouton orange"
+data-flux="gravats"
+data-statut="presque">
+🟠 Presque pleine
+</button>
 
+<button class="bouton rouge"
+data-flux="gravats"
+data-statut="pleine">
+🔴 Pleine
+</button>
 
-    <div class="information">
+</div>
 
-        💡 <strong>Important :</strong>
+</div>
 
-        <br><br>
 
-        Choisis la déchèterie puis indique
-        l'état réel de chaque flux.
+<!-- FERRAILLE -->
 
-        <br><br>
+<div class="flux">
 
-        La modification est enregistrée
-        dans Firebase.
+<div class="nom-flux">
+🔩 Ferraille
+</div>
 
-    </div>
+<div class="boutons">
+
+<button class="bouton vert"
+data-flux="ferraille"
+data-statut="disponible">
+🟢 Disponible
+</button>
+
+<button class="bouton orange"
+data-flux="ferraille"
+data-statut="presque">
+🟠 Presque pleine
+</button>
+
+<button class="bouton rouge"
+data-flux="ferraille"
+data-statut="pleine">
+🔴 Pleine
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PLASTIQUE DUR -->
+
+<div class="flux">
+
+<div class="nom-flux">
+🧴 Plastique dur
+</div>
+
+<div class="boutons">
+
+<button class="bouton vert"
+data-flux="plastique-dur"
+data-statut="disponible">
+🟢 Disponible
+</button>
+
+<button class="bouton orange"
+data-flux="plastique-dur"
+data-statut="presque">
+🟠 Presque pleine
+</button>
+
+<button class="bouton rouge"
+data-flux="plastique-dur"
+data-statut="pleine">
+🔴 Pleine
+</button>
+
+</div>
+
+</div>
+
+
+<!-- TOUT VENANT -->
+
+<div class="flux">
+
+<div class="nom-flux">
+🗑️ Non recyclable / Tout-venant
+</div>
+
+<div class="boutons">
+
+<button class="bouton vert"
+data-flux="tout-venant"
+data-statut="disponible">
+🟢 Disponible
+</button>
+
+<button class="bouton orange"
+data-flux="tout-venant"
+data-statut="presque">
+🟠 Presque pleine
+</button>
+
+<button class="bouton rouge"
+data-flux="tout-venant"
+data-statut="pleine">
+🔴 Pleine
+</button>
+
+</div>
+
+</div>
+
+
+<div id="succes" class="message succes"></div>
+
+<div id="erreur" class="message erreur"></div>
+
+</div>
+
+
+<div class="info">
+
+💡 Choisis une déchèterie puis indique
+l'état réel de chaque benne.
+
+<br><br>
+
+La modification sera enregistrée
+dans Firebase.
+
+</div>
 
 
 </div>
 
 
+<!-- ==================================================
+     FIREBASE
+================================================== -->
+
 <script type="module">
-
-
-/* ==================================================
-   FIREBASE
-================================================== */
 
 
 import {
@@ -715,42 +567,11 @@ const firebaseConfig = {
 
 
 const app =
-    initializeApp(
-        firebaseConfig
-    );
+initializeApp(firebaseConfig);
 
 
 const db =
-    getFirestore(app);
-
-
-/* ==================================================
-   ELEMENTS
-================================================== */
-
-
-const selectDechetterie =
-    document.getElementById(
-        "dechetterie"
-    );
-
-
-const chargement =
-    document.getElementById(
-        "chargement"
-    );
-
-
-const confirmation =
-    document.getElementById(
-        "confirmation"
-    );
-
-
-const erreur =
-    document.getElementById(
-        "erreur"
-    );
+getFirestore(app);
 
 
 /* ==================================================
@@ -759,59 +580,187 @@ const erreur =
 
 
 const boutons =
-    document.querySelectorAll(
-        "button[data-flux]"
-    );
+document.querySelectorAll(
+    ".bouton"
+);
 
 
 boutons.forEach(
-    bouton => {
+    function(bouton) {
+
 
         bouton.addEventListener(
             "click",
-            function() {
+            async function() {
+
 
                 const flux =
-                    this.dataset.flux;
+                bouton.dataset.flux;
 
 
                 const statut =
-                    this.dataset.statut;
+                bouton.dataset.statut;
+
+
+                const site =
+                document.getElementById(
+                    "dechetterie"
+                ).value;
 
 
                 /*
                  * Sélection visuelle
                  */
 
+
                 document
-                    .querySelectorAll(
-                        `button[data-flux="${flux}"]`
-                    )
-                    .forEach(
-                        b => {
+                .querySelectorAll(
+                    '.bouton[data-flux="' +
+                    flux +
+                    '"]'
+                )
+                .forEach(
+                    function(b) {
 
-                            b.classList.remove(
-                                "selectionne"
-                            );
+                        b.classList.remove(
+                            "selectionne"
+                        );
 
-                        }
-                    );
+                    }
+                );
 
 
-                this.classList.add(
+                bouton.classList.add(
                     "selectionne"
                 );
 
 
                 /*
-                 * Enregistrement Firebase
+                 * Message
                  */
 
-                enregistrerEtat(
-                    flux,
-                    statut,
-                    this
+
+                const succes =
+                document.getElementById(
+                    "succes"
                 );
+
+
+                const erreur =
+                document.getElementById(
+                    "erreur"
+                );
+
+
+                succes.style.display =
+                "none";
+
+
+                erreur.style.display =
+                "none";
+
+
+                /*
+                 * ID de la déchèterie
+                 */
+
+
+                const siteId =
+                site
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(
+                    /[\u0300-\u036f]/g,
+                    ""
+                )
+                .replace(
+                    /[^a-z0-9]+/g,
+                    "-"
+                )
+                .replace(
+                    /^-|-$/g,
+                    ""
+                );
+
+
+                try {
+
+
+                    /*
+                     * Création du document
+                     */
+
+
+                    const reference =
+                    doc(
+                        db,
+                        "dechetteries",
+                        siteId,
+                        "flux",
+                        flux
+                    );
+
+
+                    /*
+                     * Enregistrement
+                     */
+
+
+                    await setDoc(
+                        reference,
+                        {
+
+                            site: site,
+
+                            flux: flux,
+
+                            statut: statut,
+
+                            miseAJour:
+                            serverTimestamp()
+
+                        },
+                        {
+                            merge: true
+                        }
+                    );
+
+
+                    /*
+                     * Succès
+                     */
+
+
+                    succes.innerHTML =
+                    "✅ " +
+                    nomFlux(flux) +
+                    " : " +
+                    nomStatut(statut);
+
+
+                    succes.style.display =
+                    "block";
+
+
+                }
+
+                catch(error) {
+
+
+                    console.error(
+                        error
+                    );
+
+
+                    erreur.innerHTML =
+                    "❌ Firebase : " +
+                    error.code;
+
+
+                    erreur.style.display =
+                    "block";
+
+                }
 
             }
         );
@@ -821,177 +770,31 @@ boutons.forEach(
 
 
 /* ==================================================
-   ENREGISTRER DANS FIREBASE
+   NOMS
 ================================================== */
 
 
-async function enregistrerEtat(
-    flux,
-    statut,
-    bouton
-) {
-
-
-    const site =
-        selectDechetterie.value;
-
-
-    chargement.style.display =
-        "block";
-
-
-    confirmation.style.display =
-        "none";
-
-
-    erreur.style.display =
-        "none";
-
-
-    try {
-
-
-        /*
-         * Exemple :
-         *
-         * dechetteries
-         *   └── chaussin
-         *        └── flux
-         *             └── bois-a
-         */
-
-
-        const reference =
-            doc(
-                db,
-                "dechetteries",
-                convertirId(site),
-                "flux",
-                flux
-            );
-
-
-        await setDoc(
-            reference,
-            {
-
-                site: site,
-
-                flux: flux,
-
-                statut: statut,
-
-                miseAJour:
-                    serverTimestamp()
-
-            },
-            {
-                merge: true
-            }
-        );
-
-
-        chargement.style.display =
-            "none";
-
-
-        confirmation.style.display =
-            "block";
-
-
-        confirmation.innerHTML =
-            "✅ " +
-            traduireFlux(flux) +
-            " → " +
-            traduireStatut(statut);
-
-
-    }
-    catch (error) {
-
-
-        console.error(
-            "Erreur Firebase :",
-            error
-        );
-
-
-        chargement.style.display =
-            "none";
-
-
-        erreur.style.display =
-            "block";
-
-
-        erreur.innerHTML =
-            "❌ Erreur d'enregistrement : " +
-            error.code;
-
-
-    }
-
-}
-
-
-/* ==================================================
-   CONVERTIR LE NOM EN ID
-================================================== */
-
-
-function convertirId(nom) {
-
-    return nom
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-        .replace(
-            /[^a-z0-9]+/g,
-            "-"
-        )
-        .replace(
-            /^-|-$/g,
-            ""
-        );
-
-}
-
-
-/* ==================================================
-   TRADUCTIONS
-================================================== */
-
-
-function traduireFlux(flux) {
+function nomFlux(flux) {
 
     const noms = {
 
-        "bois-a":
-            "🪵 Bois A",
+        "bois-a": "🪵 Bois A",
 
-        "bois-b":
-            "🪵 Bois B",
+        "bois-b": "🪵 Bois B",
 
-        "mobilier":
-            "🛋️ Mobilier",
+        "mobilier": "🛋️ Mobilier",
 
-        "carton":
-            "📦 Carton",
+        "carton": "📦 Carton",
 
-        "gravats":
-            "🪨 Gravats",
+        "gravats": "🪨 Gravats",
 
-        "ferraille":
-            "🔩 Ferraille",
+        "ferraille": "🔩 Ferraille",
 
         "plastique-dur":
-            "🧴 Plastique dur",
+        "🧴 Plastique dur",
 
         "tout-venant":
-            "🗑️ Tout-venant"
+        "🗑️ Tout-venant"
 
     };
 
@@ -1001,7 +804,7 @@ function traduireFlux(flux) {
 }
 
 
-function traduireStatut(statut) {
+function nomStatut(statut) {
 
     if (
         statut === "disponible"
@@ -1009,13 +812,11 @@ function traduireStatut(statut) {
         return "🟢 Disponible";
     }
 
-
     if (
         statut === "presque"
     ) {
         return "🟠 Presque pleine";
     }
-
 
     if (
         statut === "pleine"
@@ -1023,25 +824,14 @@ function traduireStatut(statut) {
         return "🔴 Pleine";
     }
 
-
     return statut;
 
 }
 
 
-/* ==================================================
-   CHANGEMENT DE DECHETERIE
-================================================== */
+</script>
 
 
-selectDechetterie.addEventListener(
-    "change",
-    function() {
+</body>
 
-
-        /*
-         * On retire les anciennes
-         * sélections visuelles.
-         */
-
-        boutons.f
+</html>
