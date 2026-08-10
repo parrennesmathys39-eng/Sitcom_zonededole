@@ -10,7 +10,7 @@
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    >
 
     <style>
 
@@ -48,12 +48,28 @@
             padding: 20px;
         }
 
+        .bouton-agent {
+            display: block;
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #17231b;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .bouton-agent:hover {
+            background: #26382c;
+        }
+
         .search {
             background: white;
             padding: 18px;
             border-radius: 16px;
-            margin-top: -25px;
-            position: relative;
+            margin-top: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
@@ -269,6 +285,16 @@
 <div class="container">
 
 
+    <!-- ESPACE AGENT -->
+
+    <a
+        href="agent.html"
+        class="bouton-agent"
+    >
+        👷 Espace agent
+    </a>
+
+
     <!-- RECHERCHE -->
 
     <div class="search">
@@ -313,7 +339,7 @@
     </div>
 
 
-    <!-- FICHE DYNAMIQUE -->
+    <!-- FICHE -->
 
     <div id="fiche-container"></div>
 
@@ -335,9 +361,9 @@
 <script>
 
 
-/* =====================================================
+/* ================================
    CARTE
-===================================================== */
+================================ */
 
 const map = L.map("map").setView(
     [47.09, 5.49],
@@ -355,19 +381,9 @@ L.tileLayer(
 
 
 
-/* =====================================================
-   TYPES DE FLUX SUIVIS
-===================================================== */
-
-/*
-    Ce sont les flux que notre système pourra
-    surveiller pour le remplissage.
-
-    Les points comme papier, verre, piles, etc.
-    pourront être ajoutés plus tard comme
-    "points de collecte" plutôt que comme bennes.
-*/
-
+/* ================================
+   FLUX
+================================ */
 
 const fluxStandards = [
 
@@ -425,78 +441,48 @@ const fluxStandards = [
 
 
 
-/* =====================================================
+/* ================================
    DECHETTERIES
-===================================================== */
+================================ */
 
 const dechetteries = [
 
-
     {
         nom: "Dole",
-
         lat: 47.092,
-
         lng: 5.486,
-
         adresse: "Rue Costes et Bellonte",
-
         type: "Déchèterie",
-
         professionnels: false,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Brevans",
-
         lat: 47.087,
-
         lng: 5.455,
-
         adresse: "22 allée du bois",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Tavaux",
-
         lat: 47.044,
-
         lng: 5.405,
-
         adresse: "10 Rue du Luxembourg",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Chaussin",
-
         lat: 46.966,
-
         lng: 5.408,
-
         adresse: "Zone industrielle",
-
         type: "Déchèterie",
-
         professionnels: true,
 
         flux: [
@@ -523,8 +509,7 @@ const dechetteries = [
 
             {
                 nom: "🪵 Bois A",
-                statut: "pleine",
-                important: true
+                statut: "pleine"
             },
 
             {
@@ -534,8 +519,7 @@ const dechetteries = [
 
             {
                 nom: "🛋️ Mobilier",
-                statut: "pleine",
-                important: true
+                statut: "pleine"
             },
 
             {
@@ -554,111 +538,64 @@ const dechetteries = [
             }
 
         ]
-
     },
-
 
     {
         nom: "Dampierre",
-
         lat: 47.151,
-
         lng: 5.675,
-
         adresse: "6 Chemin du Tissage",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Mont-sous-Vaudrey",
-
         lat: 46.999,
-
         lng: 5.584,
-
         adresse: "18 Route de Dole",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Montmirey-le-Château",
-
         lat: 47.217,
-
         lng: 5.609,
-
         adresse: "Le Charme",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Saligney",
-
         lat: 47.208,
-
         lng: 5.653,
-
         adresse: "Rue Principale",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Villers-Farlay",
-
         lat: 46.984,
-
         lng: 5.718,
-
         adresse: "Rue du Val d'Amour",
-
         type: "Déchèterie",
-
         professionnels: true,
-
         flux: fluxStandards
-
     },
-
 
     {
         nom: "Saint-Aubin",
-
         lat: 46.944,
-
         lng: 5.314,
-
         adresse: "Rue de Fragnot",
-
         type: "Végéterie",
-
         professionnels: false,
 
         flux: [
@@ -669,16 +606,15 @@ const dechetteries = [
             }
 
         ]
-
     }
 
 ];
 
 
 
-/* =====================================================
-   COULEUR DU STATUT
-===================================================== */
+/* ================================
+   STATUT
+================================ */
 
 function statutHTML(statut) {
 
@@ -692,7 +628,6 @@ function statutHTML(statut) {
 
     }
 
-
     if (statut === "presque") {
 
         return `
@@ -702,7 +637,6 @@ function statutHTML(statut) {
         `;
 
     }
-
 
     if (statut === "pleine") {
 
@@ -714,10 +648,9 @@ function statutHTML(statut) {
 
     }
 
-
     return `
         <span class="statut collecte">
-            ℹ️ Point de collecte
+            ℹ️ Information
         </span>
     `;
 
@@ -725,12 +658,11 @@ function statutHTML(statut) {
 
 
 
-/* =====================================================
-   AFFICHAGE D'UNE FICHE
-===================================================== */
+/* ================================
+   FICHE DECHETTERIE
+================================ */
 
 function afficherFiche(site) {
-
 
     const container =
         document.getElementById(
@@ -751,17 +683,10 @@ function afficherFiche(site) {
             </h3>
 
             <div class="adresse">
-
                 📍 ${site.adresse}
-
             </div>
-
     `;
 
-
-    /*
-       Information spéciale pour Chaussin
-    */
 
     if (site.nom === "Chaussin") {
 
@@ -769,19 +694,17 @@ function afficherFiche(site) {
 
             <div class="important">
 
-                ⭐ <strong>Flux particulièrement surveillés</strong>
+                ⭐ <strong>
+                    Flux importants à surveiller
+                </strong>
 
                 <br><br>
 
-                🪵 Bois
+                🪵 Bois A / Bois B
+
                 <br>
 
                 🛋️ Mobilier
-
-                <br><br>
-
-                L'état de ces flux pourra être mis à jour
-                directement par l'agent de déchèterie.
 
             </div>
 
@@ -790,18 +713,14 @@ function afficherFiche(site) {
     }
 
 
-    /*
-       Dole
-    */
-
     if (site.nom === "Dole") {
 
         html += `
 
             <div class="important">
 
-                ℹ️ Cette déchèterie est actuellement
-                indiquée comme <strong>interdite aux professionnels</strong>.
+                ℹ️ Site indiqué comme
+                <strong>interdit aux professionnels</strong>.
 
             </div>
 
@@ -819,10 +738,6 @@ function afficherFiche(site) {
     `;
 
 
-    /*
-       Affichage des flux
-    */
-
     site.flux.forEach(
         function(flux) {
 
@@ -831,9 +746,7 @@ function afficherFiche(site) {
                 <div class="benne">
 
                     <span class="benne-name">
-
                         ${flux.nom}
-
                     </span>
 
                     ${statutHTML(flux.statut)}
@@ -845,10 +758,6 @@ function afficherFiche(site) {
         }
     );
 
-
-    /*
-       Dernière mise à jour
-    */
 
     html += `
 
@@ -866,25 +775,18 @@ function afficherFiche(site) {
 
             <br><br>
 
-            Les niveaux de remplissage ne sont pas encore
-            connectés aux agents de déchèterie.
-
-            Cette fonctionnalité sera ajoutée avec
-            la base de données.
+            Les niveaux de remplissage ne sont
+            pas encore connectés aux agents.
 
         </div>
 
 
         <a
             class="itineraire"
-
             href="https://www.google.com/maps/dir/?api=1&destination=${site.lat},${site.lng}"
-
             target="_blank"
         >
-
             📍 Itinéraire
-
         </a>
 
 
@@ -904,13 +806,12 @@ function afficherFiche(site) {
 
 
 
-/* =====================================================
-   MARQUEURS DE LA CARTE
-===================================================== */
+/* ================================
+   MARQUEURS
+================================ */
 
 dechetteries.forEach(
     function(site) {
-
 
         const marker =
             L.marker([
@@ -950,16 +851,15 @@ dechetteries.forEach(
 
 
 
-/* =====================================================
+/* ================================
    RECHERCHE
-===================================================== */
+================================ */
 
 document
     .getElementById("search")
     .addEventListener(
         "input",
         function() {
-
 
             const recherche =
                 this.value
@@ -968,15 +868,9 @@ document
 
 
             if (recherche === "") {
-
                 return;
-
             }
 
-
-            /*
-               Recherche d'une déchetterie
-            */
 
             const site =
                 dechetteries.find(
@@ -1007,16 +901,11 @@ document
             }
 
 
-            /*
-               Recherche d'un type de déchet
-            */
-
             for (
                 let i = 0;
                 i < dechetteries.length;
                 i++
             ) {
-
 
                 const trouve =
                     dechetteries[i].flux.some(
@@ -1057,4 +946,4 @@ document
 </script>
 
 </body>
-</html>
+    </html>
