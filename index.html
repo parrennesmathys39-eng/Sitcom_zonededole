@@ -52,17 +52,17 @@
             display: block;
             text-align: center;
             margin: 15px 0;
-            padding: 15px;
+            padding: 16px;
             background: #17231b;
             color: white;
             text-decoration: none;
             border-radius: 12px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 17px;
         }
 
-        .bouton-agent:hover {
-            background: #26382c;
+        .bouton-agent:active {
+            transform: scale(0.98);
         }
 
         .search {
@@ -75,10 +75,10 @@
 
         .search input {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: 1px solid #ddd;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 17px;
             outline: none;
         }
 
@@ -115,8 +115,8 @@
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
             display: inline-block;
         }
@@ -154,7 +154,7 @@
         .important {
             background: #e9f8ef;
             border-left: 4px solid #18a558;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             margin-bottom: 18px;
             font-size: 14px;
@@ -164,7 +164,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 13px 0;
+            padding: 14px 0;
             border-top: 1px solid #eee;
             gap: 10px;
         }
@@ -174,7 +174,7 @@
         }
 
         .statut {
-            padding: 6px 11px;
+            padding: 7px 11px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: bold;
@@ -196,11 +196,6 @@
             color: #c62828;
         }
 
-        .collecte {
-            background: #edf0f2;
-            color: #58636b;
-        }
-
         .mise-a-jour {
             margin-top: 18px;
             font-size: 13px;
@@ -219,7 +214,7 @@
         .itineraire {
             display: inline-block;
             margin-top: 15px;
-            padding: 12px 17px;
+            padding: 13px 17px;
             border-radius: 10px;
             background: #087f3d;
             color: white;
@@ -262,9 +257,11 @@
             .statut {
                 font-size: 12px;
             }
+
         }
 
     </style>
+
 </head>
 
 
@@ -288,7 +285,7 @@
     <!-- ESPACE AGENT -->
 
     <a
-        href="agent.html"
+        href="./agent.html"
         class="bouton-agent"
     >
         👷 Espace agent
@@ -354,8 +351,9 @@
 </footer>
 
 
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
 
 
 <script>
@@ -576,7 +574,7 @@ const dechetteries = [
         lng: 5.653,
         adresse: "Rue Principale",
         type: "Déchèterie",
-        professionnels: true,
+        professionals: true,
         flux: fluxStandards
     },
 
@@ -659,7 +657,7 @@ function statutHTML(statut) {
 
 
 /* ================================
-   FICHE DECHETTERIE
+   FICHE
 ================================ */
 
 function afficherFiche(site) {
@@ -685,6 +683,7 @@ function afficherFiche(site) {
             <div class="adresse">
                 📍 ${site.adresse}
             </div>
+
     `;
 
 
@@ -701,26 +700,8 @@ function afficherFiche(site) {
                 <br><br>
 
                 🪵 Bois A / Bois B
-
                 <br>
-
                 🛋️ Mobilier
-
-            </div>
-
-        `;
-
-    }
-
-
-    if (site.nom === "Dole") {
-
-        html += `
-
-            <div class="important">
-
-                ℹ️ Site indiqué comme
-                <strong>interdit aux professionnels</strong>.
 
             </div>
 
@@ -764,7 +745,7 @@ function afficherFiche(site) {
         <div class="mise-a-jour">
 
             🕐 Dernière mise à jour :
-            aujourd'hui à 13h42
+            aujourd'hui
 
         </div>
 
@@ -788,7 +769,6 @@ function afficherFiche(site) {
         >
             📍 Itinéraire
         </a>
-
 
         </div>
 
@@ -946,4 +926,4 @@ document
 </script>
 
 </body>
-    </html>
+</html>
