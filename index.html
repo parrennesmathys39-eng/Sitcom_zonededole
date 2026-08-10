@@ -6,7 +6,6 @@
 
     <title>Sitcom Zone de Dole</title>
 
-    <!-- Leaflet : bibliothèque de carte -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -27,7 +26,7 @@
         header {
             background: linear-gradient(135deg, #087f3d, #18a558);
             color: white;
-            padding: 28px 20px 35px;
+            padding: 30px 20px 40px;
             text-align: center;
         }
 
@@ -64,15 +63,15 @@
             font-size: 16px;
         }
 
-        h2 {
-            margin-top: 30px;
-        }
-
         #map {
-            height: 450px;
+            height: 430px;
             border-radius: 16px;
             margin-top: 15px;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 30px;
         }
 
         .legend {
@@ -83,13 +82,12 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            font-size: 14px;
         }
 
         .legend span {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .dot {
@@ -111,11 +109,87 @@
             background: #d62828;
         }
 
+        /* FICHE DECHETTERIE */
+
+        .fiche {
+            background: white;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .fiche h3 {
+            margin-top: 0;
+            font-size: 23px;
+        }
+
+        .adresse {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .benne {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .statut {
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .disponible {
+            background: #d9f7e5;
+            color: #087f3d;
+        }
+
+        .presque {
+            background: #fff0c2;
+            color: #9a6500;
+        }
+
+        .pleine {
+            background: #ffdede;
+            color: #c62828;
+        }
+
+        .mise-a-jour {
+            margin-top: 18px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .demo {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #fff8df;
+            color: #795c00;
+            font-size: 13px;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
             color: #777;
             font-size: 13px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 9px;
+            background: #087f3d;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -142,6 +216,7 @@
     <div id="map"></div>
 
     <div class="legend">
+
         <span>
             <span class="dot green"></span>
             Disponible
@@ -156,6 +231,77 @@
             <span class="dot red"></span>
             Pleine
         </span>
+
+    </div>
+
+
+    <!-- FICHE -->
+
+    <div class="fiche">
+
+        <h3>♻️ Déchèterie de Dole</h3>
+
+        <div class="adresse">
+            📍 Dole, Jura
+        </div>
+
+        <h4>État des bennes</h4>
+
+        <div class="benne">
+            <span>🪵 Bois</span>
+            <span class="statut disponible">
+                🟢 Disponible
+            </span>
+        </div>
+
+        <div class="benne">
+            <span>📦 Cartons</span>
+            <span class="statut disponible">
+                🟢 Disponible
+            </span>
+        </div>
+
+        <div class="benne">
+            <span>🌿 Déchets verts</span>
+            <span class="statut presque">
+                🟠 Presque pleine
+            </span>
+        </div>
+
+        <div class="benne">
+            <span>🛋️ Encombrants</span>
+            <span class="statut pleine">
+                🔴 Pleine
+            </span>
+        </div>
+
+        <div class="benne">
+            <span>🪨 Gravats</span>
+            <span class="statut disponible">
+                🟢 Disponible
+            </span>
+        </div>
+
+        <div class="benne">
+            <span>🔩 Métaux</span>
+            <span class="statut disponible">
+                🟢 Disponible
+            </span>
+        </div>
+
+        <div class="mise-a-jour">
+            🕐 Dernière mise à jour : aujourd'hui à 13h42
+        </div>
+
+        <div class="demo">
+            ⚠️ Données de démonstration — les états des bennes ne sont
+            pas encore connectés aux données réelles.
+        </div>
+
+        <button onclick="alert('La navigation sera ajoutée prochainement !')">
+            📍 Itinéraire
+        </button>
+
     </div>
 
 </div>
@@ -164,15 +310,13 @@
     Sitcom Zone de Dole — Projet local ♻️
 </footer>
 
-<!-- Leaflet -->
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-    // Création de la carte
     const map = L.map('map').setView([47.09, 5.49], 10);
 
-    // Fond de carte OpenStreetMap
     L.tileLayer(
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         {
@@ -181,109 +325,71 @@
     ).addTo(map);
 
 
-    // Déchetteries
-    // Les coordonnées sont approximatives pour le prototype.
     const dechetteries = [
 
         {
             nom: "Dole",
             lat: 47.092,
-            lng: 5.486,
-            adresse: "Rue Costes et Bellonte",
-            statut: "green"
+            lng: 5.486
         },
 
         {
             nom: "Brevans",
             lat: 47.087,
-            lng: 5.455,
-            adresse: "22 allée du bois",
-            statut: "green"
+            lng: 5.455
         },
 
         {
             nom: "Tavaux",
             lat: 47.044,
-            lng: 5.405,
-            adresse: "10 Rue du Luxembourg",
-            statut: "orange"
+            lng: 5.405
         },
 
         {
             nom: "Chaussin",
             lat: 46.966,
-            lng: 5.408,
-            adresse: "Zone Industrielle",
-            statut: "green"
+            lng: 5.408
         },
 
         {
             nom: "Dampierre",
             lat: 47.151,
-            lng: 5.675,
-            adresse: "6 Chemin du Tissage",
-            statut: "red"
+            lng: 5.675
         },
 
         {
             nom: "Mont-sous-Vaudrey",
             lat: 46.999,
-            lng: 5.584,
-            adresse: "18 Route de Dole",
-            statut: "green"
+            lng: 5.584
         },
 
         {
             nom: "Montmirey-le-Château",
             lat: 47.217,
-            lng: 5.609,
-            adresse: "Le Charme",
-            statut: "green"
+            lng: 5.609
         },
 
         {
             nom: "Saligney",
             lat: 47.208,
-            lng: 5.653,
-            adresse: "Rue Principale",
-            statut: "orange"
+            lng: 5.653
         },
 
         {
             nom: "Villers-Farlay",
             lat: 46.984,
-            lng: 5.718,
-            adresse: "Rue du Val d'Amour",
-            statut: "green"
+            lng: 5.718
         },
 
         {
             nom: "Saint-Aubin",
             lat: 46.944,
-            lng: 5.314,
-            adresse: "Rue de Fragnot — Végéterie",
-            statut: "green"
+            lng: 5.314
         }
 
     ];
 
 
-    // Couleur du marqueur
-    function couleur(statut) {
-
-        if (statut === "green") {
-            return "🟢";
-        }
-
-        if (statut === "orange") {
-            return "🟠";
-        }
-
-        return "🔴";
-    }
-
-
-    // Ajouter les déchetteries sur la carte
     dechetteries.forEach(dechetterie => {
 
         const marker = L.marker([
@@ -294,12 +400,7 @@
         marker.bindPopup(`
             <strong>♻️ Déchèterie de ${dechetterie.nom}</strong>
             <br><br>
-            📍 ${dechetterie.adresse}
-            <br><br>
-            ${couleur(dechetterie.statut)}
-            État général
-            <br><br>
-            <button onclick="alert('La fiche détaillée arrivera bientôt !')">
+            <button onclick="document.querySelector('.fiche').scrollIntoView({behavior:'smooth'})">
                 Voir les bennes
             </button>
         `);
@@ -307,27 +408,24 @@
     });
 
 
-    // Recherche
     document
         .getElementById("search")
         .addEventListener("input", function() {
 
             const recherche = this.value.toLowerCase();
 
-            dechetteries.forEach(dechetterie => {
+            const resultat = dechetteries.find(d =>
+                d.nom.toLowerCase().includes(recherche)
+            );
 
-                if (
-                    dechetterie.nom
-                        .toLowerCase()
-                        .includes(recherche)
-                ) {
-                    map.setView(
-                        [dechetterie.lat, dechetterie.lng],
-                        14
-                    );
-                }
+            if (resultat) {
 
-            });
+                map.setView(
+                    [resultat.lat, resultat.lng],
+                    14
+                );
+
+            }
 
         });
 
