@@ -1,1 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Espace agent - Sitcom Zone de Dole</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #17231b;
+        }
+
+        header {
+            background: linear-gradient(135deg, #17231b, #2d4635);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .retour {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #087f3d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .carte {
+            background: white;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .carte h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 17px;
+            background: white;
+        }
+
+        .flux {
+            border-top: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .flux:first-child {
+            border-top: none;
+        }
+
+        .flux-nom {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 14px;
+        }
+
+        .boutons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 13px 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-vert {
+            background: #d9f7e5;
+            color: #087f3d;
+        }
+
+        .btn-orange {
+            background: #fff0c2;
+            color: #8a5c00;
+        }
+
+        .btn-rouge {
+            background: #ffdede;
+            color: #c62828;
+        }
+
+        .bouton-actif {
+            outline: 3px solid #17231b;
+        }
+
+        .information {
+            background: #fff8df;
+            color: #795c00;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .confirmation {
+            display: none;
+            background: #d9f7e5;
+            color: #087f3d;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .boutons {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                padding: 15px;
+                font-size: 16px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>👷 Espace agent</h1>
+
+    <p>
+        Mise à jour de l'état des flux
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <a
+        href="index.html"
+        class="retour"
+    >
+        ← Retour à la carte
+    </a>
+
+
+    <!-- CHOIX DU SITE -->
+
+    <div class="carte">
+
+        <h2>
+            📍 Ma déchèterie
+        </h2>
+
+        <label for="dechetterie">
+            Sélectionnez votre site
+        </label>
+
+        <select id="dechetterie">
+
+            <option value="Chaussin">
+                Chaussin
+            </option>
+
+            <option value="Dole">
+                Dole
+            </option>
+
+            <option value="Brevans">
+                Brevans
+            </option>
+
+            <option value="Tavaux">
+                Tavaux
+            </option>
+
+            <option value="Dampierre">
+                Dampierre
+            </option>
+
+            <option value="Mont-sous-Vaudrey">
+                Mont-sous-Vaudrey
+            </option>
+
+            <option value="Montmirey-le-Château">
+                Montmirey-le-Château
+            </option>
+
+            <option value="Saligney">
+                Saligney
+            </option>
+
+            <option value="Villers-Farlay">
+                Villers-Farlay
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- FLUX -->
+
+    <div class="carte">
+
+        <h2>
+            ♻️ État des flux
+        </h2>
+
+
+        <!-- BOIS A -->
+
+        <div class="flux">
+
+            <div class="flux-nom">
+                🪵 Bois A
+            </div>
+
+            <div class="boutons">
+
+                <button
+                    class="btn-vert"
+                    onclick="changerEtat(this, 'Bois A', 'Disponible')"
+                >
+                    🟢 Disponible
+                </button>
+
+                <button
+                    class="btn-orange"
+                    onclick="changerEtat(this, 'Bois A', 'Presque pleine')"
+                >
+                    🟠 Presque pleine
+                </button>
+
+                <button
+                    class="btn-rouge"
+                    onclick="changerEtat(this, 'Bois A', 'Pleine')"
+                >
+                    🔴 Pleine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOIS B -->
+
+        <div class="flux">
+
+            <div class="flux-nom">
+                🪵 Bois B
+            </div>
+
+            <div class="boutons">
+
+                <button
+                    class="btn-vert"
+                    onclick="changerEtat(this, 'Bois B', 'Disponible')"
+                >
+                    🟢 Disponible
+                </button>
+
+                <button
+                    class="btn-orange"
+                    onclick="changerEtat(this, 'Bois B', 'Presque pleine')"
+                >
+                    🟠 Presque pleine
+                </button>
+
+                <button
+                    class="btn-rouge"
+                    onclick="changerEtat(this, 'Bois B', 'Pleine')"
+                >
+                    🔴 Pleine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILIER -->
+
+        <div class="flux">
+
+            <div class="flux-nom">
+                🛋️ Mobilier
+            </div>
+
+            <div class="boutons">
+
+                <button
+                    class="btn-vert"
+                    onclick="changerEtat(this, 'Mobilier', 'Disponible')"
+                >
+                    🟢 Disponible
+                </button>
+
+                <button
+                    class="btn-orange"
+                    onclick="changerEtat(this, 'Mobilier', 'Presque pleine')"
+                >
+                    🟠 Presque pleine
+                </button>
+
+                <button
+                    class="btn-rouge"
+                    onclick="changerEtat(this, 'Mobilier', 'Pleine')"
+                >
+                    🔴 Pleine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARTON -->
+
+        <div class="flux">
+
+            <div class="flux-nom">
+                📦 Carton
+            </div>
+
+            <div class="boutons">
+
+                <button
+                    class="btn-vert"
+                    onclick="changerEtat(this, 'Carton', 'Disponible')"
+                >
+                    🟢 Disponible
+                </button>
+
+                <button
+                    class="btn-orange"
+                    onclick="changerEtat(this, 'Carton', 'Presque pleine')"
+                >
+                    🟠 Presque pleine
+                </button>
+
+                <button
+                    class="btn-rouge"
+                    onclick="changerEtat(this, 'Carton', 'Pleine')"
+                >
+                    🔴 Pleine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- GRAVATS -->
+
+        <div class="flux">
+
+            <div class="flux-nom">
+                🪨 Gravats
+            </div>
+
+            <div class="boutons">
+
+                <button
+                    class="btn-vert"
+                    onclick="changerEtat(this, 'Gravats', 'Disponible')"
+                >
+                    🟢 Disponible
+                </button>
+
+                <button
+                    class="btn-orange"
+                    onclick="changerEtat(this, 'Gravats', 'Presque pleine')"
+                >
+                    🟠 Presque pleine
+                </button>
+
+                <button
+                    class="btn-rouge"
+                    onclick="changerEtat(this, 'Gravats', 'Pleine')"
+                >
+                    🔴 Pleine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- FERAILLE -->
+
+        <div class="flux">
+
+            <div class="flux-nom">
+                🔩 Ferraille
+            </div>
+
+            <div class="boutons">
+
+                <button
+                    class="btn-vert"
+                    onclick="changerEtat(this, 'Ferraille', 'Disponible')"
+                >
+                    🟢 Disponible
+                </button>
+
+                <button
+                    class="btn-orange"
+                    onclick="changerEtat(this, 'Ferraille', 'Presque pleine')"
+                >
+                    🟠 Presque pleine
+                </button>
+
+                <button
+                    class="btn-rouge"
+                    onclick="changerEtat(this, 'Ferraille', 'Pleine')"
+                >
+                    🔴 Pleine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="confirmation"
+            class="confirmation"
+        ></div>
+
+
+    </div>
+
+
+    <div class="information">
+
+        ⚠️ <strong>Mode démonstration</strong>
+
+        <br><br>
+
+        Pour l'instant, les changements sont uniquement
+        visibles sur cette page.
+
+        La prochaine étape permettra de sauvegarder
+        automatiquement les informations dans la base
+        de données.
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+function changerEtat(
+    bouton,
+    flux,
+    etat
+) {
+
+
+    /*
+       Enlever la sélection précédente
+       du même flux
+    */
+
+    const parent =
+        bouton.parentElement;
+
+
+    const boutons =
+        parent.querySelectorAll("button");
+
+
+    boutons.forEach(
+        function(b) {
+
+            b.classList.remove(
+                "bouton-actif"
+            );
+
+        }
+    );
+
+
+    /*
+       Activer le bouton choisi
+    */
+
+    bouton.classList.add(
+        "bouton-actif"
+    );
+
+
+    /*
+       Récupérer la déchèterie
+    */
+
+    const site =
+        document.getElementById(
+            "dechetterie"
+        ).value;
+
+
+    /*
+       Message de confirmation
+    */
+
+    const confirmation =
+        document.getElementById(
+            "confirmation"
+        );
+
+
+    confirmation.style.display =
+        "block";
+
+
+    confirmation.innerHTML =
+
+        "✅ " +
+        flux +
+        " de " +
+        site +
+        " → " +
+        etat;
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
