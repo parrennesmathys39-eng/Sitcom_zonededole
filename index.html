@@ -61,6 +61,15 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             font-size: 16px;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: #18a558;
+        }
+
+        h2 {
+            margin-top: 30px;
         }
 
         #map {
@@ -68,10 +77,7 @@
             border-radius: 16px;
             margin-top: 15px;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            margin-top: 30px;
+            overflow: hidden;
         }
 
         .legend {
@@ -109,8 +115,6 @@
             background: #d62828;
         }
 
-        /* FICHE DECHETTERIE */
-
         .fiche {
             background: white;
             margin-top: 25px;
@@ -135,6 +139,7 @@
             align-items: center;
             padding: 13px 0;
             border-top: 1px solid #eee;
+            gap: 10px;
         }
 
         .statut {
@@ -142,6 +147,7 @@
             border-radius: 20px;
             font-size: 13px;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .disponible {
@@ -174,6 +180,17 @@
             font-size: 13px;
         }
 
+        .itineraire {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 17px;
+            border-radius: 10px;
+            background: #087f3d;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -181,15 +198,33 @@
             font-size: 13px;
         }
 
-        button {
-            margin-top: 15px;
-            padding: 11px 16px;
-            border: none;
-            border-radius: 9px;
-            background: #087f3d;
-            color: white;
+        .popup-title {
+            font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
+        }
+
+        .popup-status {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            #map {
+                height: 350px;
+            }
+
+            .benne {
+                font-size: 14px;
+            }
+
+            .statut {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -234,75 +269,7 @@
 
     </div>
 
-
-    <!-- FICHE -->
-
-    <div class="fiche">
-
-        <h3>♻️ Déchèterie de Dole</h3>
-
-        <div class="adresse">
-            📍 Dole, Jura
-        </div>
-
-        <h4>État des bennes</h4>
-
-        <div class="benne">
-            <span>🪵 Bois</span>
-            <span class="statut disponible">
-                🟢 Disponible
-            </span>
-        </div>
-
-        <div class="benne">
-            <span>📦 Cartons</span>
-            <span class="statut disponible">
-                🟢 Disponible
-            </span>
-        </div>
-
-        <div class="benne">
-            <span>🌿 Déchets verts</span>
-            <span class="statut presque">
-                🟠 Presque pleine
-            </span>
-        </div>
-
-        <div class="benne">
-            <span>🛋️ Encombrants</span>
-            <span class="statut pleine">
-                🔴 Pleine
-            </span>
-        </div>
-
-        <div class="benne">
-            <span>🪨 Gravats</span>
-            <span class="statut disponible">
-                🟢 Disponible
-            </span>
-        </div>
-
-        <div class="benne">
-            <span>🔩 Métaux</span>
-            <span class="statut disponible">
-                🟢 Disponible
-            </span>
-        </div>
-
-        <div class="mise-a-jour">
-            🕐 Dernière mise à jour : aujourd'hui à 13h42
-        </div>
-
-        <div class="demo">
-            ⚠️ Données de démonstration — les états des bennes ne sont
-            pas encore connectés aux données réelles.
-        </div>
-
-        <button onclick="alert('La navigation sera ajoutée prochainement !')">
-            📍 Itinéraire
-        </button>
-
-    </div>
+    <div id="fiche-container"></div>
 
 </div>
 
@@ -310,118 +277,299 @@
     Sitcom Zone de Dole — Projet local ♻️
 </footer>
 
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-    const map = L.map('map').setView([47.09, 5.49], 10);
+    /* =========================
+       CARTE
+    ========================= */
+
+    const map = L.map("map").setView([47.09, 5.49], 10);
 
     L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
-            attribution: '&copy; OpenStreetMap contributors'
+            attribution: "&copy; OpenStreetMap contributors"
         }
     ).addTo(map);
 
+
+    /* =========================
+       DONNÉES DES DÉCHETTERIES
+       ========================= */
 
     const dechetteries = [
 
         {
             nom: "Dole",
             lat: 47.092,
-            lng: 5.486
+            lng: 5.486,
+            adresse: "Dole, Jura"
         },
 
         {
             nom: "Brevans",
             lat: 47.087,
-            lng: 5.455
+            lng: 5.455,
+            adresse: "Brevans, Jura"
         },
 
         {
             nom: "Tavaux",
             lat: 47.044,
-            lng: 5.405
+            lng: 5.405,
+            adresse: "Tavaux, Jura"
         },
 
         {
             nom: "Chaussin",
             lat: 46.966,
-            lng: 5.408
+            lng: 5.408,
+            adresse: "Chaussin, Jura"
         },
 
         {
             nom: "Dampierre",
             lat: 47.151,
-            lng: 5.675
+            lng: 5.675,
+            adresse: "Dampierre, Jura"
         },
 
         {
             nom: "Mont-sous-Vaudrey",
             lat: 46.999,
-            lng: 5.584
+            lng: 5.584,
+            adresse: "Mont-sous-Vaudrey, Jura"
         },
 
         {
             nom: "Montmirey-le-Château",
             lat: 47.217,
-            lng: 5.609
+            lng: 5.609,
+            adresse: "Montmirey-le-Château, Jura"
         },
 
         {
             nom: "Saligney",
             lat: 47.208,
-            lng: 5.653
+            lng: 5.653,
+            adresse: "Saligney, Jura"
         },
 
         {
             nom: "Villers-Farlay",
             lat: 46.984,
-            lng: 5.718
+            lng: 5.718,
+            adresse: "Villers-Farlay, Jura"
         },
 
         {
             nom: "Saint-Aubin",
             lat: 46.944,
-            lng: 5.314
+            lng: 5.314,
+            adresse: "Saint-Aubin, Jura — Végéterie"
         }
 
     ];
 
 
-    dechetteries.forEach(dechetterie => {
+    /* =========================
+       ÉTAT DES BENNES
+    ========================= */
+
+    const bennes = [
+
+        {
+            nom: "🪵 Bois",
+            statut: "disponible",
+            texte: "Disponible"
+        },
+
+        {
+            nom: "📦 Cartons",
+            statut: "disponible",
+            texte: "Disponible"
+        },
+
+        {
+            nom: "🌿 Déchets verts",
+            statut: "presque",
+            texte: "Presque pleine"
+        },
+
+        {
+            nom: "🛋️ Encombrants",
+            statut: "pleine",
+            texte: "Pleine"
+        },
+
+        {
+            nom: "🪨 Gravats",
+            statut: "disponible",
+            texte: "Disponible"
+        },
+
+        {
+            nom: "🔩 Métaux",
+            statut: "disponible",
+            texte: "Disponible"
+        }
+
+    ];
+
+
+    /* =========================
+       CRÉATION DES MARQUEURS
+    ========================= */
+
+    dechetteries.forEach((dechetterie) => {
 
         const marker = L.marker([
             dechetterie.lat,
             dechetterie.lng
         ]).addTo(map);
 
+
         marker.bindPopup(`
-            <strong>♻️ Déchèterie de ${dechetterie.nom}</strong>
-            <br><br>
-            <button onclick="document.querySelector('.fiche').scrollIntoView({behavior:'smooth'})">
-                Voir les bennes
-            </button>
+            <div class="popup-title">
+                ♻️ Déchèterie de ${dechetterie.nom}
+            </div>
+
+            <div class="popup-status">
+                📍 ${dechetterie.adresse}
+            </div>
         `);
+
+
+        marker.on("click", function() {
+
+            afficherFiche(dechetterie);
+
+        });
 
     });
 
+
+    /* =========================
+       AFFICHER UNE FICHE
+    ========================= */
+
+    function afficherFiche(dechetterie) {
+
+        const container =
+            document.getElementById("fiche-container");
+
+
+        let html = `
+
+            <div class="fiche">
+
+                <h3>
+                    ♻️ Déchèterie de ${dechetterie.nom}
+                </h3>
+
+                <div class="adresse">
+                    📍 ${dechetterie.adresse}
+                </div>
+
+                <h4>
+                    État des bennes
+                </h4>
+        `;
+
+
+        bennes.forEach((benne) => {
+
+            html += `
+
+                <div class="benne">
+
+                    <span>
+                        ${benne.nom}
+                    </span>
+
+                    <span class="statut ${benne.statut}">
+                        ${benne.statut === "disponible" ? "🟢" : ""}
+                        ${benne.statut === "presque" ? "🟠" : ""}
+                        ${benne.statut === "pleine" ? "🔴" : ""}
+                        ${benne.texte}
+                    </span>
+
+                </div>
+
+            `;
+
+        });
+
+
+        html += `
+
+                <div class="mise-a-jour">
+
+                    🕐 Dernière mise à jour :
+                    aujourd'hui à 13h42
+
+                </div>
+
+                <div class="demo">
+
+                    ⚠️ Données de démonstration.
+                    Les états des bennes ne sont pas encore
+                    connectés aux données réelles.
+
+                </div>
+
+                <a
+                    class="itineraire"
+                    href="https://www.google.com/maps/dir/?api=1&destination=${dechetterie.lat},${dechetterie.lng}"
+                    target="_blank"
+                >
+                    📍 Itinéraire
+                </a>
+
+            </div>
+
+        `;
+
+
+        container.innerHTML = html;
+
+
+        container.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================
+       RECHERCHE
+    ========================= */
 
     document
         .getElementById("search")
         .addEventListener("input", function() {
 
-            const recherche = this.value.toLowerCase();
+            const recherche =
+                this.value.toLowerCase().trim();
 
-            const resultat = dechetteries.find(d =>
-                d.nom.toLowerCase().includes(recherche)
-            );
+
+            const resultat =
+                dechetteries.find((dechetterie) =>
+                    dechetterie.nom
+                        .toLowerCase()
+                        .includes(recherche)
+                );
+
 
             if (resultat) {
 
                 map.setView(
-                    [resultat.lat, resultat.lng],
+                    [
+                        resultat.lat,
+                        resultat.lng
+                    ],
                     14
                 );
 
