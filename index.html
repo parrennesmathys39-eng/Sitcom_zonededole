@@ -1,270 +1,116 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SICTOM Zone de Dole — Déchèteries</title><link
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SICTOM Zone de Dole — État des déchèteries</title><link
 rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/><style>
-
-/* =====================================================
-   BASE
-===================================================== */
+><style>
 
 * {
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     background: #f4f7f5;
     color: #17231b;
 }
 
-button,
-input {
-    font: inherit;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
 header {
-    position: relative;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 90% 10%, rgba(255,255,255,.16), transparent 35%),
-        linear-gradient(135deg, #056b32, #0a9849 55%, #18a558);
+    background: linear-gradient(135deg, #087f3d, #18a558);
     color: white;
-    padding: 42px 20px 55px;
-}
-
-header::after {
-    content: "";
-    position: absolute;
-    left: -10%;
-    right: -10%;
-    bottom: -45px;
-    height: 90px;
-    background: #f4f7f5;
-    border-radius: 50% 50% 0 0;
-}
-
-.header-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1050px;
-    margin: auto;
-}
-
-.logo-line {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 13px;
-}
-
-.logo {
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,.17);
-    border: 1px solid rgba(255,255,255,.25);
-    border-radius: 16px;
-    font-size: 28px;
-    backdrop-filter: blur(5px);
+    padding: 32px 20px 38px;
+    text-align: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: 31px;
-    letter-spacing: -.5px;
+    font-size: 30px;
 }
 
 header p {
-    max-width: 620px;
-    margin: 13px auto 0;
-    text-align: center;
+    margin: 10px 0 0;
     font-size: 16px;
-    line-height: 1.5;
-    opacity: .94;
+    opacity: 0.95;
 }
-
-
-/* =====================================================
-   CONTENEUR
-===================================================== */
 
 .container {
-    position: relative;
-    z-index: 5;
-    max-width: 1050px;
-    margin: -12px auto 0;
-    padding: 0 18px 35px;
-}
-
-
-/* =====================================================
-   BARRE AGENT
-===================================================== */
-
-.top-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
 }
 
 .bouton-agent {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    padding: 14px 18px;
+    display: block;
+    text-align: center;
+    margin: 5px 0 18px;
+    padding: 16px;
     background: #17231b;
     color: white;
     text-decoration: none;
-    border-radius: 14px;
+    border-radius: 12px;
     font-weight: bold;
-    box-shadow: 0 6px 18px rgba(0,0,0,.12);
-    transition: .2s ease;
-}
-
-.bouton-agent:hover {
-    transform: translateY(-2px);
+    font-size: 17px;
 }
 
 .bouton-agent:active {
-    transform: scale(.98);
+    transform: scale(0.98);
 }
 
-
-/* =====================================================
-   RECHERCHE
-===================================================== */
-
-.search-card {
+.search {
     background: white;
-    padding: 17px;
-    border-radius: 18px;
-    box-shadow: 0 5px 24px rgba(0,0,0,.08);
-    margin-bottom: 22px;
-}
-
-.search-label {
-    display: block;
-    margin-bottom: 9px;
-    font-size: 13px;
-    font-weight: bold;
-    color: #536057;
-}
-
-.search-wrapper {
-    position: relative;
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    pointer-events: none;
+    padding: 18px;
+    border-radius: 16px;
+    margin-top: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 }
 
 .search input {
     width: 100%;
-    padding: 16px 16px 16px 45px;
-    border: 1px solid #dfe5e1;
-    border-radius: 13px;
-    font-size: 16px;
-    background: #fafcfb;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 17px;
     outline: none;
-    transition: .2s ease;
 }
 
 .search input:focus {
     border-color: #18a558;
-    background: white;
-    box-shadow: 0 0 0 4px rgba(24,165,88,.10);
 }
 
-
-/* =====================================================
-   TITRES
-===================================================== */
-
-.section-heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 15px;
-    margin: 28px 0 12px;
-}
-
-.section-heading h2 {
-    margin: 0;
-    font-size: 22px;
-}
-
-.section-heading p {
-    margin: 4px 0 0;
-    color: #748078;
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   CARTE
-===================================================== */
-
-.map-card {
-    background: white;
-    padding: 8px;
-    border-radius: 20px;
-    box-shadow: 0 5px 24px rgba(0,0,0,.09);
+h2 {
+    margin-top: 30px;
 }
 
 #map {
     height: 430px;
-    border-radius: 15px;
+    border-radius: 16px;
+    margin-top: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
     overflow: hidden;
 }
 
-
-/* =====================================================
-   LEGENDE
-===================================================== */
-
 .legend {
+    background: white;
+    padding: 17px;
+    margin-top: 15px;
+    border-radius: 12px;
     display: flex;
-    gap: 9px;
+    gap: 18px;
     flex-wrap: wrap;
-    margin-top: 12px;
 }
 
-.legend-item {
+.legend span {
     display: flex;
     align-items: center;
     gap: 7px;
-    padding: 9px 12px;
-    background: white;
-    border: 1px solid #e6ebe8;
-    border-radius: 30px;
-    font-size: 13px;
-    color: #4f5c53;
+    font-size: 14px;
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
+    display: inline-block;
 }
 
 .green {
@@ -279,151 +125,63 @@ header p {
     background: #d62828;
 }
 
-.gray {
-    background: #9ca5a0;
-}
-
-
-/* =====================================================
-   STATUT FIREBASE
-===================================================== */
-
-.firebase-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 14px;
-    padding: 12px 14px;
-    background: #eaf8ef;
-    color: #087f3d;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.firebase-status.erreur {
-    background: #fff0f0;
-    color: #c62828;
-}
-
-
-/* =====================================================
-   FICHE
-===================================================== */
-
 .fiche {
-    position: relative;
     background: white;
-    margin-top: 24px;
-    padding: 24px;
-    border-radius: 21px;
-    box-shadow: 0 7px 28px rgba(0,0,0,.09);
-    overflow: hidden;
-}
-
-.fiche::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    background: linear-gradient(#087f3d, #18a558);
-}
-
-.fiche-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
 
 .fiche h3 {
-    margin: 5px 0 7px;
-    font-size: 27px;
-    letter-spacing: -.4px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    font-size: 25px;
 }
 
 .adresse {
-    color: #68746c;
-    line-height: 1.45;
+    color: #666;
+    margin-bottom: 20px;
 }
 
 .type-site {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
     padding: 7px 11px;
     background: #e7f5ec;
     color: #087f3d;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
+    margin-bottom: 8px;
 }
-
-.fiche-divider {
-    height: 1px;
-    background: #edf0ee;
-    margin: 22px 0 8px;
-}
-
-.fiche h4 {
-    margin: 17px 0 3px;
-    font-size: 17px;
-}
-
-
-/* =====================================================
-   MESSAGE IMPORTANT
-===================================================== */
 
 .important {
-    background: linear-gradient(135deg, #fff9df, #fff5c9);
-    border: 1px solid #f4df8b;
-    border-left: 4px solid #e7a900;
-    padding: 15px 16px;
-    border-radius: 12px;
-    margin: 19px 0;
+    background: #e9f8ef;
+    border-left: 4px solid #18a558;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
     font-size: 14px;
-    line-height: 1.5;
 }
-
-.important strong {
-    color: #7b5600;
-}
-
-
-/* =====================================================
-   FLUX
-===================================================== */
 
 .benne {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-top: 1px solid #edf0ee;
+    padding: 16px 0;
+    border-top: 1px solid #eee;
+    gap: 12px;
 }
 
 .benne-name {
     font-weight: 600;
-    font-size: 15px;
-}
-
-.benne-left {
-    min-width: 0;
-}
-
-.benne-subtitle {
-    color: #8a948e;
-    font-size: 12px;
-    margin-top: 4px;
+    font-size: 16px;
 }
 
 .statut {
-    padding: 8px 12px;
-    border-radius: 30px;
-    font-size: 12px;
+    padding: 9px 13px;
+    border-radius: 20px;
+    font-size: 13px;
     font-weight: bold;
     white-space: nowrap;
 }
@@ -435,7 +193,7 @@ header p {
 
 .presque {
     background: #fff0c2;
-    color: #946200;
+    color: #9a6500;
 }
 
 .pleine {
@@ -445,161 +203,58 @@ header p {
 
 .inconnu {
     background: #eeeeee;
+    color: #555;
+}
+
+.mise-a-jour {
+    margin-top: 20px;
+    padding: 12px;
+    background: #f4f7f5;
+    border-radius: 10px;
+    font-size: 13px;
     color: #666;
 }
 
-
-/* =====================================================
-   DERNIERE MISE A JOUR
-===================================================== */
-
-.mise-a-jour {
-    margin-top: 17px;
-    padding: 13px 15px;
-    background: #f5f8f6;
-    border-radius: 11px;
-    font-size: 12px;
-    color: #68746c;
-}
-
-
-/* =====================================================
-   BOUTON ITINERAIRE
-===================================================== */
-
-.actions-fiche {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 17px;
-}
-
 .itineraire {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 12px 17px;
-    border-radius: 11px;
+    display: inline-block;
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 10px;
     background: #087f3d;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    transition: .2s ease;
 }
 
-.itineraire:hover {
-    background: #076c35;
-    transform: translateY(-1px);
+.firebase-status {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #eef2f0;
+    color: #56635b;
+    font-size: 13px;
 }
 
-
-/* =====================================================
-   FOOTER
-===================================================== */
+.firebase-status.erreur {
+    background: #ffdede;
+    color: #c62828;
+}
 
 footer {
-    margin-top: 10px;
-    padding: 30px 20px 35px;
-    background: #17231b;
-    color: #bfc8c2;
     text-align: center;
-    font-size: 12px;
-    line-height: 1.6;
+    padding: 30px;
+    color: #777;
+    font-size: 13px;
 }
 
-.footer-title {
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-
-/* =====================================================
-   LEAFLET
-===================================================== */
-
-.leaflet-popup-content-wrapper {
-    border-radius: 13px;
-}
-
-.leaflet-popup-content {
-    line-height: 1.5;
-}
-
-.leaflet-control-zoom a {
-    color: #17231b !important;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 650px) {
-
-    header {
-        padding: 32px 16px 47px;
-    }
-
-    .logo-line {
-        align-items: flex-start;
-    }
-
-    .logo {
-        width: 45px;
-        height: 45px;
-        font-size: 23px;
-    }
+@media (max-width: 600px) {
 
     header h1 {
-        font-size: 24px;
-        line-height: 1.15;
-        text-align: left;
-    }
-
-    header p {
-        font-size: 14px;
-        margin-top: 12px;
-    }
-
-    .container {
-        padding: 0 13px 25px;
-    }
-
-    .top-actions {
-        margin-bottom: 12px;
-    }
-
-    .bouton-agent {
-        min-height: 49px;
-        font-size: 15px;
-    }
-
-    .section-heading h2 {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     #map {
         height: 350px;
-    }
-
-    .fiche {
-        padding: 20px 17px;
-        border-radius: 18px;
-    }
-
-    .fiche h3 {
-        font-size: 23px;
-    }
-
-    .fiche-top {
-        display: block;
-    }
-
-    .type-site {
-        margin-bottom: 5px;
     }
 
     .benne {
@@ -607,28 +262,23 @@ footer {
     }
 
     .benne-name {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .statut {
-        font-size: 11px;
-        padding: 7px 9px;
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .fiche {
+        padding: 18px;
     }
 
 }
 
-</style></head><body><!-- =====================================================
-     HEADER
-===================================================== --><header><div class="header-content"><div class="logo-line"><div class="logo">
-♻️
-</div><h1>
-SICTOM Zone de Dole
-</h1></div><p>
-Consultez en temps réel l'état des flux des déchèteries
-avant votre déplacement.
-</p></div></header><div class="container"><!-- =====================================================
-     ESPACE AGENT
-===================================================== --><div class="top-actions"><a
+</style></head><body><header><h1>♻️ SICTOM Zone de Dole</h1><p>
+Vérifiez l'état des déchèteries avant de vous déplacer.
+</p></header><div class="container"><a
 href="./agent.html"
 class="bouton-agent"
 
@@ -637,406 +287,714 @@ class="bouton-agent"
 👷 Espace agent
 </a>
 
-</div><!-- =====================================================
-     RECHERCHE
-===================================================== --><div class="search-card"><label
-class="search-label"
-for="search"
-
-«»
-
-Rechercher une déchèterie ou un flux
-</label>
-
-<div class="search-wrapper"><span class="search-icon">
-🔎
-</span><input
+<div class="search"><input
 type="text"
 id="search"
-placeholder="Ex. Dole, carton, bois..."
-autocomplete="off"
+placeholder="🔎 Rechercher une déchèterie ou un déchet..."
 
 «»
 
-</div></div><!-- =====================================================
-     CARTE
-===================================================== --><div class="section-heading"><div><h2>
-🗺️ Les déchèteries
-</h2><p>
-Sélectionnez un point sur la carte pour consulter son état.
-</p></div></div><div class="map-card"><div id="map"></div></div><!-- =====================================================
-     LEGENDE
-===================================================== --><div class="legend"><div class="legend-item">
+</div><h2>
+🗺️ Déchèteries
+</h2><div id="map"></div><div class="legend"><span>
 <span class="dot green"></span>
 Disponible
-</div><div class="legend-item">
+</span><span>
 <span class="dot orange"></span>
 Presque pleine
-</div><div class="legend-item">
+</span><span>
 <span class="dot red"></span>
 Pleine
-</div><div class="legend-item">
-<span class="dot gray"></span>
-Non renseigné
-</div></div><!-- =====================================================
-     FIREBASE
-===================================================== --><div
+</span></div><div
 id="firebaseStatus"
 class="firebase-status"
 >
-🟢 Informations connectées en temps réel
-</div><!-- =====================================================
-     FICHE
-===================================================== --><div id="fiche-container"></div></div><!-- =====================================================
-     FOOTER
-===================================================== --><footer><div class="footer-title">
-♻️ SICTOM Zone de Dole
-</div>Informations sur les déchèteries et l'état des flux.
+🔄 Connexion aux informations en temps réel...
+</div><div id="fiche-container"></div></div><footer>SICTOM Zone de Dole — Informations sur les déchèteries ♻️
 
-</footer><!-- =====================================================
-     LEAFLET
-===================================================== --><script
+</footer><script
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script><!-- =====================================================
-     FIREBASE
-===================================================== --><script
+</script><script
 src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js">
 </script><script
 src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js">
 </script><script>
 
-/* =====================================================
-   FIREBASE
-===================================================== */
-
 const firebaseConfig = {
 
-    apiKey:
-    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+apiKey:
+"AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
 
-    authDomain:
-    "sictom-zone-de-dole-17296.firebaseapp.com",
+authDomain:
+"sictom-zone-de-dole-17296.firebaseapp.com",
 
-    projectId:
-    "sictom-zone-de-dole-17296",
+projectId:
+"sictom-zone-de-dole-17296",
 
-    storageBucket:
-    "sictom-zone-de-dole-17296.firebasestorage.app",
+storageBucket:
+"sictom-zone-de-dole-17296.firebasestorage.app",
 
-    messagingSenderId:
-    "378183859073",
+messagingSenderId:
+"378183859073",
 
-    appId:
-    "1:378183859073:web:3b347f84a072fb0cb54680"
+appId:
+"1:378183859073:web:3b347f84a072fb0cb54680"
 
 };
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
-
-
-/* =====================================================
-   CARTE
-===================================================== */
+const db =
+firebase.firestore();
 
 const map =
 L.map("map").setView(
-    [47.09, 5.49],
-    10
+[47.09, 5.49],
+10
 );
 
 L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-        attribution:
-        "&copy; OpenStreetMap contributors"
-    }
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+attribution:
+"&copy; OpenStreetMap contributors"
+}
 ).addTo(map);
-
-
-/* =====================================================
-   FLUX
-===================================================== */
 
 const fluxNoms = {
 
-    "tout-venant":
-    "🗑️ Non recyclable / Tout-venant",
+"tout-venant":
+"🗑️ Non recyclable / Tout-venant",
 
-    "carton":
-    "📦 Carton",
+"carton":
+"📦 Carton",
 
-    "gravats":
-    "🪨 Gravats",
+"gravats":
+"🪨 Gravats",
 
-    "ferraille":
-    "🔩 Ferraille",
+"ferraille":
+"🔩 Ferraille",
 
-    "bois-a":
-    "🪵 Bois A",
+"bois-a":
+"🪵 Bois A",
 
-    "bois-b":
-    "🪵 Bois B",
+"bois-b":
+"🪵 Bois B",
 
-    "mobilier":
-    "🛋️ Mobilier",
+"mobilier":
+"🛋️ Mobilier",
 
-    "platre":
-    "🧱 Plâtre",
+"platre":
+"🧱 Plâtre",
 
-    "plastique-dur":
-    "🧴 Plastique dur"
+"plastique-dur":
+"🧴 Plastique dur"
 
 };
 
-
-/* =====================================================
-   DECHETTERIES
-===================================================== */
-
 const dechetteries = [
 
-    {
-        nom: "Dole",
-        lat: 47.092,
-        lng: 5.486,
-        adresse: "Rue Costes et Bellonte",
-        type: "Déchèterie",
-        professionnels: false
-    },
+{
+nom: "Dole",
+lat: 47.092,
+lng: 5.486,
+adresse: "Rue Costes et Bellonte",
+type: "Déchèterie",
+professionnels: false
+},
 
-    {
-        nom: "Brevans",
-        lat: 47.087,
-        lng: 5.455,
-        adresse: "22 allée du bois",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Brevans",
+lat: 47.087,
+lng: 5.455,
+adresse: "22 allée du bois",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Tavaux",
-        lat: 47.044,
-        lng: 5.405,
-        adresse: "10 Rue du Luxembourg",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Tavaux",
+lat: 47.044,
+lng: 5.405,
+adresse: "10 Rue du Luxembourg",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Chaussin",
-        lat: 46.966,
-        lng: 5.408,
-        adresse: "Zone industrielle",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Chaussin",
+lat: 46.966,
+lng: 5.408,
+adresse: "Zone industrielle",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Dampierre",
-        lat: 47.151,
-        lng: 5.675,
-        adresse: "6 Chemin du Tissage",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Dampierre",
+lat: 47.151,
+lng: 5.675,
+adresse: "6 Chemin du Tissage",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Mont-sous-Vaudrey",
-        lat: 46.999,
-        lng: 5.584,
-        adresse: "18 Route de Dole",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Mont-sous-Vaudrey",
+lat: 46.999,
+lng: 5.584,
+adresse: "18 Route de Dole",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Montmirey-le-Château",
-        lat: 47.217,
-        lng: 5.609,
-        adresse: "Le Charme",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Montmirey-le-Château",
+lat: 47.217,
+lng: 5.609,
+adresse: "Le Charme",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Saligney",
-        lat: 47.208,
-        lng: 5.653,
-        adresse: "Rue Principale",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Saligney",
+lat: 47.208,
+lng: 5.653,
+adresse: "Rue Principale",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Villers-Farlay",
-        lat: 46.984,
-        lng: 5.718,
-        adresse: "Rue du Val d'Amour",
-        type: "Déchèterie",
-        professionnels: true
-    },
+{
+nom: "Villers-Farlay",
+lat: 46.984,
+lng: 5.718,
+adresse: "Rue du Val d'Amour",
+type: "Déchèterie",
+professionnels: true
+},
 
-    {
-        nom: "Saint-Aubin",
-        lat: 46.944,
-        lng: 5.314,
-        adresse: "Rue de Fragnot",
-        type: "Végéterie",
-        professionnels: false
-    }
+{
+nom: "Saint-Aubin",
+lat: 46.944,
+lng: 5.314,
+adresse: "Rue de Fragnot",
+type: "Végéterie",
+professionnels: false
+}
 
 ];
 
-
-/* =====================================================
-   IDENTIFIANT
-===================================================== */
-
 function siteId(nom) {
 
-    return nom
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
+return nom
+.toLowerCase()
+.normalize("NFD")
+.replace(
+/[\u0300-\u036f]/g,
+""
+)
+.replace(
+/[^a-z0-9]+/g,
+"-"
+)
+.replace(
+/^-|-$/g,
+""
+);
 
 }
-
-
-/* =====================================================
-   STATUT
-===================================================== */
 
 function statutHTML(statut) {
 
-    if (statut === "disponible") {
+if (
+statut === "disponible"
+) {
 
-        return `
-            <span class="statut disponible">
-                🟢 Disponible
-            </span>
-        `;
-
-    }
-
-    if (statut === "presque") {
-
-        return `
-            <span class="statut presque">
-                🟠 Presque pleine
-            </span>
-        `;
-
-    }
-
-    if (statut === "pleine") {
-
-        return `
-            <span class="statut pleine">
-                🔴 Pleine
-            </span>
-        `;
-
-    }
-
-    return `
-        <span class="statut inconnu">
-            ⚪ Non renseigné
-        </span>
-    `;
+return `
+<span class="statut disponible">
+🟢 Disponible
+</span>
+`;
 
 }
 
+if (
+statut === "presque"
+) {
 
-/* =====================================================
-   DATE
-===================================================== */
+return `
+<span class="statut presque">
+🟠 Presque pleine
+</span>
+`;
+
+}
+
+if (
+statut === "pleine"
+) {
+
+return `
+<span class="statut pleine">
+🔴 Pleine
+</span>
+`;
+
+}
+
+return `
+<span class="statut inconnu">
+⚪ Non renseigné
+</span>
+`;
+
+}
 
 function afficherDate(timestamp) {
 
-    if (!timestamp) {
-        return "Mise à jour en cours";
-    }
+if (!timestamp) {
 
-    try {
-
-        return timestamp
-            .toDate()
-            .toLocaleString(
-                "fr-FR",
-                {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit"
-                }
-            );
-
-    }
-
-    catch(error) {
-
-        return "Mise à jour récente";
-
-    }
+return "Mise à jour en cours";
 
 }
 
+try {
 
-/* =====================================================
-   FICHE
-===================================================== */
+const date =
+timestamp.toDate();
+
+return date.toLocaleString(
+"fr-FR",
+{
+
+day: "2-digit",
+month: "2-digit",
+year: "numeric",
+hour: "2-digit",
+minute: "2-digit"
+
+}
+);
+
+}
+
+catch(error) {
+
+return "Mise à jour récente";
+
+}
+
+}
 
 async function afficherFiche(site) {
 
-    const container =
-    document.getElementById(
-        "fiche-container"
-    );
+const container =
+document.getElementById(
+"fiche-container"
+);
 
-    const id =
-    siteId(site.nom);
+container.innerHTML = `
 
-    container.innerHTML = `
+<div class="fiche">
 
-        <div class="fiche">
+<span class="type-site">
+${site.type}
+</span>
 
-            <div class="fiche-top">
+<h3>
+♻️ ${site.nom}
+</h3>
 
-                <div>
+<div class="adresse">
+📍 ${site.adresse}
+</div>
 
-                    <span class="type-site">
-                        ${site.type}
-                    </span>
+${
+site.nom === "Chaussin"
+?
+`
+<div class="important">
 
-                    <h3>
-                        ♻️ ${site.nom}
-                    </h3>
+⭐ <strong>
+À surveiller particulièrement
+</strong>
 
-                    <div class="adresse">
-                        📍 ${site.adresse}
-                    </div>
+<br><br>
 
-                </div>
+🪵 Bois A et Bois B
+<br>
+🛋️ Mobilier
 
-            </div>
+</div>
+`
+:
+""
+}
 
-            ${
-                site.nom === "Chaussin"
-                ?
-                `
-                <div class="important">
+<h4>
+État actuel des flux
+</h4>
 
-                    ⭐ <strong>
-                    À surveiller particulièrement
-                    </strong>
+<div id="flux-${siteId(site.nom)}">
 
-                    <br><br>
+<div class="firebase-status">
+🔄 Chargement des informations...
+</div>
 
-                    🪵 Bois A et Bois B
-                    <br>
-               
+</div>
+
+<div class="mise-a-jour">
+
+🕐 Les statuts sont mis à jour
+directement par les agents.
+
+</div>
+
+<a
+class="itineraire"
+href="https://www.google.com/maps/dir/?api=1&destination=${site.lat},${site.lng}"
+target="_blank"
+>
+📍 Itinéraire
+</a>
+
+</div>
+`;
+
+container.scrollIntoView({
+behavior: "smooth"
+});
+
+chargerFlux(site);
+
+}
+
+function chargerFlux(site) {
+
+const id =
+siteId(site.nom);
+
+const container =
+document.getElementById(
+"flux-" + id
+);
+
+if (!container) {
+
+return;
+
+}
+
+db.collection("dechetteries")
+.doc(id)
+.collection("flux")
+.onSnapshot(
+
+function(snapshot) {
+
+const donnees = {};
+
+snapshot.forEach(
+function(doc) {
+
+donnees[
+doc.id
+] = doc.data();
+
+});
+
+let html = "";
+
+let fluxAfficher = [
+
+"tout-venant",
+"carton",
+"gravats",
+"ferraille",
+"bois-a",
+"bois-b",
+"mobilier",
+"platre",
+"plastique-dur"
+
+];
+
+if (
+site.nom === "Saint-Aubin"
+) {
+
+fluxAfficher = [
+"vegetaux"
+];
+
+}
+
+fluxAfficher.forEach(
+function(fluxId) {
+
+const data =
+donnees[fluxId];
+
+let nom =
+fluxNoms[fluxId];
+
+if (
+fluxId === "vegetaux"
+) {
+
+nom = "🌿 Végétaux";
+
+}
+
+let statut =
+data
+? data.statut
+: null;
+
+html += `
+
+<div class="benne">
+
+<span class="benne-name">
+${nom}
+</span>
+
+${statutHTML(statut)}
+
+</div>
+
+`;
+
+});
+
+let dernierTimestamp =
+null;
+
+snapshot.forEach(
+function(doc) {
+
+const data =
+doc.data();
+
+if (
+data.miseAJour
+) {
+
+if (
+!dernierTimestamp ||
+data.miseAJour.toMillis()
+>
+dernierTimestamp.toMillis()
+) {
+
+dernierTimestamp =
+data.miseAJour;
+
+}
+
+}
+
+});
+
+if (
+dernierTimestamp
+) {
+
+html += `
+
+<div class="mise-a-jour">
+
+🕐 Dernière mise à jour :
+<strong>
+${afficherDate(dernierTimestamp)}
+</strong>
+
+</div>
+
+`;
+
+}
+else {
+
+html += `
+
+<div class="mise-a-jour">
+
+🕐 Aucun statut n'a encore été renseigné
+par un agent.
+
+</div>
+
+`;
+
+}
+
+container.innerHTML =
+html;
+
+},
+
+function(error) {
+
+console.error(
+error
+);
+
+container.innerHTML = `
+
+<div class="firebase-status erreur">
+
+❌ Impossible de charger
+les informations actuellement.
+
+</div>
+
+`;
+
+});
+
+}
+
+dechetteries.forEach(
+function(site) {
+
+const marker =
+L.marker([
+site.lat,
+site.lng
+]).addTo(map);
+
+marker.bindPopup(`
+
+<strong>
+♻️ ${site.nom}
+</strong>
+
+<br><br>
+
+${site.type}
+
+<br>
+
+📍 ${site.adresse}
+
+<br><br>
+
+Cliquez pour voir
+les statuts.
+
+`);
+
+marker.on(
+"click",
+function() {
+
+afficherFiche(site);
+
+}
+);
+
+});
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+function() {
+
+const recherche =
+this.value
+.toLowerCase()
+.trim();
+
+if (
+recherche === ""
+) {
+
+return;
+
+}
+
+const site =
+dechetteries.find(
+function(site) {
+
+return site.nom
+.toLowerCase()
+.includes(recherche);
+
+});
+
+if (site) {
+
+map.setView(
+[
+site.lat,
+site.lng
+],
+14
+);
+
+afficherFiche(site);
+
+return;
+
+}
+
+for (
+let i = 0;
+i < dechetteries.length;
+i++
+) {
+
+const fluxTrouve =
+Object.values(
+fluxNoms
+).some(
+function(nom) {
+
+return nom
+.toLowerCase()
+.includes(recherche);
+
+}
+);
+
+if (fluxTrouve) {
+
+map.setView(
+[
+dechetteries[i].lat,
+dechetteries[i].lng
+],
+11
+);
+
+afficherFiche(
+dechetteries[i]
+);
+
+break;
+
+}
+
+}
+
+});
+
+const firebaseStatus =
+document.getElementById(
+"firebaseStatus"
+);
+
+firebaseStatus.innerHTML =
+"🟢 Informations connectées en temps réel";
+
+afficherFiche(
+dechetteries[0]
+);
+
+</script></body>
+</html>
