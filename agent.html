@@ -9,7 +9,6 @@
 
 <title>Espace agent - SICTOM Zone de Dole</title>
 
-
 <style>
 
 * {
@@ -40,9 +39,9 @@ header p {
 }
 
 
-/* ================================
+/* =========================
    CONNEXION
-================================ */
+========================= */
 
 #connexion {
     max-width: 500px;
@@ -77,6 +76,11 @@ header p {
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
+    outline: none;
+}
+
+.champ input:focus {
+    border-color: #087f3d;
 }
 
 .bouton-connexion {
@@ -91,14 +95,14 @@ header p {
     cursor: pointer;
 }
 
-.bouton-connexion:active {
-    transform: scale(0.98);
+.bouton-connexion:disabled {
+    opacity: 0.6;
 }
 
 
-/* ================================
+/* =========================
    APPLICATION
-================================ */
+========================= */
 
 #application {
     display: none;
@@ -119,6 +123,7 @@ header p {
 }
 
 .email-agent {
+    margin-top: 5px;
     font-size: 13px;
     color: #666;
     word-break: break-word;
@@ -209,16 +214,12 @@ select {
     border: 3px solid #111 !important;
 }
 
-.chargement {
-    display: none;
-    background: #eef2f0;
-    color: #49554e;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
-    font-weight: bold;
-}
 
+/* =========================
+   MESSAGES
+========================= */
+
+.chargement,
 .message {
     display: none;
     padding: 15px;
@@ -226,6 +227,11 @@ select {
     margin-top: 20px;
     font-weight: bold;
     word-break: break-word;
+}
+
+.chargement {
+    background: #eef2f0;
+    color: #49554e;
 }
 
 .succes {
@@ -245,6 +251,21 @@ select {
     border-radius: 10px;
     font-size: 14px;
 }
+
+.code-erreur {
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
@@ -278,9 +299,9 @@ select {
 </header>
 
 
-<!-- ==================================================
+<!-- =====================================================
      CONNEXION
-================================================== -->
+===================================================== -->
 
 <div id="connexion">
 
@@ -303,7 +324,7 @@ select {
             <input
                 type="email"
                 id="email"
-                placeholder="agent@exemple.fr"
+                placeholder="Votre adresse email"
                 autocomplete="email"
             >
 
@@ -345,9 +366,9 @@ select {
 
 
 
-<!-- ==================================================
-     APPLICATION AGENT
-================================================== -->
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
 
 <div id="application">
 
@@ -446,27 +467,21 @@ Villers-Farlay
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="bois-a"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="bois-a"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="bois-a"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -485,27 +500,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="bois-b"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="bois-b"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="bois-b"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -524,27 +533,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="mobilier"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="mobilier"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="mobilier"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -563,27 +566,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="carton"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="carton"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="carton"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -602,27 +599,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="gravats"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="gravats"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="gravats"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -641,27 +632,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="ferraille"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="ferraille"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="ferraille"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -680,27 +665,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="plastique-dur"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="plastique-dur"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="plastique-dur"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -719,27 +698,21 @@ data-statut="pleine"
 
 <div class="boutons">
 
-<button
-class="bouton vert"
+<button class="bouton vert"
 data-flux="tout-venant"
-data-statut="disponible"
->
+data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button
-class="bouton orange"
+<button class="bouton orange"
 data-flux="tout-venant"
-data-statut="presque"
->
+data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button
-class="bouton rouge"
+<button class="bouton rouge"
 data-flux="tout-venant"
-data-statut="pleine"
->
+data-statut="pleine">
 🔴 Pleine
 </button>
 
@@ -785,12 +758,11 @@ automatiquement dans Firebase.
 
 
 
-<!-- ==================================================
+<!-- =====================================================
      FIREBASE
-================================================== -->
+===================================================== -->
 
 <script type="module">
-
 
 import {
     initializeApp
@@ -822,9 +794,9 @@ from
 
 
 
-/* ==================================================
-   CONFIGURATION
-================================================== */
+/* =========================
+   CONFIG FIREBASE
+========================= */
 
 const firebaseConfig = {
 
@@ -850,103 +822,117 @@ const firebaseConfig = {
 
 
 
-/* ==================================================
+/* =========================
    INITIALISATION
-================================================== */
+========================= */
 
 const app =
-initializeApp(
-    firebaseConfig
-);
-
+initializeApp(firebaseConfig);
 
 const db =
 getFirestore(app);
-
 
 const auth =
 getAuth(app);
 
 
 
-/* ==================================================
+/* =========================
    ELEMENTS
-================================================== */
+========================= */
 
 const connexion =
-document.getElementById(
-    "connexion"
-);
+document.getElementById("connexion");
 
 const application =
-document.getElementById(
-    "application"
-);
+document.getElementById("application");
 
 const email =
-document.getElementById(
-    "email"
-);
+document.getElementById("email");
 
 const motdepasse =
-document.getElementById(
-    "motdepasse"
-);
+document.getElementById("motdepasse");
 
 const boutonConnexion =
-document.getElementById(
-    "boutonConnexion"
-);
+document.getElementById("boutonConnexion");
 
 const boutonDeconnexion =
-document.getElementById(
-    "boutonDeconnexion"
-);
+document.getElementById("boutonDeconnexion");
 
 const erreurConnexion =
-document.getElementById(
-    "erreurConnexion"
-);
+document.getElementById("erreurConnexion");
 
 const emailAgent =
-document.getElementById(
-    "emailAgent"
-);
+document.getElementById("emailAgent");
 
 const select =
-document.getElementById(
-    "dechetterie"
-);
+document.getElementById("dechetterie");
 
 const boutons =
-document.querySelectorAll(
-    ".bouton"
-);
+document.querySelectorAll(".bouton");
 
 const chargement =
-document.getElementById(
-    "chargement"
-);
+document.getElementById("chargement");
 
 const succes =
-document.getElementById(
-    "succes"
-);
+document.getElementById("succes");
 
 const erreur =
-document.getElementById(
-    "erreur"
-);
+document.getElementById("erreur");
 
 
 
-/* ==================================================
+/* =========================
+   AFFICHER ERREUR CONNEXION
+========================= */
+
+function afficherErreurConnexion(error) {
+
+    let code =
+        error && error.code
+        ? error.code
+        : "inconnu";
+
+    let message =
+        error && error.message
+        ? error.message
+        : "Aucun détail fourni.";
+
+    erreurConnexion.innerHTML =
+
+        "❌ <strong>Connexion refusée</strong>" +
+
+        "<div class='code-erreur'>" +
+
+        "<strong>Code :</strong><br>" +
+
+        code +
+
+        "<br><br>" +
+
+        "<strong>Détail :</strong><br>" +
+
+        message +
+
+        "</div>";
+
+    erreurConnexion.style.display =
+    "block";
+
+}
+
+
+
+/* =========================
    CONNEXION
-================================================== */
+========================= */
 
 boutonConnexion.addEventListener(
     "click",
     async function() {
+
+        erreurConnexion.style.display =
+        "none";
 
 
         const adresse =
@@ -956,17 +942,13 @@ boutonConnexion.addEventListener(
         motdepasse.value;
 
 
-        erreurConnexion.style.display =
-        "none";
-
-
         if (
-            adresse === "" ||
-            motDePasse === ""
+            !adresse ||
+            !motDePasse
         ) {
 
             erreurConnexion.innerHTML =
-            "❌ Remplis l'adresse email et le mot de passe.";
+            "❌ Merci de remplir l'email et le mot de passe.";
 
             erreurConnexion.style.display =
             "block";
@@ -985,36 +967,25 @@ boutonConnexion.addEventListener(
 
         try {
 
-
             await signInWithEmailAndPassword(
                 auth,
                 adresse,
                 motDePasse
             );
 
-
         }
 
         catch(error) {
 
+            console.error(error);
 
-            console.error(
+            afficherErreurConnexion(
                 error
             );
-
-
-            erreurConnexion.innerHTML =
-            "❌ Connexion impossible.<br><br>" +
-            "Vérifie ton email et ton mot de passe.";
-
-            erreurConnexion.style.display =
-            "block";
-
 
         }
 
         finally {
-
 
             boutonConnexion.disabled =
             false;
@@ -1029,29 +1000,45 @@ boutonConnexion.addEventListener(
 
 
 
-/* ==================================================
-   ETAT DE CONNEXION
-================================================== */
+/* =========================
+   ENTREE / MOT DE PASSE
+========================= */
+
+motdepasse.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            boutonConnexion.click();
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   ETAT AUTHENTIFICATION
+========================= */
 
 onAuthStateChanged(
     auth,
     function(user) {
 
-
         if (user) {
-
 
             connexion.style.display =
             "none";
 
-
             application.style.display =
             "block";
 
-
             emailAgent.textContent =
             user.email || "";
-
 
             chargerStatuts();
 
@@ -1059,10 +1046,8 @@ onAuthStateChanged(
 
         else {
 
-
             connexion.style.display =
             "block";
-
 
             application.style.display =
             "none";
@@ -1074,28 +1059,23 @@ onAuthStateChanged(
 
 
 
-/* ==================================================
+/* =========================
    DECONNEXION
-================================================== */
+========================= */
 
 boutonDeconnexion.addEventListener(
     "click",
     async function() {
 
-
         try {
 
-            await signOut(
-                auth
-            );
+            await signOut(auth);
 
         }
 
         catch(error) {
 
-            console.error(
-                error
-            );
+            console.error(error);
 
         }
 
@@ -1104,9 +1084,9 @@ boutonDeconnexion.addEventListener(
 
 
 
-/* ==================================================
-   ID DU SITE
-================================================== */
+/* =========================
+   ID DECHETTERIE
+========================= */
 
 function siteId(nom) {
 
@@ -1129,15 +1109,14 @@ function siteId(nom) {
 
 
 
-/* ==================================================
+/* =========================
    SELECTION VISUELLE
-================================================== */
+========================= */
 
 function selectionner(
     flux,
     statut
 ) {
-
 
     document
     .querySelectorAll(
@@ -1178,62 +1157,32 @@ function selectionner(
 
 
 
-/* ==================================================
-   ERREUR FIREBASE
-================================================== */
-
-function afficherErreur(
-    error
-) {
-
-
-    chargement.style.display =
-    "none";
-
-
-    succes.style.display =
-    "none";
-
-
-    erreur.innerHTML =
-    "❌ Erreur Firebase<br><br>" +
-    "<strong>Code :</strong> " +
-    (
-        error.code ||
-        "inconnu"
-    ) +
-    "<br><br>" +
-    "<strong>Message :</strong> " +
-    (
-        error.message ||
-        error
-    );
-
-
-    erreur.style.display =
-    "block";
-
-
-    console.error(
-        "Erreur Firebase :",
-        error
-    );
-
-}
-
-
-
-/* ==================================================
+/* =========================
    ENREGISTREMENT
-================================================== */
+========================= */
 
 boutons.forEach(
     function(bouton) {
 
-
         bouton.addEventListener(
             "click",
             async function() {
+
+                const user =
+                auth.currentUser;
+
+
+                if (!user) {
+
+                    erreur.innerHTML =
+                    "❌ Vous devez être connecté.";
+
+                    erreur.style.display =
+                    "block";
+
+                    return;
+
+                }
 
 
                 const flux =
@@ -1255,17 +1204,14 @@ boutons.forEach(
                 chargement.style.display =
                 "block";
 
-
                 succes.style.display =
                 "none";
-
 
                 erreur.style.display =
                 "none";
 
 
                 try {
-
 
                     const reference =
                     doc(
@@ -1286,6 +1232,9 @@ boutons.forEach(
                             flux: flux,
 
                             statut: statut,
+
+                            modifiePar:
+                            user.email || "",
 
                             miseAJour:
                             serverTimestamp()
@@ -1313,20 +1262,45 @@ boutons.forEach(
                     succes.style.display =
                     "block";
 
-
                 }
 
                 catch(error) {
 
+                    console.error(error);
 
-                    afficherErreur(
-                        error
-                    );
+                    chargement.style.display =
+                    "none";
+
+                    erreur.innerHTML =
+
+                    "❌ Impossible d'enregistrer." +
+
+                    "<div class='code-erreur'>" +
+
+                    "<strong>Code :</strong><br>" +
+
+                    (
+                        error.code ||
+                        "inconnu"
+                    ) +
+
+                    "<br><br>" +
+
+                    "<strong>Détail :</strong><br>" +
+
+                    (
+                        error.message ||
+                        "Erreur inconnue"
+                    ) +
+
+                    "</div>";
+
+                    erreur.style.display =
+                    "block";
 
                 }
 
             }
-
         );
 
     }
@@ -1334,19 +1308,17 @@ boutons.forEach(
 
 
 
-/* ==================================================
-   CHARGEMENT DES STATUTS
-================================================== */
+/* =========================
+   CHARGEMENT FIRESTORE
+========================= */
 
 async function chargerStatuts() {
-
 
     const site =
     select.value;
 
 
     try {
-
 
         const reference =
         collection(
@@ -1366,7 +1338,6 @@ async function chargerStatuts() {
         resultat.forEach(
             function(document) {
 
-
                 const data =
                 document.data();
 
@@ -1376,65 +1347,4 @@ async function chargerStatuts() {
                     data.statut
                 ) {
 
-                    selectionner(
-                        data.flux,
-                        data.statut
-                    );
-
-                }
-
-            }
-        );
-
-
-    }
-
-    catch(error) {
-
-
-        console.error(
-            "Erreur chargement :",
-            error
-        );
-
-    }
-
-}
-
-
-
-/* ==================================================
-   CHANGEMENT DE DECHETTERIE
-================================================== */
-
-select.addEventListener(
-    "change",
-    function() {
-
-
-        boutons.forEach(
-            function(bouton) {
-
-                bouton.classList.remove(
-                    "selectionne"
-                );
-
-            }
-        );
-
-
-        succes.style.display =
-        "none";
-
-
-        erreur.style.display =
-        "none";
-
-
-        chargerStatuts();
-
-    }
-);
-
-
-</scrip
+            
