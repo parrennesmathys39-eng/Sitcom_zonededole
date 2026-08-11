@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Espace agent - SICTOM Zone de Dole</title>
-
-<style>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Espace agent - SICTOM Zone de Dole</title><style>
 
 * {
     box-sizing: border-box;
@@ -270,216 +261,102 @@ select {
 
 }
 
-</style>
-
-</head>
-
-<body>
-
-
-<header>
-
-<h1>👷 Espace agent</h1>
-
-<p>Gestion de l'état des flux</p>
-
-</header>
-
-
-<!-- =========================
+</style></head><body><header><h1>👷 Espace agent</h1><p>Gestion de l'état des flux</p></header><!-- =========================
      CONNEXION
-========================= -->
-
-<div id="connexion">
-
-<div class="card">
-
-<h2>🔐 Connexion agent</h2>
-
-<p>
+========================= --><div id="connexion"><div class="card"><h2>🔐 Connexion agent</h2><p>
 Connectez-vous pour modifier l'état des bennes.
-</p>
-
-<div class="champ">
-
-<label for="email">
+</p><div class="champ"><label for="email">
 Email
-</label>
-
-<input
+</label><input
 type="email"
 id="email"
 placeholder="Votre email"
 autocomplete="email"
->
 
-</div>
+«»
 
-<div class="champ">
-
-<label for="password">
+</div><div class="champ"><label for="password">
 Mot de passe
-</label>
-
-<input
+</label><input
 type="password"
 id="password"
 placeholder="Votre mot de passe"
 autocomplete="current-password"
->
 
-</div>
+«»
 
-<button id="connexionBtn">
+</div><button id="connexionBtn">
 🔐 Se connecter
-</button>
-
-<div
+</button><div
 id="messageConnexion"
 class="message erreur"
-></div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
+></div></div></div><!-- =========================
      APPLICATION
-========================= -->
-
-<div id="application">
-
-<div class="container">
-
-
-<div class="barre-agent">
-
-<strong>
+========================= --><div id="application"><div class="container"><div class="barre-agent"><strong>
 👷 Agent connecté
-</strong>
-
-<div
+</strong><div
 id="emailAgent"
 class="email"
-></div>
-
-
-<!--
-    Le bouton admin est caché
+></div><!--
+    Le bouton administration est caché
     par défaut.
 
-    Il sera affiché uniquement
-    si Firestore indique :
-    role = admin
--->
-
-<div
+    Il apparaît uniquement si le champ
+    role du document users correspond à admin.
+--><div
 id="actionsAdmin"
 class="actions-agent"
 style="display:none;"
->
-
-<a
+><a
 href="./admin.html"
 class="bouton-action admin"
->
+
+«»
+
 👑 Administration
 </a>
 
-</div>
-
-
-<div class="actions-agent">
-
-<button
+</div><div class="actions-agent"><button
 id="deconnexionBtn"
 class="bouton-action deconnexion"
->
+
+«»
+
 🚪 Se déconnecter
 </button>
 
-</div>
-
-</div>
-
-
-<a
+</div></div><a
 href="./index.html"
 class="retour"
->
+
+«»
+
 ← Retour à l'accueil
 </a>
 
-
-<div class="flux-card">
-
-<h2>📍 Déchèterie</h2>
-
-<select id="site">
-
-<option value="Chaussin">
+<div class="flux-card"><h2>📍 Déchèterie</h2><select id="site"><option value="Chaussin">
 Chaussin
-</option>
-
-<option value="Dole">
+</option><option value="Dole">
 Dole
-</option>
-
-<option value="Brevans">
+</option><option value="Brevans">
 Brevans
-</option>
-
-<option value="Tavaux">
+</option><option value="Tavaux">
 Tavaux
-</option>
-
-<option value="Dampierre">
+</option><option value="Dampierre">
 Dampierre
-</option>
-
-<option value="Mont-sous-Vaudrey">
+</option><option value="Mont-sous-Vaudrey">
 Mont-sous-Vaudrey
-</option>
-
-<option value="Montmirey-le-Château">
+</option><option value="Montmirey-le-Château">
 Montmirey-le-Château
-</option>
-
-<option value="Saligney">
+</option><option value="Saligney">
 Saligney
-</option>
-
-<option value="Villers-Farlay">
+</option><option value="Villers-Farlay">
 Villers-Farlay
-</option>
-
-</select>
-
-</div>
-
-
-<div id="test">
+</option></select></div><div id="test">
 ✅ Le bouton fonctionne. Connexion Firebase en cours...
-</div>
-
-
-<div class="flux-card">
-
-<h2>♻️ État des flux</h2>
-
-
-<!-- BOIS A -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div><div class="flux-card"><h2>♻️ État des flux</h2><!-- BOIS A --><div class="flux"><div class="flux-nom">
 🪵 Bois A
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="bois-a"
 data-statut="disponible">
 🟢 Disponible
@@ -497,22 +374,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- BOIS B -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- BOIS B --><div class="flux"><div class="flux-nom">
 🪵 Bois B
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="bois-b"
 data-statut="disponible">
 🟢 Disponible
@@ -530,22 +394,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- MOBILIER -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- MOBILIER --><div class="flux"><div class="flux-nom">
 🛋️ Mobilier
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="mobilier"
 data-statut="disponible">
 🟢 Disponible
@@ -563,22 +414,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- CARTON -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- CARTON --><div class="flux"><div class="flux-nom">
 📦 Carton
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="carton"
 data-statut="disponible">
 🟢 Disponible
@@ -596,22 +434,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- GRAVATS -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- GRAVATS --><div class="flux"><div class="flux-nom">
 🪨 Gravats
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="gravats"
 data-statut="disponible">
 🟢 Disponible
@@ -629,22 +454,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- FERRAILLE -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- FERRAILLE --><div class="flux"><div class="flux-nom">
 🔩 Ferraille
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="ferraille"
 data-statut="disponible">
 🟢 Disponible
@@ -662,22 +474,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- PLASTIQUE DUR -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- PLASTIQUE DUR --><div class="flux"><div class="flux-nom">
 🧴 Plastique dur
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="plastique-dur"
 data-statut="disponible">
 🟢 Disponible
@@ -695,22 +494,9 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<!-- TOUT VENANT -->
-
-<div class="flux">
-
-<div class="flux-nom">
+</div></div><!-- TOUT VENANT --><div class="flux"><div class="flux-nom">
 🗑️ Non recyclable / Tout-venant
-</div>
-
-<div class="boutons">
-
-<button class="statut vert"
+</div><div class="boutons"><button class="statut vert"
 data-flux="tout-venant"
 data-statut="disponible">
 🟢 Disponible
@@ -728,37 +514,12 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div>
-
-</div>
-
-
-<div
+</div></div><div
 id="message"
 class="message"
-></div>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
+></div></div></div></div><!-- =========================
      FIREBASE
-========================= -->
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
-
-
-<script>
-
+========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
 
 /* =========================
    FIREBASE
@@ -787,16 +548,11 @@ appId:
 };
 
 
-firebase.initializeApp(
-firebaseConfig
-);
+firebase.initializeApp(firebaseConfig);
 
+const auth = firebase.auth();
 
-const auth =
-firebase.auth();
-
-const db =
-firebase.firestore();
+const db = firebase.firestore();
 
 
 /* =========================
@@ -844,6 +600,115 @@ document.getElementById("actionsAdmin");
 
 
 /* =========================
+   NOM DE L'UTILISATEUR
+========================= */
+
+/*
+   Cette variable contient le nom affiché
+   dans l'application et enregistré dans
+   les modifications.
+
+   Exemple :
+   Jean Dupont
+*/
+
+let nomUtilisateur = "";
+
+
+/* =========================
+   CHARGER LE PROFIL
+========================= */
+
+async function chargerProfilUtilisateur(user) {
+
+    /*
+       Par défaut, si le profil Firestore
+       n'est pas trouvé, on utilise l'e-mail.
+    */
+
+    nomUtilisateur = user.email || "Utilisateur";
+
+    emailAgent.textContent = nomUtilisateur;
+
+    try {
+
+        const profil = await db
+            .collection("users")
+            .doc(user.uid)
+            .get();
+
+        if (!profil.exists) {
+
+            console.log(
+                "Profil users introuvable. Utilisation de l'e-mail."
+            );
+
+            return;
+
+        }
+
+        const donnees = profil.data();
+
+        const prenom =
+            typeof donnees.prenom === "string"
+                ? donnees.prenom.trim()
+                : "";
+
+        const nom =
+            typeof donnees.nom === "string"
+                ? donnees.nom.trim()
+                : "";
+
+        /*
+           Construit :
+           Prénom Nom
+        */
+
+        const nomComplet =
+            [prenom, nom]
+                .filter(Boolean)
+                .join(" ");
+
+        if (nomComplet) {
+
+            nomUtilisateur = nomComplet;
+
+            emailAgent.textContent =
+                nomComplet;
+
+        }
+
+        console.log(
+            "Nom utilisateur :",
+            nomUtilisateur
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Erreur chargement profil utilisateur :",
+            error
+        );
+
+        /*
+           On garde l'e-mail comme solution
+           de secours.
+        */
+
+        nomUtilisateur =
+            user.email || "Utilisateur";
+
+        emailAgent.textContent =
+            nomUtilisateur;
+
+    }
+
+}
+
+
+/* =========================
    CONNEXION
 ========================= */
 
@@ -851,92 +716,92 @@ connexionBtn.addEventListener(
 "click",
 async function() {
 
-messageConnexion.style.display =
-"block";
+    messageConnexion.style.display =
+        "block";
 
-messageConnexion.className =
-"message info";
+    messageConnexion.className =
+        "message info";
 
-messageConnexion.innerHTML =
-"⏳ Tentative de connexion à Firebase...";
-
-
-const email =
-emailInput.value.trim();
-
-const password =
-passwordInput.value;
+    messageConnexion.innerHTML =
+        "⏳ Tentative de connexion à Firebase...";
 
 
-if (!email || !password) {
+    const email =
+        emailInput.value.trim();
 
-messageConnexion.className =
-"message erreur";
-
-messageConnexion.innerHTML =
-"❌ Entre ton email et ton mot de passe.";
-
-return;
-
-}
+    const password =
+        passwordInput.value;
 
 
-connexionBtn.disabled =
-true;
+    if (!email || !password) {
 
-connexionBtn.textContent =
-"⏳ Connexion...";
+        messageConnexion.className =
+            "message erreur";
+
+        messageConnexion.innerHTML =
+            "❌ Entre ton email et ton mot de passe.";
+
+        return;
+
+    }
 
 
-try {
+    connexionBtn.disabled =
+        true;
 
-await auth.signInWithEmailAndPassword(
-email,
-password
-);
+    connexionBtn.textContent =
+        "⏳ Connexion...";
 
-messageConnexion.className =
-"message succes";
 
-messageConnexion.innerHTML =
-"✅ Connexion réussie.";
+    try {
 
-}
+        await auth.signInWithEmailAndPassword(
+            email,
+            password
+        );
 
-catch(error) {
+        messageConnexion.className =
+            "message succes";
 
-messageConnexion.className =
-"message erreur";
+        messageConnexion.innerHTML =
+            "✅ Connexion réussie.";
 
-messageConnexion.innerHTML =
+    }
 
-"❌ <strong>Erreur Firebase</strong>" +
+    catch(error) {
 
-"<div class='code'>" +
+        messageConnexion.className =
+            "message erreur";
 
-"<strong>Code :</strong><br>" +
+        messageConnexion.innerHTML =
 
-(error.code || "inconnu") +
+            "❌ <strong>Erreur Firebase</strong>" +
 
-"<br><br>" +
+            "<div class='code'>" +
 
-"<strong>Message :</strong><br>" +
+            "<strong>Code :</strong><br>" +
 
-(error.message || "inconnu") +
+            (error.code || "inconnu") +
 
-"</div>";
+            "<br><br>" +
 
-}
+            "<strong>Message :</strong><br>" +
 
-finally {
+            (error.message || "inconnu") +
 
-connexionBtn.disabled =
-false;
+            "</div>";
 
-connexionBtn.textContent =
-"🔐 Se connecter";
+    }
 
-}
+    finally {
+
+        connexionBtn.disabled =
+            false;
+
+        connexionBtn.textContent =
+            "🔐 Se connecter";
+
+    }
 
 });
 
@@ -947,62 +812,60 @@ connexionBtn.textContent =
 
 async function verifierRoleAdmin(user) {
 
-actionsAdmin.style.display =
-"none";
+    actionsAdmin.style.display =
+        "none";
 
 
-try {
+    try {
 
-const profil =
-await db
-.collection("users")
-.doc(user.uid)
-.get();
-
-
-if (!profil.exists) {
-
-console.log(
-"Profil Firestore introuvable."
-);
-
-return;
-
-}
+        const profil =
+            await db
+                .collection("users")
+                .doc(user.uid)
+                .get();
 
 
-const donnees =
-profil.data();
+        if (!profil.exists) {
+
+            console.log(
+                "Profil Firestore introuvable."
+            );
+
+            return;
+
+        }
 
 
-const role =
-donnees.role;
+        const donnees =
+            profil.data();
+
+        const role =
+            donnees.role;
 
 
-console.log(
-"Rôle Firebase :",
-role
-);
+        console.log(
+            "Rôle Firebase :",
+            role
+        );
 
 
-if (
-role === "admin"
-) {
+        if (role === "admin") {
 
-actionsAdmin.style.display =
-"flex";
+            actionsAdmin.style.display =
+                "flex";
 
-}
+        }
 
-}
-catch(error) {
+    }
 
-console.error(
-"Erreur vérification rôle :",
-error
-);
+    catch(error) {
 
-}
+        console.error(
+            "Erreur vérification rôle :",
+            error
+        );
+
+    }
 
 }
 
@@ -1012,48 +875,58 @@ error
 ========================= */
 
 auth.onAuthStateChanged(
-function(user) {
+async function(user) {
 
-if (user) {
+    if (user) {
 
-connexion.style.display =
-"none";
+        connexion.style.display =
+            "none";
 
-application.style.display =
-"block";
-
-emailAgent.textContent =
-user.email || "";
+        application.style.display =
+            "block";
 
 
-/*
- * Vérifie si l'utilisateur
- * est administrateur.
- */
+        /*
+           Charge le nom/prénom depuis
+           users/{UID}.
+        */
 
-verifierRoleAdmin(user);
+        await chargerProfilUtilisateur(
+            user
+        );
 
 
-/*
- * Charge les statuts.
- */
+        /*
+           Vérifie le rôle admin.
+        */
 
-chargerStatuts();
+        await verifierRoleAdmin(
+            user
+        );
 
-}
 
-else {
+        /*
+           Charge les statuts.
+        */
 
-connexion.style.display =
-"block";
+        chargerStatuts();
 
-application.style.display =
-"none";
+    }
 
-actionsAdmin.style.display =
-"none";
+    else {
 
-}
+        connexion.style.display =
+            "block";
+
+        application.style.display =
+            "none";
+
+        actionsAdmin.style.display =
+            "none";
+
+        nomUtilisateur = "";
+
+    }
 
 });
 
@@ -1066,7 +939,7 @@ deconnexionBtn.addEventListener(
 "click",
 async function() {
 
-await auth.signOut();
+    await auth.signOut();
 
 });
 
@@ -1077,21 +950,21 @@ await auth.signOut();
 
 function siteId(nom) {
 
-return nom
-.toLowerCase()
-.normalize("NFD")
-.replace(
-/[\u0300-\u036f]/g,
-""
-)
-.replace(
-/[^a-z0-9]+/g,
-"-"
-)
-.replace(
-/^-|-$/g,
-""
-);
+    return nom
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+        .replace(
+            /[^a-z0-9]+/g,
+            "-"
+        )
+        .replace(
+            /^-|-$/g,
+            ""
+        );
 
 }
 
@@ -1101,41 +974,42 @@ return nom
 ========================= */
 
 function selectionner(
-flux,
-statut
+    flux,
+    statut
 ) {
 
-document
-.querySelectorAll(
-'[data-flux="' + flux + '"]'
-)
-.forEach(
-function(btn) {
+    document
+        .querySelectorAll(
+            '[data-flux="' + flux + '"]'
+        )
+        .forEach(
+            function(btn) {
 
-btn.classList.remove(
-"selectionne"
-);
+                btn.classList.remove(
+                    "selectionne"
+                );
 
-});
-
-
-const bouton =
-document.querySelector(
-'[data-flux="' +
-flux +
-'"][data-statut="' +
-statut +
-'"]'
-);
+            }
+        );
 
 
-if (bouton) {
+    const bouton =
+        document.querySelector(
+            '[data-flux="' +
+            flux +
+            '"][data-statut="' +
+            statut +
+            '"]'
+        );
 
-bouton.classList.add(
-"selectionne"
-);
 
-}
+    if (bouton) {
+
+        bouton.classList.add(
+            "selectionne"
+        );
+
+    }
 
 }
 
@@ -1147,213 +1021,116 @@ bouton.classList.add(
 boutons.forEach(
 function(bouton) {
 
-bouton.addEventListener(
-"click",
-async function() {
+    bouton.addEventListener(
+    "click",
+    async function() {
 
-test.style.display =
-"block";
+        test.style.display =
+            "block";
 
 
-const user =
-auth.currentUser;
+        const user =
+            auth.currentUser;
 
 
-if (!user) {
+        if (!user) {
 
-message.className =
-"message erreur";
+            message.className =
+                "message erreur";
 
-message.innerHTML =
-"❌ Tu n'es pas connecté.";
+            message.innerHTML =
+                "❌ Tu n'es pas connecté.";
 
-message.style.display =
-"block";
+            message.style.display =
+                "block";
 
-return;
+            return;
 
-}
+        }
 
 
-const flux =
-bouton.dataset.flux;
+        const flux =
+            bouton.dataset.flux;
 
-const statut =
-bouton.dataset.statut;
+        const statut =
+            bouton.dataset.statut;
 
-const site =
-siteSelect.value;
+        const site =
+            siteSelect.value;
 
 
-selectionner(
-flux,
-statut
-);
+        selectionner(
+            flux,
+            statut
+        );
 
 
-message.className =
-"message info";
+        message.className =
+            "message info";
 
-message.innerHTML =
-"⏳ Enregistrement dans Firebase...";
+        message.innerHTML =
+            "⏳ Enregistrement dans Firebase...";
 
-message.style.display =
-"block";
+        message.style.display =
+            "block";
 
 
-try {
+        /*
+           Si le nom n'a pas encore été chargé,
+           on essaie une dernière fois de
+           récupérer le profil avant l'écriture.
+        */
 
-await db
-.collection("dechetteries")
-.doc(siteId(site))
-.collection("flux")
-.doc(flux)
-.set({
+        if (
+            !nomUtilisateur ||
+            nomUtilisateur === user.email
+        ) {
 
-site: site,
+            await chargerProfilUtilisateur(
+                user
+            );
 
-flux: flux,
+        }
 
-statut: statut,
 
-modifiePar:
-user.email || "",
+        try {
 
-miseAJour:
-firebase.firestore.FieldValue.serverTimestamp()
+            await db
+                .collection("dechetteries")
+                .doc(siteId(site))
+                .collection("flux")
+                .doc(flux)
+                .set({
 
-}, {
-merge: true
-});
+                    site: site,
 
+                    flux: flux,
 
-message.className =
-"message succes";
+                    statut: statut,
 
-message.innerHTML =
+                    /*
+                       IMPORTANT :
+                       on enregistre maintenant
+                       le prénom + nom.
+                    */
 
-"✅ Enregistré !<br><br>" +
+                    modifiePar:
+                        nomUtilisateur ||
+                        user.email ||
+                        "Utilisateur",
 
-site +
-" — " +
-flux +
-" → " +
-statut;
-
-}
-
-catch(error) {
-
-message.className =
-"message erreur";
-
-message.innerHTML =
-
-"❌ Impossible d'enregistrer." +
-
-"<div class='code'>" +
-
-"<strong>Code :</strong><br>" +
-
-(error.code || "inconnu") +
-
-"<br><br>" +
-
-"<strong>Message :</strong><br>" +
-
-(error.message || "inconnu") +
-
-"</div>";
-
-}
-
-});
-
-});
-
-
-/* =========================
-   CHARGER STATUTS
-========================= */
-
-async function chargerStatuts() {
-
-const site =
-siteSelect.value;
-
-
-try {
-
-const snapshot =
-await db
-.collection("dechetteries")
-.doc(siteId(site))
-.collection("flux")
-.get();
-
-
-snapshot.forEach(
-function(doc) {
-
-const data =
-doc.data();
-
-
-if (
-data.flux &&
-data.statut
-) {
-
-selectionner(
-data.flux,
-data.statut
-);
-
-}
-
-});
-
-}
-
-catch(error) {
-
-console.error(
-error
-);
-
-}
-
-}
-
-
-/* =========================
-   CHANGEMENT DE SITE
-========================= */
-
-siteSelect.addEventListener(
-"change",
-function() {
-
-boutons.forEach(
-function(btn) {
-
-btn.classList.remove(
-"selectionne"
-);
-
-});
-
-
-message.style.display =
-"none";
-
-
-chargerStatuts();
-
-});
-
-</script>
-
-</body>
-
-    </html>
+                    /*
+                       On conserve également
+                       l'e-mail pour retrouver
+                       le compte si nécessaire.
+                    */
+
+                    modifieParEmail:
+                        user.email || "",
+
+                    miseAJour:
+                        firebase.firestore
+                            .FieldValue
+                            .serverTimestamp()
+
+        
