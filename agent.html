@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Espace agent - SICTOM Zone de Dole</title>
@@ -23,67 +22,67 @@ body {
 }
 
 header {
-    background: #17231b;
+    background: linear-gradient(135deg, #087f3d, #18a558);
     color: white;
     text-align: center;
-    padding: 28px 15px;
+    padding: 30px 20px;
 }
 
 header h1 {
     margin: 0;
-    font-size: 27px;
+    font-size: 28px;
 }
 
 header p {
     margin: 8px 0 0;
 }
 
-
-/* =========================
-   CONNEXION
-========================= */
-
-#connexion {
-    max-width: 500px;
-    margin: 35px auto;
+.container {
+    max-width: 700px;
+    margin: auto;
     padding: 20px;
 }
 
-.connexion-card {
+/* CONNEXION */
+
+#connexion {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
     background: white;
     padding: 25px;
     border-radius: 18px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
 }
 
-.connexion-card h2 {
+.card h2 {
     margin-top: 0;
 }
 
-.champ {
-    margin-bottom: 15px;
-}
-
-.champ label {
+label {
     display: block;
     font-weight: bold;
     margin-bottom: 7px;
 }
 
-.champ input {
+input,
+select {
     width: 100%;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
-    outline: none;
+    background: white;
 }
 
-.champ input:focus {
-    border-color: #087f3d;
+.champ {
+    margin-bottom: 16px;
 }
 
-.bouton-connexion {
+#connexionBtn {
     width: 100%;
     padding: 16px;
     border: none;
@@ -95,47 +94,70 @@ header p {
     cursor: pointer;
 }
 
-.bouton-connexion:disabled {
-    opacity: 0.6;
+#connexionBtn:active {
+    transform: scale(0.98);
 }
 
+.message {
+    display: none;
+    margin-top: 15px;
+    padding: 14px;
+    border-radius: 10px;
+    word-break: break-word;
+}
 
-/* =========================
-   APPLICATION
-========================= */
+.erreur {
+    background: #ffdede;
+    color: #c62828;
+}
+
+.succes {
+    background: #d9f7e5;
+    color: #087f3d;
+}
+
+.info {
+    background: #fff8df;
+    color: #795c00;
+}
+
+.code {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+/* APPLICATION */
 
 #application {
     display: none;
 }
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-}
-
 .barre-agent {
     background: white;
-    padding: 15px;
-    border-radius: 12px;
+    padding: 16px;
+    border-radius: 14px;
     margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
 }
 
-.email-agent {
-    margin-top: 5px;
-    font-size: 13px;
+.email {
     color: #666;
+    font-size: 13px;
+    margin-top: 5px;
     word-break: break-word;
 }
 
-.bouton-deconnexion {
+.deconnexion {
     margin-top: 10px;
-    border: none;
-    background: #eee;
     padding: 10px 14px;
+    border: none;
     border-radius: 8px;
-    cursor: pointer;
+    background: #eee;
     font-weight: bold;
 }
 
@@ -147,33 +169,24 @@ header p {
     font-weight: bold;
 }
 
-.carte {
+.flux-card {
     background: white;
     padding: 20px;
     border-radius: 16px;
     margin-bottom: 20px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-}
-
-select {
-    width: 100%;
-    padding: 15px;
-    font-size: 17px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: white;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
 }
 
 .flux {
-    border-top: 1px solid #eee;
     padding: 20px 0;
+    border-top: 1px solid #eee;
 }
 
 .flux:first-child {
     border-top: none;
 }
 
-.nom {
+.flux-nom {
     font-size: 19px;
     font-weight: bold;
     margin-bottom: 12px;
@@ -185,14 +198,13 @@ select {
     gap: 8px;
 }
 
-.bouton {
+.statut {
     border: 3px solid transparent;
     border-radius: 10px;
     padding: 14px 5px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .vert {
@@ -211,61 +223,17 @@ select {
 }
 
 .selectionne {
-    border: 3px solid #111 !important;
+    border-color: #111 !important;
 }
 
-
-/* =========================
-   MESSAGES
-========================= */
-
-.chargement,
-.message {
+#test {
+    background: #17231b;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
     display: none;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
-    font-weight: bold;
-    word-break: break-word;
 }
-
-.chargement {
-    background: #eef2f0;
-    color: #49554e;
-}
-
-.succes {
-    background: #d9f7e5;
-    color: #087f3d;
-}
-
-.erreur {
-    background: #ffdede;
-    color: #c62828;
-}
-
-.info {
-    background: #fff8df;
-    color: #795c00;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 14px;
-}
-
-.code-erreur {
-    margin-top: 10px;
-    padding: 10px;
-    background: white;
-    border-radius: 8px;
-    font-family: monospace;
-    font-size: 13px;
-    overflow-wrap: anywhere;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 600px) {
 
@@ -273,7 +241,7 @@ select {
         grid-template-columns: 1fr;
     }
 
-    .bouton {
+    .statut {
         padding: 17px;
         font-size: 16px;
     }
@@ -284,7 +252,6 @@ select {
 
 </head>
 
-
 <body>
 
 
@@ -292,83 +259,80 @@ select {
 
 <h1>👷 Espace agent</h1>
 
-<p>
-État des bennes
-</p>
+<p>Gestion de l'état des flux</p>
 
 </header>
 
 
-<!-- =====================================================
+<!-- =========================
      CONNEXION
-===================================================== -->
+========================= -->
 
 <div id="connexion">
 
-    <div class="connexion-card">
+<div class="card">
 
-        <h2>🔐 Connexion agent</h2>
+<h2>🔐 Connexion agent</h2>
 
-        <p>
-            Connectez-vous pour modifier
-            l'état des flux.
-        </p>
-
-
-        <div class="champ">
-
-            <label for="email">
-                Adresse email
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                placeholder="Votre adresse email"
-                autocomplete="email"
-            >
-
-        </div>
+<p>
+Connectez-vous pour modifier l'état des bennes.
+</p>
 
 
-        <div class="champ">
+<div class="champ">
 
-            <label for="motdepasse">
-                Mot de passe
-            </label>
+<label for="email">
+Email
+</label>
 
-            <input
-                type="password"
-                id="motdepasse"
-                placeholder="Votre mot de passe"
-                autocomplete="current-password"
-            >
+<input
+type="email"
+id="email"
+placeholder="Votre email"
+autocomplete="email"
+>
 
-        </div>
-
-
-        <button
-            id="boutonConnexion"
-            class="bouton-connexion"
-        >
-            🔐 Se connecter
-        </button>
+</div>
 
 
-        <div
-            id="erreurConnexion"
-            class="message erreur"
-        ></div>
+<div class="champ">
 
-    </div>
+<label for="password">
+Mot de passe
+</label>
+
+<input
+type="password"
+id="password"
+placeholder="Votre mot de passe"
+autocomplete="current-password"
+>
+
+</div>
+
+
+<button id="connexionBtn">
+
+🔐 Se connecter
+
+</button>
+
+
+<div
+id="messageConnexion"
+class="message erreur"
+></div>
+
+
+</div>
 
 </div>
 
 
 
-<!-- =====================================================
+<!-- =========================
      APPLICATION
-===================================================== -->
+========================= -->
 
 <div id="application">
 
@@ -377,39 +341,38 @@ select {
 
 <div class="barre-agent">
 
-    <strong>
-        👷 Agent connecté
-    </strong>
+<strong>
+👷 Agent connecté
+</strong>
 
-    <div
-        id="emailAgent"
-        class="email-agent"
-    ></div>
+<div
+id="emailAgent"
+class="email"
+></div>
 
-    <button
-        id="boutonDeconnexion"
-        class="bouton-deconnexion"
-    >
-        🚪 Se déconnecter
-    </button>
+<button
+id="deconnexionBtn"
+class="deconnexion"
+>
+🚪 Se déconnecter
+</button>
 
 </div>
 
 
 <a
-    href="./index.html"
-    class="retour"
+href="./index.html"
+class="retour"
 >
-← Retour à la carte
+← Retour à l'accueil
 </a>
 
 
-<div class="carte">
+<div class="flux-card">
 
 <h2>📍 Déchèterie</h2>
 
-
-<select id="dechetterie">
+<select id="site">
 
 <option value="Chaussin">
 Chaussin
@@ -452,34 +415,39 @@ Villers-Farlay
 </div>
 
 
-<div class="carte">
+<div id="test">
+✅ Le bouton fonctionne. Connexion Firebase en cours...
+</div>
 
-<h2>♻️ État des bennes</h2>
+
+<div class="flux-card">
+
+<h2>♻️ État des flux</h2>
 
 
 <!-- BOIS A -->
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🪵 Bois A
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="bois-a"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="bois-a"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="bois-a"
 data-statut="pleine">
 🔴 Pleine
@@ -494,25 +462,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🪵 Bois B
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="bois-b"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="bois-b"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="bois-b"
 data-statut="pleine">
 🔴 Pleine
@@ -527,25 +495,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🛋️ Mobilier
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="mobilier"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="mobilier"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="mobilier"
 data-statut="pleine">
 🔴 Pleine
@@ -560,25 +528,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 📦 Carton
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="carton"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="carton"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="carton"
 data-statut="pleine">
 🔴 Pleine
@@ -593,25 +561,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🪨 Gravats
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="gravats"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="gravats"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="gravats"
 data-statut="pleine">
 🔴 Pleine
@@ -626,25 +594,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🔩 Ferraille
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="ferraille"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="ferraille"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="ferraille"
 data-statut="pleine">
 🔴 Pleine
@@ -659,25 +627,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🧴 Plastique dur
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="plastique-dur"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="plastique-dur"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="plastique-dur"
 data-statut="pleine">
 🔴 Pleine
@@ -692,25 +660,25 @@ data-statut="pleine">
 
 <div class="flux">
 
-<div class="nom">
+<div class="flux-nom">
 🗑️ Non recyclable / Tout-venant
 </div>
 
 <div class="boutons">
 
-<button class="bouton vert"
+<button class="statut vert"
 data-flux="tout-venant"
 data-statut="disponible">
 🟢 Disponible
 </button>
 
-<button class="bouton orange"
+<button class="statut orange"
 data-flux="tout-venant"
 data-statut="presque">
 🟠 Presque pleine
 </button>
 
-<button class="bouton rouge"
+<button class="statut rouge"
 data-flux="tout-venant"
 data-statut="pleine">
 🔴 Pleine
@@ -722,118 +690,70 @@ data-statut="pleine">
 
 
 <div
-id="chargement"
-class="chargement"
->
-⏳ Enregistrement dans Firebase...
-</div>
-
-
-<div
-id="succes"
-class="message succes"
-></div>
-
-
-<div
-id="erreur"
-class="message erreur"
+id="message"
+class="message"
 ></div>
 
 
 </div>
 
-
-<div class="info">
-
-💡 Les changements sont enregistrés
-automatiquement dans Firebase.
-
-</div>
-
-
 </div>
 
 </div>
 
 
 
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
+<!-- =========================
+     FIREBASE COMPAT
+========================= -->
 
-<script type="module">
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
 
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
 
 
-import {
-    getFirestore,
-    doc,
-    setDoc,
-    collection,
-    getDocs,
-    serverTimestamp
-}
-from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
-
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-
+<script>
 
 
 /* =========================
-   CONFIG FIREBASE
+   FIREBASE
 ========================= */
 
 const firebaseConfig = {
 
-    apiKey:
-    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+apiKey:
+"AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
 
-    authDomain:
-    "sictom-zone-de-dole-17296.firebaseapp.com",
+authDomain:
+"sictom-zone-de-dole-17296.firebaseapp.com",
 
-    projectId:
-    "sictom-zone-de-dole-17296",
+projectId:
+"sictom-zone-de-dole-17296",
 
-    storageBucket:
-    "sictom-zone-de-dole-17296.firebasestorage.app",
+storageBucket:
+"sictom-zone-de-dole-17296.firebasestorage.app",
 
-    messagingSenderId:
-    "378183859073",
+messagingSenderId:
+"378183859073",
 
-    appId:
-    "1:378183859073:web:3b347f84a072fb0cb54680"
+appId:
+"1:378183859073:web:3b347f84a072fb0cb54680"
 
 };
 
 
+firebase.initializeApp(
+firebaseConfig
+);
 
-/* =========================
-   INITIALISATION
-========================= */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
 
 const auth =
-getAuth(app);
+firebase.auth();
+
+const db =
+firebase.firestore();
 
 
 
@@ -842,84 +762,64 @@ getAuth(app);
 ========================= */
 
 const connexion =
-document.getElementById("connexion");
+document.getElementById(
+"connexion"
+);
 
 const application =
-document.getElementById("application");
+document.getElementById(
+"application"
+);
 
-const email =
-document.getElementById("email");
+const connexionBtn =
+document.getElementById(
+"connexionBtn"
+);
 
-const motdepasse =
-document.getElementById("motdepasse");
+const messageConnexion =
+document.getElementById(
+"messageConnexion"
+);
 
-const boutonConnexion =
-document.getElementById("boutonConnexion");
+const emailInput =
+document.getElementById(
+"email"
+);
 
-const boutonDeconnexion =
-document.getElementById("boutonDeconnexion");
-
-const erreurConnexion =
-document.getElementById("erreurConnexion");
+const passwordInput =
+document.getElementById(
+"password"
+);
 
 const emailAgent =
-document.getElementById("emailAgent");
+document.getElementById(
+"emailAgent"
+);
 
-const select =
-document.getElementById("dechetterie");
+const deconnexionBtn =
+document.getElementById(
+"deconnexionBtn"
+);
+
+const siteSelect =
+document.getElementById(
+"site"
+);
 
 const boutons =
-document.querySelectorAll(".bouton");
+document.querySelectorAll(
+".statut"
+);
 
-const chargement =
-document.getElementById("chargement");
+const message =
+document.getElementById(
+"message"
+);
 
-const succes =
-document.getElementById("succes");
-
-const erreur =
-document.getElementById("erreur");
-
-
-
-/* =========================
-   AFFICHER ERREUR CONNEXION
-========================= */
-
-function afficherErreurConnexion(error) {
-
-    let code =
-        error && error.code
-        ? error.code
-        : "inconnu";
-
-    let message =
-        error && error.message
-        ? error.message
-        : "Aucun détail fourni.";
-
-    erreurConnexion.innerHTML =
-
-        "❌ <strong>Connexion refusée</strong>" +
-
-        "<div class='code-erreur'>" +
-
-        "<strong>Code :</strong><br>" +
-
-        code +
-
-        "<br><br>" +
-
-        "<strong>Détail :</strong><br>" +
-
-        message +
-
-        "</div>";
-
-    erreurConnexion.style.display =
-    "block";
-
-}
+const test =
+document.getElementById(
+"test"
+);
 
 
 
@@ -927,135 +827,150 @@ function afficherErreurConnexion(error) {
    CONNEXION
 ========================= */
 
-boutonConnexion.addEventListener(
-    "click",
-    async function() {
-
-        erreurConnexion.style.display =
-        "none";
+connexionBtn.addEventListener(
+"click",
+async function() {
 
 
-        const adresse =
-        email.value.trim();
+/*
+   TEST VISUEL IMMÉDIAT
+*/
 
-        const motDePasse =
-        motdepasse.value;
+messageConnexion.style.display =
+"block";
 
+messageConnexion.className =
+"message info";
 
-        if (
-            !adresse ||
-            !motDePasse
-        ) {
-
-            erreurConnexion.innerHTML =
-            "❌ Merci de remplir l'email et le mot de passe.";
-
-            erreurConnexion.style.display =
-            "block";
-
-            return;
-
-        }
+messageConnexion.innerHTML =
+"⏳ Tentative de connexion à Firebase...";
 
 
-        boutonConnexion.disabled =
-        true;
+const email =
+emailInput.value.trim();
 
-        boutonConnexion.textContent =
-        "⏳ Connexion...";
+const password =
+passwordInput.value;
 
 
-        try {
+if (
+!email ||
+!password
+) {
 
-            await signInWithEmailAndPassword(
-                auth,
-                adresse,
-                motDePasse
-            );
+messageConnexion.className =
+"message erreur";
 
-        }
+messageConnexion.innerHTML =
+"❌ Entre ton email et ton mot de passe.";
 
-        catch(error) {
+return;
 
-            console.error(error);
+}
 
-            afficherErreurConnexion(
-                error
-            );
 
-        }
+connexionBtn.disabled =
+true;
 
-        finally {
+connexionBtn.textContent =
+"⏳ Connexion...";
 
-            boutonConnexion.disabled =
-            false;
 
-            boutonConnexion.textContent =
-            "🔐 Se connecter";
+try {
 
-        }
 
-    }
+await auth.signInWithEmailAndPassword(
+email,
+password
 );
+
+
+messageConnexion.className =
+"message succes";
+
+messageConnexion.innerHTML =
+"✅ Connexion réussie.";
+
+
+}
+
+catch(error) {
+
+
+messageConnexion.className =
+"message erreur";
+
+
+messageConnexion.innerHTML =
+
+"❌ <strong>Erreur Firebase</strong>" +
+
+"<div class='code'>" +
+
+"<strong>Code :</strong><br>" +
+
+(error.code || "inconnu") +
+
+"<br><br>" +
+
+"<strong>Message :</strong><br>" +
+
+(error.message || "inconnu") +
+
+"</div>";
+
+
+}
+
+
+finally {
+
+connexionBtn.disabled =
+false;
+
+connexionBtn.textContent =
+"🔐 Se connecter";
+
+}
+
+});
 
 
 
 /* =========================
-   ENTREE / MOT DE PASSE
+   ETAT UTILISATEUR
 ========================= */
 
-motdepasse.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            boutonConnexion.click();
-
-        }
-
-    }
-);
+auth.onAuthStateChanged(
+function(user) {
 
 
+if (user) {
 
-/* =========================
-   ETAT AUTHENTIFICATION
-========================= */
+connexion.style.display =
+"none";
 
-onAuthStateChanged(
-    auth,
-    function(user) {
+application.style.display =
+"block";
 
-        if (user) {
+emailAgent.textContent =
+user.email || "";
 
-            connexion.style.display =
-            "none";
+chargerStatuts();
 
-            application.style.display =
-            "block";
+}
 
-            emailAgent.textContent =
-            user.email || "";
+else {
 
-            chargerStatuts();
+connexion.style.display =
+"block";
 
-        }
+application.style.display =
+"none";
 
-        else {
+}
 
-            connexion.style.display =
-            "block";
-
-            application.style.display =
-            "none";
-
-        }
-
-    }
-);
+});
 
 
 
@@ -1063,288 +978,314 @@ onAuthStateChanged(
    DECONNEXION
 ========================= */
 
-boutonDeconnexion.addEventListener(
-    "click",
-    async function() {
+deconnexionBtn.addEventListener(
+"click",
+async function() {
 
-        try {
+await auth.signOut();
 
-            await signOut(auth);
-
-        }
-
-        catch(error) {
-
-            console.error(error);
-
-        }
-
-    }
-);
+});
 
 
 
 /* =========================
-   ID DECHETTERIE
+   ID DU SITE
 ========================= */
 
 function siteId(nom) {
 
-    return nom
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-        .replace(
-            /[^a-z0-9]+/g,
-            "-"
-        )
-        .replace(
-            /^-|-$/g,
-            "");
+return nom
+.toLowerCase()
+.normalize("NFD")
+.replace(
+/[\u0300-\u036f]/g,
+""
+)
+.replace(
+/[^a-z0-9]+/g,
+"-"
+)
+.replace(
+/^-|-$/g,
+""
+);
 
 }
 
 
 
 /* =========================
-   SELECTION VISUELLE
+   SELECTION
 ========================= */
 
 function selectionner(
-    flux,
-    statut
+flux,
+statut
 ) {
 
-    document
-    .querySelectorAll(
-        '.bouton[data-flux="' +
-        flux +
-        '"]'
-    )
-    .forEach(
-        function(bouton) {
 
-            bouton.classList.remove(
-                "selectionne"
-            );
+document
+.querySelectorAll(
+'[data-flux="' + flux + '"]'
+)
+.forEach(
+function(btn) {
 
-        }
-    );
+btn.classList.remove(
+"selectionne"
+);
+
+});
 
 
-    const bouton =
-    document.querySelector(
-        '.bouton[data-flux="' +
-        flux +
-        '"][data-statut="' +
-        statut +
-        '"]'
-    );
+const bouton =
+document.querySelector(
+'[data-flux="' +
+flux +
+'"][data-statut="' +
+statut +
+'"]'
+);
 
 
-    if (bouton) {
+if (bouton) {
 
-        bouton.classList.add(
-            "selectionne"
-        );
+bouton.classList.add(
+"selectionne"
+);
 
-    }
+}
 
 }
 
 
 
 /* =========================
-   ENREGISTREMENT
+   ENREGISTRER
 ========================= */
 
 boutons.forEach(
-    function(bouton) {
-
-        bouton.addEventListener(
-            "click",
-            async function() {
-
-                const user =
-                auth.currentUser;
+function(bouton) {
 
 
-                if (!user) {
-
-                    erreur.innerHTML =
-                    "❌ Vous devez être connecté.";
-
-                    erreur.style.display =
-                    "block";
-
-                    return;
-
-                }
+bouton.addEventListener(
+"click",
+async function() {
 
 
-                const flux =
-                bouton.dataset.flux;
-
-                const statut =
-                bouton.dataset.statut;
-
-                const site =
-                select.value;
+test.style.display =
+"block";
 
 
-                selectionner(
-                    flux,
-                    statut
-                );
+const user =
+auth.currentUser;
 
 
-                chargement.style.display =
-                "block";
+if (!user) {
 
-                succes.style.display =
-                "none";
+message.className =
+"message erreur";
 
-                erreur.style.display =
-                "none";
+message.innerHTML =
+"❌ Tu n'es pas connecté.";
 
+message.style.display =
+"block";
 
-                try {
+return;
 
-                    const reference =
-                    doc(
-                        db,
-                        "dechetteries",
-                        siteId(site),
-                        "flux",
-                        flux
-                    );
+}
 
 
-                    await setDoc(
-                        reference,
-                        {
+const flux =
+bouton.dataset.flux;
 
-                            site: site,
+const statut =
+bouton.dataset.statut;
 
-                            flux: flux,
-
-                            statut: statut,
-
-                            modifiePar:
-                            user.email || "",
-
-                            miseAJour:
-                            serverTimestamp()
-
-                        },
-                        {
-                            merge: true
-                        }
-                    );
+const site =
+siteSelect.value;
 
 
-                    chargement.style.display =
-                    "none";
-
-
-                    succes.innerHTML =
-                    "✅ " +
-                    site +
-                    " — " +
-                    flux +
-                    " : " +
-                    statut;
-
-
-                    succes.style.display =
-                    "block";
-
-                }
-
-                catch(error) {
-
-                    console.error(error);
-
-                    chargement.style.display =
-                    "none";
-
-                    erreur.innerHTML =
-
-                    "❌ Impossible d'enregistrer." +
-
-                    "<div class='code-erreur'>" +
-
-                    "<strong>Code :</strong><br>" +
-
-                    (
-                        error.code ||
-                        "inconnu"
-                    ) +
-
-                    "<br><br>" +
-
-                    "<strong>Détail :</strong><br>" +
-
-                    (
-                        error.message ||
-                        "Erreur inconnue"
-                    ) +
-
-                    "</div>";
-
-                    erreur.style.display =
-                    "block";
-
-                }
-
-            }
-        );
-
-    }
+selectionner(
+flux,
+statut
 );
+
+
+message.className =
+"message info";
+
+message.innerHTML =
+"⏳ Enregistrement dans Firebase...";
+
+message.style.display =
+"block";
+
+
+try {
+
+
+await db
+.collection("dechetteries")
+.doc(siteId(site))
+.collection("flux")
+.doc(flux)
+.set({
+
+site: site,
+
+flux: flux,
+
+statut: statut,
+
+modifiePar:
+user.email || "",
+
+miseAJour:
+firebase.firestore.FieldValue.serverTimestamp()
+
+}, {
+merge: true
+});
+
+
+message.className =
+"message succes";
+
+message.innerHTML =
+
+"✅ Enregistré !<br><br>" +
+
+site +
+" — " +
+flux +
+" → " +
+statut;
+
+
+}
+
+catch(error) {
+
+
+message.className =
+"message erreur";
+
+message.innerHTML =
+
+"❌ Impossible d'enregistrer." +
+
+"<div class='code'>" +
+
+"<strong>Code :</strong><br>" +
+
+(error.code || "inconnu") +
+
+"<br><br>" +
+
+"<strong>Message :</strong><br>" +
+
+(error.message || "inconnu") +
+
+"</div>";
+
+}
+
+
+});
+
+});
 
 
 
 /* =========================
-   CHARGEMENT FIRESTORE
+   CHARGER FIRESTORE
 ========================= */
 
 async function chargerStatuts() {
 
-    const site =
-    select.value;
+
+const site =
+siteSelect.value;
 
 
-    try {
-
-        const reference =
-        collection(
-            db,
-            "dechetteries",
-            siteId(site),
-            "flux"
-        );
+try {
 
 
-        const resultat =
-        await getDocs(
-            reference
-        );
+const snapshot =
+await db
+.collection("dechetteries")
+.doc(siteId(site))
+.collection("flux")
+.get();
 
 
-        resultat.forEach(
-            function(document) {
+snapshot.forEach(
+function(doc) {
 
-                const data =
-                document.data();
+const data =
+doc.data();
 
 
-                if (
-                    data.flux &&
-                    data.statut
-                ) {
+if (
+data.flux &&
+data.statut
+) {
 
-            
+selectionner(
+data.flux,
+data.statut
+);
+
+}
+
+});
+
+
+}
+
+catch(error) {
+
+console.error(
+error
+);
+
+}
+
+}
+
+
+
+/* =========================
+   CHANGEMENT SITE
+========================= */
+
+siteSelect.addEventListener(
+"change",
+function() {
+
+
+boutons.forEach(
+function(btn) {
+
+btn.classList.remove(
+"selectionne"
+);
+
+});
+
+
+message.style.display =
+"none";
+
+
+chargerStatuts();
+
+});
+
+</script>
+
+</body>
+
+    </html>
