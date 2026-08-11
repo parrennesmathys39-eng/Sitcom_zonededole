@@ -4,7 +4,7 @@ content="width=device-width, initial-scale=1.0"
 
 «»
 
-<title>Test Admin Firebase</title><style>
+<title>Test Firestore Admin</title><style>
 
 body {
     margin: 0;
@@ -15,7 +15,7 @@ body {
 }
 
 .card {
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
     background: white;
     padding: 25px;
@@ -23,55 +23,36 @@ body {
     box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
-h1 {
-    margin-top: 0;
-}
-
 #resultat {
     margin-top: 20px;
     padding: 18px;
     border-radius: 12px;
-    background: #eee;
     word-break: break-word;
 }
 
 .vert {
-    background: #d9f7e5 !important;
+    background: #d9f7e5;
     color: #087f3d;
 }
 
 .rouge {
-    background: #ffdede !important;
+    background: #ffdede;
     color: #c62828;
 }
 
 .jaune {
-    background: #fff0c2 !important;
+    background: #fff0c2;
     color: #795c00;
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background: #087f3d;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-</style></head><body><div class="card"><h1>🔧 Test Firebase Admin</h1><p>
-Cette page vérifie uniquement la connexion Firebase.
+</style></head><body><div class="card"><h1>🔧 Test Firestore Admin</h1><p>
+Vérification du compte et du rôle administrateur.
 </p><div
     id="resultat"
     class="jaune"
 >
-⏳ Vérification de la connexion...
-</div><button id="logout">
-🚪 Se déconnecter
-</button></div><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script>
+⏳ Connexion à Firebase...
+</div></div><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
 
 
 /* =========================
@@ -105,6 +86,12 @@ const firebaseConfig = {
    INITIALISATION
 ========================= */
 
+const resultat =
+    document.getElementById(
+        "resultat"
+    );
+
+
 try {
 
     firebase.initializeApp(
@@ -114,15 +101,14 @@ try {
 }
 catch(error) {
 
-    document.getElementById(
-        "resultat"
-    ).className = "rouge";
+    resultat.className =
+        "rouge";
 
-    document.getElementById(
-        "resultat"
-    ).innerHTML =
+    resultat.innerHTML =
 
-        "❌ ERREUR INITIALISATION FIREBASE<br><br>" +
+        "❌ ERREUR INITIALISATION FIREBASE" +
+
+        "<br><br>" +
 
         "<strong>Code :</strong><br>" +
 
@@ -144,170 +130,190 @@ catch(error) {
 
 
 /* =========================
-   AUTH
+   AUTH + FIRESTORE
 ========================= */
 
-try {
+const auth =
+    firebase.auth();
 
-    const auth =
-        firebase.auth();
-
-
-    auth.onAuthStateChanged(
-        function(user) {
-
-            const resultat =
-                document.getElementById(
-                    "resultat"
-                );
+const db =
+    firebase.firestore();
 
 
-            if (user) {
+auth.onAuthStateChanged(
+async function(user) {
 
-                resultat.className =
-                    "vert";
+    if (!user) {
 
+        resultat.className =
+            "rouge";
 
-                resultat.innerHTML =
+        resultat.innerHTML =
 
-                    "✅ FIREBASE AUTHENTIFICATION OK" +
+            "❌ AUCUN COMPTE CONNECTÉ";
 
-                    "<br><br>" +
+        return;
 
-                    "<strong>Email :</strong><br>" +
-
-                    (
-                        user.email ||
-                        "non renseigné"
-                    ) +
-
-                    "<br><br>" +
-
-                    "<strong>UID :</strong><br>" +
-
-                    (
-                        user.uid ||
-                        "non renseigné"
-                    );
-
-            }
-
-            else {
-
-                resultat.className =
-                    "rouge";
-
-
-                resultat.innerHTML =
-
-                    "❌ AUCUN COMPTE CONNECTÉ" +
-
-                    "<br><br>" +
-
-                    "Firebase fonctionne, mais aucun utilisateur n'est actuellement connecté.";
-
-            }
-
-        }
-    );
-
-
-    auth.onIdTokenChanged(
-        function(user) {
-
-            console.log(
-                "onIdTokenChanged :",
-                user
-            );
-
-        }
-    );
-
-
-    document
-    .getElementById("logout")
-    .addEventListener(
-        "click",
-        async function() {
-
-            try {
-
-                await auth.signOut();
-
-                location.reload();
-
-            }
-
-            catch(error) {
-
-                const resultat =
-                    document.getElementById(
-                        "resultat"
-                    );
-
-
-                resultat.className =
-                    "rouge";
-
-
-                resultat.innerHTML =
-
-                    "❌ ERREUR DÉCONNEXION<br><br>" +
-
-                    "<strong>Code :</strong><br>" +
-
-                    (
-                        error.code ||
-                        "inconnu"
-                    ) +
-
-                    "<br><br>" +
-
-                    "<strong>Message :</strong><br>" +
-
-                    (
-                        error.message ||
-                        "inconnu"
-                    );
-
-            }
-
-        }
-    );
-
-}
-catch(error) {
-
-    const resultat =
-        document.getElementById(
-            "resultat"
-        );
+    }
 
 
     resultat.className =
-        "rouge";
-
+        "jaune";
 
     resultat.innerHTML =
 
-        "❌ ERREUR AUTHENTIFICATION<br><br>" +
+        "🟡 Compte connecté.<br><br>" +
 
-        "<strong>Code :</strong><br>" +
+        "Lecture du profil Firestore...";
 
-        (
-            error.code ||
-            "inconnu"
-        ) +
 
-        "<br><br>" +
+    try {
 
-        "<strong>Message :</strong><br>" +
+        const profil =
+            await db
+                .collection("users")
+                .doc(user.uid)
+                .get();
 
-        (
-            error.message ||
-            "inconnu"
+
+        if (!profil.exists) {
+
+            resultat.className =
+                "rouge";
+
+            resultat.innerHTML =
+
+                "❌ AUTHENTIFICATION OK" +
+
+                "<br><br>" +
+
+                "Mais le document Firestore " +
+
+                "<strong>users/" +
+
+                user.uid +
+
+                "</strong> n'existe pas." +
+
+                "<br><br>" +
+
+                "<strong>Email :</strong><br>" +
+
+                (
+                    user.email ||
+                    "non renseigné"
+                );
+
+            return;
+
+        }
+
+
+        const donnees =
+            profil.data();
+
+
+        const role =
+            donnees.role || "";
+
+
+        resultat.className =
+            "vert";
+
+
+        resultat.innerHTML =
+
+            "✅ FIREBASE + FIRESTORE OK" +
+
+            "<br><br>" +
+
+            "<strong>Email :</strong><br>" +
+
+            (
+                user.email ||
+                "non renseigné"
+            ) +
+
+            "<br><br>" +
+
+            "<strong>UID :</strong><br>" +
+
+            user.uid +
+
+            "<br><br>" +
+
+            "<strong>Rôle :</strong><br>" +
+
+            (
+                role ||
+                "aucun rôle"
+            );
+
+
+        if (role === "admin") {
+
+            resultat.innerHTML +=
+
+                "<br><br>" +
+
+                "👑 <strong>ADMIN CONFIRMÉ</strong>";
+
+        }
+
+        else {
+
+            resultat.innerHTML +=
+
+                "<br><br>" +
+
+                "⚠️ Le compte est connecté, " +
+
+                "mais son rôle n'est pas « admin ».";
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Erreur Firestore :",
+            error
         );
 
-}
+
+        resultat.className =
+            "rouge";
+
+
+        resultat.innerHTML =
+
+            "❌ AUTHENTIFICATION OK" +
+
+            "<br><br>" +
+
+            "Mais la lecture de Firestore est bloquée." +
+
+            "<br><br>" +
+
+            "<strong>Code :</strong><br>" +
+
+            (
+                error.code ||
+                "inconnu"
+            ) +
+
+            "<br><br>" +
+
+            "<strong>Message :</strong><br>" +
+
+            (
+                error.message ||
+                "inconnu"
+            );
+
+    }
+
+});
 
 </script></body></html>
