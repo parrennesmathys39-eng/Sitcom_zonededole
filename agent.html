@@ -1,4 +1,14 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Espace agent - SICTOM Zone de Dole</title><style>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Espace agent - SICTOM Zone de Dole</title>
+
+<style>
 
 * {
     box-sizing: border-box;
@@ -16,6 +26,7 @@ header {
     color: white;
     text-align: center;
     padding: 30px 20px;
+    transition: background 0.4s ease;
 }
 
 header h1 {
@@ -122,7 +133,6 @@ select {
     font-family: monospace;
     font-size: 13px;
     overflow-wrap: anywhere;
-    color: #17231b;
 }
 
 /* =========================
@@ -146,17 +156,6 @@ select {
     font-size: 13px;
     margin-top: 5px;
     word-break: break-word;
-}
-
-.role {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 5px 9px;
-    border-radius: 8px;
-    background: #e9f5ed;
-    color: #087f3d;
-    font-size: 12px;
-    font-weight: bold;
 }
 
 .actions-agent {
@@ -265,25 +264,10 @@ select {
     display: none;
 }
 
-/* =========================
-   PANNEAU DEBUG
-========================= */
-
-#debug {
-    display: none;
-    background: #111;
-    color: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    font-family: monospace;
-    font-size: 12px;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-
-#debug strong {
-    color: #fff;
+#etatConnexion {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 @media (max-width: 600px) {
@@ -299,102 +283,218 @@ select {
 
 }
 
-</style></head><body><header><h1>👷 Espace agent</h1><p>Gestion de l'état des flux</p></header><!-- =========================
+</style>
+
+</head>
+
+<body>
+
+<header id="bandeau">
+
+<h1>👷 Espace agent</h1>
+
+<p>Gestion de l'état des flux</p>
+
+</header>
+
+
+<!-- =========================
      CONNEXION
-========================= --><div id="connexion"><div class="card"><h2>🔐 Connexion agent</h2><p>
+========================= -->
+
+<div id="connexion">
+
+<div class="card">
+
+<h2>🔐 Connexion agent</h2>
+
+<p>
 Connectez-vous pour modifier l'état des bennes.
-</p><div class="champ"><label for="email">
+</p>
+
+<div class="champ">
+
+<label for="email">
 Email
-</label><input
+</label>
+
+<input
 type="email"
 id="email"
 placeholder="Votre email"
 autocomplete="email"
+>
 
-«»
+</div>
 
-</div><div class="champ"><label for="password">
+<div class="champ">
+
+<label for="password">
 Mot de passe
-</label><input
+</label>
+
+<input
 type="password"
 id="password"
 placeholder="Votre mot de passe"
 autocomplete="current-password"
+>
 
-«»
+</div>
 
-</div><button id="connexionBtn">🔐 Se connecter
+<button id="connexionBtn">
+🔐 Se connecter
+</button>
 
-</button><div
+<div
 id="messageConnexion"
-class="message erreur"
-></div></div></div><!-- =========================
+class="message"
+></div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
      APPLICATION
-========================= --><div id="application"><div class="container"><div class="barre-agent"><strong>
+========================= -->
+
+<div id="application">
+
+<div class="container">
+
+<div class="barre-agent">
+
+<strong>
 👷 Agent connecté
-</strong><div
+</strong>
+
+<div
 id="emailAgent"
 class="email"
+></div>
+
+<div
+id="etatConnexion"
 >
-</div><div
-id="roleAgent"
-class="role"
->
-Rôle : vérification...
-</div><!-- ADMIN --><div
+</div>
+
+
+<!-- ADMIN -->
+
+<div
 id="actionsAdmin"
 class="actions-agent"
 style="display:none;"
-><a
+>
+
+<a
 href="./admin.html"
 class="bouton-action admin"
-
-«»
-
+>
 👑 Administration
 </a>
 
-</div><div class="actions-agent"><button
+</div>
+
+
+<!-- DECONNEXION -->
+
+<div class="actions-agent">
+
+<button
 id="deconnexionBtn"
 class="bouton-action deconnexion"
-
-«»
-
+>
 🚪 Se déconnecter
 </button>
 
-</div></div><a
+</div>
+
+</div>
+
+
+<a
 href="./index.html"
 class="retour"
-
-«»
-
+>
 ← Retour à l'accueil
 </a>
 
-<div id="debug"></div><div class="flux-card"><h2>📍 Déchèterie</h2><select id="site"><option value="Chaussin">
+
+<!-- SITE -->
+
+<div class="flux-card">
+
+<h2>📍 Déchèterie</h2>
+
+<select id="site">
+
+<option value="Chaussin">
 Chaussin
-</option><option value="Dole">
+</option>
+
+<option value="Dole">
 Dole
-</option><option value="Brevans">
+</option>
+
+<option value="Brevans">
 Brevans
-</option><option value="Tavaux">
+</option>
+
+<option value="Tavaux">
 Tavaux
-</option><option value="Dampierre">
+</option>
+
+<option value="Dampierre">
 Dampierre
-</option><option value="Mont-sous-Vaudrey">
+</option>
+
+<option value="Mont-sous-Vaudrey">
 Mont-sous-Vaudrey
-</option><option value="Montmirey-le-Château">
+</option>
+
+<option value="Montmirey-le-Château">
 Montmirey-le-Château
-</option><option value="Saligney">
+</option>
+
+<option value="Saligney">
 Saligney
-</option><option value="Villers-Farlay">
+</option>
+
+<option value="Villers-Farlay">
 Villers-Farlay
-</option></select></div><div id="test">
-✅ Application Firebase chargée.
-</div><div class="flux-card"><h2>♻️ État des flux</h2><!-- BOIS A --><div class="flux"><div class="flux-nom">
+</option>
+
+</select>
+
+</div>
+
+
+<div id="test">
+🟢 Application connectée à Firebase
+</div>
+
+
+<!-- FLUX -->
+
+<div class="flux-card">
+
+<h2>♻️ État des flux</h2>
+
+
+<!-- BOIS A -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🪵 Bois A
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="bois-a"
 data-statut="disponible">
 🟢 Disponible
@@ -412,9 +512,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- BOIS B --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- BOIS B -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🪵 Bois B
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="bois-b"
 data-statut="disponible">
 🟢 Disponible
@@ -432,9 +545,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- MOBILIER --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- MOBILIER -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🛋️ Mobilier
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="mobilier"
 data-statut="disponible">
 🟢 Disponible
@@ -452,9 +578,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- CARTON --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- CARTON -->
+
+<div class="flux">
+
+<div class="flux-nom">
 📦 Carton
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="carton"
 data-statut="disponible">
 🟢 Disponible
@@ -472,9 +611,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- GRAVATS --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- GRAVATS -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🪨 Gravats
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="gravats"
 data-statut="disponible">
 🟢 Disponible
@@ -492,9 +644,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- FERRAILLE --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- FERRAILLE -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🔩 Ferraille
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="ferraille"
 data-statut="disponible">
 🟢 Disponible
@@ -512,9 +677,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- PLASTIQUE DUR --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- PLASTIQUE DUR -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🧴 Plastique dur
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="plastique-dur"
 data-statut="disponible">
 🟢 Disponible
@@ -532,9 +710,22 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><!-- TOUT VENANT --><div class="flux"><div class="flux-nom">
+</div>
+
+</div>
+
+
+<!-- TOUT VENANT -->
+
+<div class="flux">
+
+<div class="flux-nom">
 🗑️ Non recyclable / Tout-venant
-</div><div class="boutons"><button class="statut vert"
+</div>
+
+<div class="boutons">
+
+<button class="statut vert"
 data-flux="tout-venant"
 data-statut="disponible">
 🟢 Disponible
@@ -552,568 +743,986 @@ data-statut="pleine">
 🔴 Pleine
 </button>
 
-</div></div><div
+</div>
+
+</div>
+
+
+<div
 id="message"
 class="message"
-></div></div></div></div><!-- =========================
-     FIREBASE
-========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
+></div>
 
-/* =====================================================
-   FIREBASE CONFIGURATION
-===================================================== */
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+
+
+<script>
+
+/* =========================
+   FIREBASE
+========================= */
 
 const firebaseConfig = {
 
-    apiKey:
-    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+apiKey:
+"AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
 
-    authDomain:
-    "sictom-zone-de-dole-17296.firebaseapp.com",
+authDomain:
+"sictom-zone-de-dole-17296.firebaseapp.com",
 
-    projectId:
-    "sictom-zone-de-dole-17296",
+projectId:
+"sictom-zone-de-dole-17296",
 
-    storageBucket:
-    "sictom-zone-de-dole-17296.firebasestorage.app",
+storageBucket:
+"sictom-zone-de-dole-17296.firebasestorage.app",
 
-    messagingSenderId:
-    "378183859073",
+messagingSenderId:
+"378183859073",
 
-    appId:
-    "1:378183859073:web:3b347f84a072fb0cb54680"
+appId:
+"1:378183859073:web:3b347f84a072fb0cb54680"
 
 };
 
 
-/* =====================================================
-   INITIALISATION
-===================================================== */
-
-try {
-
-    firebase.initializeApp(firebaseConfig);
-
-} catch (error) {
-
-    console.error(
-        "Erreur initialisation Firebase :",
-        error
-    );
-
-}
+firebase.initializeApp(
+firebaseConfig
+);
 
 
 const auth =
-    firebase.auth();
+firebase.auth();
 
 const db =
-    firebase.firestore();
+firebase.firestore();
 
 
-/* =====================================================
+/* =========================
    ELEMENTS
-===================================================== */
+========================= */
 
 const connexion =
-    document.getElementById("connexion");
+document.getElementById(
+"connexion"
+);
 
 const application =
-    document.getElementById("application");
+document.getElementById(
+"application"
+);
 
 const connexionBtn =
-    document.getElementById("connexionBtn");
+document.getElementById(
+"connexionBtn"
+);
 
 const messageConnexion =
-    document.getElementById("messageConnexion");
+document.getElementById(
+"messageConnexion"
+);
 
 const emailInput =
-    document.getElementById("email");
+document.getElementById(
+"email"
+);
 
 const passwordInput =
-    document.getElementById("password");
+document.getElementById(
+"password"
+);
 
 const emailAgent =
-    document.getElementById("emailAgent");
-
-const roleAgent =
-    document.getElementById("roleAgent");
+document.getElementById(
+"emailAgent"
+);
 
 const deconnexionBtn =
-    document.getElementById("deconnexionBtn");
+document.getElementById(
+"deconnexionBtn"
+);
 
 const siteSelect =
-    document.getElementById("site");
+document.getElementById(
+"site"
+);
 
 const boutons =
-    document.querySelectorAll(".statut");
+document.querySelectorAll(
+".statut"
+);
 
 const message =
-    document.getElementById("message");
+document.getElementById(
+"message"
+);
 
 const test =
-    document.getElementById("test");
+document.getElementById(
+"test"
+);
 
 const actionsAdmin =
-    document.getElementById("actionsAdmin");
+document.getElementById(
+"actionsAdmin"
+);
 
-const debug =
-    document.getElementById("debug");
+const bandeau =
+document.getElementById(
+"bandeau"
+);
+
+const etatConnexion =
+document.getElementById(
+"etatConnexion"
+);
 
 
-/* =====================================================
-   VARIABLES
-===================================================== */
+/* =========================
+   NOM UTILISATEUR
+========================= */
 
 let nomUtilisateur = "";
 
-let roleUtilisateur = "";
+
+/* =========================
+   COULEURS DU BANDEAU
+========================= */
+
+const couleursBandeau = [
+
+"linear-gradient(135deg, #087f3d, #18a558)",
+
+"linear-gradient(135deg, #1565c0, #42a5f5)",
+
+"linear-gradient(135deg, #6a1b9a, #ab47bc)",
+
+"linear-gradient(135deg, #ef6c00, #ffa726)",
+
+"linear-gradient(135deg, #00838f, #26c6da)"
+
+];
+
+let couleurActuelle = 0;
 
 
-/* =====================================================
-   AFFICHAGE DEBUG
-===================================================== */
+function changerCouleurBandeau() {
 
-function afficherDebug(titre, erreur) {
+couleurActuelle++;
 
-    debug.style.display = "block";
-
-    debug.innerHTML =
-
-        "<strong>⚠️ " +
-        titre +
-        "</strong>\n\n" +
-
-        "Code : " +
-        (erreur && erreur.code
-            ? erreur.code
-            : "inconnu") +
-
-        "\n\n" +
-
-        "Message : " +
-        (erreur && erreur.message
-            ? erreur.message
-            : "Aucun message") +
-
-        "\n\n" +
-
-        "Détails : " +
-        (erreur
-            ? JSON.stringify(
-                erreur,
-                Object.getOwnPropertyNames(erreur),
-                2
-            )
-            : "aucun");
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function afficherMessage(
-    type,
-    texte
+if (
+couleurActuelle >=
+couleursBandeau.length
 ) {
 
-    message.className =
-        "message " + type;
+couleurActuelle = 0;
 
-    message.innerHTML =
-        texte;
+}
 
-    message.style.display =
-        "block";
+bandeau.style.background =
+couleursBandeau[
+couleurActuelle
+];
 
 }
 
 
-/* =====================================================
-   ID DU SITE
-===================================================== */
+/* =========================
+   ID SITE
+========================= */
 
 function siteId(nom) {
 
-    return nom
-
-        .toLowerCase()
-
-        .normalize("NFD")
-
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-
-        .replace(
-            /[^a-z0-9]+/g,
-            "-"
-        )
-
-        .replace(
-            /^-|-$/g,
-            ""
-        );
+return nom
+.toLowerCase()
+.normalize("NFD")
+.replace(
+/[\u0300-\u036f]/g,
+""
+)
+.replace(
+/[^a-z0-9]+/g,
+"-"
+)
+.replace(
+/^-|-$/g,
+""
+);
 
 }
 
 
-/* =====================================================
+/* =========================
+   AFFICHAGE ERREUR
+========================= */
+
+function afficherErreur(
+titre,
+error
+) {
+
+message.className =
+"message erreur";
+
+message.innerHTML =
+
+"❌ <strong>" +
+titre +
+"</strong>" +
+
+"<div class='code'>" +
+
+"<strong>Code :</strong><br>" +
+
+(
+error &&
+error.code
+?
+error.code
+:
+"inconnu"
+) +
+
+"<br><br>" +
+
+"<strong>Message :</strong><br>" +
+
+(
+error &&
+error.message
+?
+error.message
+:
+"Erreur inconnue"
+) +
+
+"</div>";
+
+message.style.display =
+"block";
+
+}
+
+
+/* =========================
    CHARGER PROFIL
-===================================================== */
+========================= */
 
-async function chargerProfilUtilisateur(user) {
+async function chargerProfilUtilisateur(
+user
+) {
 
-    nomUtilisateur =
-        user.email || "Utilisateur";
+nomUtilisateur =
+user.email ||
+"Utilisateur";
 
-    emailAgent.textContent =
-        user.email || "";
+emailAgent.textContent =
+nomUtilisateur;
 
-    roleAgent.textContent =
-        "Rôle : chargement...";
+try {
 
-
-    try {
-
-        console.log(
-            "Lecture du profil : users/" +
-            user.uid
-        );
-
-
-        const profil =
-            await db
-                .collection("users")
-                .doc(user.uid)
-                .get();
+const profil =
+await db
+.collection("users")
+.doc(user.uid)
+.get();
 
 
-        if (!profil.exists) {
+if (!profil.exists) {
 
-            roleUtilisateur =
-                "agent";
+console.log(
+"Profil users introuvable."
+);
 
-            roleAgent.textContent =
-                "Rôle : agent";
-
-
-            afficherDebug(
-                "Profil utilisateur introuvable",
-                {
-                    code:
-                    "profile-not-found",
-
-                    message:
-                    "Le document users/" +
-                    user.uid +
-                    " n'existe pas."
-                }
-            );
-
-
-            return;
-
-        }
-
-
-        const donnees =
-            profil.data();
-
-
-        const prenom =
-            typeof donnees.prenom === "string"
-                ? donnees.prenom.trim()
-                : "";
-
-
-        const nom =
-            typeof donnees.nom === "string"
-                ? donnees.nom.trim()
-                : "";
-
-
-        const nomComplet =
-            [prenom, nom]
-                .filter(Boolean)
-                .join(" ");
-
-
-        if (nomComplet) {
-
-            nomUtilisateur =
-                nomComplet;
-
-        }
-
-
-        emailAgent.textContent =
-            nomUtilisateur +
-            " — " +
-            (user.email || "");
-
-
-        roleUtilisateur =
-            typeof donnees.role === "string"
-                ? donnees.role.trim().toLowerCase()
-                : "agent";
-
-
-        roleAgent.textContent =
-            "Rôle : " +
-            roleUtilisateur;
-
-
-        console.log(
-            "Profil chargé :",
-            donnees
-        );
-
-
-        if (
-            roleUtilisateur === "admin"
-        ) {
-
-            actionsAdmin.style.display =
-                "flex";
-
-        } else {
-
-            actionsAdmin.style.display =
-                "none";
-
-        }
-
-
-        debug.style.display =
-            "none";
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "Erreur chargement profil :",
-            error
-        );
-
-
-        roleUtilisateur =
-            "agent";
-
-
-        roleAgent.textContent =
-            "Rôle : impossible à vérifier";
-
-
-        afficherDebug(
-            "Impossible de lire users/" +
-            user.uid,
-            error
-        );
-
-    }
+return;
 
 }
 
 
-/* =====================================================
+const donnees =
+profil.data();
+
+
+const prenom =
+typeof donnees.prenom === "string"
+?
+donnees.prenom.trim()
+:
+"";
+
+
+const nom =
+typeof donnees.nom === "string"
+?
+donnees.nom.trim()
+:
+"";
+
+
+const nomComplet =
+[prenom, nom]
+.filter(Boolean)
+.join(" ");
+
+
+if (nomComplet) {
+
+nomUtilisateur =
+nomComplet;
+
+emailAgent.textContent =
+nomComplet;
+
+}
+
+}
+
+catch(error) {
+
+console.error(
+"Erreur profil :",
+error
+);
+
+}
+
+}
+
+
+/* =========================
+   VERIFIER ROLE ADMIN
+========================= */
+
+async function verifierRoleAdmin(
+user
+) {
+
+actionsAdmin.style.display =
+"none";
+
+try {
+
+const profil =
+await db
+.collection("users")
+.doc(user.uid)
+.get();
+
+
+if (!profil.exists) {
+
+return;
+
+}
+
+
+const donnees =
+profil.data();
+
+
+if (
+donnees.role === "admin"
+) {
+
+actionsAdmin.style.display =
+"flex";
+
+}
+
+}
+
+catch(error) {
+
+console.error(
+"Erreur rôle :",
+error
+);
+
+}
+
+}
+
+
+/* =========================
    CONNEXION
-===================================================== */
+========================= */
 
 connexionBtn.addEventListener(
-    "click",
-    async function() {
+"click",
+async function() {
+
+messageConnexion.style.display =
+"block";
+
+messageConnexion.className =
+"message info";
+
+messageConnexion.innerHTML =
+"⏳ Connexion à Firebase...";
 
 
-        messageConnexion.style.display =
-            "block";
+const email =
+emailInput.value.trim();
+
+const password =
+passwordInput.value;
 
 
-        messageConnexion.className =
-            "message info";
+if (!email || !password) {
+
+messageConnexion.className =
+"message erreur";
+
+messageConnexion.innerHTML =
+"❌ Entre ton email et ton mot de passe.";
+
+return;
+
+}
 
 
-        messageConnexion.innerHTML =
-            "⏳ Connexion à Firebase...";
+connexionBtn.disabled =
+true;
+
+connexionBtn.textContent =
+"⏳ Connexion...";
 
 
-        const email =
-            emailInput.value.trim();
+try {
 
-
-        const password =
-            passwordInput.value;
-
-
-        if (
-            !email ||
-            !password
-        ) {
-
-            messageConnexion.className =
-                "message erreur";
-
-
-            messageConnexion.innerHTML =
-                "❌ Entre ton adresse e-mail et ton mot de passe.";
-
-
-            return;
-
-        }
-
-
-        connexionBtn.disabled =
-            true;
-
-
-        connexionBtn.textContent =
-            "⏳ Connexion...";
-
-
-        try {
-
-
-            await auth
-                .signInWithEmailAndPassword(
-                    email,
-                    password
-                );
-
-
-            messageConnexion.className =
-                "message succes";
-
-
-            messageConnexion.innerHTML =
-                "✅ Connexion réussie. Chargement de votre espace...";
-
-
-        }
-
-
-        catch(error) {
-
-
-            console.error(
-                "Erreur connexion :",
-                error
-            );
-
-
-            messageConnexion.className =
-                "message erreur";
-
-
-            messageConnexion.innerHTML =
-
-                "❌ <strong>Connexion impossible.</strong>" +
-
-                "<div class='code'>" +
-
-                "<strong>Code :</strong><br>" +
-
-                (
-                    error.code ||
-                    "inconnu"
-                ) +
-
-                "<br><br>" +
-
-                "<strong>Message :</strong><br>" +
-
-                (
-                    error.message ||
-                    "Erreur inconnue."
-                ) +
-
-                "</div>";
-
-
-        }
-
-
-        finally {
-
-            connexionBtn.disabled =
-                false;
-
-
-            connexionBtn.textContent =
-                "🔐 Se connecter";
-
-        }
-
-    }
+await auth.signInWithEmailAndPassword(
+email,
+password
 );
 
+messageConnexion.className =
+"message succes";
 
-/* =====================================================
-   ENTREE : TOUCHE ENTREE
-===================================================== */
+messageConnexion.innerHTML =
+"✅ Connexion réussie.";
 
-passwordInput.addEventListener(
-    "keydown",
-    function(event) {
+}
 
-        if (
-            event.key === "Enter"
-        ) {
+catch(error) {
 
-            connexionBtn.click();
+messageConnexion.className =
+"message erreur";
 
-        }
+messageConnexion.innerHTML =
 
-    }
-);
+"❌ <strong>Erreur Firebase</strong>" +
+
+"<div class='code'>" +
+
+"<strong>Code :</strong><br>" +
+
+(error.code || "inconnu") +
+
+"<br><br>" +
+
+"<strong>Message :</strong><br>" +
+
+(error.message || "inconnu") +
+
+"</div>";
+
+}
+
+finally {
+
+connexionBtn.disabled =
+false;
+
+connexionBtn.textContent =
+"🔐 Se connecter";
+
+}
+
+});
 
 
-/* =====================================================
-   ETAT AUTHENTIFICATION
-===================================================== */
+/* =========================
+   ETAT AUTH
+========================= */
 
 auth.onAuthStateChanged(
-    async function(user) {
+async function(user) {
+
+if (!user) {
+
+connexion.style.display =
+"block";
+
+application.style.display =
+"none";
+
+actionsAdmin.style.display =
+"none";
+
+return;
+
+}
 
 
-        console.log(
-            "Etat Firebase Auth :",
-            user
-        );
+connexion.style.display =
+"none";
+
+application.style.display =
+"block";
+
+test.style.display =
+"block";
+
+etatConnexion.textContent =
+"🟢 Connecté à Firebase";
+
+emailAgent.textContent =
+"Chargement du profil...";
 
 
-        if (user) {
+await chargerProfilUtilisateur(
+user
+);
 
 
-            connexion.style.display =
-                "none";
+await verifierRoleAdmin(
+user
+);
 
 
-            application.style.display =
-                "block";
+await chargerStatuts();
+
+});
 
 
-            test.style.display =
-                "block";
+/* =========================
+   DECONNEXION
+========================= */
+
+deconnexionBtn.addEventListener(
+"click",
+async function() {
+
+try {
+
+await auth.signOut();
+
+}
+
+catch(error) {
+
+afficherErreur(
+"Impossible de se déconnecter",
+error
+);
+
+}
+
+});
 
 
-            test.textContent =
-                "✅ Compte connecté : " +
-                user.email;
+/* =========================
+   SELECTION
+========================= */
+
+function selectionner(
+flux,
+statut
+) {
+
+document
+.querySelectorAll(
+'[data-flux="' +
+flux +
+'"]'
+)
+.forEach(
+function(btn) {
+
+btn.classList.remove(
+"selectionne"
+);
+
+});
 
 
-            await chargerProfilUtilisateur(
-                user
-            );
+const bouton =
+document.querySelector(
+'[data-flux="' +
+flux +
+'"][data-statut="' +
+statut +
+'"]'
+);
 
 
-            await chargerStatuts();
+if (bouton) {
+
+bouton.classList.add(
+"selectionne"
+);
+
+}
+
+}
 
 
-        }
+/* =========================
+   CHARGER STATUTS
+========================= */
 
-        else {
+async function chargerStatuts() {
+
+const site =
+siteSelect.value;
+
+
+message.className =
+"message info";
+
+message.innerHTML =
+"⏳ Chargement des flux de " +
+site +
+"...";
+
+message.style.display =
+"block";
+
+
+try {
+
+const snapshot =
+await db
+.collection("dechetteries")
+.doc(siteId(site))
+.collection("flux")
+.get();
+
+
+/*
+   On efface les anciennes sélections.
+*/
+
+boutons.forEach(
+function(btn) {
+
+btn.classList.remove(
+"selectionne"
+);
+
+});
+
+
+snapshot.forEach(
+function(doc) {
+
+const data =
+doc.data();
+
+
+if (
+data.flux &&
+data.statut
+) {
+
+selectionner(
+data.flux,
+data.statut
+);
+
+}
+
+});
+
+
+message.className =
+"message succes";
+
+message.innerHTML =
+"✅ Flux chargés pour " +
+site +
+" (" +
+snapshot.size +
+" enregistré(s)).";
+
+
+setTimeout(
+function() {
+
+message.style.display =
+"none";
+
+},
+2000
+);
+
+}
+
+catch(error) {
+
+afficherErreur(
+"Impossible de lire les flux",
+error
+);
+
+console.error(
+"Erreur lecture flux :",
+error
+);
+
+}
+
+}
+
+
+/* =========================
+   ENREGISTRER FLUX
+========================= */
+
+boutons.forEach(
+function(bouton) {
+
+bouton.addEventListener(
+"click",
+async function() {
+
+const user =
+auth.currentUser;
+
+
+if (!user) {
+
+afficherErreur(
+"Tu n'es pas connecté.",
+{
+code: "auth/not-authenticated",
+message:
+"Reconnecte-toi avant de modifier un flux."
+}
+);
+
+return;
+
+}
+
+
+const flux =
+bouton.dataset.flux;
+
+const statut =
+bouton.dataset.statut;
+
+const site =
+siteSelect.value;
+
+
+selectionner(
+flux,
+statut
+);
+
+
+message.className =
+"message info";
+
+message.innerHTML =
+"⏳ Enregistrement de " +
+flux +
+" pour " +
+site +
+"...";
+
+message.style.display =
+"block";
+
+
+boutons.forEach(
+function(btn) {
+
+btn.disabled =
+true;
+
+});
+
+
+try {
+
+/*
+   On s'assure d'avoir
+   le nom de l'utilisateur.
+*/
+
+if (
+!nomUtilisateur ||
+nomUtilisateur === user.email
+) {
+
+await chargerProfilUtilisateur(
+user
+);
+
+}
+
+
+/*
+   ECRITURE FIRESTORE
+*/
+
+await db
+.collection("dechetteries")
+.doc(siteId(site))
+.collection("flux")
+.doc(flux)
+.set({
+
+site:
+site,
+
+flux:
+flux,
+
+statut:
+statut,
+
+modifiePar:
+nomUtilisateur ||
+user.email ||
+"Utilisateur",
+
+modifieParEmail:
+user.email ||
+"",
+
+miseAJour:
+firebase.firestore
+.FieldValue
+.serverTimestamp()
+
+},
+{
+merge: true
+});
+
+
+/*
+   SUCCES
+*/
+
+message.className =
+"message succes";
+
+message.innerHTML =
+
+"✅ <strong>Enregistré !</strong><br><br>" +
+
+site +
+" — " +
+flux +
+" → " +
+statut;
+
+
+message.style.display =
+"block";
+
+
+/*
+   IMPORTANT :
+   Le bandeau change UNIQUEMENT
+   après confirmation Firestore.
+*/
+
+changerCouleurBandeau();
+
+
+}
+
+catch(error) {
+
+console.error(
+"Erreur écriture Firestore :",
+error
+);
+
+afficherErreur(
+"Impossible d'enregistrer le flux",
+error
+);
+
+}
+
+finally {
+
+boutons.forEach(
+function(btn) {
+
+btn.disabled =
+false;
+
+});
+
+}
+
+});
+
+});
+
+
+/* =========================
+   CHANGEMENT DE SITE
+========================= */
+
+siteSelect.addEventListener(
+"change",
+async function() {
+
+boutons.forEach(
+function(btn) {
+
+btn.classList.remove(
+"selectionne"
+);
+
+});
+
+message.style.display =
+"none";
+
+
+await chargerStatuts();
+
+});
+
+
+/* =========================
+   TEST DE DEMARRAGE
+========================= */
+
+console.log(
+"✅ agent.html chargé correctement."
+);
+
+console.log(
+"Firebase projectId :",
+firebaseConfig.projectId
+);
+
+</script>
+
+</body>
+
+    </html>
