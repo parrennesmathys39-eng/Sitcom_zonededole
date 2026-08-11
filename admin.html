@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <title>Administration — SICTOM Zone de Dole</title>
@@ -25,11 +25,24 @@ body {
     color: #17231b;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header {
-    background: linear-gradient(135deg, #087f3d, #18a558);
+    background: linear-gradient(
+        135deg,
+        #087f3d,
+        #18a558
+    );
+
     color: white;
-    padding: 30px 20px;
-    text-align: center;
+    padding: 25px 20px 30px;
+}
+
+.header-content {
+    max-width: 1100px;
+    margin: auto;
 }
 
 header h1 {
@@ -37,74 +50,265 @@ header h1 {
     font-size: 27px;
 }
 
+header p {
+    margin: 8px 0 0;
+    opacity: 0.9;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container {
-    max-width: 800px;
+    max-width: 1100px;
     margin: auto;
     padding: 20px;
 }
 
+/* =========================
+   SECURITY
+========================= */
+
+#loading {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.08);
+}
+
+#error {
+    display: none;
+    background: #ffdede;
+    color: #c62828;
+    padding: 18px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#dashboard {
+    display: none;
+}
+
+/* =========================
+   ROLE
+========================= */
+
+.role-card {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.08);
+}
+
+.role-admin {
+    color: #087f3d;
+    font-weight: bold;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.08);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.stat-label {
+    color: #777;
+    margin-top: 5px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
 .card {
     background: white;
-    padding: 22px;
+    padding: 20px;
     border-radius: 18px;
-    margin-top: 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.08);
 }
 
 .card h2 {
     margin-top: 0;
 }
 
-.status {
-    padding: 18px;
-    border-radius: 12px;
-    margin-top: 15px;
+/* =========================
+   TABLEAU SITES
+========================= */
+
+.site {
+    border-top: 1px solid #eee;
+    padding: 17px 0;
+}
+
+.site:first-child {
+    border-top: none;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.site-name {
+    font-size: 18px;
     font-weight: bold;
-    font-size: 17px;
 }
 
-.loading {
-    background: #eeeeee;
-    color: #555;
+.site-count {
+    color: #777;
+    font-size: 14px;
 }
 
-.success {
+.site-flux {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-green {
     background: #d9f7e5;
     color: #087f3d;
 }
 
-.error {
+.badge-orange {
+    background: #fff0c2;
+    color: #9a6500;
+}
+
+.badge-red {
     background: #ffdede;
     color: #c62828;
 }
 
-.info {
-    background: #eef4ff;
-    color: #2455a4;
-    margin-top: 15px;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 14px;
+.badge-grey {
+    background: #eeeeee;
+    color: #666;
 }
 
-button {
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    margin-top: 15px;
+/* =========================
+   BOUTONS
+========================= */
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button,
+.button {
+    border: none;
+    padding: 13px 16px;
     border-radius: 10px;
     background: #17231b;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-button:active {
+button:active,
+.button:active {
     transform: scale(0.98);
 }
 
-.hidden {
-    display: none;
+.button-green {
+    background: #087f3d;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-size: 13px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+    }
+
+    .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
 }
 
 </style>
@@ -117,9 +321,17 @@ button:active {
 
 <header>
 
-<h1>👑 Administration</h1>
+<div class="header-content">
 
-<p>SICTOM Zone de Dole</p>
+<h1>
+👑 Tableau de bord administrateur
+</h1>
+
+<p>
+SICTOM Zone de Dole
+</p>
+
+</div>
 
 </header>
 
@@ -127,29 +339,168 @@ button:active {
 <div class="container">
 
 
+<!-- CHARGEMENT -->
+
+<div id="loading">
+
+🔄 Vérification des droits administrateur...
+
+</div>
+
+
+<!-- ERREUR -->
+
+<div id="error"></div>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard">
+
+
+<!-- ROLE -->
+
+<div class="role-card">
+
+👑 Connecté en tant que :
+
+<span class="role-admin">
+Administrateur
+</span>
+
+</div>
+
+
+<!-- STATISTIQUES -->
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+♻️
+</div>
+
+<div
+id="statSites"
+class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Déchèteries
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+📦
+</div>
+
+<div
+id="statFlux"
+class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Flux suivis
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+🟠
+</div>
+
+<div
+id="statPresque"
+class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Presque pleins
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+🔴
+</div>
+
+<div
+id="statPleins"
+class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Flux pleins
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- SITES -->
+
 <div class="card">
 
-<h2>🔐 Vérification du compte</h2>
+<h2>
+📍 État des déchèteries
+</h2>
 
-<div
-id="status"
-class="status loading"
+<div id="sites">
+
+Chargement...
+
+</div>
+
+</div>
+
+
+<!-- ACTIONS -->
+
+<div class="card">
+
+<h2>
+⚙️ Administration
+</h2>
+
+<div class="actions">
+
+<a
+class="button button-green"
+href="./agent.html"
 >
-🔄 Vérification de votre compte...
-</div>
+👷 Espace agent
+</a>
 
-<div
-id="details"
-class="info hidden"
+<a
+class="button"
+href="./index.html"
 >
-</div>
+🏠 Site public
+</a>
 
-<button
-id="retour"
-onclick="window.location.href='index.html'"
->
-← Retour à l'accueil
-</button>
+</div>
 
 </div>
 
@@ -157,7 +508,19 @@ onclick="window.location.href='index.html'"
 </div>
 
 
-<!-- FIREBASE -->
+</div>
+
+
+<footer>
+
+SICTOM Zone de Dole — Administration
+
+</footer>
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
 
 <script
 src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js">
@@ -174,214 +537,442 @@ src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js">
 
 <script>
 
-/* ================================
-   FIREBASE
-================================ */
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
-apiKey:
-"AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+    apiKey:
+    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
 
-authDomain:
-"sictom-zone-de-dole-17296.firebaseapp.com",
+    authDomain:
+    "sictom-zone-de-dole-17296.firebaseapp.com",
 
-projectId:
-"sictom-zone-de-dole-17296",
+    projectId:
+    "sictom-zone-de-dole-17296",
 
-storageBucket:
-"sictom-zone-de-dole-17296.firebasestorage.app",
+    storageBucket:
+    "sictom-zone-de-dole-17296.firebasestorage.app",
 
-messagingSenderId:
-"378183859073",
+    messagingSenderId:
+    "378183859073",
 
-appId:
-"1:378183859073:web:3b347f84a072fb0cb54680"
+    appId:
+    "1:378183859073:web:3b347f84a072fb0cb54680"
 
 };
 
 
 firebase.initializeApp(
-firebaseConfig
+    firebaseConfig
 );
 
 
 const auth =
-firebase.auth();
+    firebase.auth();
 
 
 const db =
-firebase.firestore();
+    firebase.firestore();
 
 
-/* ================================
+/* =========================
    ELEMENTS
-================================ */
+========================= */
 
-const status =
-document.getElementById("status");
+const loading =
+    document.getElementById("loading");
 
-const details =
-document.getElementById("details");
+const errorBox =
+    document.getElementById("error");
+
+const dashboard =
+    document.getElementById("dashboard");
+
+const sitesBox =
+    document.getElementById("sites");
 
 
-/* ================================
-   VERIFICATION
-================================ */
+/* =========================
+   ERREUR
+========================= */
 
-auth.onAuthStateChanged(
-async function(user) {
+function afficherErreur(message) {
 
-    if (!user) {
+    loading.style.display = "none";
 
-        status.className =
-            "status error";
+    dashboard.style.display = "none";
 
-        status.innerHTML =
-            "❌ Aucun utilisateur connecté.";
+    errorBox.style.display = "block";
 
-        return;
+    errorBox.innerHTML =
+        "❌ " + message;
 
-    }
+}
 
+
+/* =========================
+   STATISTIQUES
+========================= */
+
+let nombreSites = 0;
+let nombreFlux = 0;
+let nombrePresque = 0;
+let nombrePleins = 0;
+
+
+/* =========================
+   CHARGEMENT
+========================= */
+
+async function chargerDashboard() {
 
     try {
 
-        const documentUtilisateur =
+        const snapshot =
             await db
-            .collection("users")
-            .doc(user.uid)
+            .collection("dechetteries")
             .get();
 
 
-        if (!documentUtilisateur.exists) {
+        nombreSites =
+            snapshot.size;
 
-            status.className =
-                "status error";
 
-            status.innerHTML =
-                "❌ Aucun profil utilisateur trouvé.";
+        sitesBox.innerHTML = "";
 
-            details.classList.remove(
-                "hidden"
-            );
 
-            details.innerHTML = `
+        if (snapshot.empty) {
 
-                <strong>UID :</strong><br>
-                ${user.uid}
+            sitesBox.innerHTML = `
 
-                <br><br>
+                <div class="badge badge-grey">
 
-                Crée un document dans
-                <strong>users</strong>
-                avec cet UID.
+                    Aucune déchèterie trouvée
+                    dans Firestore.
+
+                </div>
 
             `;
 
-            return;
+        }
+
+
+        for (
+            const documentSite
+            of snapshot.docs
+        ) {
+
+            const site =
+                documentSite.data();
+
+
+            let flux = [];
+
+
+            try {
+
+                const fluxSnapshot =
+                    await db
+                    .collection("dechetteries")
+                    .doc(documentSite.id)
+                    .collection("flux")
+                    .get();
+
+
+                fluxSnapshot.forEach(
+                    function(documentFlux) {
+
+                        flux.push({
+                            id:
+                                documentFlux.id,
+
+                            data:
+                                documentFlux.data()
+                        });
+
+                    }
+                );
+
+            }
+            catch (fluxError) {
+
+                console.error(
+                    "Erreur flux :",
+                    fluxError
+                );
+
+            }
+
+
+            nombreFlux +=
+                flux.length;
+
+
+            const siteElement =
+                document.createElement(
+                    "div"
+                );
+
+
+            siteElement.className =
+                "site";
+
+
+            let fluxHTML = "";
+
+
+            if (flux.length === 0) {
+
+                fluxHTML = `
+
+                    <span
+                        class="badge badge-grey"
+                    >
+                        Aucun flux enregistré
+                    </span>
+
+                `;
+
+            }
+            else {
+
+                flux.forEach(
+                    function(item) {
+
+                        const donnees =
+                            item.data;
+
+
+                        const statut =
+                            donnees.statut ||
+                            "disponible";
+
+
+                        let classe =
+                            "badge-green";
+
+
+                        let texte =
+                            "🟢 Disponible";
+
+
+                        if (
+                            statut === "presque"
+                        ) {
+
+                            classe =
+                                "badge-orange";
+
+                            texte =
+                                "🟠 Presque pleine";
+
+                            nombrePresque++;
+
+                        }
+
+
+                        if (
+                            statut === "pleine"
+                        ) {
+
+                            classe =
+                                "badge-red";
+
+                            texte =
+                                "🔴 Pleine";
+
+                            nombrePleins++;
+
+                        }
+
+
+                        const nom =
+                            donnees.nom ||
+                            item.id;
+
+
+                        fluxHTML += `
+
+                            <span
+                                class="badge ${classe}"
+                            >
+                                ${nom} :
+                                ${texte}
+                            </span>
+
+                        `;
+
+                    }
+                );
+
+            }
+
+
+            siteElement.innerHTML = `
+
+                <div class="site-header">
+
+                    <div class="site-name">
+
+                        ♻️
+                        ${
+                            site.nom ||
+                            documentSite.id
+                        }
+
+                    </div>
+
+                    <div class="site-count">
+
+                        ${flux.length}
+                        flux
+
+                    </div>
+
+                </div>
+
+
+                <div class="site-flux">
+
+                    ${fluxHTML}
+
+                </div>
+
+            `;
+
+
+            sitesBox.appendChild(
+                siteElement
+            );
 
         }
 
 
-        const donnees =
-            documentUtilisateur.data();
+        document.getElementById(
+            "statSites"
+        ).textContent =
+            nombreSites;
 
 
-        const role =
-            donnees.role;
+        document.getElementById(
+            "statFlux"
+        ).textContent =
+            nombreFlux;
 
 
-        details.classList.remove(
-            "hidden"
-        );
+        document.getElementById(
+            "statPresque"
+        ).textContent =
+            nombrePresque;
 
 
-        details.innerHTML = `
-
-            <strong>Compte :</strong><br>
-            ${user.email || "Compte connecté"}
-
-            <br><br>
-
-            <strong>UID :</strong><br>
-            ${user.uid}
-
-            <br><br>
-
-            <strong>Rôle détecté :</strong><br>
-            ${role || "aucun"}
-
-        `;
+        document.getElementById(
+            "statPleins"
+        ).textContent =
+            nombrePleins;
 
 
-        /* =========================
-           ADMIN
-        ========================= */
-
-        if (role === "admin") {
-
-            status.className =
-                "status success";
-
-            status.innerHTML =
-                "👑 ADMINISTRATEUR CONFIRMÉ";
-
-            return;
-
-        }
+        loading.style.display =
+            "none";
 
 
-        /* =========================
-           AGENT
-        ========================= */
+        dashboard.style.display =
+            "block";
 
-        if (role === "agent") {
-
-            status.className =
-                "status error";
-
-            status.innerHTML =
-                "👷 Compte agent — accès administrateur refusé.";
-
-            return;
-
-        }
-
-
-        /* =========================
-           ROLE INCONNU
-        ========================= */
-
-        status.className =
-            "status error";
-
-        status.innerHTML =
-            "⚠️ Rôle inconnu.";
 
     }
-
     catch(error) {
 
         console.error(error);
 
-        status.className =
-            "status error";
-
-        status.innerHTML =
-            "❌ Erreur lors de la vérification.";
-
-        details.classList.remove(
-            "hidden"
+        afficherErreur(
+            "Impossible de charger les données : "
+            + error.message
         );
-
-        details.innerHTML = `
-            ${error.message}
-        `;
 
     }
 
-});
+}
+
+
+/* =========================
+   AUTHENTIFICATION
+========================= */
+
+auth.onAuthStateChanged(
+    async function(user) {
+
+        if (!user) {
+
+            afficherErreur(
+                "Tu dois être connecté pour accéder à cette page."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const profil =
+                await db
+                .collection("users")
+                .doc(user.uid)
+                .get();
+
+
+            if (!profil.exists) {
+
+                afficherErreur(
+                    "Aucun profil administrateur trouvé."
+                );
+
+                return;
+
+            }
+
+
+            const donnees =
+                profil.data();
+
+
+            if (
+                donnees.role !== "admin"
+            ) {
+
+                afficherErreur(
+                    "Accès refusé : ce compte n'est pas administrateur."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Le rôle est confirmé.
+             * On charge maintenant le tableau de bord.
+             */
+
+            await chargerDashboard();
+
+        }
+        catch(error) {
+
+            console.error(error);
+
+            afficherErreur(
+                "Erreur de vérification des droits : "
+                + error.message
+            );
+
+        }
+
+    }
+);
 
 </script>
 
