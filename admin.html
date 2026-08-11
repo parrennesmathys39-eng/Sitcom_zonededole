@@ -26,65 +26,98 @@ body {
 }
 
 header {
-    background: linear-gradient(
-        135deg,
-        #087f3d,
-        #18a558
-    );
+    background: linear-gradient(135deg, #087f3d, #18a558);
     color: white;
-    padding: 25px 18px;
+    padding: 25px 18px 30px;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: auto;
 }
 
 header h1 {
     margin: 0;
-    font-size: 26px;
+    font-size: 27px;
 }
 
 header p {
     margin: 8px 0 0;
+    opacity: .9;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1100px;
     margin: auto;
-    padding: 18px;
+    padding: 20px;
 }
 
 .card {
     background: white;
     padding: 20px;
-    border-radius: 17px;
-    margin-bottom: 18px;
-    box-shadow:
-        0 4px 18px rgba(0,0,0,.08);
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+}
+
+.loading {
+    text-align: center;
+    padding: 25px;
+}
+
+.error {
+    display: none;
+    background: #ffdede;
+    color: #c62828;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: bold;
 }
 
 .success {
     background: #d9f7e5;
     color: #087f3d;
-    padding: 15px;
+    padding: 16px;
     border-radius: 12px;
     font-weight: bold;
 }
 
-.error {
-    background: #ffdede;
-    color: #c62828;
-    padding: 15px;
-    border-radius: 12px;
-    font-weight: bold;
+#dashboard {
+    display: none;
 }
 
-.info {
-    background: #eef4ff;
-    color: #2455a4;
-    padding: 15px;
-    border-radius: 12px;
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.stat-label {
+    color: #777;
+    margin-top: 4px;
 }
 
 .site {
     border-top: 1px solid #eee;
-    padding: 18px 0;
+    padding: 20px 0;
 }
 
 .site:first-child {
@@ -92,12 +125,12 @@ header p {
 }
 
 .site-title {
-    font-size: 20px;
+    font-size: 21px;
     font-weight: bold;
 }
 
 .site-id {
-    color: #777;
+    color: #888;
     font-size: 12px;
     margin-top: 4px;
 }
@@ -106,8 +139,8 @@ header p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    padding: 12px 0;
+    gap: 12px;
+    padding: 13px 0;
     border-top: 1px solid #eee;
 }
 
@@ -116,10 +149,10 @@ header p {
 }
 
 .flux-name {
-    font-weight: bold;
+    font-weight: 500;
 }
 
-.badge {
+.status {
     padding: 7px 11px;
     border-radius: 20px;
     font-size: 12px;
@@ -127,51 +160,39 @@ header p {
     white-space: nowrap;
 }
 
-.green {
+.disponible {
     background: #d9f7e5;
     color: #087f3d;
 }
 
-.orange {
+.presque {
     background: #fff0c2;
     color: #946200;
 }
 
-.red {
+.pleine {
     background: #ffdede;
     color: #c62828;
 }
 
-.grey {
-    background: #eeeeee;
+.inconnu {
+    background: #eee;
     color: #666;
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+.meta {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
-.stat {
-    text-align: center;
-    background: #f7f9f7;
-    padding: 15px;
-    border-radius: 13px;
+.buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.stat-number {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.stat-label {
-    color: #777;
-    font-size: 13px;
-}
-
-button,
-a {
+.button {
     display: inline-block;
     border: none;
     padding: 13px 16px;
@@ -180,26 +201,52 @@ a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    margin-right: 8px;
-    margin-top: 8px;
+    cursor: pointer;
 }
 
 .green-button {
     background: #087f3d;
 }
 
-@media (max-width: 600px) {
+.red-button {
+    background: #c62828;
+}
+
+.empty {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    color: #777;
+}
+
+@media (max-width: 750px) {
 
     .stats {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        padding: 14px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 14px;
+    }
+
+    .stat-number {
+        font-size: 25px;
     }
 
     .flux {
         align-items: flex-start;
-    }
-
-    .badge {
-        font-size: 11px;
     }
 
 }
@@ -214,9 +261,13 @@ a {
 
 <header>
 
+<div class="header-inner">
+
 <h1>👑 Administration</h1>
 
 <p>SICTOM Zone de Dole</p>
+
+</div>
 
 </header>
 
@@ -224,35 +275,55 @@ a {
 <div class="container">
 
 
-<!-- CONNEXION -->
+<div
+    id="loading"
+    class="card loading"
+>
+🔄 Vérification du compte...
+</div>
+
+
+<div
+    id="error"
+    class="error"
+></div>
+
+
+<div id="dashboard">
+
+
+<!-- COMPTE -->
 
 <div class="card">
 
-<h2>🔐 Connexion</h2>
+<div class="success">
 
-<div id="connexion">
-🔄 Vérification...
+👑 Administrateur confirmé
+
 </div>
+
+<br>
+
+👤 Compte :
+
+<strong id="email"></strong>
 
 </div>
 
 
 <!-- STATISTIQUES -->
 
-<div
-    id="statsCard"
-    class="card"
-    style="display:none;"
->
-
-<h2>📊 Données Firestore</h2>
-
 <div class="stats">
+
 
 <div class="stat">
 
+<div class="stat-icon">
+📍
+</div>
+
 <div
-    id="totalSites"
+    id="statSites"
     class="stat-number"
 >
 0
@@ -264,25 +335,55 @@ Déchèteries
 
 </div>
 
+
 <div class="stat">
 
+<div class="stat-icon">
+📦
+</div>
+
 <div
-    id="totalFlux"
+    id="statFlux"
     class="stat-number"
 >
 0
 </div>
 
 <div class="stat-label">
-Flux
+Flux enregistrés
 </div>
 
 </div>
+
 
 <div class="stat">
 
+<div class="stat-icon">
+🟠
+</div>
+
 <div
-    id="totalPleins"
+    id="statPresque"
+    class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Presque pleins
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+🔴
+</div>
+
+<div
+    id="statPleins"
     class="stat-number"
 >
 0
@@ -294,42 +395,58 @@ Pleins
 
 </div>
 
-</div>
 
 </div>
 
 
 <!-- DONNEES -->
 
-<div
-    id="dataCard"
-    class="card"
-    style="display:none;"
->
+<div class="card">
 
-<h2>♻️ Données enregistrées</h2>
+<h2>📊 État des déchèteries</h2>
 
-<div id="data">
+<div id="sites">
+
+Chargement...
 
 </div>
 
 </div>
 
+
+<!-- ACTIONS -->
 
 <div class="card">
 
+<h2>⚙️ Accès rapides</h2>
+
+<div class="buttons">
+
 <a
-    class="green-button"
+    class="button green-button"
     href="./agent.html"
 >
-👷 Retour agent
+👷 Espace agent
 </a>
 
 <a
+    class="button"
     href="./index.html"
 >
-🏠 Accueil
+🏠 Site public
 </a>
+
+<button
+    id="logout"
+    class="button red-button"
+>
+🚪 Déconnexion
+</button>
+
+</div>
+
+</div>
+
 
 </div>
 
@@ -339,20 +456,15 @@ Pleins
 
 <!-- FIREBASE -->
 
-<script
-src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js">
-</script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
 
-<script
-src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js">
-</script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
 
-<script
-src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js">
-</script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
 
 
 <script>
+
 
 /* =========================
    FIREBASE
@@ -381,29 +493,48 @@ const firebaseConfig = {
 };
 
 
-firebase.initializeApp(
-    firebaseConfig
-);
-
+firebase.initializeApp(firebaseConfig);
 
 const auth =
 firebase.auth();
-
 
 const db =
 firebase.firestore();
 
 
-const connexion =
-document.getElementById(
-    "connexion"
-);
+/* =========================
+   ELEMENTS
+========================= */
+
+const loading =
+document.getElementById("loading");
+
+const errorBox =
+document.getElementById("error");
+
+const dashboard =
+document.getElementById("dashboard");
+
+const sitesBox =
+document.getElementById("sites");
 
 
-const data =
-document.getElementById(
-    "data"
-);
+/* =========================
+   ERREUR
+========================= */
+
+function afficherErreur(message) {
+
+    loading.style.display = "none";
+
+    dashboard.style.display = "none";
+
+    errorBox.style.display = "block";
+
+    errorBox.innerHTML =
+        "❌ " + message;
+
+}
 
 
 /* =========================
@@ -412,47 +543,38 @@ document.getElementById(
 
 function statutHTML(statut) {
 
-    if (
-        statut === "disponible"
-    ) {
+    if (statut === "disponible") {
 
         return `
-            <span class="badge green">
+            <span class="status disponible">
                 🟢 Disponible
             </span>
         `;
 
     }
 
-
-    if (
-        statut === "presque"
-    ) {
+    if (statut === "presque") {
 
         return `
-            <span class="badge orange">
+            <span class="status presque">
                 🟠 Presque pleine
             </span>
         `;
 
     }
 
-
-    if (
-        statut === "pleine"
-    ) {
+    if (statut === "pleine") {
 
         return `
-            <span class="badge red">
+            <span class="status pleine">
                 🔴 Pleine
             </span>
         `;
 
     }
 
-
     return `
-        <span class="badge grey">
+        <span class="status inconnu">
             ℹ️ ${statut || "Inconnu"}
         </span>
     `;
@@ -461,130 +583,449 @@ function statutHTML(statut) {
 
 
 /* =========================
-   CHARGER DIRECTEMENT
-   CHAUSSIN / BOIS-A
+   NOM DE SITE
 ========================= */
 
-async function testBoisA() {
+function nomSite(id) {
+
+    const noms = {
+
+        "chaussin":
+            "Chaussin",
+
+        "dole":
+            "Dole",
+
+        "brevans":
+            "Brevans",
+
+        "tavaux":
+            "Tavaux",
+
+        "dampierre":
+            "Dampierre",
+
+        "mont-sous-vaudrey":
+            "Mont-sous-Vaudrey",
+
+        "montmirey-le-chateau":
+            "Montmirey-le-Château",
+
+        "saligney":
+            "Saligney",
+
+        "villers-farlay":
+            "Villers-Farlay"
+
+    };
+
+    return noms[id] || id;
+
+}
+
+
+/* =========================
+   NOM DU FLUX
+========================= */
+
+function nomFlux(id, data) {
+
+    if (data.nom) {
+
+        return data.nom;
+
+    }
+
+    const noms = {
+
+        "bois-a":
+            "🪵 Bois A",
+
+        "bois-b":
+            "🪵 Bois B",
+
+        "mobilier":
+            "🛋️ Mobilier",
+
+        "carton":
+            "📦 Carton",
+
+        "gravats":
+            "🪨 Gravats",
+
+        "ferraille":
+            "🔩 Ferraille",
+
+        "plastique-dur":
+            "🧴 Plastique dur",
+
+        "tout-venant":
+            "🗑️ Tout-venant"
+
+    };
+
+    return noms[id] || id;
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function afficherDate(timestamp) {
+
+    if (!timestamp) {
+
+        return "";
+
+    }
 
     try {
 
-        const doc =
-            await db
-            .collection("dechetteries")
-            .doc("chaussin")
-            .collection("flux")
-            .doc("bois-a")
-            .get();
+        const date =
+            timestamp.toDate();
 
-
-        if (!doc.exists) {
-
-            data.innerHTML += `
-
-                <div class="error">
-
-                    ❌ Le document
-                    <strong>
-                        dechetteries/chaussin/flux/bois-a
-                    </strong>
-                    n'existe pas.
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        const flux =
-            doc.data();
-
-
-        const statut =
-            flux.statut ||
-            "inconnu";
-
-
-        data.innerHTML += `
-
-            <div class="site">
-
-                <div class="site-title">
-                    ♻️ Chaussin
-                </div>
-
-                <div class="site-id">
-                    ID : chaussin
-                </div>
-
-                <div class="flux">
-
-                    <span class="flux-name">
-                        🪵 Bois A
-                    </span>
-
-                    ${statutHTML(statut)}
-
-                </div>
-
-                <div class="info">
-
-                    <strong>
-                        Chemin Firestore :
-                    </strong>
-
-                    <br><br>
-
-                    dechetteries /
-                    chaussin /
-                    flux /
-                    bois-a
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        document.getElementById(
-            "totalFlux"
-        ).textContent = "1";
-
-
-        document.getElementById(
-            "totalSites"
-        ).textContent = "1";
-
-
-        document.getElementById(
-            "totalPleins"
-        ).textContent =
-            statut === "pleine"
-            ? "1"
-            : "0";
+        return date.toLocaleString(
+            "fr-FR",
+            {
+                dateStyle: "short",
+                timeStyle: "short"
+            }
+        );
 
     }
     catch(error) {
 
-        data.innerHTML += `
-
-            <div class="error">
-
-                ❌ Erreur de lecture :
-
-                <br><br>
-
-                ${error.message}
-
-            </div>
-
-        `;
+        return "";
 
     }
+
+}
+
+
+/* =========================
+   CHARGEMENT TEMPS REEL
+========================= */
+
+function chargerFlux() {
+
+    /*
+     * IMPORTANT :
+     *
+     * On utilise collectionGroup("flux").
+     *
+     * Cela récupère directement :
+     *
+     * dechetteries/chaussin/flux/bois-a
+     * dechetteries/dole/flux/bois-a
+     * dechetteries/tavaux/flux/carton
+     * etc.
+     */
+
+    db.collectionGroup("flux")
+    .onSnapshot(
+
+        function(snapshot) {
+
+            const sites = {};
+
+            let totalFlux = 0;
+
+            let totalPresque = 0;
+
+            let totalPleins = 0;
+
+
+            snapshot.forEach(
+                function(doc) {
+
+                    const data =
+                        doc.data();
+
+
+                    /*
+                     * Exemple :
+                     *
+                     * dechetteries
+                     * /chaussin
+                     * /flux
+                     * /bois-a
+                     */
+
+                    const chemin =
+                        doc.ref.path
+                        .split("/");
+
+
+                    const siteId =
+                        chemin[1];
+
+                    const fluxId =
+                        chemin[3];
+
+
+                    if (!sites[siteId]) {
+
+                        sites[siteId] = [];
+
+                    }
+
+
+                    sites[siteId].push({
+
+                        id: fluxId,
+
+                        data: data
+
+                    });
+
+
+                    totalFlux++;
+
+
+                    if (
+                        data.statut ===
+                        "presque"
+                    ) {
+
+                        totalPresque++;
+
+                    }
+
+
+                    if (
+                        data.statut ===
+                        "pleine"
+                    ) {
+
+                        totalPleins++;
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * Nombre de déchèteries
+             */
+
+            const totalSites =
+                Object.keys(sites).length;
+
+
+            /*
+             * Statistiques
+             */
+
+            document.getElementById(
+                "statSites"
+            ).textContent =
+                totalSites;
+
+
+            document.getElementById(
+                "statFlux"
+            ).textContent =
+                totalFlux;
+
+
+            document.getElementById(
+                "statPresque"
+            ).textContent =
+                totalPresque;
+
+
+            document.getElementById(
+                "statPleins"
+            ).textContent =
+                totalPleins;
+
+
+            /*
+             * Affichage
+             */
+
+            sitesBox.innerHTML = "";
+
+
+            if (
+                totalFlux === 0
+            ) {
+
+                sitesBox.innerHTML = `
+
+                    <div class="empty">
+
+                        Aucun flux trouvé dans Firestore.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            /*
+             * Tri des sites
+             */
+
+            const ids =
+                Object.keys(sites)
+                .sort();
+
+
+            ids.forEach(
+                function(siteId) {
+
+                    const site =
+                        document.createElement(
+                            "div"
+                        );
+
+                    site.className =
+                        "site";
+
+
+                    let fluxHTML =
+                        "";
+
+
+                    sites[siteId]
+                    .sort(
+                        function(a,b) {
+
+                            return a.id
+                            .localeCompare(
+                                b.id
+                            );
+
+                        }
+                    )
+                    .forEach(
+                        function(item) {
+
+                            const data =
+                                item.data;
+
+
+                            const statut =
+                                data.statut ||
+                                "inconnu";
+
+
+                            const modifiePar =
+                                data.modifiePar ||
+                                "";
+
+
+                            const date =
+                                afficherDate(
+                                    data.miseAJour
+                                );
+
+
+                            fluxHTML += `
+
+                                <div class="flux">
+
+                                    <div>
+
+                                        <div
+                                            class="flux-name"
+                                        >
+                                            ${nomFlux(
+                                                item.id,
+                                                data
+                                            )}
+                                        </div>
+
+                                        ${
+                                            modifiePar
+                                            ? `
+                                                <div
+                                                    class="meta"
+                                                >
+                                                    👤
+                                                    ${modifiePar}
+                                                </div>
+                                            `
+                                            : ""
+                                        }
+
+                                        ${
+                                            date
+                                            ? `
+                                                <div
+                                                    class="meta"
+                                                >
+                                                    🕐
+                                                    ${date}
+                                                </div>
+                                            `
+                                            : ""
+                                        }
+
+                                    </div>
+
+                                    ${statutHTML(
+                                        statut
+                                    )}
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+
+                    site.innerHTML = `
+
+                        <div class="site-title">
+
+                            ♻️
+                            ${nomSite(siteId)}
+
+                        </div>
+
+                        <div class="site-id">
+
+                            ${siteId}
+
+                        </div>
+
+                        ${fluxHTML}
+
+                    `;
+
+
+                    sitesBox.appendChild(
+                        site
+                    );
+
+                }
+            );
+
+        },
+
+        function(error) {
+
+            console.error(
+                error
+            );
+
+            afficherErreur(
+                "Impossible de lire les flux : "
+                + error.message
+            );
+
+        }
+
+    );
 
 }
 
@@ -598,20 +1039,9 @@ async function(user) {
 
     if (!user) {
 
-        connexion.innerHTML = `
-
-            <div class="error">
-
-                ❌ Aucun compte connecté.
-
-                <br><br>
-
-                Connecte-toi d'abord
-                dans agent.html.
-
-            </div>
-
-        `;
+        afficherErreur(
+            "Aucun compte connecté. Connecte-toi d'abord dans agent.html."
+        );
 
         return;
 
@@ -629,15 +1059,9 @@ async function(user) {
 
         if (!profil.exists) {
 
-            connexion.innerHTML = `
-
-                <div class="error">
-
-                    ❌ Aucun profil trouvé.
-
-                </div>
-
-            `;
+            afficherErreur(
+                "Ton profil utilisateur n'existe pas dans Firestore."
+            );
 
             return;
 
@@ -648,82 +1072,68 @@ async function(user) {
             profil.data().role;
 
 
-        if (
-            role !== "admin"
-        ) {
+        if (role !== "admin") {
 
-            connexion.innerHTML = `
-
-                <div class="error">
-
-                    ❌ Accès refusé.
-
-                    <br><br>
-
-                    Rôle détecté :
-                    ${role || "aucun"}
-
-                </div>
-
-            `;
+            afficherErreur(
+                "Accès refusé. Rôle détecté : "
+                + (role || "aucun")
+            );
 
             return;
 
         }
 
 
-        connexion.innerHTML = `
-
-            <div class="success">
-
-                👑 Administrateur confirmé
-
-                <br><br>
-
-                ${user.email || ""}
-
-            </div>
-
-        `;
-
-
         document.getElementById(
-            "statsCard"
-        ).style.display =
-            "block";
+            "email"
+        ).textContent =
+            user.email || "";
 
 
-        document.getElementById(
-            "dataCard"
-        ).style.display =
+        loading.style.display =
+            "none";
+
+        dashboard.style.display =
             "block";
 
 
         /*
-         * TEST DIRECT DE LA DONNÉE
+         * On lance l'écoute temps réel.
          */
 
-        await testBoisA();
-
+        chargerFlux();
 
     }
     catch(error) {
 
-        connexion.innerHTML = `
+        console.error(
+            error
+        );
 
-            <div class="error">
-
-                ❌ Erreur Firebase :
-
-                <br><br>
-
-                ${error.message}
-
-            </div>
-
-        `;
+        afficherErreur(
+            "Erreur Firebase : "
+            + error.message
+        );
 
     }
+
+});
+
+
+/* =========================
+   DECONNEXION
+========================= */
+
+document
+.getElementById("logout")
+.addEventListener(
+"click",
+async function() {
+
+    await auth.signOut();
+
+    window.location.href =
+        "./agent.html";
 
 });
 
