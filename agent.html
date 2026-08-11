@@ -297,13 +297,7 @@ class="message erreur"
 </strong><div
 id="emailAgent"
 class="email"
-></div><!--
-    Le bouton administration est caché
-    par défaut.
-
-    Il apparaît uniquement si le champ
-    role du document users correspond à admin.
---><div
+></div><div
 id="actionsAdmin"
 class="actions-agent"
 style="display:none;"
@@ -353,7 +347,7 @@ Saligney
 </option><option value="Villers-Farlay">
 Villers-Farlay
 </option></select></div><div id="test">
-✅ Le bouton fonctionne. Connexion Firebase en cours...
+✅ Connexion Firebase active.
 </div><div class="flux-card"><h2>♻️ État des flux</h2><!-- BOIS A --><div class="flux"><div class="flux-nom">
 🪵 Bois A
 </div><div class="boutons"><button class="statut vert"
@@ -527,23 +521,23 @@ class="message"
 
 const firebaseConfig = {
 
-apiKey:
-"AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+    apiKey:
+    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
 
-authDomain:
-"sictom-zone-de-dole-17296.firebaseapp.com",
+    authDomain:
+    "sictom-zone-de-dole-17296.firebaseapp.com",
 
-projectId:
-"sictom-zone-de-dole-17296",
+    projectId:
+    "sictom-zone-de-dole-17296",
 
-storageBucket:
-"sictom-zone-de-dole-17296.firebasestorage.app",
+    storageBucket:
+    "sictom-zone-de-dole-17296.firebasestorage.app",
 
-messagingSenderId:
-"378183859073",
+    messagingSenderId:
+    "378183859073",
 
-appId:
-"1:378183859073:web:3b347f84a072fb0cb54680"
+    appId:
+    "1:378183859073:web:3b347f84a072fb0cb54680"
 
 };
 
@@ -600,101 +594,97 @@ document.getElementById("actionsAdmin");
 
 
 /* =========================
-   NOM DE L'UTILISATEUR
+   NOM UTILISATEUR
 ========================= */
-
-/*
-   Cette variable contient le nom affiché
-   dans l'application et enregistré dans
-   les modifications.
-
-   Exemple :
-   Jean Dupont
-*/
 
 let nomUtilisateur = "";
 
 
 /* =========================
-   CHARGER LE PROFIL
+   CHARGER PROFIL
 ========================= */
 
 async function chargerProfilUtilisateur(user) {
 
     /*
-       Par défaut, si le profil Firestore
-       n'est pas trouvé, on utilise l'e-mail.
+       Par défaut, on utilise l'e-mail.
+       Si Firestore contient prénom + nom,
+       ils remplaceront l'e-mail.
     */
 
-    nomUtilisateur = user.email || "Utilisateur";
+    nomUtilisateur =
+        user.email || "Utilisateur";
 
-    emailAgent.textContent = nomUtilisateur;
+    emailAgent.textContent =
+        nomUtilisateur;
+
 
     try {
 
-        const profil = await db
-            .collection("users")
-            .doc(user.uid)
-            .get();
+        const profil =
+            await db
+                .collection("users")
+                .doc(user.uid)
+                .get();
+
 
         if (!profil.exists) {
 
             console.log(
-                "Profil users introuvable. Utilisation de l'e-mail."
+                "Profil users introuvable."
             );
 
             return;
 
         }
 
-        const donnees = profil.data();
+
+        const donnees =
+            profil.data();
+
 
         const prenom =
             typeof donnees.prenom === "string"
                 ? donnees.prenom.trim()
                 : "";
 
+
         const nom =
             typeof donnees.nom === "string"
                 ? donnees.nom.trim()
                 : "";
 
-        /*
-           Construit :
-           Prénom Nom
-        */
 
         const nomComplet =
             [prenom, nom]
                 .filter(Boolean)
                 .join(" ");
 
+
         if (nomComplet) {
 
-            nomUtilisateur = nomComplet;
+            nomUtilisateur =
+                nomComplet;
 
             emailAgent.textContent =
                 nomComplet;
 
         }
 
-        console.log(
-            "Nom utilisateur :",
-            nomUtilisateur
-        );
 
     }
 
     catch(error) {
 
         console.error(
-            "Erreur chargement profil utilisateur :",
+            "Erreur chargement profil :",
             error
         );
 
         /*
-           On garde l'e-mail comme solution
-           de secours.
+           Le compte reste utilisable
+           même si le profil Firestore
+           n'est pas accessible.
         */
 
         nomUtilisateur =
@@ -760,6 +750,7 @@ async function() {
             password
         );
 
+
         messageConnexion.className =
             "message succes";
 
@@ -807,7 +798,7 @@ async function() {
 
 
 /* =========================
-   VERIFICATION DU ROLE
+   VERIFICATION ROLE ADMIN
 ========================= */
 
 async function verifierRoleAdmin(user) {
@@ -827,10 +818,6 @@ async function verifierRoleAdmin(user) {
 
         if (!profil.exists) {
 
-            console.log(
-                "Profil Firestore introuvable."
-            );
-
             return;
 
         }
@@ -839,17 +826,8 @@ async function verifierRoleAdmin(user) {
         const donnees =
             profil.data();
 
-        const role =
-            donnees.role;
 
-
-        console.log(
-            "Rôle Firebase :",
-            role
-        );
-
-
-        if (role === "admin") {
+        if (donnees.role === "admin") {
 
             actionsAdmin.style.display =
                 "flex";
@@ -885,10 +863,12 @@ async function(user) {
         application.style.display =
             "block";
 
+        test.style.display =
+            "block";
+
 
         /*
-           Charge le nom/prénom depuis
-           users/{UID}.
+           Charge le nom et prénom.
         */
 
         await chargerProfilUtilisateur(
@@ -897,7 +877,7 @@ async function(user) {
 
 
         /*
-           Vérifie le rôle admin.
+           Vérifie si admin.
         */
 
         await verifierRoleAdmin(
@@ -909,7 +889,7 @@ async function(user) {
            Charge les statuts.
         */
 
-        chargerStatuts();
+        await chargerStatuts();
 
     }
 
@@ -922,6 +902,9 @@ async function(user) {
             "none";
 
         actionsAdmin.style.display =
+            "none";
+
+        test.style.display =
             "none";
 
         nomUtilisateur = "";
@@ -939,7 +922,20 @@ deconnexionBtn.addEventListener(
 "click",
 async function() {
 
-    await auth.signOut();
+    try {
+
+        await auth.signOut();
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Erreur déconnexion :",
+            error
+        );
+
+    }
 
 });
 
@@ -980,7 +976,9 @@ function selectionner(
 
     document
         .querySelectorAll(
-            '[data-flux="' + flux + '"]'
+            '[data-flux="' +
+            flux +
+            '"]'
         )
         .forEach(
             function(btn) {
@@ -1076,9 +1074,8 @@ function(bouton) {
 
 
         /*
-           Si le nom n'a pas encore été chargé,
-           on essaie une dernière fois de
-           récupérer le profil avant l'écriture.
+           Si le nom n'est pas disponible,
+           on recharge le profil.
         */
 
         if (
@@ -1102,28 +1099,19 @@ function(bouton) {
                 .doc(flux)
                 .set({
 
-                    site: site,
+                    site:
+                        site,
 
-                    flux: flux,
+                    flux:
+                        flux,
 
-                    statut: statut,
-
-                    /*
-                       IMPORTANT :
-                       on enregistre maintenant
-                       le prénom + nom.
-                    */
+                    statut:
+                        statut,
 
                     modifiePar:
                         nomUtilisateur ||
                         user.email ||
                         "Utilisateur",
-
-                    /*
-                       On conserve également
-                       l'e-mail pour retrouver
-                       le compte si nécessaire.
-                    */
 
                     modifieParEmail:
                         user.email || "",
@@ -1133,4 +1121,40 @@ function(bouton) {
                             .FieldValue
                             .serverTimestamp()
 
-        
+                }, {
+                    merge: true
+                });
+
+
+            message.className =
+                "message succes";
+
+
+            message.innerHTML =
+
+                "✅ Enregistré !<br><br>" +
+
+                site +
+                " — " +
+                flux +
+                " → " +
+                statut +
+
+                "<br><br>👤 " +
+
+                (
+                    nomUtilisateur ||
+                    user.email ||
+                    "Utilisateur"
+                );
+
+        }
+
+        catch(error) {
+
+            message.className =
+                "message erreur";
+
+
+            message.innerHTML =
+    
