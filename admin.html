@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
-«»
-
-<title>Administration — SICTOM Zone de Dole</title><style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration — SICTOM Zone de Dole</title>
+<style>
 
 * {
     box-sizing: border-box;
@@ -289,163 +289,126 @@ header p {
 
 }
 
-</style></head><body><header><div class="header-inner"><h1>👑 Administration</h1><p>SICTOM Zone de Dole</p></div></header><div class="container"><div
-    id="loading"
-    class="card"
->
+</style>
+</head>
+<body>
+<header>
+<div class="header-inner">
+<h1>👑 Administration</h1>
+<p>SICTOM Zone de Dole</p>
+</div>
+</header>
+<div class="container">
+
+<div id="loading" class="card">
 🔄 Vérification du compte...
-</div><div
-    id="error"
-    class="error"
-></div><div id="dashboard"><!-- =========================
+</div>
+
+<div id="error" class="error"></div>
+
+<div id="dashboard">
+
+<!-- =========================
      COMPTE
-========================= --><div class="card"><div class="success">👑 Administrateur confirmé
+========================= -->
+<div class="card">
+<div class="success">👑 Administrateur confirmé</div>
+<br>👤 Compte : <strong id="email"></strong>
+</div>
 
-</div><br>👤 Compte :
-
-<strong id="email"></strong>
-
-</div><!-- =========================
+<!-- =========================
      STATISTIQUES
-========================= --><div class="stats"><div class="stat"><div class="stat-icon">
-📍
-</div><div
-    id="statSites"
-    class="stat-number"
->
-0
-</div><div class="stat-label">
-Déchèteries
-</div></div><div class="stat"><div class="stat-icon">
-📦
-</div><div
-    id="statFlux"
-    class="stat-number"
->
-0
-</div><div class="stat-label">
-Flux enregistrés
-</div></div><div class="stat"><div class="stat-icon">
-🟠
-</div><div
-    id="statPresque"
-    class="stat-number"
->
-0
-</div><div class="stat-label">
-Presque pleins
-</div></div><div class="stat"><div class="stat-icon">
-🔴
-</div><div
-    id="statPleins"
-    class="stat-number"
->
-0
-</div><div class="stat-label">
-Pleins
-</div></div></div><!-- =========================
+========================= -->
+<div class="stats">
+<div class="stat">
+<div class="stat-icon">📍</div>
+<div id="statSites" class="stat-number">0</div>
+<div class="stat-label">Déchèteries</div>
+</div>
+<div class="stat">
+<div class="stat-icon">📦</div>
+<div id="statFlux" class="stat-number">0</div>
+<div class="stat-label">Flux enregistrés</div>
+</div>
+<div class="stat">
+<div class="stat-icon">🟠</div>
+<div id="statPresque" class="stat-number">0</div>
+<div class="stat-label">Presque pleins</div>
+</div>
+<div class="stat">
+<div class="stat-icon">🔴</div>
+<div id="statPleins" class="stat-number">0</div>
+<div class="stat-label">Pleins</div>
+</div>
+</div>
+
+<!-- =========================
      AGENTS
-========================= --><div class="card"><h2>👥 Agents et administrateurs</h2><p>
-Liste des comptes enregistrés dans Firebase.
-</p><div id="agents">⏳ Chargement des utilisateurs...
+========================= -->
+<div class="card">
+<h2>👥 Agents et administrateurs</h2>
+<p>Liste des comptes enregistrés dans Firebase.</p>
+<div id="agents">⏳ Chargement des utilisateurs...</div>
+</div>
 
-</div></div><!-- =========================
+<!-- =========================
      FLUX
-========================= --><div class="card"><h2>📊 État des déchèteries</h2><div id="sites">⏳ Chargement des flux...
+========================= -->
+<div class="card">
+<h2>📊 État des déchèteries</h2>
+<div id="sites">⏳ Chargement des flux...</div>
+</div>
 
-</div></div><!-- =========================
+<!-- =========================
      ACTIONS
-========================= --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
-class="button green-button"
-href="./agent.html"
+========================= -->
+<div class="card">
+<h2>⚙️ Accès rapides</h2>
+<div class="buttons">
+<a class="button green-button" href="./agent.html">👷 Espace agent</a>
+<a class="button" href="./index.html">🏠 Site public</a>
+<button id="logout" class="button red-button">🚪 Déconnexion</button>
+</div>
+</div>
 
-«»
+</div>
+</div>
 
-👷 Espace agent
-</a>
-
-<a
-class="button"
-href="./index.html"
-
-«»
-
-🏠 Site public
-</a>
-
-<button
-id="logout"
-class="button red-button"
-
-«»
-
-🚪 Déconnexion
-</button>
-
-</div></div></div></div><!-- =========================
+<!-- =========================
      FIREBASE
-========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
-
+========================= -->
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+<script>
 
 /* =========================
    FIREBASE
 ========================= */
 
 const firebaseConfig = {
-
-    apiKey:
-    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
-
-    authDomain:
-    "sictom-zone-de-dole-17296.firebaseapp.com",
-
-    projectId:
-    "sictom-zone-de-dole-17296",
-
-    storageBucket:
-    "sictom-zone-de-dole-17296.firebasestorage.app",
-
-    messagingSenderId:
-    "378183859073",
-
-    appId:
-    "1:378183859073:web:3b347f84a072fb0cb54680"
-
+    apiKey: "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+    authDomain: "sictom-zone-de-dole-17296.firebaseapp.com",
+    projectId: "sictom-zone-de-dole-17296",
+    storageBucket: "sictom-zone-de-dole-17296.firebasestorage.app",
+    messagingSenderId: "378183859073",
+    appId: "1:378183859073:web:3b347f84a072fb0cb54680"
 };
 
+firebase.initializeApp(firebaseConfig);
 
-firebase.initializeApp(
-    firebaseConfig
-);
-
-
-const auth =
-    firebase.auth();
-
-
-const db =
-    firebase.firestore();
-
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 /* =========================
    ELEMENTS
 ========================= */
 
-const loading =
-    document.getElementById("loading");
-
-const errorBox =
-    document.getElementById("error");
-
-const dashboard =
-    document.getElementById("dashboard");
-
-const sitesBox =
-    document.getElementById("sites");
-
-const agentsBox =
-    document.getElementById("agents");
-
+const loading = document.getElementById("loading");
+const errorBox = document.getElementById("error");
+const dashboard = document.getElementById("dashboard");
+const sitesBox = document.getElementById("sites");
+const agentsBox = document.getElementById("agents");
 
 /* =========================
    ERREUR
@@ -453,20 +416,12 @@ const agentsBox =
 
 function afficherErreur(message) {
 
-    loading.style.display =
-        "none";
-
-    dashboard.style.display =
-        "none";
-
-    errorBox.style.display =
-        "block";
-
-    errorBox.innerHTML =
-        "❌ " + message;
+    loading.style.display = "none";
+    dashboard.style.display = "none";
+    errorBox.style.display = "block";
+    errorBox.innerHTML = "❌ " + message;
 
 }
-
 
 /* =========================
    STATUT
@@ -475,43 +430,20 @@ function afficherErreur(message) {
 function statutHTML(statut) {
 
     if (statut === "disponible") {
-
-        return `
-            <span class="status disponible">
-                🟢 Disponible
-            </span>
-        `;
-
+        return `<span class="status disponible">🟢 Disponible</span>`;
     }
 
     if (statut === "presque") {
-
-        return `
-            <span class="status presque">
-                🟠 Presque pleine
-            </span>
-        `;
-
+        return `<span class="status presque">🟠 Presque pleine</span>`;
     }
 
     if (statut === "pleine") {
-
-        return `
-            <span class="status pleine">
-                🔴 Pleine
-            </span>
-        `;
-
+        return `<span class="status pleine">🔴 Pleine</span>`;
     }
 
-    return `
-        <span class="status inconnu">
-            ℹ️ ${statut || "Inconnu"}
-        </span>
-    `;
+    return `<span class="status inconnu">ℹ️ ${statut || "Inconnu"}</span>`;
 
 }
-
 
 /* =========================
    NOM SITE
@@ -520,40 +452,20 @@ function statutHTML(statut) {
 function nomSite(id) {
 
     const noms = {
-
-        "chaussin":
-            "Chaussin",
-
-        "dole":
-            "Dole",
-
-        "brevans":
-            "Brevans",
-
-        "tavaux":
-            "Tavaux",
-
-        "dampierre":
-            "Dampierre",
-
-        "mont-sous-vaudrey":
-            "Mont-sous-Vaudrey",
-
-        "montmirey-le-chateau":
-            "Montmirey-le-Château",
-
-        "saligney":
-            "Saligney",
-
-        "villers-farlay":
-            "Villers-Farlay"
-
+        "chaussin": "Chaussin",
+        "dole": "Dole",
+        "brevans": "Brevans",
+        "tavaux": "Tavaux",
+        "dampierre": "Dampierre",
+        "mont-sous-vaudrey": "Mont-sous-Vaudrey",
+        "montmirey-le-chateau": "Montmirey-le-Château",
+        "saligney": "Saligney",
+        "villers-farlay": "Villers-Farlay"
     };
 
     return noms[id] || id;
 
 }
-
 
 /* =========================
    NOM FLUX
@@ -562,43 +474,23 @@ function nomSite(id) {
 function nomFlux(id, data) {
 
     if (data.nom) {
-
         return data.nom;
-
     }
 
     const noms = {
-
-        "bois-a":
-            "🪵 Bois A",
-
-        "bois-b":
-            "🪵 Bois B",
-
-        "mobilier":
-            "🛋️ Mobilier",
-
-        "carton":
-            "📦 Carton",
-
-        "gravats":
-            "🪨 Gravats",
-
-        "ferraille":
-            "🔩 Ferraille",
-
-        "plastique-dur":
-            "🧴 Plastique dur",
-
-        "tout-venant":
-            "🗑️ Tout-venant"
-
+        "bois-a": "🪵 Bois A",
+        "bois-b": "🪵 Bois B",
+        "mobilier": "🛋️ Mobilier",
+        "carton": "📦 Carton",
+        "gravats": "🪨 Gravats",
+        "ferraille": "🔩 Ferraille",
+        "plastique-dur": "🧴 Plastique dur",
+        "tout-venant": "🗑️ Tout-venant"
     };
 
     return noms[id] || id;
 
 }
-
 
 /* =========================
    DATE
@@ -607,33 +499,26 @@ function nomFlux(id, data) {
 function afficherDate(timestamp) {
 
     if (!timestamp) {
-
         return "";
-
     }
 
     try {
 
-        return timestamp
-            .toDate()
-            .toLocaleString(
-                "fr-FR",
-                {
-                    dateStyle: "short",
-                    timeStyle: "short"
-                }
-            );
+        return timestamp.toDate().toLocaleString(
+            "fr-FR",
+            {
+                dateStyle: "short",
+                timeStyle: "short"
+            }
+        );
 
     }
 
     catch(error) {
-
         return "";
-
     }
 
 }
-
 
 /* =========================
    CHARGER LES AGENTS
@@ -641,242 +526,102 @@ function afficherDate(timestamp) {
 
 async function chargerAgents() {
 
-    agentsBox.innerHTML =
-        "⏳ Chargement des utilisateurs...";
-
+    agentsBox.innerHTML = "⏳ Chargement des utilisateurs...";
 
     try {
 
-        const snapshot =
-            await db
-                .collection("users")
-                .get();
+        const snapshot = await db.collection("users").get();
 
-
-        agentsBox.innerHTML =
-            "";
-
+        agentsBox.innerHTML = "";
 
         if (snapshot.empty) {
 
             agentsBox.innerHTML = `
-
                 <div class="empty">
-
                     Aucun utilisateur trouvé.
-
                 </div>
-
             `;
 
             return;
 
         }
 
-
         const utilisateurs = [];
 
+        snapshot.forEach(function(doc) {
 
-        snapshot.forEach(
-            function(doc) {
+            utilisateurs.push({
+                id: doc.id,
+                data: doc.data()
+            });
 
-                utilisateurs.push({
+        });
 
-                    id:
-                        doc.id,
+        utilisateurs.sort(function(a, b) {
 
-                    data:
-                        doc.data()
+            const nomA = (a.data.prenom || "") + " " + (a.data.nom || "");
+            const nomB = (b.data.prenom || "") + " " + (b.data.nom || "");
 
-                });
+            return nomA.localeCompare(nomB, "fr");
 
-            }
-        );
+        });
 
+        utilisateurs.forEach(function(utilisateur) {
 
-        utilisateurs.sort(
-            function(a, b) {
+            const data = utilisateur.data;
 
-                const nomA =
-                    (
-                        a.data.prenom ||
-                        ""
-                    ) +
-                    " " +
-                    (
-                        a.data.nom ||
-                        ""
-                    );
+            const prenom = typeof data.prenom === "string" ? data.prenom.trim() : "";
+            const nom = typeof data.nom === "string" ? data.nom.trim() : "";
+            const email = data.email || "";
+            const role = data.role || "agent";
 
-                const nomB =
-                    (
-                        b.data.prenom ||
-                        ""
-                    ) +
-                    " " +
-                    (
-                        b.data.nom ||
-                        ""
-                    );
+            const nomComplet = [prenom, nom].filter(Boolean).join(" ");
+            const affichageNom = nomComplet || email || "Utilisateur";
 
-                return nomA
-                    .localeCompare(
-                        nomB,
-                        "fr"
-                    );
+            const agent = document.createElement("div");
+            agent.className = "agent";
 
-            }
-        );
-
-
-        utilisateurs.forEach(
-            function(utilisateur) {
-
-                const data =
-                    utilisateur.data;
-
-
-                const prenom =
-                    typeof data.prenom === "string"
-                    ? data.prenom.trim()
-                    : "";
-
-
-                const nom =
-                    typeof data.nom === "string"
-                    ? data.nom.trim()
-                    : "";
-
-
-                const email =
-                    data.email ||
-                    "";
-
-
-                const role =
-                    data.role ||
-                    "agent";
-
-
-                const nomComplet =
-                    [prenom, nom]
-                    .filter(Boolean)
-                    .join(" ");
-
-
-                const affichageNom =
-                    nomComplet ||
-                    email ||
-                    "Utilisateur";
-
-
-                const agent =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                agent.className =
-                    "agent";
-
-
-                agent.innerHTML = `
-
-                    <div>
-
-                        <div class="agent-name">
-
-                            👤
-                            ${affichageNom}
-
-                        </div>
-
-                        ${
-                            email
-                            ? `
-                                <div class="agent-email">
-
-                                    ${email}
-
-                                </div>
-                            `
-                            : ""
-                        }
-
+            agent.innerHTML = `
+                <div>
+                    <div class="agent-name">
+                        👤 ${affichageNom}
                     </div>
+                    ${
+                        email
+                        ? `<div class="agent-email">${email}</div>`
+                        : ""
+                    }
+                </div>
+                <div>
+                    <span class="role ${role === "admin" ? "role-admin" : "role-agent"}">
+                        ${role === "admin" ? "👑 Administrateur" : "👷 Agent"}
+                    </span>
+                </div>
+            `;
 
+            agentsBox.appendChild(agent);
 
-                    <div>
-
-                        <span
-                            class="
-                                role
-                                ${
-                                    role === "admin"
-                                    ? "role-admin"
-                                    : "role-agent"
-                                }
-                            "
-                        >
-
-                            ${
-                                role === "admin"
-                                ? "👑 Administrateur"
-                                : "👷 Agent"
-                            }
-
-                        </span>
-
-                    </div>
-
-                `;
-
-
-                agentsBox.appendChild(
-                    agent
-                );
-
-            }
-        );
+        });
 
     }
 
     catch(error) {
 
-        console.error(
-            "Erreur agents :",
-            error
-        );
-
+        console.error("Erreur agents :", error);
 
         agentsBox.innerHTML = `
-
-            <div class="error"
-                 style="display:block;">
-
-                ❌ Impossible de charger
-                les agents.
-
+            <div class="error" style="display:block;">
+                ❌ Impossible de charger les agents.
                 <br><br>
-
-                <strong>Code :</strong>
-
-                ${error.code || "inconnu"}
-
+                <strong>Code :</strong> ${error.code || "inconnu"}
                 <br><br>
-
-                <strong>Message :</strong>
-
-                ${error.message || "inconnu"}
-
+                <strong>Message :</strong> ${error.message || "inconnu"}
             </div>
-
         `;
 
     }
 
 }
-
 
 /* =========================
    CHARGER LES FLUX
@@ -884,229 +629,218 @@ async function chargerAgents() {
 
 function chargerFlux() {
 
-    db.collectionGroup("flux")
-    .onSnapshot(
+    db.collectionGroup("flux").onSnapshot(
 
         function(snapshot) {
 
             const sites = {};
 
             let totalFlux = 0;
-
             let totalPresque = 0;
-
             let totalPleins = 0;
 
+            snapshot.forEach(function(doc) {
 
-            snapshot.forEach(
-                function(doc) {
+                const data = doc.data();
+                const chemin = doc.ref.path.split("/");
 
-                    const data =
-                        doc.data();
-
-
-                    const chemin =
-                        doc.ref.path
-                            .split("/");
-
-
-                    if (
-                        chemin.length < 4
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const siteId =
-                        chemin[1];
-
-
-                    const fluxId =
-                        chemin[3];
-
-
-                    if (!sites[siteId]) {
-
-                        sites[siteId] = [];
-
-                    }
-
-
-                    sites[siteId].push({
-
-                        id:
-                            fluxId,
-
-                        data:
-                            data
-
-                    });
-
-
-                    totalFlux++;
-
-
-                    if (
-                        data.statut ===
-                        "presque"
-                    ) {
-
-                        totalPresque++;
-
-                    }
-
-
-                    if (
-                        data.statut ===
-                        "pleine"
-                    ) {
-
-                        totalPleins++;
-
-                    }
-
+                if (chemin.length < 4) {
+                    return;
                 }
-            );
 
+                const siteId = chemin[1];
+                const fluxId = chemin[3];
 
-            const totalSites =
-                Object.keys(sites).length;
+                if (!sites[siteId]) {
+                    sites[siteId] = [];
+                }
 
+                sites[siteId].push({
+                    id: fluxId,
+                    data: data
+                });
 
-            document.getElementById(
-                "statSites"
-            ).textContent =
-                totalSites;
+                totalFlux++;
 
+                if (data.statut === "presque") {
+                    totalPresque++;
+                }
 
-            document.getElementById(
-                "statFlux"
-            ).textContent =
-                totalFlux;
+                if (data.statut === "pleine") {
+                    totalPleins++;
+                }
 
+            });
 
-            document.getElementById(
-                "statPresque"
-            ).textContent =
-                totalPresque;
+            const totalSites = Object.keys(sites).length;
 
+            document.getElementById("statSites").textContent = totalSites;
+            document.getElementById("statFlux").textContent = totalFlux;
+            document.getElementById("statPresque").textContent = totalPresque;
+            document.getElementById("statPleins").textContent = totalPleins;
 
-            document.getElementById(
-                "statPleins"
-            ).textContent =
-                totalPleins;
+            sitesBox.innerHTML = "";
 
-
-            sitesBox.innerHTML =
-                "";
-
-
-            if (
-                totalFlux === 0
-            ) {
+            if (totalFlux === 0) {
 
                 sitesBox.innerHTML = `
-
                     <div class="empty">
-
-                        Aucun flux trouvé
-                        dans Firestore.
-
+                        Aucun flux trouvé dans Firestore.
                     </div>
-
                 `;
 
                 return;
 
             }
 
+            const ids = Object.keys(sites).sort();
 
-            const ids =
-                Object.keys(sites)
-                    .sort();
+            ids.forEach(function(siteId) {
 
+                const site = document.createElement("div");
+                site.className = "site";
 
-            ids.forEach(
-                function(siteId) {
+                let fluxHTML = "";
 
-                    const site =
-                        document.createElement(
-                            "div"
-                        );
+                sites[siteId]
+                    .sort(function(a, b) {
+                        return a.id.localeCompare(b.id);
+                    })
+                    .forEach(function(item) {
 
+                        const data = item.data;
+                        const statut = data.statut || "inconnu";
+                        const modifiePar = data.modifiePar || "";
+                        const date = afficherDate(data.miseAJour);
 
-                    site.className =
-                        "site";
+                        fluxHTML += `
+                            <div class="flux">
+                                <div>
+                                    <div class="flux-name">
+                                        ${nomFlux(item.id, data)}
+                                    </div>
+                                    ${
+                                        modifiePar
+                                        ? `<div class="meta">👤 ${modifiePar}${date ? " — " + date : ""}</div>`
+                                        : (date ? `<div class="meta">${date}</div>` : "")
+                                    }
+                                </div>
+                                <div>
+                                    ${statutHTML(statut)}
+                                </div>
+                            </div>
+                        `;
 
+                    });
 
-                    let fluxHTML =
-                        "";
+                site.innerHTML = `
+                    <div class="site-title">${nomSite(siteId)}</div>
+                    <div class="site-id">${siteId}</div>
+                    ${fluxHTML}
+                `;
 
+                sitesBox.appendChild(site);
 
-                    sites[siteId]
-                        .sort(
-                            function(a, b) {
+            });
 
-                                return a.id
-                                    .localeCompare(
-                                        b.id
-                                    );
+        },
 
-                            }
-                        )
-                        .forEach(
-                            function(item) {
+        function(error) {
 
-                                const data =
-                                    item.data;
+            console.error("Erreur flux :", error);
 
+            sitesBox.innerHTML = `
+                <div class="error" style="display:block;">
+                    ❌ Impossible de charger les flux.
+                    <br><br>
+                    <strong>Code :</strong> ${error.code || "inconnu"}
+                    <br><br>
+                    <strong>Message :</strong> ${error.message || "inconnu"}
+                </div>
+            `;
 
-                                const statut =
-                                    data.statut ||
-                                    "inconnu";
+        }
 
+    );
 
-                                const modifiePar =
-                                    data.modifiePar ||
-                                    "";
+}
 
+/* =========================
+   VÉRIFICATION ADMIN
+========================= */
 
-                                const date =
-                                    afficherDate(
-                                        data.miseAJour
-                                    );
+auth.onAuthStateChanged(function(user) {
 
+    // Aucun utilisateur connecté → retour à la page de connexion
+    if (!user) {
 
-                                fluxHTML += `
+        window.location.href = "./login.html";
+        return;
 
-                                    <div class="flux">
+    }
 
-                                        <div>
+    // Utilisateur connecté : on vérifie son rôle dans Firestore
+    db.collection("users").doc(user.uid).get()
+        .then(function(doc) {
 
-                                            <div
-                                                class="flux-name"
-                                            >
+            if (!doc.exists) {
 
-                                                ${nomFlux(
-                                                    item.id,
-                                                    data
-                                                )}
+                afficherErreur(
+                    "Aucun profil trouvé pour ce compte. " +
+                    "Contactez un administrateur."
+                );
+                return;
 
-                                            </div>
+            }
 
-                                            ${
-                                                modifiePar
-                                                ? `
-                                                    <div
-                                                        class="meta"
-                                                    >
-                                                        👤
-                                                        ${modifiePar}
-                                                    </div>
-                                                `
-                                                : ""
-                                            }
+            const data = doc.data();
 
-               
+            if (data.role !== "admin") {
+
+                afficherErreur(
+                    "Accès refusé : ce compte n'a pas les droits administrateur."
+                );
+                return;
+
+            }
+
+            // Rôle admin confirmé : on affiche le tableau de bord
+            document.getElementById("email").textContent = user.email || "";
+
+            loading.style.display = "none";
+            errorBox.style.display = "none";
+            dashboard.style.display = "block";
+
+            chargerAgents();
+            chargerFlux();
+
+        })
+        .catch(function(error) {
+
+            console.error("Erreur vérification rôle :", error);
+
+            afficherErreur(
+                "Impossible de vérifier vos droits. " +
+                "<br><br><strong>Code :</strong> " + (error.code || "inconnu") +
+                "<br><strong>Message :</strong> " + (error.message || "inconnu")
+            );
+
+        });
+
+});
+
+/* =========================
+   DÉCONNEXION
+========================= */
+
+document.getElementById("logout").addEventListener("click", function() {
+
+    auth.signOut().then(function() {
+        window.location.href = "./login.html";
+    });
+
+});
+
+</script>
+</body>
+    </html>
