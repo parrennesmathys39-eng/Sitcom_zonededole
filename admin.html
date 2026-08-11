@@ -48,7 +48,8 @@ header p {
 
 .loading {
     text-align: center;
-    padding: 25px;
+    padding: 30px;
+    font-weight: bold;
 }
 
 .error {
@@ -67,6 +68,24 @@ header p {
     padding: 16px;
     border-radius: 12px;
     font-weight: bold;
+}
+
+.info {
+    background: #e8f2ff;
+    color: #1557a6;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.code {
+    background: white;
+    color: #333;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 12px;
+    font-family: monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
 }
 
 #dashboard {
@@ -167,10 +186,42 @@ header p {
     color: #666;
 }
 
-.meta {
-    color: #888;
-    font-size: 12px;
+.agent {
+    border-top: 1px solid #eee;
+    padding: 16px 0;
+}
+
+.agent:first-child {
+    border-top: none;
+}
+
+.agent-nom {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.agent-email {
+    color: #666;
     margin-top: 5px;
+    word-break: break-word;
+}
+
+.agent-role {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #17231b;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.empty {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    color: #777;
 }
 
 .buttons {
@@ -197,44 +248,6 @@ header p {
 
 .red-button {
     background: #c62828;
-}
-
-.agent {
-    border-top: 1px solid #eee;
-    padding: 16px 0;
-}
-
-.agent:first-child {
-    border-top: none;
-}
-
-.agent-name {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.agent-email {
-    color: #666;
-    margin-top: 5px;
-    word-break: break-word;
-}
-
-.agent-role {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 6px 10px;
-    border-radius: 20px;
-    background: #e8f1eb;
-    color: #087f3d;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.empty {
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 12px;
-    color: #777;
 }
 
 @media (max-width: 750px) {
@@ -277,13 +290,17 @@ header p {
 </div><div
     id="error"
     class="error"
-></div><div id="dashboard"><!-- COMPTE ADMIN --><div class="card"><div class="success">
-👑 Administrateur confirmé
+></div><div id="dashboard"><!-- =========================
+     COMPTE
+========================= --><div class="card"><div class="success">👑 Administrateur confirmé
+
 </div><br>👤 Compte :
 
 <strong id="email"></strong>
 
-</div><!-- STATISTIQUES --><div class="stats"><div class="stat"><div class="stat-icon">
+</div><!-- =========================
+     STATISTIQUES
+========================= --><div class="stats"><div class="stat"><div class="stat-icon">
 📍
 </div><div
     id="statSites"
@@ -319,13 +336,23 @@ Presque pleins
 0
 </div><div class="stat-label">
 Pleins
-</div></div></div><!-- AGENTS --><div class="card"><h2>👥 Agents</h2><p>
-Liste des comptes enregistrés dans Firestore.
-</p><div id="agents">🔄 Chargement des agents...
-
-</div></div><!-- DECHETTERIES --><div class="card"><h2>📊 État des déchèteries</h2><div id="sites">🔄 Chargement...
-
-</div></div><!-- ACTIONS --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
+</div></div></div><!-- =========================
+     AGENTS
+========================= --><div class="card"><h2>👷 Agents</h2><p>
+Liste des comptes agents enregistrés dans Firestore.
+</p><div
+    id="agents"
+>
+🔄 Chargement des agents...
+</div></div><!-- =========================
+     DECHETTERIES
+========================= --><div class="card"><h2>📊 État des déchèteries</h2><div
+    id="sites"
+>
+🔄 Chargement...
+</div></div><!-- =========================
+     ACTIONS
+========================= --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
 class="button green-button"
 href="./agent.html"
 
@@ -352,7 +379,10 @@ class="button red-button"
 🚪 Déconnexion
 </button>
 
-</div></div></div></div><!-- FIREBASE --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
+</div></div></div></div><!-- =========================
+     FIREBASE
+========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
+
 
 /* =========================
    FIREBASE
@@ -383,6 +413,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
 const auth =
 firebase.auth();
 
@@ -403,11 +434,11 @@ document.getElementById("error");
 const dashboard =
 document.getElementById("dashboard");
 
-const sitesBox =
-document.getElementById("sites");
-
 const agentsBox =
 document.getElementById("agents");
+
+const sitesBox =
+document.getElementById("sites");
 
 
 /* =========================
@@ -484,32 +515,15 @@ function nomSite(id) {
 
     const noms = {
 
-        "chaussin":
-            "Chaussin",
-
-        "dole":
-            "Dole",
-
-        "brevans":
-            "Brevans",
-
-        "tavaux":
-            "Tavaux",
-
-        "dampierre":
-            "Dampierre",
-
-        "mont-sous-vaudrey":
-            "Mont-sous-Vaudrey",
-
-        "montmirey-le-chateau":
-            "Montmirey-le-Château",
-
-        "saligney":
-            "Saligney",
-
-        "villers-farlay":
-            "Villers-Farlay"
+        "chaussin": "Chaussin",
+        "dole": "Dole",
+        "brevans": "Brevans",
+        "tavaux": "Tavaux",
+        "dampierre": "Dampierre",
+        "mont-sous-vaudrey": "Mont-sous-Vaudrey",
+        "montmirey-le-chateau": "Montmirey-le-Château",
+        "saligney": "Saligney",
+        "villers-farlay": "Villers-Farlay"
 
     };
 
@@ -522,39 +536,18 @@ function nomSite(id) {
    NOM FLUX
 ========================= */
 
-function nomFlux(id, data) {
-
-    if (data.nom) {
-
-        return data.nom;
-
-    }
+function nomFlux(id) {
 
     const noms = {
 
-        "bois-a":
-            "🪵 Bois A",
-
-        "bois-b":
-            "🪵 Bois B",
-
-        "mobilier":
-            "🛋️ Mobilier",
-
-        "carton":
-            "📦 Carton",
-
-        "gravats":
-            "🪨 Gravats",
-
-        "ferraille":
-            "🔩 Ferraille",
-
-        "plastique-dur":
-            "🧴 Plastique dur",
-
-        "tout-venant":
-            "🗑️ Tout-venant"
+        "bois-a": "🪵 Bois A",
+        "bois-b": "🪵 Bois B",
+        "mobilier": "🛋️ Mobilier",
+        "carton": "📦 Carton",
+        "gravats": "🪨 Gravats",
+        "ferraille": "🔩 Ferraille",
+        "plastique-dur": "🧴 Plastique dur",
+        "tout-venant": "🗑️ Tout-venant"
 
     };
 
@@ -570,9 +563,7 @@ function nomFlux(id, data) {
 function afficherDate(timestamp) {
 
     if (!timestamp) {
-
         return "";
-
     }
 
     try {
@@ -628,7 +619,8 @@ async function chargerAgents() {
         }
 
 
-        agentsBox.innerHTML = "";
+        agentsBox.innerHTML =
+            "";
 
 
         snapshot.forEach(
@@ -640,25 +632,24 @@ async function chargerAgents() {
 
                 const prenom =
                     typeof data.prenom === "string"
-                        ? data.prenom.trim()
-                        : "";
+                    ? data.prenom.trim()
+                    : "";
 
 
                 const nom =
                     typeof data.nom === "string"
-                        ? data.nom.trim()
-                        : "";
+                    ? data.nom.trim()
+                    : "";
 
 
                 const nomComplet =
                     [prenom, nom]
-                        .filter(Boolean)
-                        .join(" ");
+                    .filter(Boolean)
+                    .join(" ");
 
 
                 const email =
                     data.email ||
-                    data.mail ||
                     "E-mail non renseigné";
 
 
@@ -679,7 +670,7 @@ async function chargerAgents() {
 
                 agent.innerHTML = `
 
-                    <div class="agent-name">
+                    <div class="agent-nom">
 
                         👤
                         ${
@@ -691,16 +682,15 @@ async function chargerAgents() {
 
                     <div class="agent-email">
 
-                        📧
-                        ${email}
+                        📧 ${email}
 
                     </div>
 
-                    <div class="agent-role">
+                    <span class="agent-role">
 
                         ${role}
 
-                    </div>
+                    </span>
 
                 `;
 
@@ -721,25 +711,25 @@ async function chargerAgents() {
             error
         );
 
+
         agentsBox.innerHTML = `
 
             <div class="error"
                  style="display:block;">
 
-                ❌ Impossible de lire les agents.
+                ❌ Impossible de lire la liste des agents.
 
-                <br><br>
-
-                <small>
+                <div class="code">
 
                     Code :
                     ${error.code || "inconnu"}
 
-                    <br>
+                    <br><br>
 
-                    ${error.message || ""}
+                    Message :
+                    ${error.message || "inconnu"}
 
-                </small>
+                </div>
 
             </div>
 
@@ -751,7 +741,7 @@ async function chargerAgents() {
 
 
 /* =========================
-   FLUX TEMPS REEL
+   FLUX
 ========================= */
 
 function chargerFlux() {
@@ -778,8 +768,7 @@ function chargerFlux() {
 
 
                     const chemin =
-                        doc.ref.path
-                            .split("/");
+                        doc.ref.path.split("/");
 
 
                     const siteId =
@@ -800,7 +789,6 @@ function chargerFlux() {
                     sites[siteId].push({
 
                         id: fluxId,
-
                         data: data
 
                     });
@@ -860,19 +848,16 @@ function chargerFlux() {
                 totalPleins;
 
 
-            sitesBox.innerHTML = "";
+            sitesBox.innerHTML =
+                "";
 
 
             if (totalFlux === 0) {
 
                 sitesBox.innerHTML = `
-
                     <div class="empty">
-
                         Aucun flux trouvé dans Firestore.
-
                     </div>
-
                 `;
 
                 return;
@@ -881,133 +866,132 @@ function chargerFlux() {
 
 
             Object.keys(sites)
-                .sort()
-                .forEach(
-                    function(siteId) {
+            .sort()
+            .forEach(
+                function(siteId) {
 
-                        const site =
-                            document.createElement(
-                                "div"
-                            );
-
-
-                        site.className =
-                            "site";
+                    const site =
+                        document.createElement(
+                            "div"
+                        );
 
 
-                        let fluxHTML =
-                            "";
+                    site.className =
+                        "site";
 
 
-                        sites[siteId]
-                            .sort(
-                                function(a,b) {
-
-                                    return a.id
-                                        .localeCompare(
-                                            b.id
-                                        );
-
-                                }
-                            )
-                            .forEach(
-                                function(item) {
-
-                                    const data =
-                                        item.data;
+                    let fluxHTML =
+                        "";
 
 
-                                    const statut =
-                                        data.statut ||
-                                        "inconnu";
+                    sites[siteId]
+                    .sort(
+                        function(a,b) {
+
+                            return a.id
+                                .localeCompare(
+                                    b.id
+                                );
+
+                        }
+                    )
+                    .forEach(
+                        function(item) {
+
+                            const data =
+                                item.data;
 
 
-                                    const modifiePar =
-                                        data.modifiePar ||
-                                        "";
+                            const statut =
+                                data.statut ||
+                                "inconnu";
 
 
-                                    const date =
-                                        afficherDate(
-                                            data.miseAJour
-                                        );
+                            const modifiePar =
+                                data.modifiePar ||
+                                "";
 
 
-                                    fluxHTML += `
+                            const date =
+                                afficherDate(
+                                    data.miseAJour
+                                );
 
-                                        <div class="flux">
 
-                                            <div>
+                            fluxHTML += `
 
-                                                <div class="flux-name">
+                                <div class="flux">
 
-                                                    ${nomFlux(
-                                                        item.id,
-                                                        data
-                                                    )}
+                                    <div>
 
-                                                </div>
+                                        <div class="flux-name">
 
-                                                ${
-                                                    modifiePar
-                                                    ? `
-                                                        <div class="meta">
-                                                            👤 ${modifiePar}
-                                                        </div>
-                                                    `
-                                                    : ""
-                                                }
-
-                                                ${
-                                                    date
-                                                    ? `
-                                                        <div class="meta">
-                                                            🕐 ${date}
-                                                        </div>
-                                                    `
-                                                    : ""
-                                                }
-
-                                            </div>
-
-                                            ${statutHTML(
-                                                statut
+                                            ${nomFlux(
+                                                item.id
                                             )}
 
                                         </div>
 
-                                    `;
+                                        ${
+                                            modifiePar
+                                            ? `
+                                                <div class="meta">
+                                                    👤 ${modifiePar}
+                                                </div>
+                                            `
+                                            : ""
+                                        }
 
-                                }
-                            );
+                                        ${
+                                            date
+                                            ? `
+                                                <div class="meta">
+                                                    🕐 ${date}
+                                                </div>
+                                            `
+                                            : ""
+                                        }
+
+                                    </div>
+
+                                    ${statutHTML(
+                                        statut
+                                    )}
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
 
 
-                        site.innerHTML = `
+                    site.innerHTML = `
 
-                            <div class="site-title">
+                        <div class="site-title">
 
-                                ♻️
-                                ${nomSite(siteId)}
+                            ♻️
+                            ${nomSite(siteId)}
 
-                            </div>
+                        </div>
 
-                            <div class="site-id">
+                        <div class="site-id">
 
-                                ${siteId}
+                            ${siteId}
 
-                            </div>
+                        </div>
 
-                            ${fluxHTML}
+                        ${fluxHTML}
 
-                        `;
+                    `;
 
 
-                        sitesBox.appendChild(
-                            site
-                        );
+                    sitesBox.appendChild(
+                        site
+                    );
 
-                    }
-                );
+                }
+            );
 
         },
 
@@ -1018,10 +1002,28 @@ function chargerFlux() {
                 error
             );
 
-            afficherErreur(
-                "Impossible de lire les flux : "
-                + error.message
-            );
+            sitesBox.innerHTML = `
+
+                <div class="error"
+                     style="display:block;">
+
+                    ❌ Impossible de lire les flux.
+
+                    <div class="code">
+
+                        Code :
+                        ${error.code || "inconnu"}
+
+                        <br><br>
+
+                        Message :
+                        ${error.message || "inconnu"}
+
+                    </div>
+
+                </div>
+
+            `;
 
         }
 
@@ -1031,24 +1033,31 @@ function chargerFlux() {
 
 
 /* =========================
-   AUTHENTIFICATION ADMIN
+   AUTHENTIFICATION
 ========================= */
 
 auth.onAuthStateChanged(
 async function(user) {
 
-    if (!user) {
-
-        afficherErreur(
-            "Aucun compte connecté. Connecte-toi d'abord depuis agent.html."
-        );
-
-        return;
-
-    }
-
-
     try {
+
+        if (!user) {
+
+            afficherErreur(
+                "Aucun compte Firebase connecté. Connecte-toi d'abord avec ton compte administrateur."
+            );
+
+            return;
+
+        }
+
+
+        loading.innerHTML =
+            "🟢 Compte détecté : " +
+            (user.email || "") +
+            "<br><br>" +
+            "🔄 Vérification du profil administrateur...";
+
 
         const profil =
             await db
@@ -1060,7 +1069,7 @@ async function(user) {
         if (!profil.exists) {
 
             afficherErreur(
-                "Ton profil users/" +
+                "Ton compte Firebase est connecté, mais le document users/" +
                 user.uid +
                 " n'existe pas dans Firestore."
             );
@@ -1081,23 +1090,6 @@ async function(user) {
         if (role !== "admin") {
 
             afficherErreur(
-                "Accès refusé. Ton rôle est : "
-                + (role || "aucun")
-            );
-
-            return;
-
-        }
-
-
-        document.getElementById(
-            "email"
-        ).textContent =
-            user.email || "Administrateur";
-
-
-        loading.style.display =
-            "none";
-
-
-        dashboard.style.display
+                "Accès refusé.<br><br>" +
+                "Rôle détecté : " +
+     
