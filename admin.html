@@ -75,14 +75,6 @@ header p {
     font-weight: bold;
 }
 
-.info {
-    background: #fff8df;
-    color: #795c00;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: bold;
-}
-
 #dashboard {
     display: none;
 }
@@ -224,6 +216,7 @@ header p {
     color: #777;
 }
 
+
 /* =========================
    AGENTS
 ========================= */
@@ -234,10 +227,6 @@ header p {
     padding: 17px;
     margin-top: 12px;
     background: #fafafa;
-}
-
-.agent-card:first-child {
-    margin-top: 0;
 }
 
 .agent-header {
@@ -284,15 +273,8 @@ header p {
 .agents-count {
     color: #777;
     font-size: 14px;
-    margin-top: -10px;
-    margin-bottom: 15px;
-}
-
-#agentsLoading {
-    padding: 15px;
-    background: #f5f5f5;
-    border-radius: 12px;
-    color: #666;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .agents-error {
@@ -308,6 +290,11 @@ header p {
 .refresh {
     background: #1565c0;
 }
+
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 750px) {
 
@@ -345,16 +332,20 @@ header p {
 
 }
 
-</style></head><body><header><div class="header-inner"><h1>👑 Administration</h1><p>SICTOM Zone de Dole</p></div></header><div class="container"><div
+</style></head><body><header><div class="header-inner"><h1>👑 Administration</h1><p>SICTOM Zone de Dole</p></div></header><div class="container"><!-- =========================
+     CHARGEMENT
+========================= --><div
     id="loading"
     class="card loading"
->
-🔄 Vérification du compte...
-</div><div
+>🔄 Vérification du compte...
+
+</div><!-- =========================
+     ERREUR
+========================= --><div
     id="error"
     class="error"
 ></div><div id="dashboard"><!-- =========================
-     COMPTE
+     COMPTE ADMIN
 ========================= --><div class="card"><div class="success">👑 Administrateur confirmé
 
 </div><br>👤 Compte :
@@ -408,7 +399,7 @@ Pleins
     gap:15px;
     flex-wrap:wrap;
 "><h2 style="margin:0;">
-👷 Agents
+👷 Gestion des agents
 </h2><button
 id="refreshAgents"
 class="button refresh"
@@ -418,30 +409,35 @@ class="button refresh"
 🔄 Actualiser
 </button>
 
-</div><br><div class="success">🔐 Les comptes sont créés directement dans Firebase.
-<br>
-Cette page sert uniquement à consulter les agents enregistrés dans Firestore.
+</div><br><div class="success">🔐 Les comptes agents sont créés directement dans Firebase.
 
-</div><br><div
-    id="agentsLoading"
->
-🔄 Chargement des agents...
+<br><br>
+
+Cette page permet uniquement de consulter les agents
+enregistrés dans Firestore.
+
 </div><div
-    id="agentsError"
-    class="agents-error"
-></div><div
     id="agentsCount"
     class="agents-count"
     style="display:none;"
 ></div><div
+    id="agentsError"
+    class="agents-error"
+></div><div
     id="agents"
-></div></div><!-- =========================
-     DONNEES
-========================= --><div class="card"><h2>📊 État des déchèteries</h2><div id="sites">Chargement...
+><div class="empty">🔄 Chargement des agents...
+
+</div></div></div><!-- =========================
+     ETAT DES DECHETTERIES
+========================= --><div class="card"><h2>
+📊 État des déchèteries
+</h2><div id="sites">🔄 Chargement...
 
 </div></div><!-- =========================
-     ACTIONS
-========================= --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
+     ACCES RAPIDES
+========================= --><div class="card"><h2>
+⚙️ Accès rapides
+</h2><div class="buttons"><a
 class="button green-button"
 href="./agent.html"
 
@@ -474,7 +470,7 @@ class="button red-button"
 
 
 /* =========================
-   FIREBASE
+   CONFIGURATION FIREBASE
 ========================= */
 
 const firebaseConfig = {
@@ -500,13 +496,17 @@ const firebaseConfig = {
 };
 
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(
+    firebaseConfig
+);
+
 
 const auth =
-firebase.auth();
+    firebase.auth();
+
 
 const db =
-firebase.firestore();
+    firebase.firestore();
 
 
 /* =========================
@@ -514,54 +514,92 @@ firebase.firestore();
 ========================= */
 
 const loading =
-document.getElementById("loading");
+    document.getElementById(
+        "loading"
+    );
+
 
 const errorBox =
-document.getElementById("error");
+    document.getElementById(
+        "error"
+    );
+
 
 const dashboard =
-document.getElementById("dashboard");
+    document.getElementById(
+        "dashboard"
+    );
+
 
 const sitesBox =
-document.getElementById("sites");
+    document.getElementById(
+        "sites"
+    );
+
 
 const agentsBox =
-document.getElementById("agents");
+    document.getElementById(
+        "agents"
+    );
 
-const agentsLoading =
-document.getElementById("agentsLoading");
 
 const agentsError =
-document.getElementById("agentsError");
+    document.getElementById(
+        "agentsError"
+    );
+
 
 const agentsCount =
-document.getElementById("agentsCount");
+    document.getElementById(
+        "agentsCount"
+    );
+
 
 const refreshAgents =
-document.getElementById("refreshAgents");
+    document.getElementById(
+        "refreshAgents"
+    );
 
 
 /* =========================
    PROTECTION HTML
 ========================= */
 
-function echapperHTML(value) {
+function echapperHTML(
+    valeur
+) {
 
     if (
-        value === null ||
-        value === undefined
+        valeur === null ||
+        valeur === undefined
     ) {
 
         return "";
 
     }
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+    return String(valeur)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -570,27 +608,43 @@ function echapperHTML(value) {
    ERREUR GENERALE
 ========================= */
 
-function afficherErreur(message) {
+function afficherErreur(
+    texte
+) {
 
-    loading.style.display = "none";
+    loading.style.display =
+        "none";
 
-    dashboard.style.display = "none";
 
-    errorBox.style.display = "block";
+    dashboard.style.display =
+        "none";
+
+
+    errorBox.style.display =
+        "block";
+
 
     errorBox.innerHTML =
-        "❌ " + echapperHTML(message);
+        "❌ " +
+        echapperHTML(
+            texte
+        );
 
 }
 
 
 /* =========================
-   STATUT
+   STATUT FLUX
 ========================= */
 
-function statutHTML(statut) {
+function statutHTML(
+    statut
+) {
 
-    if (statut === "disponible") {
+    if (
+        statut ===
+        "disponible"
+    ) {
 
         return `
             <span class="status disponible">
@@ -600,7 +654,11 @@ function statutHTML(statut) {
 
     }
 
-    if (statut === "presque") {
+
+    if (
+        statut ===
+        "presque"
+    ) {
 
         return `
             <span class="status presque">
@@ -610,7 +668,11 @@ function statutHTML(statut) {
 
     }
 
-    if (statut === "pleine") {
+
+    if (
+        statut ===
+        "pleine"
+    ) {
 
         return `
             <span class="status pleine">
@@ -620,9 +682,14 @@ function statutHTML(statut) {
 
     }
 
+
     return `
         <span class="status inconnu">
-            ℹ️ ${echapperHTML(statut || "Inconnu")}
+            ℹ️
+            ${echapperHTML(
+                statut ||
+                "Inconnu"
+            )}
         </span>
     `;
 
@@ -630,10 +697,12 @@ function statutHTML(statut) {
 
 
 /* =========================
-   NOM DE SITE
+   NOM SITE
 ========================= */
 
-function nomSite(id) {
+function nomSite(
+    id
+) {
 
     const noms = {
 
@@ -666,22 +735,33 @@ function nomSite(id) {
 
     };
 
-    return noms[id] || id;
+
+    return (
+        noms[id] ||
+        id
+    );
 
 }
 
 
 /* =========================
-   NOM DU FLUX
+   NOM FLUX
 ========================= */
 
-function nomFlux(id, data) {
+function nomFlux(
+    id,
+    data
+) {
 
-    if (data.nom) {
+    if (
+        data &&
+        data.nom
+    ) {
 
         return data.nom;
 
     }
+
 
     const noms = {
 
@@ -711,7 +791,11 @@ function nomFlux(id, data) {
 
     };
 
-    return noms[id] || id;
+
+    return (
+        noms[id] ||
+        id
+    );
 
 }
 
@@ -720,7 +804,9 @@ function nomFlux(id, data) {
    DATE
 ========================= */
 
-function afficherDate(timestamp) {
+function afficherDate(
+    timestamp
+) {
 
     if (!timestamp) {
 
@@ -728,20 +814,26 @@ function afficherDate(timestamp) {
 
     }
 
+
     try {
 
         const date =
             timestamp.toDate();
 
+
         return date.toLocaleString(
             "fr-FR",
             {
-                dateStyle: "short",
-                timeStyle: "short"
+                dateStyle:
+                    "short",
+
+                timeStyle:
+                    "short"
             }
         );
 
     }
+
     catch(error) {
 
         return "";
@@ -752,31 +844,37 @@ function afficherDate(timestamp) {
 
 
 /* =========================
-   CHARGEMENT DES AGENTS
+   CHARGER LES AGENTS
 ========================= */
 
 async function chargerAgents() {
 
-    agentsLoading.style.display =
-        "block";
+    agentsBox.innerHTML = `
+
+        <div class="empty">
+
+            🔄 Chargement des agents...
+
+        </div>
+
+    `;
+
 
     agentsError.style.display =
         "none";
 
-    agentsBox.innerHTML = "";
 
     agentsCount.style.display =
         "none";
-
-    agentsLoading.textContent =
-        "🔄 Chargement des agents...";
 
 
     try {
 
         /*
-         * On récupère les documents
-         * users dont le rôle est agent.
+         * On récupère uniquement
+         * les utilisateurs dont :
+         *
+         * role = agent
          */
 
         const snapshot =
@@ -790,26 +888,19 @@ async function chargerAgents() {
                 .get();
 
 
-        agentsLoading.style.display =
-            "none";
-
-
-        const agents =
-            [];
+        const agents = [];
 
 
         snapshot.forEach(
             function(doc) {
 
-                const data =
-                    doc.data();
-
-
                 agents.push({
 
-                    id: doc.id,
+                    id:
+                        doc.id,
 
-                    data: data
+                    data:
+                        doc.data()
 
                 });
 
@@ -819,7 +910,6 @@ async function chargerAgents() {
 
         /*
          * Tri alphabétique
-         * prénom + nom.
          */
 
         agents.sort(
@@ -832,12 +922,14 @@ async function chargerAgents() {
                         (a.data.nom || "")
                     ).toLowerCase();
 
+
                 const nomB =
                     (
                         (b.data.prenom || "") +
                         " " +
                         (b.data.nom || "")
                     ).toLowerCase();
+
 
                 return nomA.localeCompare(
                     nomB,
@@ -851,6 +943,7 @@ async function chargerAgents() {
         agentsCount.style.display =
             "block";
 
+
         agentsCount.textContent =
             agents.length +
             (
@@ -861,7 +954,8 @@ async function chargerAgents() {
 
 
         if (
-            agents.length === 0
+            agents.length ===
+            0
         ) {
 
             agentsBox.innerHTML = `
@@ -872,13 +966,15 @@ async function chargerAgents() {
 
                     <br><br>
 
-                    Vérifie que le document
+                    Vérifie que les documents
                     <strong>users/{UID}</strong>
-                    contient bien :
+                    contiennent bien :
 
                     <br><br>
 
-                    <strong>role : "agent"</strong>
+                    <strong>
+                        role : "agent"
+                    </strong>
 
                 </div>
 
@@ -889,6 +985,10 @@ async function chargerAgents() {
         }
 
 
+        agentsBox.innerHTML =
+            "";
+
+
         agents.forEach(
             function(agent) {
 
@@ -897,31 +997,38 @@ async function chargerAgents() {
 
 
                 const prenom =
-                    typeof data.prenom === "string"
+                    typeof data.prenom ===
+                    "string"
                     ? data.prenom.trim()
                     : "";
 
 
                 const nom =
-                    typeof data.nom === "string"
+                    typeof data.nom ===
+                    "string"
                     ? data.nom.trim()
                     : "";
 
 
                 const email =
-                    typeof data.email === "string"
+                    typeof data.email ===
+                    "string"
                     ? data.email.trim()
                     : "";
 
 
                 const telephone =
-                    typeof data.telephone === "string"
+                    typeof data.telephone ===
+                    "string"
                     ? data.telephone.trim()
                     : "";
 
 
                 const nomComplet =
-                    [prenom, nom]
+                    [
+                        prenom,
+                        nom
+                    ]
                     .filter(Boolean)
                     .join(" ");
 
@@ -932,17 +1039,17 @@ async function chargerAgents() {
                     "Agent sans nom";
 
 
-                const agentCard =
+                const card =
                     document.createElement(
                         "div"
                     );
 
 
-                agentCard.className =
+                card.className =
                     "agent-card";
 
 
-                agentCard.innerHTML = `
+                card.innerHTML = `
 
                     <div class="agent-header">
 
@@ -1059,56 +1166,11 @@ async function chargerAgents() {
                     <div class="agent-id">
 
                         UID Firebase :
+
                         ${echapperHTML(
                             agent.id
                         )}
 
                     </div>
 
-                `;
-
-
-                agentsBox.appendChild(
-                    agentCard
-                );
-
-            }
-        );
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "Erreur chargement agents :",
-            error
-        );
-
-
-        agentsLoading.style.display =
-            "none";
-
-
-        agentsError.style.display =
-            "block";
-
-
-        agentsError.innerHTML = `
-
-            ❌ Impossible de lire la liste des agents.
-
-            <br><br>
-
-            <strong>Code :</strong>
-            ${echapperHTML(
-                error.code || "inconnu"
-            )}
-
-            <br>
-
-            <strong>Message :</strong>
-            ${echapperHTML(
-                error.message || "inconnu"
-            )}
-
-            <br><b
+        
