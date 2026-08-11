@@ -25,154 +25,62 @@ body {
     color: #17231b;
 }
 
-/* =========================
-   HEADER
-========================= */
-
 header {
     background: linear-gradient(
         135deg,
         #087f3d,
         #18a558
     );
-
     color: white;
-    padding: 25px 18px 30px;
-}
-
-.header-inner {
-    max-width: 1100px;
-    margin: auto;
+    padding: 25px 18px;
 }
 
 header h1 {
     margin: 0;
-    font-size: 27px;
+    font-size: 26px;
 }
 
 header p {
     margin: 8px 0 0;
-    opacity: .9;
 }
-
-/* =========================
-   CONTAINER
-========================= */
 
 .container {
-    max-width: 1100px;
+    max-width: 900px;
     margin: auto;
-    padding: 20px;
-}
-
-/* =========================
-   CHARGEMENT
-========================= */
-
-.loading {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow:
-        0 4px 18px rgba(0,0,0,.08);
-}
-
-/* =========================
-   ERREUR
-========================= */
-
-.error {
-    display: none;
-    background: #ffdede;
-    color: #b71c1c;
     padding: 18px;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    font-weight: bold;
 }
-
-/* =========================
-   DASHBOARD
-========================= */
-
-#dashboard {
-    display: none;
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-card {
-    background: white;
-    padding: 18px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    box-shadow:
-        0 4px 18px rgba(0,0,0,.08);
-}
-
-.admin-role {
-    color: #087f3d;
-    font-weight: bold;
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats {
-    display: grid;
-    grid-template-columns:
-        repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.stat {
-    background: white;
-    border-radius: 16px;
-    padding: 18px;
-    box-shadow:
-        0 4px 18px rgba(0,0,0,.08);
-}
-
-.stat-icon {
-    font-size: 28px;
-}
-
-.stat-number {
-    font-size: 30px;
-    font-weight: bold;
-    margin-top: 7px;
-}
-
-.stat-label {
-    color: #777;
-    margin-top: 4px;
-}
-
-/* =========================
-   SECTION
-========================= */
 
 .card {
     background: white;
-    border-radius: 18px;
     padding: 20px;
-    margin-bottom: 20px;
+    border-radius: 17px;
+    margin-bottom: 18px;
     box-shadow:
         0 4px 18px rgba(0,0,0,.08);
 }
 
-.card h2 {
-    margin-top: 0;
+.success {
+    background: #d9f7e5;
+    color: #087f3d;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
-/* =========================
-   SITE
-========================= */
+.error {
+    background: #ffdede;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.info {
+    background: #eef4ff;
+    color: #2455a4;
+    padding: 15px;
+    border-radius: 12px;
+}
 
 .site {
     border-top: 1px solid #eee;
@@ -184,7 +92,7 @@ header p {
 }
 
 .site-title {
-    font-size: 19px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -194,30 +102,24 @@ header p {
     margin-top: 4px;
 }
 
-.flux-list {
-    margin-top: 14px;
-}
-
 .flux {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
-
+    gap: 10px;
     padding: 12px 0;
-
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid #eee;
 }
 
 .flux:first-child {
-    border-top: none;
+    margin-top: 12px;
 }
 
 .flux-name {
-    font-weight: 500;
+    font-weight: bold;
 }
 
-.status {
+.badge {
     padding: 7px 11px;
     border-radius: 20px;
     font-size: 12px;
@@ -225,47 +127,51 @@ header p {
     white-space: nowrap;
 }
 
-.disponible {
+.green {
     background: #d9f7e5;
     color: #087f3d;
 }
 
-.presque {
+.orange {
     background: #fff0c2;
     color: #946200;
 }
 
-.pleine {
+.red {
     background: #ffdede;
     color: #c62828;
 }
 
-.inconnu {
+.grey {
     background: #eeeeee;
     color: #666;
 }
 
-/* =========================
-   RAFRAICHISSEMENT
-========================= */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
 
-.refresh {
-    font-size: 13px;
+.stat {
+    text-align: center;
+    background: #f7f9f7;
+    padding: 15px;
+    border-radius: 13px;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.stat-label {
     color: #777;
-    margin-top: 10px;
+    font-size: 13px;
 }
 
-/* =========================
-   BOUTONS
-========================= */
-
-.actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.btn {
+button,
+a {
     display: inline-block;
     border: none;
     padding: 13px 16px;
@@ -274,54 +180,26 @@ header p {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 8px;
 }
 
-.btn-green {
+.green-button {
     background: #087f3d;
 }
 
-.btn-red {
-    background: #c62828;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 750px) {
+@media (max-width: 600px) {
 
     .stats {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-}
-
-@media (max-width: 500px) {
-
-    .container {
-        padding: 14px;
-    }
-
-    header h1 {
-        font-size: 23px;
-    }
-
-    .stats {
-        gap: 10px;
-    }
-
-    .stat {
-        padding: 14px;
-    }
-
-    .stat-number {
-        font-size: 25px;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .flux {
         align-items: flex-start;
+    }
+
+    .badge {
+        font-size: 11px;
     }
 
 }
@@ -336,17 +214,9 @@ header p {
 
 <header>
 
-<div class="header-inner">
+<h1>👑 Administration</h1>
 
-<h1>
-👑 Administration
-</h1>
-
-<p>
-SICTOM Zone de Dole
-</p>
-
-</div>
+<p>SICTOM Zone de Dole</p>
 
 </header>
 
@@ -354,63 +224,35 @@ SICTOM Zone de Dole
 <div class="container">
 
 
-<!-- CHARGEMENT -->
+<!-- CONNEXION -->
 
-<div
-    id="loading"
-    class="loading"
->
-🔄 Vérification de votre compte...
+<div class="card">
+
+<h2>🔐 Connexion</h2>
+
+<div id="connexion">
+🔄 Vérification...
 </div>
-
-
-<!-- ERREUR -->
-
-<div
-    id="error"
-    class="error"
-></div>
-
-
-<!-- DASHBOARD -->
-
-<div id="dashboard">
-
-
-<!-- COMPTE -->
-
-<div class="admin-card">
-
-👤 Compte connecté :
-
-<strong id="email">
--
-</strong>
-
-<br><br>
-
-🔐 Rôle :
-
-<span class="admin-role">
-👑 Administrateur
-</span>
 
 </div>
 
 
 <!-- STATISTIQUES -->
 
-<div class="stats">
+<div
+    id="statsCard"
+    class="card"
+    style="display:none;"
+>
 
+<h2>📊 Données Firestore</h2>
+
+<div class="stats">
 
 <div class="stat">
 
-<div class="stat-icon">
-📍
-</div>
-
 <div
-    id="nombreSites"
+    id="totalSites"
     class="stat-number"
 >
 0
@@ -422,146 +264,80 @@ Déchèteries
 
 </div>
 
-
 <div class="stat">
 
-<div class="stat-icon">
-📦
-</div>
-
 <div
-    id="nombreFlux"
+    id="totalFlux"
     class="stat-number"
 >
 0
 </div>
 
 <div class="stat-label">
-Flux suivis
+Flux
 </div>
 
 </div>
-
 
 <div class="stat">
 
-<div class="stat-icon">
-🟠
-</div>
-
 <div
-    id="nombrePresque"
+    id="totalPleins"
     class="stat-number"
 >
 0
 </div>
 
 <div class="stat-label">
-Presque pleins
+Pleins
 </div>
 
 </div>
 
-
-<div class="stat">
-
-<div class="stat-icon">
-🔴
 </div>
-
-<div
-    id="nombrePleins"
-    class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-Flux pleins
-</div>
-
-</div>
-
 
 </div>
 
 
 <!-- DONNEES -->
 
-<div class="card">
+<div
+    id="dataCard"
+    class="card"
+    style="display:none;"
+>
 
-<h2>
-📊 État actuel des déchèteries
-</h2>
+<h2>♻️ Données enregistrées</h2>
 
-<div id="sites">
-
-Chargement des données...
-
-</div>
-
-<div class="refresh">
-
-🔄 Les données se mettent à jour
-automatiquement.
+<div id="data">
 
 </div>
 
 </div>
 
-
-<!-- ACTIONS -->
 
 <div class="card">
-
-<h2>
-⚙️ Accès rapides
-</h2>
-
-<div class="actions">
 
 <a
-    class="btn btn-green"
+    class="green-button"
     href="./agent.html"
 >
-👷 Espace agent
+👷 Retour agent
 </a>
 
 <a
-    class="btn"
     href="./index.html"
 >
-🏠 Site public
+🏠 Accueil
 </a>
 
-<button
-    class="btn btn-red"
-    id="logout"
->
-🚪 Déconnexion
-</button>
-
-</div>
-
 </div>
 
 
 </div>
 
 
-</div>
-
-
-<footer>
-
-SICTOM Zone de Dole — Administration
-
-</footer>
-
-
-<!-- =========================
-     FIREBASE
-========================= -->
+<!-- FIREBASE -->
 
 <script
 src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js">
@@ -579,7 +355,7 @@ src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js">
 <script>
 
 /* =========================
-   CONFIGURATION FIREBASE
+   FIREBASE
 ========================= */
 
 const firebaseConfig = {
@@ -605,83 +381,43 @@ const firebaseConfig = {
 };
 
 
-/* =========================
-   INITIALISATION
-========================= */
-
 firebase.initializeApp(
     firebaseConfig
 );
 
 
 const auth =
-    firebase.auth();
+firebase.auth();
 
 
 const db =
-    firebase.firestore();
+firebase.firestore();
+
+
+const connexion =
+document.getElementById(
+    "connexion"
+);
+
+
+const data =
+document.getElementById(
+    "data"
+);
 
 
 /* =========================
-   ELEMENTS
+   STATUT
 ========================= */
 
-const loading =
-    document.getElementById(
-        "loading"
-    );
-
-const errorBox =
-    document.getElementById(
-        "error"
-    );
-
-const dashboard =
-    document.getElementById(
-        "dashboard"
-    );
-
-const sitesBox =
-    document.getElementById(
-        "sites"
-    );
-
-
-/* =========================
-   ERREUR
-========================= */
-
-function erreur(message) {
-
-    loading.style.display =
-        "none";
-
-    dashboard.style.display =
-        "none";
-
-    errorBox.style.display =
-        "block";
-
-    errorBox.innerHTML =
-        "❌ " + message;
-
-}
-
-
-/* =========================
-   NOM DU STATUT
-========================= */
-
-function afficherStatut(statut) {
+function statutHTML(statut) {
 
     if (
         statut === "disponible"
     ) {
 
         return `
-            <span
-                class="status disponible"
-            >
+            <span class="badge green">
                 🟢 Disponible
             </span>
         `;
@@ -694,9 +430,7 @@ function afficherStatut(statut) {
     ) {
 
         return `
-            <span
-                class="status presque"
-            >
+            <span class="badge orange">
                 🟠 Presque pleine
             </span>
         `;
@@ -709,9 +443,7 @@ function afficherStatut(statut) {
     ) {
 
         return `
-            <span
-                class="status pleine"
-            >
+            <span class="badge red">
                 🔴 Pleine
             </span>
         `;
@@ -720,9 +452,7 @@ function afficherStatut(statut) {
 
 
     return `
-        <span
-            class="status inconnu"
-        >
+        <span class="badge grey">
             ℹ️ ${statut || "Inconnu"}
         </span>
     `;
@@ -731,435 +461,271 @@ function afficherStatut(statut) {
 
 
 /* =========================
-   CHARGEMENT DES DONNEES
+   CHARGER DIRECTEMENT
+   CHAUSSIN / BOIS-A
 ========================= */
 
-function chargerDonnees() {
+async function testBoisA() {
 
-    /*
-     * On écoute directement la collection
-     * dechetteries.
-     *
-     * Dès qu'une déchèterie est ajoutée,
-     * supprimée ou modifiée, le tableau
-     * est reconstruit.
-     */
+    try {
 
-    db.collection("dechetteries")
-        .onSnapshot(
+        const doc =
+            await db
+            .collection("dechetteries")
+            .doc("chaussin")
+            .collection("flux")
+            .doc("bois-a")
+            .get();
 
-            async function(
-                sitesSnapshot
-            ) {
 
-                let nombreSites =
-                    sitesSnapshot.size;
+        if (!doc.exists) {
 
-                let nombreFlux = 0;
+            data.innerHTML += `
 
-                let nombrePresque = 0;
+                <div class="error">
 
-                let nombrePleins = 0;
+                    ❌ Le document
+                    <strong>
+                        dechetteries/chaussin/flux/bois-a
+                    </strong>
+                    n'existe pas.
 
+                </div>
 
-                sitesBox.innerHTML =
-                    "";
-
-
-                if (
-                    sitesSnapshot.empty
-                ) {
-
-                    sitesBox.innerHTML = `
-
-                        <div
-                            class="status inconnu"
-                        >
-                            Aucune déchèterie
-                            n'est encore enregistrée
-                            dans Firestore.
-                        </div>
-
-                    `;
-
-                }
-
-
-                /*
-                 * Pour chaque déchèterie,
-                 * on écoute sa sous-collection
-                 * "flux".
-                 */
-
-                const promesses = [];
-
-
-                sitesSnapshot.forEach(
-                    function(siteDoc) {
-
-                        const promesse =
-                            db
-                            .collection(
-                                "dechetteries"
-                            )
-                            .doc(
-                                siteDoc.id
-                            )
-                            .collection(
-                                "flux"
-                            )
-                            .get()
-                            .then(
-                                function(
-                                    fluxSnapshot
-                                ) {
-
-                                    const siteData =
-                                        siteDoc.data();
-
-
-                                    const siteNom =
-                                        siteData.nom ||
-                                        siteDoc.id;
-
-
-                                    let fluxHTML =
-                                        "";
-
-
-                                    if (
-                                        fluxSnapshot.empty
-                                    ) {
-
-                                        fluxHTML = `
-
-                                            <div
-                                                class="status inconnu"
-                                            >
-                                                Aucun flux
-                                                enregistré
-                                            </div>
-
-                                        `;
-
-                                    }
-
-
-                                    fluxSnapshot.forEach(
-                                        function(
-                                            fluxDoc
-                                        ) {
-
-                                            const flux =
-                                                fluxDoc.data();
-
-
-                                            const statut =
-                                                flux.statut ||
-                                                "inconnu";
-
-
-                                            nombreFlux++;
-
-
-                                            if (
-                                                statut ===
-                                                "presque"
-                                            ) {
-
-                                                nombrePresque++;
-
-                                            }
-
-
-                                            if (
-                                                statut ===
-                                                "pleine"
-                                            ) {
-
-                                                nombrePleins++;
-
-                                            }
-
-
-                                            const nomFlux =
-                                                flux.nom ||
-                                                fluxDoc.id;
-
-
-                                            fluxHTML += `
-
-                                                <div
-                                                    class="flux"
-                                                >
-
-                                                    <span
-                                                        class="flux-name"
-                                                    >
-                                                        ${nomFlux}
-                                                    </span>
-
-                                                    ${afficherStatut(
-                                                        statut
-                                                    )}
-
-                                                </div>
-
-                                            `;
-
-                                        }
-                                    );
-
-
-                                    const siteElement =
-                                        document.createElement(
-                                            "div"
-                                        );
-
-
-                                    siteElement.className =
-                                        "site";
-
-
-                                    siteElement.innerHTML = `
-
-                                        <div
-                                            class="site-title"
-                                        >
-                                            ♻️
-                                            ${siteNom}
-                                        </div>
-
-                                        <div
-                                            class="site-id"
-                                        >
-                                            ID :
-                                            ${siteDoc.id}
-                                        </div>
-
-                                        <div
-                                            class="flux-list"
-                                        >
-                                            ${fluxHTML}
-                                        </div>
-
-                                    `;
-
-
-                                    sitesBox.appendChild(
-                                        siteElement
-                                    );
-
-                                }
-                            );
-
-
-                        promesses.push(
-                            promesse
-                        );
-
-                    }
-                );
-
-
-                /*
-                 * On attend que tous les flux
-                 * aient été récupérés avant
-                 * d'afficher les compteurs.
-                 */
-
-                await Promise.all(
-                    promesses
-                );
-
-
-                document.getElementById(
-                    "nombreSites"
-                ).textContent =
-                    nombreSites;
-
-
-                document.getElementById(
-                    "nombreFlux"
-                ).textContent =
-                    nombreFlux;
-
-
-                document.getElementById(
-                    "nombrePresque"
-                ).textContent =
-                    nombrePresque;
-
-
-                document.getElementById(
-                    "nombrePleins"
-                ).textContent =
-                    nombrePleins;
-
-            },
-
-            function(error) {
-
-                console.error(error);
-
-                erreur(
-                    "Impossible de lire les déchèteries : "
-                    + error.message
-                );
-
-            }
-
-        );
-
-}
-
-
-/* =========================
-   AUTHENTIFICATION
-========================= */
-
-auth.onAuthStateChanged(
-    async function(user) {
-
-        /*
-         * Pas connecté
-         */
-
-        if (!user) {
-
-            erreur(
-                "Tu n'es pas connecté. Connecte-toi d'abord depuis agent.html."
-            );
+            `;
 
             return;
 
         }
 
 
-        /*
-         * Affichage du compte
-         */
+        const flux =
+            doc.data();
+
+
+        const statut =
+            flux.statut ||
+            "inconnu";
+
+
+        data.innerHTML += `
+
+            <div class="site">
+
+                <div class="site-title">
+                    ♻️ Chaussin
+                </div>
+
+                <div class="site-id">
+                    ID : chaussin
+                </div>
+
+                <div class="flux">
+
+                    <span class="flux-name">
+                        🪵 Bois A
+                    </span>
+
+                    ${statutHTML(statut)}
+
+                </div>
+
+                <div class="info">
+
+                    <strong>
+                        Chemin Firestore :
+                    </strong>
+
+                    <br><br>
+
+                    dechetteries /
+                    chaussin /
+                    flux /
+                    bois-a
+
+                </div>
+
+            </div>
+
+        `;
+
 
         document.getElementById(
-            "email"
+            "totalFlux"
+        ).textContent = "1";
+
+
+        document.getElementById(
+            "totalSites"
+        ).textContent = "1";
+
+
+        document.getElementById(
+            "totalPleins"
         ).textContent =
-            user.email ||
-            "Compte connecté";
-
-
-        try {
-
-            /*
-             * Lecture du profil
-             */
-
-            const profil =
-                await db
-                .collection("users")
-                .doc(user.uid)
-                .get();
-
-
-            /*
-             * Profil absent
-             */
-
-            if (
-                !profil.exists
-            ) {
-
-                erreur(
-                    "Ton profil Firebase n'existe pas."
-                );
-
-                return;
-
-            }
-
-
-            const donnees =
-                profil.data();
-
-
-            /*
-             * Vérification admin
-             */
-
-            if (
-                donnees.role !== "admin"
-            ) {
-
-                erreur(
-                    "Accès refusé : ton compte n'est pas administrateur."
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * ADMIN CONFIRME
-             */
-
-            loading.style.display =
-                "none";
-
-            dashboard.style.display =
-                "block";
-
-
-            /*
-             * Chargement temps réel
-             */
-
-            chargerDonnees();
-
-        }
-        catch(error) {
-
-            console.error(error);
-
-            erreur(
-                "Erreur de vérification : "
-                + error.message
-            );
-
-        }
+            statut === "pleine"
+            ? "1"
+            : "0";
 
     }
-);
+    catch(error) {
+
+        data.innerHTML += `
+
+            <div class="error">
+
+                ❌ Erreur de lecture :
+
+                <br><br>
+
+                ${error.message}
+
+            </div>
+
+        `;
+
+    }
+
+}
 
 
 /* =========================
-   DECONNEXION
+   AUTH
 ========================= */
 
-document
-.getElementById("logout")
-.addEventListener(
-    "click",
-    async function() {
+auth.onAuthStateChanged(
+async function(user) {
 
-        try {
+    if (!user) {
 
-            await auth.signOut();
+        connexion.innerHTML = `
 
-            window.location.href =
-                "./agent.html";
+            <div class="error">
 
-        }
-        catch(error) {
+                ❌ Aucun compte connecté.
 
-            alert(
-                "Erreur de déconnexion : "
-                + error.message
-            );
+                <br><br>
 
-        }
+                Connecte-toi d'abord
+                dans agent.html.
+
+            </div>
+
+        `;
+
+        return;
 
     }
-);
+
+
+    try {
+
+        const profil =
+            await db
+            .collection("users")
+            .doc(user.uid)
+            .get();
+
+
+        if (!profil.exists) {
+
+            connexion.innerHTML = `
+
+                <div class="error">
+
+                    ❌ Aucun profil trouvé.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const role =
+            profil.data().role;
+
+
+        if (
+            role !== "admin"
+        ) {
+
+            connexion.innerHTML = `
+
+                <div class="error">
+
+                    ❌ Accès refusé.
+
+                    <br><br>
+
+                    Rôle détecté :
+                    ${role || "aucun"}
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        connexion.innerHTML = `
+
+            <div class="success">
+
+                👑 Administrateur confirmé
+
+                <br><br>
+
+                ${user.email || ""}
+
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "statsCard"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "dataCard"
+        ).style.display =
+            "block";
+
+
+        /*
+         * TEST DIRECT DE LA DONNÉE
+         */
+
+        await testBoisA();
+
+
+    }
+    catch(error) {
+
+        connexion.innerHTML = `
+
+            <div class="error">
+
+                ❌ Erreur Firebase :
+
+                <br><br>
+
+                ${error.message}
+
+            </div>
+
+        `;
+
+    }
+
+});
 
 </script>
 
