@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
 
-<head>
+«»
 
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Administration — SICTOM Zone de Dole</title>
-
-<style>
+<title>Administration — SICTOM Zone de Dole</title><style>
 
 * {
     box-sizing: border-box;
@@ -72,11 +64,20 @@ header p {
     padding: 18px;
     border-radius: 14px;
     font-weight: bold;
+    word-break: break-word;
 }
 
 .success {
     background: #d9f7e5;
     color: #087f3d;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.info {
+    background: #fff8df;
+    color: #795c00;
     padding: 16px;
     border-radius: 12px;
     font-weight: bold;
@@ -212,11 +213,100 @@ header p {
     background: #c62828;
 }
 
+.blue-button {
+    background: #1565c0;
+}
+
 .empty {
     padding: 20px;
     background: #f5f5f5;
     border-radius: 12px;
     color: #777;
+}
+
+/* =========================
+   AGENTS
+========================= */
+
+.agent-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    padding: 17px;
+    margin-top: 12px;
+    background: #fafafa;
+}
+
+.agent-card:first-child {
+    margin-top: 0;
+}
+
+.agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.agent-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.agent-role {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #d9f7e5;
+    color: #087f3d;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.agent-details {
+    margin-top: 12px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.agent-detail-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.agent-id {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #999;
+    word-break: break-all;
+}
+
+.agents-count {
+    color: #777;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+#agentsLoading {
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    color: #666;
+}
+
+.agents-error {
+    display: none;
+    background: #ffdede;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 12px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.refresh {
+    background: #1565c0;
 }
 
 @media (max-width: 750px) {
@@ -249,221 +339,138 @@ header p {
         align-items: flex-start;
     }
 
+    .agent-header {
+        flex-direction: column;
+    }
+
 }
 
-</style>
-
-</head>
-
-
-<body>
-
-
-<header>
-
-<div class="header-inner">
-
-<h1>👑 Administration</h1>
-
-<p>SICTOM Zone de Dole</p>
-
-</div>
-
-</header>
-
-
-<div class="container">
-
-
-<div
+</style></head><body><header><div class="header-inner"><h1>👑 Administration</h1><p>SICTOM Zone de Dole</p></div></header><div class="container"><div
     id="loading"
     class="card loading"
 >
 🔄 Vérification du compte...
-</div>
-
-
-<div
+</div><div
     id="error"
     class="error"
-></div>
+></div><div id="dashboard"><!-- =========================
+     COMPTE
+========================= --><div class="card"><div class="success">👑 Administrateur confirmé
 
-
-<div id="dashboard">
-
-
-<!-- COMPTE -->
-
-<div class="card">
-
-<div class="success">
-
-👑 Administrateur confirmé
-
-</div>
-
-<br>
-
-👤 Compte :
+</div><br>👤 Compte :
 
 <strong id="email"></strong>
 
-</div>
-
-
-<!-- STATISTIQUES -->
-
-<div class="stats">
-
-
-<div class="stat">
-
-<div class="stat-icon">
+</div><!-- =========================
+     STATISTIQUES
+========================= --><div class="stats"><div class="stat"><div class="stat-icon">
 📍
-</div>
-
-<div
+</div><div
     id="statSites"
     class="stat-number"
 >
 0
-</div>
-
-<div class="stat-label">
+</div><div class="stat-label">
 Déchèteries
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
+</div></div><div class="stat"><div class="stat-icon">
 📦
-</div>
-
-<div
+</div><div
     id="statFlux"
     class="stat-number"
 >
 0
-</div>
-
-<div class="stat-label">
+</div><div class="stat-label">
 Flux enregistrés
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
+</div></div><div class="stat"><div class="stat-icon">
 🟠
-</div>
-
-<div
+</div><div
     id="statPresque"
     class="stat-number"
 >
 0
-</div>
-
-<div class="stat-label">
+</div><div class="stat-label">
 Presque pleins
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
+</div></div><div class="stat"><div class="stat-icon">
 🔴
-</div>
-
-<div
+</div><div
     id="statPleins"
     class="stat-number"
 >
 0
-</div>
-
-<div class="stat-label">
+</div><div class="stat-label">
 Pleins
-</div>
+</div></div></div><!-- =========================
+     GESTION DES AGENTS
+========================= --><div class="card"><div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+"><h2 style="margin:0;">
+👷 Agents
+</h2><button
+id="refreshAgents"
+class="button refresh"
 
-</div>
+«»
 
+🔄 Actualiser
+</button>
 
-</div>
+</div><br><div class="success">🔐 Les comptes sont créés directement dans Firebase.
+<br>
+Cette page sert uniquement à consulter les agents enregistrés dans Firestore.
 
-
-<!-- DONNEES -->
-
-<div class="card">
-
-<h2>📊 État des déchèteries</h2>
-
-<div id="sites">
-
-Chargement...
-
-</div>
-
-</div>
-
-
-<!-- ACTIONS -->
-
-<div class="card">
-
-<h2>⚙️ Accès rapides</h2>
-
-<div class="buttons">
-
-<a
-    class="button green-button"
-    href="./agent.html"
+</div><br><div
+    id="agentsLoading"
 >
+🔄 Chargement des agents...
+</div><div
+    id="agentsError"
+    class="agents-error"
+></div><div
+    id="agentsCount"
+    class="agents-count"
+    style="display:none;"
+></div><div
+    id="agents"
+></div></div><!-- =========================
+     DONNEES
+========================= --><div class="card"><h2>📊 État des déchèteries</h2><div id="sites">Chargement...
+
+</div></div><!-- =========================
+     ACTIONS
+========================= --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
+class="button green-button"
+href="./agent.html"
+
+«»
+
 👷 Espace agent
 </a>
 
 <a
-    class="button"
-    href="./index.html"
->
+class="button"
+href="./index.html"
+
+«»
+
 🏠 Site public
 </a>
 
 <button
-    id="logout"
-    class="button red-button"
->
+id="logout"
+class="button red-button"
+
+«»
+
 🚪 Déconnexion
 </button>
 
-</div>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-<!-- FIREBASE -->
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
-
-
-<script>
+</div></div></div></div><!-- =========================
+     FIREBASE
+========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
 
 
 /* =========================
@@ -518,9 +525,49 @@ document.getElementById("dashboard");
 const sitesBox =
 document.getElementById("sites");
 
+const agentsBox =
+document.getElementById("agents");
+
+const agentsLoading =
+document.getElementById("agentsLoading");
+
+const agentsError =
+document.getElementById("agentsError");
+
+const agentsCount =
+document.getElementById("agentsCount");
+
+const refreshAgents =
+document.getElementById("refreshAgents");
+
 
 /* =========================
-   ERREUR
+   PROTECTION HTML
+========================= */
+
+function echapperHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   ERREUR GENERALE
 ========================= */
 
 function afficherErreur(message) {
@@ -532,7 +579,7 @@ function afficherErreur(message) {
     errorBox.style.display = "block";
 
     errorBox.innerHTML =
-        "❌ " + message;
+        "❌ " + echapperHTML(message);
 
 }
 
@@ -575,7 +622,7 @@ function statutHTML(statut) {
 
     return `
         <span class="status inconnu">
-            ℹ️ ${statut || "Inconnu"}
+            ℹ️ ${echapperHTML(statut || "Inconnu")}
         </span>
     `;
 
@@ -705,441 +752,363 @@ function afficherDate(timestamp) {
 
 
 /* =========================
-   CHARGEMENT TEMPS REEL
+   CHARGEMENT DES AGENTS
 ========================= */
 
-function chargerFlux() {
+async function chargerAgents() {
 
-    /*
-     * IMPORTANT :
-     *
-     * On utilise collectionGroup("flux").
-     *
-     * Cela récupère directement :
-     *
-     * dechetteries/chaussin/flux/bois-a
-     * dechetteries/dole/flux/bois-a
-     * dechetteries/tavaux/flux/carton
-     * etc.
-     */
+    agentsLoading.style.display =
+        "block";
 
-    db.collectionGroup("flux")
-    .onSnapshot(
+    agentsError.style.display =
+        "none";
 
-        function(snapshot) {
+    agentsBox.innerHTML = "";
 
-            const sites = {};
+    agentsCount.style.display =
+        "none";
 
-            let totalFlux = 0;
-
-            let totalPresque = 0;
-
-            let totalPleins = 0;
+    agentsLoading.textContent =
+        "🔄 Chargement des agents...";
 
 
-            snapshot.forEach(
-                function(doc) {
+    try {
 
-                    const data =
-                        doc.data();
+        /*
+         * On récupère les documents
+         * users dont le rôle est agent.
+         */
 
-
-                    /*
-                     * Exemple :
-                     *
-                     * dechetteries
-                     * /chaussin
-                     * /flux
-                     * /bois-a
-                     */
-
-                    const chemin =
-                        doc.ref.path
-                        .split("/");
+        const snapshot =
+            await db
+                .collection("users")
+                .where(
+                    "role",
+                    "==",
+                    "agent"
+                )
+                .get();
 
 
-                    const siteId =
-                        chemin[1];
-
-                    const fluxId =
-                        chemin[3];
+        agentsLoading.style.display =
+            "none";
 
 
-                    if (!sites[siteId]) {
-
-                        sites[siteId] = [];
-
-                    }
+        const agents =
+            [];
 
 
-                    sites[siteId].push({
+        snapshot.forEach(
+            function(doc) {
 
-                        id: fluxId,
-
-                        data: data
-
-                    });
+                const data =
+                    doc.data();
 
 
-                    totalFlux++;
+                agents.push({
+
+                    id: doc.id,
+
+                    data: data
+
+                });
+
+            }
+        );
 
 
-                    if (
-                        data.statut ===
-                        "presque"
-                    ) {
+        /*
+         * Tri alphabétique
+         * prénom + nom.
+         */
 
-                        totalPresque++;
+        agents.sort(
+            function(a, b) {
 
-                    }
+                const nomA =
+                    (
+                        (a.data.prenom || "") +
+                        " " +
+                        (a.data.nom || "")
+                    ).toLowerCase();
+
+                const nomB =
+                    (
+                        (b.data.prenom || "") +
+                        " " +
+                        (b.data.nom || "")
+                    ).toLowerCase();
+
+                return nomA.localeCompare(
+                    nomB,
+                    "fr"
+                );
+
+            }
+        );
 
 
-                    if (
-                        data.statut ===
-                        "pleine"
-                    ) {
+        agentsCount.style.display =
+            "block";
 
-                        totalPleins++;
-
-                    }
-
-                }
+        agentsCount.textContent =
+            agents.length +
+            (
+                agents.length > 1
+                ? " agents enregistrés"
+                : " agent enregistré"
             );
 
 
-            /*
-             * Nombre de déchèteries
-             */
+        if (
+            agents.length === 0
+        ) {
 
-            const totalSites =
-                Object.keys(sites).length;
+            agentsBox.innerHTML = `
 
+                <div class="empty">
 
-            /*
-             * Statistiques
-             */
+                    👷 Aucun agent trouvé.
 
-            document.getElementById(
-                "statSites"
-            ).textContent =
-                totalSites;
+                    <br><br>
 
+                    Vérifie que le document
+                    <strong>users/{UID}</strong>
+                    contient bien :
 
-            document.getElementById(
-                "statFlux"
-            ).textContent =
-                totalFlux;
+                    <br><br>
 
+                    <strong>role : "agent"</strong>
 
-            document.getElementById(
-                "statPresque"
-            ).textContent =
-                totalPresque;
+                </div>
 
+            `;
 
-            document.getElementById(
-                "statPleins"
-            ).textContent =
-                totalPleins;
+            return;
+
+        }
 
 
-            /*
-             * Affichage
-             */
+        agents.forEach(
+            function(agent) {
 
-            sitesBox.innerHTML = "";
+                const data =
+                    agent.data;
 
 
-            if (
-                totalFlux === 0
-            ) {
+                const prenom =
+                    typeof data.prenom === "string"
+                    ? data.prenom.trim()
+                    : "";
 
-                sitesBox.innerHTML = `
 
-                    <div class="empty">
+                const nom =
+                    typeof data.nom === "string"
+                    ? data.nom.trim()
+                    : "";
 
-                        Aucun flux trouvé dans Firestore.
+
+                const email =
+                    typeof data.email === "string"
+                    ? data.email.trim()
+                    : "";
+
+
+                const telephone =
+                    typeof data.telephone === "string"
+                    ? data.telephone.trim()
+                    : "";
+
+
+                const nomComplet =
+                    [prenom, nom]
+                    .filter(Boolean)
+                    .join(" ");
+
+
+                const affichageNom =
+                    nomComplet ||
+                    email ||
+                    "Agent sans nom";
+
+
+                const agentCard =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                agentCard.className =
+                    "agent-card";
+
+
+                agentCard.innerHTML = `
+
+                    <div class="agent-header">
+
+                        <div>
+
+                            <div class="agent-name">
+
+                                👤
+                                ${echapperHTML(
+                                    affichageNom
+                                )}
+
+                            </div>
+
+                            <span class="agent-role">
+
+                                👷 Agent
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="agent-details">
+
+                        ${
+                            email
+                            ? `
+                                <div>
+
+                                    <span
+                                        class="agent-detail-label"
+                                    >
+                                        📧 E-mail :
+                                    </span>
+
+                                    ${echapperHTML(
+                                        email
+                                    )}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        ${
+                            telephone
+                            ? `
+                                <div>
+
+                                    <span
+                                        class="agent-detail-label"
+                                    >
+                                        📞 Téléphone :
+                                    </span>
+
+                                    ${echapperHTML(
+                                        telephone
+                                    )}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        ${
+                            prenom
+                            ? `
+                                <div>
+
+                                    <span
+                                        class="agent-detail-label"
+                                    >
+                                        Prénom :
+                                    </span>
+
+                                    ${echapperHTML(
+                                        prenom
+                                    )}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        ${
+                            nom
+                            ? `
+                                <div>
+
+                                    <span
+                                        class="agent-detail-label"
+                                    >
+                                        Nom :
+                                    </span>
+
+                                    ${echapperHTML(
+                                        nom
+                                    )}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+                    </div>
+
+
+                    <div class="agent-id">
+
+                        UID Firebase :
+                        ${echapperHTML(
+                            agent.id
+                        )}
 
                     </div>
 
                 `;
 
-                return;
+
+                agentsBox.appendChild(
+                    agentCard
+                );
 
             }
-
-
-            /*
-             * Tri des sites
-             */
-
-            const ids =
-                Object.keys(sites)
-                .sort();
-
-
-            ids.forEach(
-                function(siteId) {
-
-                    const site =
-                        document.createElement(
-                            "div"
-                        );
-
-                    site.className =
-                        "site";
-
-
-                    let fluxHTML =
-                        "";
-
-
-                    sites[siteId]
-                    .sort(
-                        function(a,b) {
-
-                            return a.id
-                            .localeCompare(
-                                b.id
-                            );
-
-                        }
-                    )
-                    .forEach(
-                        function(item) {
-
-                            const data =
-                                item.data;
-
-
-                            const statut =
-                                data.statut ||
-                                "inconnu";
-
-
-                            const modifiePar =
-                                data.modifiePar ||
-                                "";
-
-
-                            const date =
-                                afficherDate(
-                                    data.miseAJour
-                                );
-
-
-                            fluxHTML += `
-
-                                <div class="flux">
-
-                                    <div>
-
-                                        <div
-                                            class="flux-name"
-                                        >
-                                            ${nomFlux(
-                                                item.id,
-                                                data
-                                            )}
-                                        </div>
-
-                                        ${
-                                            modifiePar
-                                            ? `
-                                                <div
-                                                    class="meta"
-                                                >
-                                                    👤
-                                                    ${modifiePar}
-                                                </div>
-                                            `
-                                            : ""
-                                        }
-
-                                        ${
-                                            date
-                                            ? `
-                                                <div
-                                                    class="meta"
-                                                >
-                                                    🕐
-                                                    ${date}
-                                                </div>
-                                            `
-                                            : ""
-                                        }
-
-                                    </div>
-
-                                    ${statutHTML(
-                                        statut
-                                    )}
-
-                                </div>
-
-                            `;
-
-                        }
-                    );
-
-
-                    site.innerHTML = `
-
-                        <div class="site-title">
-
-                            ♻️
-                            ${nomSite(siteId)}
-
-                        </div>
-
-                        <div class="site-id">
-
-                            ${siteId}
-
-                        </div>
-
-                        ${fluxHTML}
-
-                    `;
-
-
-                    sitesBox.appendChild(
-                        site
-                    );
-
-                }
-            );
-
-        },
-
-        function(error) {
-
-            console.error(
-                error
-            );
-
-            afficherErreur(
-                "Impossible de lire les flux : "
-                + error.message
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =========================
-   AUTH
-========================= */
-
-auth.onAuthStateChanged(
-async function(user) {
-
-    if (!user) {
-
-        afficherErreur(
-            "Aucun compte connecté. Connecte-toi d'abord dans agent.html."
         );
 
-        return;
-
     }
 
-
-    try {
-
-        const profil =
-            await db
-            .collection("users")
-            .doc(user.uid)
-            .get();
-
-
-        if (!profil.exists) {
-
-            afficherErreur(
-                "Ton profil utilisateur n'existe pas dans Firestore."
-            );
-
-            return;
-
-        }
-
-
-        const role =
-            profil.data().role;
-
-
-        if (role !== "admin") {
-
-            afficherErreur(
-                "Accès refusé. Rôle détecté : "
-                + (role || "aucun")
-            );
-
-            return;
-
-        }
-
-
-        document.getElementById(
-            "email"
-        ).textContent =
-            user.email || "";
-
-
-        loading.style.display =
-            "none";
-
-        dashboard.style.display =
-            "block";
-
-
-        /*
-         * On lance l'écoute temps réel.
-         */
-
-        chargerFlux();
-
-    }
     catch(error) {
 
         console.error(
+            "Erreur chargement agents :",
             error
         );
 
-        afficherErreur(
-            "Erreur Firebase : "
-            + error.message
-        );
 
-    }
-
-});
+        agentsLoading.style.display =
+            "none";
 
 
-/* =========================
-   DECONNEXION
-========================= */
-
-document
-.getElementById("logout")
-.addEventListener(
-"click",
-async function() {
-
-    await auth.signOut();
-
-    window.location.href =
-        "./agent.html";
-
-});
-
-</script>
+        agentsError.style.display =
+            "block";
 
 
-</body>
+        agentsError.innerHTML = `
 
-</html>
+            ❌ Impossible de lire la liste des agents.
+
+            <br><br>
+
+            <strong>Code :</strong>
+            ${echapperHTML(
+                error.code || "inconnu"
+            )}
+
+            <br>
+
+            <strong>Message :</strong>
+            ${echapperHTML(
+                error.message || "inconnu"
+            )}
+
+            <br><b
