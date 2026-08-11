@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Espace agent - SICTOM Zone de Dole</title><style>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Espace agent - SICTOM Zone de Dole</title><style>
 
 * {
     box-sizing: border-box;
@@ -87,8 +86,9 @@ select {
     cursor: pointer;
 }
 
-#connexionBtn:active {
-    transform: scale(0.98);
+#connexionBtn:disabled {
+    opacity: 0.6;
+    cursor: wait;
 }
 
 .message {
@@ -122,6 +122,7 @@ select {
     font-family: monospace;
     font-size: 13px;
     overflow-wrap: anywhere;
+    color: #17231b;
 }
 
 /* =========================
@@ -145,6 +146,17 @@ select {
     font-size: 13px;
     margin-top: 5px;
     word-break: break-word;
+}
+
+.role {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: #e9f5ed;
+    color: #087f3d;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .actions-agent {
@@ -220,6 +232,11 @@ select {
     cursor: pointer;
 }
 
+.statut:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
 .vert {
     background: #d9f7e5;
     color: #087f3d;
@@ -246,6 +263,27 @@ select {
     border-radius: 10px;
     margin-bottom: 15px;
     display: none;
+}
+
+/* =========================
+   PANNEAU DEBUG
+========================= */
+
+#debug {
+    display: none;
+    background: #111;
+    color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+#debug strong {
+    color: #fff;
 }
 
 @media (max-width: 600px) {
@@ -285,8 +323,8 @@ autocomplete="current-password"
 
 «»
 
-</div><button id="connexionBtn">
-🔐 Se connecter
+</div><button id="connexionBtn">🔐 Se connecter
+
 </button><div
 id="messageConnexion"
 class="message erreur"
@@ -297,7 +335,13 @@ class="message erreur"
 </strong><div
 id="emailAgent"
 class="email"
-></div><div
+>
+</div><div
+id="roleAgent"
+class="role"
+>
+Rôle : vérification...
+</div><!-- ADMIN --><div
 id="actionsAdmin"
 class="actions-agent"
 style="display:none;"
@@ -328,7 +372,7 @@ class="retour"
 ← Retour à l'accueil
 </a>
 
-<div class="flux-card"><h2>📍 Déchèterie</h2><select id="site"><option value="Chaussin">
+<div id="debug"></div><div class="flux-card"><h2>📍 Déchèterie</h2><select id="site"><option value="Chaussin">
 Chaussin
 </option><option value="Dole">
 Dole
@@ -347,7 +391,7 @@ Saligney
 </option><option value="Villers-Farlay">
 Villers-Farlay
 </option></select></div><div id="test">
-✅ Connexion Firebase active.
+✅ Application Firebase chargée.
 </div><div class="flux-card"><h2>♻️ État des flux</h2><!-- BOIS A --><div class="flux"><div class="flux-nom">
 🪵 Bois A
 </div><div class="boutons"><button class="statut vert"
@@ -515,9 +559,9 @@ class="message"
      FIREBASE
 ========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
 
-/* =========================
-   FIREBASE
-========================= */
+/* =====================================================
+   FIREBASE CONFIGURATION
+===================================================== */
 
 const firebaseConfig = {
 
@@ -542,84 +586,204 @@ const firebaseConfig = {
 };
 
 
-firebase.initializeApp(firebaseConfig);
+/* =====================================================
+   INITIALISATION
+===================================================== */
 
-const auth = firebase.auth();
+try {
 
-const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+
+} catch (error) {
+
+    console.error(
+        "Erreur initialisation Firebase :",
+        error
+    );
+
+}
 
 
-/* =========================
+const auth =
+    firebase.auth();
+
+const db =
+    firebase.firestore();
+
+
+/* =====================================================
    ELEMENTS
-========================= */
+===================================================== */
 
 const connexion =
-document.getElementById("connexion");
+    document.getElementById("connexion");
 
 const application =
-document.getElementById("application");
+    document.getElementById("application");
 
 const connexionBtn =
-document.getElementById("connexionBtn");
+    document.getElementById("connexionBtn");
 
 const messageConnexion =
-document.getElementById("messageConnexion");
+    document.getElementById("messageConnexion");
 
 const emailInput =
-document.getElementById("email");
+    document.getElementById("email");
 
 const passwordInput =
-document.getElementById("password");
+    document.getElementById("password");
 
 const emailAgent =
-document.getElementById("emailAgent");
+    document.getElementById("emailAgent");
+
+const roleAgent =
+    document.getElementById("roleAgent");
 
 const deconnexionBtn =
-document.getElementById("deconnexionBtn");
+    document.getElementById("deconnexionBtn");
 
 const siteSelect =
-document.getElementById("site");
+    document.getElementById("site");
 
 const boutons =
-document.querySelectorAll(".statut");
+    document.querySelectorAll(".statut");
 
 const message =
-document.getElementById("message");
+    document.getElementById("message");
 
 const test =
-document.getElementById("test");
+    document.getElementById("test");
 
 const actionsAdmin =
-document.getElementById("actionsAdmin");
+    document.getElementById("actionsAdmin");
+
+const debug =
+    document.getElementById("debug");
 
 
-/* =========================
-   NOM UTILISATEUR
-========================= */
+/* =====================================================
+   VARIABLES
+===================================================== */
 
 let nomUtilisateur = "";
 
+let roleUtilisateur = "";
 
-/* =========================
+
+/* =====================================================
+   AFFICHAGE DEBUG
+===================================================== */
+
+function afficherDebug(titre, erreur) {
+
+    debug.style.display = "block";
+
+    debug.innerHTML =
+
+        "<strong>⚠️ " +
+        titre +
+        "</strong>\n\n" +
+
+        "Code : " +
+        (erreur && erreur.code
+            ? erreur.code
+            : "inconnu") +
+
+        "\n\n" +
+
+        "Message : " +
+        (erreur && erreur.message
+            ? erreur.message
+            : "Aucun message") +
+
+        "\n\n" +
+
+        "Détails : " +
+        (erreur
+            ? JSON.stringify(
+                erreur,
+                Object.getOwnPropertyNames(erreur),
+                2
+            )
+            : "aucun");
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function afficherMessage(
+    type,
+    texte
+) {
+
+    message.className =
+        "message " + type;
+
+    message.innerHTML =
+        texte;
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   ID DU SITE
+===================================================== */
+
+function siteId(nom) {
+
+    return nom
+
+        .toLowerCase()
+
+        .normalize("NFD")
+
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+
+        .replace(
+            /[^a-z0-9]+/g,
+            "-"
+        )
+
+        .replace(
+            /^-|-$/g,
+            ""
+        );
+
+}
+
+
+/* =====================================================
    CHARGER PROFIL
-========================= */
+===================================================== */
 
 async function chargerProfilUtilisateur(user) {
-
-    /*
-       Par défaut, on utilise l'e-mail.
-       Si Firestore contient prénom + nom,
-       ils remplaceront l'e-mail.
-    */
 
     nomUtilisateur =
         user.email || "Utilisateur";
 
     emailAgent.textContent =
-        nomUtilisateur;
+        user.email || "";
+
+    roleAgent.textContent =
+        "Rôle : chargement...";
 
 
     try {
+
+        console.log(
+            "Lecture du profil : users/" +
+            user.uid
+        );
+
 
         const profil =
             await db
@@ -630,9 +794,26 @@ async function chargerProfilUtilisateur(user) {
 
         if (!profil.exists) {
 
-            console.log(
-                "Profil users introuvable."
+            roleUtilisateur =
+                "agent";
+
+            roleAgent.textContent =
+                "Rôle : agent";
+
+
+            afficherDebug(
+                "Profil utilisateur introuvable",
+                {
+                    code:
+                    "profile-not-found",
+
+                    message:
+                    "Le document users/" +
+                    user.uid +
+                    " n'existe pas."
+                }
             );
+
 
             return;
 
@@ -666,11 +847,49 @@ async function chargerProfilUtilisateur(user) {
             nomUtilisateur =
                 nomComplet;
 
-            emailAgent.textContent =
-                nomComplet;
+        }
+
+
+        emailAgent.textContent =
+            nomUtilisateur +
+            " — " +
+            (user.email || "");
+
+
+        roleUtilisateur =
+            typeof donnees.role === "string"
+                ? donnees.role.trim().toLowerCase()
+                : "agent";
+
+
+        roleAgent.textContent =
+            "Rôle : " +
+            roleUtilisateur;
+
+
+        console.log(
+            "Profil chargé :",
+            donnees
+        );
+
+
+        if (
+            roleUtilisateur === "admin"
+        ) {
+
+            actionsAdmin.style.display =
+                "flex";
+
+        } else {
+
+            actionsAdmin.style.display =
+                "none";
 
         }
 
+
+        debug.style.display =
+            "none";
 
     }
 
@@ -681,480 +900,220 @@ async function chargerProfilUtilisateur(user) {
             error
         );
 
-        /*
-           Le compte reste utilisable
-           même si le profil Firestore
-           n'est pas accessible.
-        */
 
-        nomUtilisateur =
-            user.email || "Utilisateur";
+        roleUtilisateur =
+            "agent";
 
-        emailAgent.textContent =
-            nomUtilisateur;
+
+        roleAgent.textContent =
+            "Rôle : impossible à vérifier";
+
+
+        afficherDebug(
+            "Impossible de lire users/" +
+            user.uid,
+            error
+        );
 
     }
 
 }
 
 
-/* =========================
+/* =====================================================
    CONNEXION
-========================= */
+===================================================== */
 
 connexionBtn.addEventListener(
-"click",
-async function() {
-
-    messageConnexion.style.display =
-        "block";
-
-    messageConnexion.className =
-        "message info";
-
-    messageConnexion.innerHTML =
-        "⏳ Tentative de connexion à Firebase...";
-
-
-    const email =
-        emailInput.value.trim();
-
-    const password =
-        passwordInput.value;
-
-
-    if (!email || !password) {
-
-        messageConnexion.className =
-            "message erreur";
-
-        messageConnexion.innerHTML =
-            "❌ Entre ton email et ton mot de passe.";
-
-        return;
-
-    }
-
-
-    connexionBtn.disabled =
-        true;
-
-    connexionBtn.textContent =
-        "⏳ Connexion...";
-
-
-    try {
-
-        await auth.signInWithEmailAndPassword(
-            email,
-            password
-        );
-
-
-        messageConnexion.className =
-            "message succes";
-
-        messageConnexion.innerHTML =
-            "✅ Connexion réussie.";
-
-    }
-
-    catch(error) {
-
-        messageConnexion.className =
-            "message erreur";
-
-        messageConnexion.innerHTML =
-
-            "❌ <strong>Erreur Firebase</strong>" +
-
-            "<div class='code'>" +
-
-            "<strong>Code :</strong><br>" +
-
-            (error.code || "inconnu") +
-
-            "<br><br>" +
-
-            "<strong>Message :</strong><br>" +
-
-            (error.message || "inconnu") +
-
-            "</div>";
-
-    }
-
-    finally {
-
-        connexionBtn.disabled =
-            false;
-
-        connexionBtn.textContent =
-            "🔐 Se connecter";
-
-    }
-
-});
-
-
-/* =========================
-   VERIFICATION ROLE ADMIN
-========================= */
-
-async function verifierRoleAdmin(user) {
-
-    actionsAdmin.style.display =
-        "none";
-
-
-    try {
-
-        const profil =
-            await db
-                .collection("users")
-                .doc(user.uid)
-                .get();
-
-
-        if (!profil.exists) {
-
-            return;
-
-        }
-
-
-        const donnees =
-            profil.data();
-
-
-        if (donnees.role === "admin") {
-
-            actionsAdmin.style.display =
-                "flex";
-
-        }
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "Erreur vérification rôle :",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================
-   ETAT UTILISATEUR
-========================= */
-
-auth.onAuthStateChanged(
-async function(user) {
-
-    if (user) {
-
-        connexion.style.display =
-            "none";
-
-        application.style.display =
-            "block";
-
-        test.style.display =
-            "block";
-
-
-        /*
-           Charge le nom et prénom.
-        */
-
-        await chargerProfilUtilisateur(
-            user
-        );
-
-
-        /*
-           Vérifie si admin.
-        */
-
-        await verifierRoleAdmin(
-            user
-        );
-
-
-        /*
-           Charge les statuts.
-        */
-
-        await chargerStatuts();
-
-    }
-
-    else {
-
-        connexion.style.display =
-            "block";
-
-        application.style.display =
-            "none";
-
-        actionsAdmin.style.display =
-            "none";
-
-        test.style.display =
-            "none";
-
-        nomUtilisateur = "";
-
-    }
-
-});
-
-
-/* =========================
-   DECONNEXION
-========================= */
-
-deconnexionBtn.addEventListener(
-"click",
-async function() {
-
-    try {
-
-        await auth.signOut();
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "Erreur déconnexion :",
-            error
-        );
-
-    }
-
-});
-
-
-/* =========================
-   ID DU SITE
-========================= */
-
-function siteId(nom) {
-
-    return nom
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-        .replace(
-            /[^a-z0-9]+/g,
-            "-"
-        )
-        .replace(
-            /^-|-$/g,
-            ""
-        );
-
-}
-
-
-/* =========================
-   SELECTION
-========================= */
-
-function selectionner(
-    flux,
-    statut
-) {
-
-    document
-        .querySelectorAll(
-            '[data-flux="' +
-            flux +
-            '"]'
-        )
-        .forEach(
-            function(btn) {
-
-                btn.classList.remove(
-                    "selectionne"
-                );
-
-            }
-        );
-
-
-    const bouton =
-        document.querySelector(
-            '[data-flux="' +
-            flux +
-            '"][data-statut="' +
-            statut +
-            '"]'
-        );
-
-
-    if (bouton) {
-
-        bouton.classList.add(
-            "selectionne"
-        );
-
-    }
-
-}
-
-
-/* =========================
-   ENREGISTRER
-========================= */
-
-boutons.forEach(
-function(bouton) {
-
-    bouton.addEventListener(
     "click",
     async function() {
 
-        test.style.display =
+
+        messageConnexion.style.display =
             "block";
 
 
-        const user =
-            auth.currentUser;
+        messageConnexion.className =
+            "message info";
 
 
-        if (!user) {
+        messageConnexion.innerHTML =
+            "⏳ Connexion à Firebase...";
 
-            message.className =
+
+        const email =
+            emailInput.value.trim();
+
+
+        const password =
+            passwordInput.value;
+
+
+        if (
+            !email ||
+            !password
+        ) {
+
+            messageConnexion.className =
                 "message erreur";
 
-            message.innerHTML =
-                "❌ Tu n'es pas connecté.";
 
-            message.style.display =
-                "block";
+            messageConnexion.innerHTML =
+                "❌ Entre ton adresse e-mail et ton mot de passe.";
+
 
             return;
 
         }
 
 
-        const flux =
-            bouton.dataset.flux;
-
-        const statut =
-            bouton.dataset.statut;
-
-        const site =
-            siteSelect.value;
+        connexionBtn.disabled =
+            true;
 
 
-        selectionner(
-            flux,
-            statut
+        connexionBtn.textContent =
+            "⏳ Connexion...";
+
+
+        try {
+
+
+            await auth
+                .signInWithEmailAndPassword(
+                    email,
+                    password
+                );
+
+
+            messageConnexion.className =
+                "message succes";
+
+
+            messageConnexion.innerHTML =
+                "✅ Connexion réussie. Chargement de votre espace...";
+
+
+        }
+
+
+        catch(error) {
+
+
+            console.error(
+                "Erreur connexion :",
+                error
+            );
+
+
+            messageConnexion.className =
+                "message erreur";
+
+
+            messageConnexion.innerHTML =
+
+                "❌ <strong>Connexion impossible.</strong>" +
+
+                "<div class='code'>" +
+
+                "<strong>Code :</strong><br>" +
+
+                (
+                    error.code ||
+                    "inconnu"
+                ) +
+
+                "<br><br>" +
+
+                "<strong>Message :</strong><br>" +
+
+                (
+                    error.message ||
+                    "Erreur inconnue."
+                ) +
+
+                "</div>";
+
+
+        }
+
+
+        finally {
+
+            connexionBtn.disabled =
+                false;
+
+
+            connexionBtn.textContent =
+                "🔐 Se connecter";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ENTREE : TOUCHE ENTREE
+===================================================== */
+
+passwordInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            connexionBtn.click();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ETAT AUTHENTIFICATION
+===================================================== */
+
+auth.onAuthStateChanged(
+    async function(user) {
+
+
+        console.log(
+            "Etat Firebase Auth :",
+            user
         );
 
 
-        message.className =
-            "message info";
-
-        message.innerHTML =
-            "⏳ Enregistrement dans Firebase...";
-
-        message.style.display =
-            "block";
+        if (user) {
 
 
-        /*
-           Si le nom n'est pas disponible,
-           on recharge le profil.
-        */
+            connexion.style.display =
+                "none";
 
-        if (
-            !nomUtilisateur ||
-            nomUtilisateur === user.email
-        ) {
+
+            application.style.display =
+                "block";
+
+
+            test.style.display =
+                "block";
+
+
+            test.textContent =
+                "✅ Compte connecté : " +
+                user.email;
+
 
             await chargerProfilUtilisateur(
                 user
             );
 
-        }
 
+            await chargerStatuts();
 
-        try {
-
-            await db
-                .collection("dechetteries")
-                .doc(siteId(site))
-                .collection("flux")
-                .doc(flux)
-                .set({
-
-                    site:
-                        site,
-
-                    flux:
-                        flux,
-
-                    statut:
-                        statut,
-
-                    modifiePar:
-                        nomUtilisateur ||
-                        user.email ||
-                        "Utilisateur",
-
-                    modifieParEmail:
-                        user.email || "",
-
-                    miseAJour:
-                        firebase.firestore
-                            .FieldValue
-                            .serverTimestamp()
-
-                }, {
-                    merge: true
-                });
-
-
-            message.className =
-                "message succes";
-
-
-            message.innerHTML =
-
-                "✅ Enregistré !<br><br>" +
-
-                site +
-                " — " +
-                flux +
-                " → " +
-                statut +
-
-                "<br><br>👤 " +
-
-                (
-                    nomUtilisateur ||
-                    user.email ||
-                    "Utilisateur"
-                );
 
         }
 
-        catch(error) {
-
-            message.className =
-                "message erreur";
-
-
-            message.innerHTML =
-    
+        else {
