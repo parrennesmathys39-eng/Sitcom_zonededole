@@ -1,1 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Administration — SICTOM Zone de Dole</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7f5;
+    color: #17231b;
+}
+
+header {
+    background: linear-gradient(135deg, #087f3d, #18a558);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 27px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 18px;
+    margin-top: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.status {
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.loading {
+    background: #eeeeee;
+    color: #555;
+}
+
+.success {
+    background: #d9f7e5;
+    color: #087f3d;
+}
+
+.error {
+    background: #ffdede;
+    color: #c62828;
+}
+
+.info {
+    background: #eef4ff;
+    color: #2455a4;
+    margin-top: 15px;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background: #17231b;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.hidden {
+    display: none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>👑 Administration</h1>
+
+<p>SICTOM Zone de Dole</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>🔐 Vérification du compte</h2>
+
+<div
+id="status"
+class="status loading"
+>
+🔄 Vérification de votre compte...
+</div>
+
+<div
+id="details"
+class="info hidden"
+>
+</div>
+
+<button
+id="retour"
+onclick="window.location.href='index.html'"
+>
+← Retour à l'accueil
+</button>
+
+</div>
+
+
+</div>
+
+
+<!-- FIREBASE -->
+
+<script
+src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js">
+</script>
+
+<script
+src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js">
+</script>
+
+<script
+src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js">
+</script>
+
+
+<script>
+
+/* ================================
+   FIREBASE
+================================ */
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+
+authDomain:
+"sictom-zone-de-dole-17296.firebaseapp.com",
+
+projectId:
+"sictom-zone-de-dole-17296",
+
+storageBucket:
+"sictom-zone-de-dole-17296.firebasestorage.app",
+
+messagingSenderId:
+"378183859073",
+
+appId:
+"1:378183859073:web:3b347f84a072fb0cb54680"
+
+};
+
+
+firebase.initializeApp(
+firebaseConfig
+);
+
+
+const auth =
+firebase.auth();
+
+
+const db =
+firebase.firestore();
+
+
+/* ================================
+   ELEMENTS
+================================ */
+
+const status =
+document.getElementById("status");
+
+const details =
+document.getElementById("details");
+
+
+/* ================================
+   VERIFICATION
+================================ */
+
+auth.onAuthStateChanged(
+async function(user) {
+
+    if (!user) {
+
+        status.className =
+            "status error";
+
+        status.innerHTML =
+            "❌ Aucun utilisateur connecté.";
+
+        return;
+
+    }
+
+
+    try {
+
+        const documentUtilisateur =
+            await db
+            .collection("users")
+            .doc(user.uid)
+            .get();
+
+
+        if (!documentUtilisateur.exists) {
+
+            status.className =
+                "status error";
+
+            status.innerHTML =
+                "❌ Aucun profil utilisateur trouvé.";
+
+            details.classList.remove(
+                "hidden"
+            );
+
+            details.innerHTML = `
+
+                <strong>UID :</strong><br>
+                ${user.uid}
+
+                <br><br>
+
+                Crée un document dans
+                <strong>users</strong>
+                avec cet UID.
+
+            `;
+
+            return;
+
+        }
+
+
+        const donnees =
+            documentUtilisateur.data();
+
+
+        const role =
+            donnees.role;
+
+
+        details.classList.remove(
+            "hidden"
+        );
+
+
+        details.innerHTML = `
+
+            <strong>Compte :</strong><br>
+            ${user.email || "Compte connecté"}
+
+            <br><br>
+
+            <strong>UID :</strong><br>
+            ${user.uid}
+
+            <br><br>
+
+            <strong>Rôle détecté :</strong><br>
+            ${role || "aucun"}
+
+        `;
+
+
+        /* =========================
+           ADMIN
+        ========================= */
+
+        if (role === "admin") {
+
+            status.className =
+                "status success";
+
+            status.innerHTML =
+                "👑 ADMINISTRATEUR CONFIRMÉ";
+
+            return;
+
+        }
+
+
+        /* =========================
+           AGENT
+        ========================= */
+
+        if (role === "agent") {
+
+            status.className =
+                "status error";
+
+            status.innerHTML =
+                "👷 Compte agent — accès administrateur refusé.";
+
+            return;
+
+        }
+
+
+        /* =========================
+           ROLE INCONNU
+        ========================= */
+
+        status.className =
+            "status error";
+
+        status.innerHTML =
+            "⚠️ Rôle inconnu.";
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        status.className =
+            "status error";
+
+        status.innerHTML =
+            "❌ Erreur lors de la vérification.";
+
+        details.classList.remove(
+            "hidden"
+        );
+
+        details.innerHTML = `
+            ${error.message}
+        `;
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>
