@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Diagnostic administration — SICTOM Zone de Dole</title>
-
-<style>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Administration — SICTOM Zone de Dole</title><style>
 
 * {
     box-sizing: border-box;
@@ -20,177 +6,357 @@
 
 body {
     margin: 0;
-    padding: 20px;
     font-family: Arial, sans-serif;
     background: #f4f7f5;
     color: #17231b;
 }
 
-.container {
-    max-width: 700px;
+header {
+    background: linear-gradient(135deg, #087f3d, #18a558);
+    color: white;
+    padding: 25px 18px 30px;
+}
+
+.header-inner {
+    max-width: 1100px;
     margin: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 27px;
+}
+
+header p {
+    margin: 8px 0 0;
+    opacity: .9;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
 }
 
 .card {
     background: white;
-    padding: 22px;
-    border-radius: 16px;
-    margin-bottom: 18px;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
-h1 {
-    margin-top: 0;
-    color: #087f3d;
+.loading {
+    text-align: center;
+    padding: 25px;
 }
 
-.etape {
-    padding: 14px;
-    margin-top: 10px;
-    border-radius: 10px;
-    background: #eee;
+.error {
+    display: none;
+    background: #ffdede;
+    color: #c62828;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: bold;
     word-break: break-word;
 }
 
-.ok {
+.success {
+    background: #d9f7e5;
+    color: #087f3d;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+#dashboard {
+    display: none;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.stat-label {
+    color: #777;
+    margin-top: 4px;
+}
+
+.site {
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.site:first-child {
+    border-top: none;
+}
+
+.site-title {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.site-id {
+    color: #888;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.flux {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-top: 1px solid #eee;
+}
+
+.flux:first-child {
+    margin-top: 12px;
+}
+
+.flux-name {
+    font-weight: 500;
+}
+
+.status {
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.disponible {
     background: #d9f7e5;
     color: #087f3d;
 }
 
-.erreur {
+.presque {
+    background: #fff0c2;
+    color: #946200;
+}
+
+.pleine {
     background: #ffdede;
     color: #c62828;
 }
 
-.attente {
-    background: #fff0c2;
-    color: #795c00;
+.inconnu {
+    background: #eee;
+    color: #666;
 }
 
-.code {
-    margin-top: 10px;
-    padding: 12px;
+.meta {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button {
+    display: inline-block;
+    border: none;
+    padding: 13px 16px;
+    border-radius: 10px;
     background: #17231b;
     color: white;
-    border-radius: 8px;
-    font-family: monospace;
-    font-size: 13px;
-    white-space: pre-wrap;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.green-button {
+    background: #087f3d;
+}
+
+.red-button {
+    background: #c62828;
+}
+
+.agent {
+    border-top: 1px solid #eee;
+    padding: 16px 0;
+}
+
+.agent:first-child {
+    border-top: none;
+}
+
+.agent-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.agent-email {
+    color: #666;
+    margin-top: 5px;
     word-break: break-word;
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background: #087f3d;
-    color: white;
-    font-size: 16px;
+.agent-role {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #e8f1eb;
+    color: #087f3d;
+    font-size: 12px;
     font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
 }
 
-</style>
+.empty {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    color: #777;
+}
 
-</head>
+@media (max-width: 750px) {
 
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-<body>
+}
 
+@media (max-width: 500px) {
 
-<div class="container">
+    .container {
+        padding: 14px;
+    }
 
+    .stats {
+        gap: 10px;
+    }
 
-<div class="card">
+    .stat {
+        padding: 14px;
+    }
 
-<h1>👑 Diagnostic administration</h1>
+    .stat-number {
+        font-size: 25px;
+    }
 
-<p>
-Cette page vérifie chaque étape de la connexion.
-</p>
+    .flux {
+        align-items: flex-start;
+    }
 
-<div
-    id="firebase"
-    class="etape attente"
+}
+
+</style></head><body><header><div class="header-inner"><h1>👑 Administration</h1><p>SICTOM Zone de Dole</p></div></header><div class="container"><div
+    id="loading"
+    class="card loading"
 >
-⏳ 1. Chargement de Firebase...
-</div>
+🔄 Vérification du compte...
+</div><div
+    id="error"
+    class="error"
+></div><div id="dashboard"><!-- COMPTE ADMIN --><div class="card"><div class="success">
+👑 Administrateur confirmé
+</div><br>👤 Compte :
 
-<div
-    id="auth"
-    class="etape attente"
+<strong id="email"></strong>
+
+</div><!-- STATISTIQUES --><div class="stats"><div class="stat"><div class="stat-icon">
+📍
+</div><div
+    id="statSites"
+    class="stat-number"
 >
-⏳ 2. Vérification du compte...
-</div>
-
-<div
-    id="profil"
-    class="etape attente"
+0
+</div><div class="stat-label">
+Déchèteries
+</div></div><div class="stat"><div class="stat-icon">
+📦
+</div><div
+    id="statFlux"
+    class="stat-number"
 >
-⏳ 3. Lecture du profil Firestore...
-</div>
-
-<div
-    id="role"
-    class="etape attente"
+0
+</div><div class="stat-label">
+Flux enregistrés
+</div></div><div class="stat"><div class="stat-icon">
+🟠
+</div><div
+    id="statPresque"
+    class="stat-number"
 >
-⏳ 4. Vérification du rôle...
-</div>
-
-<div
-    id="resultat"
-    class="etape attente"
+0
+</div><div class="stat-label">
+Presque pleins
+</div></div><div class="stat"><div class="stat-icon">
+🔴
+</div><div
+    id="statPleins"
+    class="stat-number"
 >
-⏳ Diagnostic en cours...
-</div>
+0
+</div><div class="stat-label">
+Pleins
+</div></div></div><!-- AGENTS --><div class="card"><h2>👥 Agents</h2><p>
+Liste des comptes enregistrés dans Firestore.
+</p><div id="agents">🔄 Chargement des agents...
 
-</div>
+</div></div><!-- DECHETTERIES --><div class="card"><h2>📊 État des déchèteries</h2><div id="sites">🔄 Chargement...
 
+</div></div><!-- ACTIONS --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
+class="button green-button"
+href="./agent.html"
 
-<div class="card">
+«»
 
-<h2>🔎 Informations techniques</h2>
+👷 Espace agent
+</a>
 
-<div
-    id="details"
-    class="code"
->
-Aucune information pour le moment.
-</div>
+<a
+class="button"
+href="./index.html"
 
-</div>
+«»
 
-
-<div class="card">
+🏠 Site public
+</a>
 
 <button
-    onclick="window.location.href='./agent.html'"
->
-👷 Retour à l'espace agent
+id="logout"
+class="button red-button"
+
+«»
+
+🚪 Déconnexion
 </button>
 
-</div>
+</div></div></div></div><!-- FIREBASE --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
 
-
-</div>
-
-
-<!-- FIREBASE -->
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
-
-
-<script>
-
-/* =====================================================
-   CONFIGURATION FIREBASE
-===================================================== */
+/* =========================
+   FIREBASE
+========================= */
 
 const firebaseConfig = {
 
@@ -215,442 +381,723 @@ const firebaseConfig = {
 };
 
 
-/* =====================================================
+firebase.initializeApp(firebaseConfig);
+
+const auth =
+firebase.auth();
+
+const db =
+firebase.firestore();
+
+
+/* =========================
    ELEMENTS
-===================================================== */
+========================= */
 
-const firebaseBox =
-    document.getElementById("firebase");
+const loading =
+document.getElementById("loading");
 
-const authBox =
-    document.getElementById("auth");
+const errorBox =
+document.getElementById("error");
 
-const profilBox =
-    document.getElementById("profil");
+const dashboard =
+document.getElementById("dashboard");
 
-const roleBox =
-    document.getElementById("role");
+const sitesBox =
+document.getElementById("sites");
 
-const resultatBox =
-    document.getElementById("resultat");
-
-const detailsBox =
-    document.getElementById("details");
+const agentsBox =
+document.getElementById("agents");
 
 
-/* =====================================================
-   AFFICHAGE
-===================================================== */
+/* =========================
+   ERREUR
+========================= */
 
-function ok(element, texte) {
+function afficherErreur(message) {
 
-    element.className =
-        "etape ok";
+    loading.style.display =
+        "none";
 
-    element.innerHTML =
-        "✅ " + texte;
+    dashboard.style.display =
+        "none";
 
-}
+    errorBox.style.display =
+        "block";
 
-
-function erreur(element, texte) {
-
-    element.className =
-        "etape erreur";
-
-    element.innerHTML =
-        "❌ " + texte;
+    errorBox.innerHTML =
+        "❌ " + message;
 
 }
 
 
-function attente(element, texte) {
+/* =========================
+   STATUT
+========================= */
 
-    element.className =
-        "etape attente";
+function statutHTML(statut) {
 
-    element.innerHTML =
-        "⏳ " + texte;
+    if (statut === "disponible") {
 
-}
+        return `
+            <span class="status disponible">
+                🟢 Disponible
+            </span>
+        `;
 
+    }
 
-function details(texte) {
+    if (statut === "presque") {
 
-    detailsBox.textContent =
-        texte;
+        return `
+            <span class="status presque">
+                🟠 Presque pleine
+            </span>
+        `;
 
-}
+    }
 
+    if (statut === "pleine") {
 
-/* =====================================================
-   INITIALISATION FIREBASE
-===================================================== */
+        return `
+            <span class="status pleine">
+                🔴 Pleine
+            </span>
+        `;
 
-let auth = null;
+    }
 
-let db = null;
-
-
-try {
-
-    firebase.initializeApp(
-        firebaseConfig
-    );
-
-    auth =
-        firebase.auth();
-
-    db =
-        firebase.firestore();
-
-
-    ok(
-        firebaseBox,
-        "Firebase est correctement chargé."
-    );
-
-
-    details(
-        "Projet Firebase : " +
-        firebaseConfig.projectId
-    );
-
-}
-
-catch(error) {
-
-    erreur(
-        firebaseBox,
-        "Impossible d'initialiser Firebase."
-    );
-
-
-    details(
-        "Code : " +
-        (error.code || "inconnu") +
-
-        "\n\nMessage : " +
-
-        (error.message || "inconnu")
-    );
+    return `
+        <span class="status inconnu">
+            ℹ️ ${statut || "Inconnu"}
+        </span>
+    `;
 
 }
 
 
-/* =====================================================
-   SI FIREBASE EST OK
-===================================================== */
+/* =========================
+   NOM SITE
+========================= */
 
-if (auth && db) {
+function nomSite(id) {
+
+    const noms = {
+
+        "chaussin":
+            "Chaussin",
+
+        "dole":
+            "Dole",
+
+        "brevans":
+            "Brevans",
+
+        "tavaux":
+            "Tavaux",
+
+        "dampierre":
+            "Dampierre",
+
+        "mont-sous-vaudrey":
+            "Mont-sous-Vaudrey",
+
+        "montmirey-le-chateau":
+            "Montmirey-le-Château",
+
+        "saligney":
+            "Saligney",
+
+        "villers-farlay":
+            "Villers-Farlay"
+
+    };
+
+    return noms[id] || id;
+
+}
 
 
-    let compteVerifie = false;
+/* =========================
+   NOM FLUX
+========================= */
+
+function nomFlux(id, data) {
+
+    if (data.nom) {
+
+        return data.nom;
+
+    }
+
+    const noms = {
+
+        "bois-a":
+            "🪵 Bois A",
+
+        "bois-b":
+            "🪵 Bois B",
+
+        "mobilier":
+            "🛋️ Mobilier",
+
+        "carton":
+            "📦 Carton",
+
+        "gravats":
+            "🪨 Gravats",
+
+        "ferraille":
+            "🔩 Ferraille",
+
+        "plastique-dur":
+            "🧴 Plastique dur",
+
+        "tout-venant":
+            "🗑️ Tout-venant"
+
+    };
+
+    return noms[id] || id;
+
+}
 
 
-    /*
-     * Sécurité :
-     * si Firebase ne répond jamais,
-     * on affiche une erreur après 10 secondes.
-     */
+/* =========================
+   DATE
+========================= */
 
-    const timeout =
-        setTimeout(
-            function() {
+function afficherDate(timestamp) {
 
-                if (!compteVerifie) {
+    if (!timestamp) {
 
-                    erreur(
-                        authBox,
-                        "Firebase Auth ne renvoie aucune réponse après 10 secondes."
-                    );
+        return "";
 
+    }
 
-                    details(
-                        "Cela indique généralement que la page ne récupère pas correctement la session Firebase."
-                    );
+    try {
 
+        return timestamp
+            .toDate()
+            .toLocaleString(
+                "fr-FR",
+                {
+                    dateStyle: "short",
+                    timeStyle: "short"
                 }
+            );
 
-            },
-            10000
+    }
+
+    catch(error) {
+
+        return "";
+
+    }
+
+}
+
+
+/* =========================
+   AGENTS
+========================= */
+
+async function chargerAgents() {
+
+    agentsBox.innerHTML =
+        "🔄 Chargement des agents...";
+
+    try {
+
+        const snapshot =
+            await db
+                .collection("users")
+                .get();
+
+
+        if (snapshot.empty) {
+
+            agentsBox.innerHTML = `
+                <div class="empty">
+                    Aucun agent trouvé dans Firestore.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        agentsBox.innerHTML = "";
+
+
+        snapshot.forEach(
+            function(doc) {
+
+                const data =
+                    doc.data();
+
+
+                const prenom =
+                    typeof data.prenom === "string"
+                        ? data.prenom.trim()
+                        : "";
+
+
+                const nom =
+                    typeof data.nom === "string"
+                        ? data.nom.trim()
+                        : "";
+
+
+                const nomComplet =
+                    [prenom, nom]
+                        .filter(Boolean)
+                        .join(" ");
+
+
+                const email =
+                    data.email ||
+                    data.mail ||
+                    "E-mail non renseigné";
+
+
+                const role =
+                    data.role ||
+                    "agent";
+
+
+                const agent =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                agent.className =
+                    "agent";
+
+
+                agent.innerHTML = `
+
+                    <div class="agent-name">
+
+                        👤
+                        ${
+                            nomComplet ||
+                            "Nom non renseigné"
+                        }
+
+                    </div>
+
+                    <div class="agent-email">
+
+                        📧
+                        ${email}
+
+                    </div>
+
+                    <div class="agent-role">
+
+                        ${role}
+
+                    </div>
+
+                `;
+
+
+                agentsBox.appendChild(
+                    agent
+                );
+
+            }
         );
 
+    }
 
-    /* =================================================
-       AUTH
-    ================================================= */
+    catch(error) {
 
-    auth.onAuthStateChanged(
-        async function(user) {
+        console.error(
+            "Erreur agents :",
+            error
+        );
 
-            compteVerifie = true;
+        agentsBox.innerHTML = `
 
-            clearTimeout(timeout);
+            <div class="error"
+                 style="display:block;">
 
+                ❌ Impossible de lire les agents.
 
-            if (!user) {
+                <br><br>
 
-                erreur(
-                    authBox,
-                    "Aucun utilisateur connecté."
-                );
+                <small>
 
+                    Code :
+                    ${error.code || "inconnu"}
 
-                attente(
-                    profilBox,
-                    "Impossible de lire users : aucun compte connecté."
-                );
+                    <br>
 
+                    ${error.message || ""}
 
-                attente(
-                    roleBox,
-                    "Impossible de vérifier le rôle."
-                );
+                </small>
 
+            </div>
 
-                erreur(
-                    resultatBox,
-                    "Tu n'es pas connecté à Firebase sur cette page."
-                );
+        `;
+
+    }
+
+}
 
 
-                details(
-                    "Firebase fonctionne.\n\n" +
+/* =========================
+   FLUX TEMPS REEL
+========================= */
 
-                    "Mais auth.currentUser = null.\n\n" +
+function chargerFlux() {
 
-                    "Connecte-toi dans agent.html puis ouvre admin.html sans fermer la session."
-                );
+    db.collectionGroup("flux")
+    .onSnapshot(
+
+        function(snapshot) {
+
+            const sites = {};
+
+            let totalFlux = 0;
+
+            let totalPresque = 0;
+
+            let totalPleins = 0;
+
+
+            snapshot.forEach(
+                function(doc) {
+
+                    const data =
+                        doc.data();
+
+
+                    const chemin =
+                        doc.ref.path
+                            .split("/");
+
+
+                    const siteId =
+                        chemin[1];
+
+
+                    const fluxId =
+                        chemin[3];
+
+
+                    if (!sites[siteId]) {
+
+                        sites[siteId] = [];
+
+                    }
+
+
+                    sites[siteId].push({
+
+                        id: fluxId,
+
+                        data: data
+
+                    });
+
+
+                    totalFlux++;
+
+
+                    if (
+                        data.statut ===
+                        "presque"
+                    ) {
+
+                        totalPresque++;
+
+                    }
+
+
+                    if (
+                        data.statut ===
+                        "pleine"
+                    ) {
+
+                        totalPleins++;
+
+                    }
+
+                }
+            );
+
+
+            const totalSites =
+                Object.keys(sites).length;
+
+
+            document.getElementById(
+                "statSites"
+            ).textContent =
+                totalSites;
+
+
+            document.getElementById(
+                "statFlux"
+            ).textContent =
+                totalFlux;
+
+
+            document.getElementById(
+                "statPresque"
+            ).textContent =
+                totalPresque;
+
+
+            document.getElementById(
+                "statPleins"
+            ).textContent =
+                totalPleins;
+
+
+            sitesBox.innerHTML = "";
+
+
+            if (totalFlux === 0) {
+
+                sitesBox.innerHTML = `
+
+                    <div class="empty">
+
+                        Aucun flux trouvé dans Firestore.
+
+                    </div>
+
+                `;
 
                 return;
 
             }
 
 
-            /* =========================================
-               UTILISATEUR TROUVE
-            ========================================= */
+            Object.keys(sites)
+                .sort()
+                .forEach(
+                    function(siteId) {
 
-            ok(
-                authBox,
-                "Compte Firebase détecté."
+                        const site =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        site.className =
+                            "site";
+
+
+                        let fluxHTML =
+                            "";
+
+
+                        sites[siteId]
+                            .sort(
+                                function(a,b) {
+
+                                    return a.id
+                                        .localeCompare(
+                                            b.id
+                                        );
+
+                                }
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    const data =
+                                        item.data;
+
+
+                                    const statut =
+                                        data.statut ||
+                                        "inconnu";
+
+
+                                    const modifiePar =
+                                        data.modifiePar ||
+                                        "";
+
+
+                                    const date =
+                                        afficherDate(
+                                            data.miseAJour
+                                        );
+
+
+                                    fluxHTML += `
+
+                                        <div class="flux">
+
+                                            <div>
+
+                                                <div class="flux-name">
+
+                                                    ${nomFlux(
+                                                        item.id,
+                                                        data
+                                                    )}
+
+                                                </div>
+
+                                                ${
+                                                    modifiePar
+                                                    ? `
+                                                        <div class="meta">
+                                                            👤 ${modifiePar}
+                                                        </div>
+                                                    `
+                                                    : ""
+                                                }
+
+                                                ${
+                                                    date
+                                                    ? `
+                                                        <div class="meta">
+                                                            🕐 ${date}
+                                                        </div>
+                                                    `
+                                                    : ""
+                                                }
+
+                                            </div>
+
+                                            ${statutHTML(
+                                                statut
+                                            )}
+
+                                        </div>
+
+                                    `;
+
+                                }
+                            );
+
+
+                        site.innerHTML = `
+
+                            <div class="site-title">
+
+                                ♻️
+                                ${nomSite(siteId)}
+
+                            </div>
+
+                            <div class="site-id">
+
+                                ${siteId}
+
+                            </div>
+
+                            ${fluxHTML}
+
+                        `;
+
+
+                        sitesBox.appendChild(
+                            site
+                        );
+
+                    }
+                );
+
+        },
+
+        function(error) {
+
+            console.error(
+                "Erreur flux :",
+                error
             );
 
-
-            details(
-                "UID : " +
-                user.uid +
-
-                "\n\nEmail : " +
-                (user.email || "aucun") +
-
-                "\n\nProvider : " +
-                (
-                    user.providerData &&
-                    user.providerData[0]
-                    ? user.providerData[0].providerId
-                    : "inconnu"
-                )
+            afficherErreur(
+                "Impossible de lire les flux : "
+                + error.message
             );
-
-
-            /* =========================================
-               LECTURE PROFIL
-            ========================================= */
-
-            try {
-
-                profilBox.innerHTML =
-                    "⏳ Lecture de users/" +
-                    user.uid +
-                    "...";
-
-
-                const profil =
-                    await db
-                    .collection("users")
-                    .doc(user.uid)
-                    .get();
-
-
-                if (!profil.exists) {
-
-                    erreur(
-                        profilBox,
-                        "Le document users/" +
-                        user.uid +
-                        " n'existe pas."
-                    );
-
-
-                    erreur(
-                        roleBox,
-                        "Impossible de vérifier le rôle."
-                    );
-
-
-                    erreur(
-                        resultatBox,
-                        "Profil Firestore introuvable."
-                    );
-
-
-                    details(
-                        detailsBox.textContent +
-
-                        "\n\nFirestore :\n" +
-
-                        "Document users/" +
-                        user.uid +
-
-                        "\n\nExiste : NON"
-                    );
-
-                    return;
-
-                }
-
-
-                ok(
-                    profilBox,
-                    "Profil Firestore trouvé."
-                );
-
-
-                const data =
-                    profil.data();
-
-
-                const role =
-                    data.role || "";
-
-
-                const prenom =
-                    data.prenom || "";
-
-
-                const nom =
-                    data.nom || "";
-
-
-                details(
-                    detailsBox.textContent +
-
-                    "\n\nFirestore :\n" +
-
-                    "Document : users/" +
-                    user.uid +
-
-                    "\n\nExiste : OUI" +
-
-                    "\n\nPrénom : " +
-                    prenom +
-
-                    "\nNom : " +
-                    nom +
-
-                    "\nRôle : " +
-                    (role || "aucun")
-                );
-
-
-                /* =====================================
-                   ROLE
-                ===================================== */
-
-                if (role === "admin") {
-
-                    ok(
-                        roleBox,
-                        "Rôle admin confirmé."
-                    );
-
-
-                    ok(
-                        resultatBox,
-                        "🎉 Tout fonctionne. Ce compte est administrateur."
-                    );
-
-
-                    details(
-                        detailsBox.textContent +
-
-                        "\n\nRESULTAT :\n" +
-
-                        "Accès administration autorisé."
-                    );
-
-                }
-
-                else {
-
-                    erreur(
-                        roleBox,
-                        "Le compte n'est pas administrateur."
-                    );
-
-
-                    erreur(
-                        resultatBox,
-                        "Accès refusé."
-                    );
-
-
-                    details(
-                        detailsBox.textContent +
-
-                        "\n\nRESULTAT :\n" +
-
-                        "Le champ role doit être exactement : admin"
-                    );
-
-                }
-
-            }
-
-            catch(error) {
-
-                erreur(
-                    profilBox,
-                    "Erreur lors de la lecture de Firestore."
-                );
-
-
-                erreur(
-                    roleBox,
-                    "Vérification du rôle impossible."
-                );
-
-
-                erreur(
-                    resultatBox,
-                    "Firestore bloque la lecture du profil."
-                );
-
-
-                details(
-                    detailsBox.textContent +
-
-                    "\n\nERREUR FIRESTORE :\n" +
-
-                    "Code : " +
-                    (error.code || "inconnu") +
-
-                    "\n\nMessage : " +
-                    (error.message || "inconnu")
-                );
-
-            }
 
         }
+
     );
 
 }
 
-</script>
+
+/* =========================
+   AUTHENTIFICATION ADMIN
+========================= */
+
+auth.onAuthStateChanged(
+async function(user) {
+
+    if (!user) {
+
+        afficherErreur(
+            "Aucun compte connecté. Connecte-toi d'abord depuis agent.html."
+        );
+
+        return;
+
+    }
 
 
-</body>
+    try {
 
-</html>
+        const profil =
+            await db
+                .collection("users")
+                .doc(user.uid)
+                .get();
+
+
+        if (!profil.exists) {
+
+            afficherErreur(
+                "Ton profil users/" +
+                user.uid +
+                " n'existe pas dans Firestore."
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            profil.data();
+
+
+        const role =
+            data.role;
+
+
+        if (role !== "admin") {
+
+            afficherErreur(
+                "Accès refusé. Ton rôle est : "
+                + (role || "aucun")
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "email"
+        ).textContent =
+            user.email || "Administrateur";
+
+
+        loading.style.display =
+            "none";
+
+
+        dashboard.style.display
