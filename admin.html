@@ -1,83 +1,423 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Test Administration — SICTOM</title><style>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+«»
+
+<title>Administration — SICTOM Zone de Dole</title><style>
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
-    padding: 20px;
     font-family: Arial, sans-serif;
     background: #f4f7f5;
     color: #17231b;
 }
 
-h1 {
-    color: #087f3d;
+header {
+    background: linear-gradient(135deg, #087f3d, #18a558);
+    color: white;
+    padding: 25px 18px 30px;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 27px;
+}
+
+header p {
+    margin: 8px 0 0;
+    opacity: .9;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
 }
 
 .card {
     background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.1);
-    margin-bottom: 15px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
-.ok {
-    background: #d9f7e5;
-    color: #087f3d;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 10px;
+.loading {
+    text-align: center;
+    padding: 25px;
+    font-weight: bold;
 }
 
-.erreur {
+.error {
+    display: none;
     background: #ffdede;
     color: #c62828;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 10px;
-    word-break: break-word;
-}
-
-.info {
-    background: #fff8df;
-    color: #795c00;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 10px;
-    word-break: break-word;
-}
-
-button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background: #087f3d;
-    color: white;
-    font-size: 16px;
+    padding: 18px;
+    border-radius: 14px;
     font-weight: bold;
-    margin-top: 10px;
+    word-break: break-word;
 }
 
-</style></head><body><h1>👑 Test Administration</h1><div class="card"><strong>État du système :</strong>
+.success {
+    background: #d9f7e5;
+    color: #087f3d;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+}
 
-<div
-    id="etat"
-    class="info"
+#dashboard {
+    display: none;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.stat-label {
+    color: #777;
+    margin-top: 4px;
+}
+
+.site {
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.site:first-child {
+    border-top: none;
+}
+
+.site-title {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.site-id {
+    color: #888;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.flux {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-top: 1px solid #eee;
+}
+
+.flux:first-child {
+    margin-top: 12px;
+}
+
+.flux-name {
+    font-weight: 500;
+}
+
+.status {
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.disponible {
+    background: #d9f7e5;
+    color: #087f3d;
+}
+
+.presque {
+    background: #fff0c2;
+    color: #946200;
+}
+
+.pleine {
+    background: #ffdede;
+    color: #c62828;
+}
+
+.inconnu {
+    background: #eee;
+    color: #666;
+}
+
+.meta {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button {
+    display: inline-block;
+    border: none;
+    padding: 13px 16px;
+    border-radius: 10px;
+    background: #17231b;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.green-button {
+    background: #087f3d;
+}
+
+.red-button {
+    background: #c62828;
+}
+
+.empty {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    color: #777;
+}
+
+
+/* =========================
+   AGENTS
+========================= */
+
+.agent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 0;
+    border-top: 1px solid #eee;
+}
+
+.agent:first-child {
+    border-top: none;
+}
+
+.agent-info {
+    min-width: 0;
+}
+
+.agent-name {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.agent-email {
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
+    word-break: break-word;
+}
+
+.agent-role {
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.role-admin {
+    background: #17231b;
+    color: white;
+}
+
+.role-agent {
+    background: #d9f7e5;
+    color: #087f3d;
+}
+
+.role-inconnu {
+    background: #eee;
+    color: #666;
+}
+
+.agent-error {
+    background: #fff0c2;
+    color: #795c00;
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+@media (max-width: 750px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .agent {
+        align-items: flex-start;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        padding: 14px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 14px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+    }
+
+    .agent {
+        flex-direction: column;
+    }
+
+    .agent-role {
+        align-self: flex-start;
+    }
+
+}
+
+</style></head><body><header><div class="header-inner"><h1>👑 Administration</h1><p>SICTOM Zone de Dole</p></div></header><div class="container"><div
+    id="loading"
+    class="card loading"
 >
-⏳ Chargement de Firebase...
-</div></div><div class="card"><strong>Informations :</strong>
+🔄 Vérification du compte...
+</div><div
+    id="error"
+    class="error"
+></div><div id="dashboard"><!-- =========================
+     COMPTE ADMIN
+========================= --><div class="card"><div class="success">👑 Administrateur confirmé
 
-<div id="infos">En attente...
+</div><br>👤 Compte :
 
-</div></div><button
-id="deconnexion"
+<strong id="email"></strong>
+
+</div><!-- =========================
+     STATISTIQUES
+========================= --><div class="stats"><div class="stat"><div class="stat-icon">
+📍
+</div><div
+    id="statSites"
+    class="stat-number"
+>
+0
+</div><div class="stat-label">
+Déchèteries
+</div></div><div class="stat"><div class="stat-icon">
+📦
+</div><div
+    id="statFlux"
+    class="stat-number"
+>
+0
+</div><div class="stat-label">
+Flux enregistrés
+</div></div><div class="stat"><div class="stat-icon">
+🟠
+</div><div
+    id="statPresque"
+    class="stat-number"
+>
+0
+</div><div class="stat-label">
+Presque pleins
+</div></div><div class="stat"><div class="stat-icon">
+🔴
+</div><div
+    id="statPleins"
+    class="stat-number"
+>
+0
+</div><div class="stat-label">
+Pleins
+</div></div></div><!-- =========================
+     AGENTS
+========================= --><div class="card"><h2>👥 Agents</h2><p>
+Liste des comptes présents dans Firebase.
+</p><div id="agents">🔄 Chargement des agents...
+
+</div><div
+    id="agentsError"
+    class="agent-error"
+></div></div><!-- =========================
+     DONNEES
+========================= --><div class="card"><h2>📊 État des déchèteries</h2><div id="sites">Chargement...
+
+</div></div><!-- =========================
+     ACTIONS
+========================= --><div class="card"><h2>⚙️ Accès rapides</h2><div class="buttons"><a
+class="button green-button"
+href="./agent.html"
+
+«»
+
+👷 Espace agent
+</a>
+
+<a
+class="button"
+href="./index.html"
+
+«»
+
+🏠 Site public
+</a>
+
+<button
+id="logout"
+class="button red-button"
 
 «»
 
 🚪 Déconnexion
 </button>
 
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
+</div></div></div></div><!-- =========================
+     FIREBASE
+========================= --><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script><script>
 
 
 /* =========================
@@ -107,293 +447,700 @@ const firebaseConfig = {
 };
 
 
-/* =========================
-   INITIALISATION
-========================= */
+firebase.initializeApp(firebaseConfig);
 
-try {
-
-    firebase.initializeApp(
-        firebaseConfig
-    );
-
-}
-catch(error) {
-
-    document.getElementById(
-        "etat"
-    ).className =
-        "erreur";
-
-    document.getElementById(
-        "etat"
-    ).innerHTML =
-        "❌ Firebase ne démarre pas.<br><br>" +
-        error.message;
-
-}
-
-
-/* =========================
-   SERVICES
-========================= */
 
 const auth =
-    firebase.auth();
+firebase.auth();
 
 const db =
-    firebase.firestore();
+firebase.firestore();
 
 
 /* =========================
    ELEMENTS
 ========================= */
 
-const etat =
-    document.getElementById(
-        "etat"
-    );
+const loading =
+document.getElementById("loading");
 
-const infos =
-    document.getElementById(
-        "infos"
-    );
+const errorBox =
+document.getElementById("error");
+
+const dashboard =
+document.getElementById("dashboard");
+
+const sitesBox =
+document.getElementById("sites");
+
+const agentsBox =
+document.getElementById("agents");
+
+const agentsError =
+document.getElementById("agentsError");
 
 
 /* =========================
-   AUTHENTIFICATION
+   ERREUR GENERALE
 ========================= */
 
-auth.onAuthStateChanged(
-    async function(user) {
+function afficherErreur(message) {
 
-        /*
-         * Aucun utilisateur
-         */
+    loading.style.display =
+        "none";
 
-        if (!user) {
+    dashboard.style.display =
+        "none";
 
-            etat.className =
-                "erreur";
+    errorBox.style.display =
+        "block";
 
-            etat.innerHTML =
-                "❌ Aucun compte connecté.";
+    errorBox.innerHTML =
+        "❌ " + message;
 
-            infos.innerHTML =
-                "Tu dois être connecté avec ton compte agent/admin.";
+}
+
+
+/* =========================
+   ECHAPPEMENT HTML
+========================= */
+
+function echapperHTML(texte) {
+
+    return String(texte || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   STATUT
+========================= */
+
+function statutHTML(statut) {
+
+    if (statut === "disponible") {
+
+        return `
+            <span class="status disponible">
+                🟢 Disponible
+            </span>
+        `;
+
+    }
+
+    if (statut === "presque") {
+
+        return `
+            <span class="status presque">
+                🟠 Presque pleine
+            </span>
+        `;
+
+    }
+
+    if (statut === "pleine") {
+
+        return `
+            <span class="status pleine">
+                🔴 Pleine
+            </span>
+        `;
+
+    }
+
+    return `
+        <span class="status inconnu">
+            ℹ️ ${echapperHTML(statut || "Inconnu")}
+        </span>
+    `;
+
+}
+
+
+/* =========================
+   NOM DU SITE
+========================= */
+
+function nomSite(id) {
+
+    const noms = {
+
+        "chaussin":
+            "Chaussin",
+
+        "dole":
+            "Dole",
+
+        "brevans":
+            "Brevans",
+
+        "tavaux":
+            "Tavaux",
+
+        "dampierre":
+            "Dampierre",
+
+        "mont-sous-vaudrey":
+            "Mont-sous-Vaudrey",
+
+        "montmirey-le-chateau":
+            "Montmirey-le-Château",
+
+        "saligney":
+            "Saligney",
+
+        "villers-farlay":
+            "Villers-Farlay"
+
+    };
+
+    return noms[id] || id;
+
+}
+
+
+/* =========================
+   NOM DU FLUX
+========================= */
+
+function nomFlux(id, data) {
+
+    if (data.nom) {
+
+        return echapperHTML(
+            data.nom
+        );
+
+    }
+
+    const noms = {
+
+        "bois-a":
+            "🪵 Bois A",
+
+        "bois-b":
+            "🪵 Bois B",
+
+        "mobilier":
+            "🛋️ Mobilier",
+
+        "carton":
+            "📦 Carton",
+
+        "gravats":
+            "🪨 Gravats",
+
+        "ferraille":
+            "🔩 Ferraille",
+
+        "plastique-dur":
+            "🧴 Plastique dur",
+
+        "tout-venant":
+            "🗑️ Tout-venant"
+
+    };
+
+    return noms[id] ||
+        echapperHTML(id);
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function afficherDate(timestamp) {
+
+    if (!timestamp) {
+
+        return "";
+
+    }
+
+    try {
+
+        const date =
+            timestamp.toDate();
+
+        return date.toLocaleString(
+            "fr-FR",
+            {
+                dateStyle: "short",
+                timeStyle: "short"
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        return "";
+
+    }
+
+}
+
+
+/* =========================
+   ROLE AGENT
+========================= */
+
+function roleHTML(role) {
+
+    if (role === "admin") {
+
+        return `
+            <span class="agent-role role-admin">
+                👑 Administrateur
+            </span>
+        `;
+
+    }
+
+    if (role === "agent") {
+
+        return `
+            <span class="agent-role role-agent">
+                👷 Agent
+            </span>
+        `;
+
+    }
+
+    return `
+        <span class="agent-role role-inconnu">
+            ${echapperHTML(role || "Rôle non défini")}
+        </span>
+    `;
+
+}
+
+
+/* =========================
+   CHARGER LES AGENTS
+========================= */
+
+async function chargerAgents() {
+
+    agentsBox.innerHTML =
+        "🔄 Chargement des agents...";
+
+    agentsError.style.display =
+        "none";
+
+
+    try {
+
+        const snapshot =
+            await db
+                .collection("users")
+                .get();
+
+
+        if (snapshot.empty) {
+
+            agentsBox.innerHTML = `
+
+                <div class="empty">
+
+                    Aucun utilisateur trouvé
+                    dans la collection users.
+
+                </div>
+
+            `;
 
             return;
 
         }
 
 
-        /*
-         * Compte trouvé
-         */
-
-        etat.className =
-            "ok";
-
-        etat.innerHTML =
-            "🟢 COMPTE FIREBASE TROUVÉ";
+        const agents = [];
 
 
-        infos.innerHTML =
+        snapshot.forEach(
+            function(doc) {
 
-            "<strong>Email :</strong><br>" +
+                const data =
+                    doc.data();
 
-            (
-                user.email ||
-                "Non disponible"
+
+                const prenom =
+                    typeof data.prenom === "string"
+                    ? data.prenom.trim()
+                    : "";
+
+
+                const nom =
+                    typeof data.nom === "string"
+                    ? data.nom.trim()
+                    : "";
+
+
+                const email =
+                    typeof data.email === "string"
+                    ? data.email.trim()
+                    : "";
+
+
+                const role =
+                    typeof data.role === "string"
+                    ? data.role.trim()
+                    : "";
+
+
+                const nomComplet =
+                    [prenom, nom]
+                    .filter(Boolean)
+                    .join(" ");
+
+
+                agents.push({
+
+                    uid: doc.id,
+
+                    nom:
+                        nomComplet ||
+                        "Utilisateur",
+
+                    email:
+                        email ||
+                        "E-mail non renseigné",
+
+                    role:
+                        role ||
+                        "non défini"
+
+                });
+
+            }
+        );
+
+
+        agents.sort(
+            function(a, b) {
+
+                return a.nom.localeCompare(
+                    b.nom,
+                    "fr"
+                );
+
+            }
+        );
+
+
+        agentsBox.innerHTML = "";
+
+
+        agents.forEach(
+            function(agent) {
+
+                const element =
+                    document.createElement(
+                        "div"
+                    );
+
+                element.className =
+                    "agent";
+
+
+                element.innerHTML = `
+
+                    <div class="agent-info">
+
+                        <div class="agent-name">
+
+                            👤
+                            ${echapperHTML(
+                                agent.nom
+                            )}
+
+                        </div>
+
+                        <div class="agent-email">
+
+                            ${echapperHTML(
+                                agent.email
+                            )}
+
+                        </div>
+
+                    </div>
+
+                    ${roleHTML(
+                        agent.role
+                    )}
+
+                `;
+
+
+                agentsBox.appendChild(
+                    element
+                );
+
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Erreur chargement agents :",
+            error
+        );
+
+
+        agentsBox.innerHTML =
+            "";
+
+
+        agentsError.style.display =
+            "block";
+
+
+        agentsError.innerHTML =
+
+            "⚠️ Impossible de charger la liste des agents.<br><br>" +
+
+            "<strong>Code :</strong> " +
+
+            echapperHTML(
+                error.code ||
+                "inconnu"
             ) +
 
             "<br><br>" +
 
-            "<strong>UID :</strong><br>" +
+            "<strong>Message :</strong> " +
 
-            user.uid +
+            echapperHTML(
+                error.message ||
+                "Erreur inconnue"
+            );
 
-            "<br><br>" +
+    }
 
-            "⏳ Lecture du document users...";
-
-
-        /*
-         * Lecture Firestore
-         */
-
-        try {
-
-            const profil =
-                await db
-                    .collection("users")
-                    .doc(user.uid)
-                    .get();
+}
 
 
-            /*
-             * Document absent
-             */
+/* =========================
+   CHARGEMENT DES FLUX
+========================= */
 
-            if (!profil.exists) {
+function chargerFlux() {
 
-                etat.className =
-                    "erreur";
+    db.collectionGroup("flux")
+    .onSnapshot(
 
-                etat.innerHTML =
-                    "❌ COMPTE TROUVÉ MAIS PROFIL ABSENT";
+        function(snapshot) {
 
-                infos.innerHTML =
+            const sites = {};
 
-                    "Le compte Firebase fonctionne.<br><br>" +
+            let totalFlux = 0;
 
-                    "Mais Firestore ne trouve pas :<br><br>" +
+            let totalPresque = 0;
 
-                    "<strong>users/" +
-                    user.uid +
-                    "</strong>";
+            let totalPleins = 0;
+
+
+            snapshot.forEach(
+                function(doc) {
+
+                    const data =
+                        doc.data();
+
+
+                    const chemin =
+                        doc.ref.path
+                        .split("/");
+
+
+                    const siteId =
+                        chemin[1];
+
+                    const fluxId =
+                        chemin[3];
+
+
+                    if (!sites[siteId]) {
+
+                        sites[siteId] = [];
+
+                    }
+
+
+                    sites[siteId].push({
+
+                        id: fluxId,
+
+                        data: data
+
+                    });
+
+
+                    totalFlux++;
+
+
+                    if (
+                        data.statut ===
+                        "presque"
+                    ) {
+
+                        totalPresque++;
+
+                    }
+
+
+                    if (
+                        data.statut ===
+                        "pleine"
+                    ) {
+
+                        totalPleins++;
+
+                    }
+
+                }
+            );
+
+
+            const totalSites =
+                Object.keys(sites).length;
+
+
+            document.getElementById(
+                "statSites"
+            ).textContent =
+                totalSites;
+
+
+            document.getElementById(
+                "statFlux"
+            ).textContent =
+                totalFlux;
+
+
+            document.getElementById(
+                "statPresque"
+            ).textContent =
+                totalPresque;
+
+
+            document.getElementById(
+                "statPleins"
+            ).textContent =
+                totalPleins;
+
+
+            sitesBox.innerHTML = "";
+
+
+            if (
+                totalFlux === 0
+            ) {
+
+                sitesBox.innerHTML = `
+
+                    <div class="empty">
+
+                        Aucun flux trouvé dans Firestore.
+
+                    </div>
+
+                `;
 
                 return;
 
             }
 
 
-            /*
-             * Profil trouvé
-             */
-
-            const data =
-                profil.data();
+            const ids =
+                Object.keys(sites)
+                .sort();
 
 
-            const role =
-                data.role ||
-                "aucun";
+            ids.forEach(
+                function(siteId) {
+
+                    const site =
+                        document.createElement(
+                            "div"
+                        );
+
+                    site.className =
+                        "site";
 
 
-            etat.className =
-                "ok";
-
-            etat.innerHTML =
-                "🟢 FIREBASE + FIRESTORE FONCTIONNENT";
+                    let fluxHTML =
+                        "";
 
 
-            infos.innerHTML =
+                    sites[siteId]
+                    .sort(
+                        function(a, b) {
 
-                "<strong>Email :</strong><br>" +
+                            return a.id
+                            .localeCompare(
+                                b.id
+                            );
 
-                (
-                    user.email ||
-                    "Non disponible"
-                ) +
+                        }
+                    )
+                    .forEach(
+                        function(item) {
 
-                "<br><br>" +
-
-                "<strong>UID :</strong><br>" +
-
-                user.uid +
-
-                "<br><br>" +
-
-                "<strong>Rôle :</strong><br>" +
-
-                role +
-
-                "<br><br>" +
-
-                "<strong>Prénom :</strong><br>" +
-
-                (
-                    data.prenom ||
-                    "Non renseigné"
-                ) +
-
-                "<br><br>" +
-
-                "<strong>Nom :</strong><br>" +
-
-                (
-                    data.nom ||
-                    "Non renseigné"
-                );
+                            const data =
+                                item.data;
 
 
-            /*
-             * Vérification admin
-             */
-
-            if (role === "admin") {
-
-                etat.innerHTML =
-                    "🟢🟢 ADMIN CONFIRMÉ";
-
-            }
-
-            else {
-
-                etat.className =
-                    "info";
-
-                etat.innerHTML =
-                    "🟠 COMPTE CONNECTÉ MAIS PAS ADMIN";
-
-            }
-
-        }
-
-        catch(error) {
-
-            console.error(
-                error
-            );
+                            const statut =
+                                data.statut ||
+                                "inconnu";
 
 
-            etat.className =
-                "erreur";
-
-            etat.innerHTML =
-                "❌ ERREUR FIRESTORE";
+                            const modifiePar =
+                                data.modifiePar ||
+                                "";
 
 
-            infos.innerHTML =
-
-                "<strong>Code :</strong><br>" +
-
-                (
-                    error.code ||
-                    "inconnu"
-                ) +
-
-                "<br><br>" +
-
-                "<strong>Message :</strong><br>" +
-
-                (
-                    error.message ||
-                    "inconnu"
-                );
-
-        }
-
-    }
-);
+                            const date =
+                                afficherDate(
+                                    data.miseAJour
+                                );
 
 
-/* =========================
-   DECONNEXION
-========================= */
+                            fluxHTML += `
 
-document
-    .getElementById(
-        "deconnexion"
-    )
-    .addEventListener(
-        "click",
-        async function() {
+                                <div class="flux">
 
-            await auth.signOut();
+                                    <div>
 
-        }
-    );
+                                        <div
+                                            class="flux-name"
+                                        >
 
-</script></body></html>
+                                            ${nomFlux(
+                                                item.id,
+                                                data
+                                            )}
+
+                                        </div>
+
+                                        ${
+                                            modifiePar
+                                            ? `
+                                                <div
+                                                    class="meta"
+                                                >
+                                                    👤
+                                                    ${echapperHTML(
+                                                        modifiePar
+   
