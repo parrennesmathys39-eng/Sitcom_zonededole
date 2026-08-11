@@ -43,7 +43,9 @@ header p {
     padding: 20px;
 }
 
-/* CONNEXION */
+/* =========================
+   CONNEXION
+========================= */
 
 #connexion {
     max-width: 500px;
@@ -131,7 +133,9 @@ select {
     overflow-wrap: anywhere;
 }
 
-/* APPLICATION */
+/* =========================
+   APPLICATION
+========================= */
 
 #application {
     display: none;
@@ -152,13 +156,31 @@ select {
     word-break: break-word;
 }
 
-.deconnexion {
-    margin-top: 10px;
-    padding: 10px 14px;
+.actions-agent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.bouton-action {
     border: none;
-    border-radius: 8px;
-    background: #eee;
+    border-radius: 9px;
+    padding: 11px 14px;
     font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.deconnexion {
+    background: #eee;
+    color: #17231b;
+}
+
+.admin {
+    background: #17231b;
+    color: white;
 }
 
 .retour {
@@ -278,7 +300,6 @@ select {
 Connectez-vous pour modifier l'état des bennes.
 </p>
 
-
 <div class="champ">
 
 <label for="email">
@@ -293,7 +314,6 @@ autocomplete="email"
 >
 
 </div>
-
 
 <div class="champ">
 
@@ -310,24 +330,18 @@ autocomplete="current-password"
 
 </div>
 
-
 <button id="connexionBtn">
-
 🔐 Se connecter
-
 </button>
-
 
 <div
 id="messageConnexion"
 class="message erreur"
 ></div>
 
-
 </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -350,12 +364,42 @@ id="emailAgent"
 class="email"
 ></div>
 
+
+<!--
+    Le bouton admin est caché
+    par défaut.
+
+    Il sera affiché uniquement
+    si Firestore indique :
+    role = admin
+-->
+
+<div
+id="actionsAdmin"
+class="actions-agent"
+style="display:none;"
+>
+
+<a
+href="./admin.html"
+class="bouton-action admin"
+>
+👑 Administration
+</a>
+
+</div>
+
+
+<div class="actions-agent">
+
 <button
 id="deconnexionBtn"
-class="deconnexion"
+class="bouton-action deconnexion"
 >
 🚪 Se déconnecter
 </button>
+
+</div>
 
 </div>
 
@@ -702,9 +746,8 @@ class="message"
 </div>
 
 
-
 <!-- =========================
-     FIREBASE COMPAT
+     FIREBASE
 ========================= -->
 
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
@@ -756,71 +799,48 @@ const db =
 firebase.firestore();
 
 
-
 /* =========================
    ELEMENTS
 ========================= */
 
 const connexion =
-document.getElementById(
-"connexion"
-);
+document.getElementById("connexion");
 
 const application =
-document.getElementById(
-"application"
-);
+document.getElementById("application");
 
 const connexionBtn =
-document.getElementById(
-"connexionBtn"
-);
+document.getElementById("connexionBtn");
 
 const messageConnexion =
-document.getElementById(
-"messageConnexion"
-);
+document.getElementById("messageConnexion");
 
 const emailInput =
-document.getElementById(
-"email"
-);
+document.getElementById("email");
 
 const passwordInput =
-document.getElementById(
-"password"
-);
+document.getElementById("password");
 
 const emailAgent =
-document.getElementById(
-"emailAgent"
-);
+document.getElementById("emailAgent");
 
 const deconnexionBtn =
-document.getElementById(
-"deconnexionBtn"
-);
+document.getElementById("deconnexionBtn");
 
 const siteSelect =
-document.getElementById(
-"site"
-);
+document.getElementById("site");
 
 const boutons =
-document.querySelectorAll(
-".statut"
-);
+document.querySelectorAll(".statut");
 
 const message =
-document.getElementById(
-"message"
-);
+document.getElementById("message");
 
 const test =
-document.getElementById(
-"test"
-);
+document.getElementById("test");
 
+const actionsAdmin =
+document.getElementById("actionsAdmin");
 
 
 /* =========================
@@ -830,11 +850,6 @@ document.getElementById(
 connexionBtn.addEventListener(
 "click",
 async function() {
-
-
-/*
-   TEST VISUEL IMMÉDIAT
-*/
 
 messageConnexion.style.display =
 "block";
@@ -853,10 +868,7 @@ const password =
 passwordInput.value;
 
 
-if (
-!email ||
-!password
-) {
+if (!email || !password) {
 
 messageConnexion.className =
 "message erreur";
@@ -878,12 +890,10 @@ connexionBtn.textContent =
 
 try {
 
-
 await auth.signInWithEmailAndPassword(
 email,
 password
 );
-
 
 messageConnexion.className =
 "message succes";
@@ -891,15 +901,12 @@ messageConnexion.className =
 messageConnexion.innerHTML =
 "✅ Connexion réussie.";
 
-
 }
 
 catch(error) {
 
-
 messageConnexion.className =
 "message erreur";
-
 
 messageConnexion.innerHTML =
 
@@ -919,9 +926,7 @@ messageConnexion.innerHTML =
 
 "</div>";
 
-
 }
-
 
 finally {
 
@@ -936,6 +941,71 @@ connexionBtn.textContent =
 });
 
 
+/* =========================
+   VERIFICATION DU ROLE
+========================= */
+
+async function verifierRoleAdmin(user) {
+
+actionsAdmin.style.display =
+"none";
+
+
+try {
+
+const profil =
+await db
+.collection("users")
+.doc(user.uid)
+.get();
+
+
+if (!profil.exists) {
+
+console.log(
+"Profil Firestore introuvable."
+);
+
+return;
+
+}
+
+
+const donnees =
+profil.data();
+
+
+const role =
+donnees.role;
+
+
+console.log(
+"Rôle Firebase :",
+role
+);
+
+
+if (
+role === "admin"
+) {
+
+actionsAdmin.style.display =
+"flex";
+
+}
+
+}
+catch(error) {
+
+console.error(
+"Erreur vérification rôle :",
+error
+);
+
+}
+
+}
+
 
 /* =========================
    ETAT UTILISATEUR
@@ -943,7 +1013,6 @@ connexionBtn.textContent =
 
 auth.onAuthStateChanged(
 function(user) {
-
 
 if (user) {
 
@@ -955,6 +1024,19 @@ application.style.display =
 
 emailAgent.textContent =
 user.email || "";
+
+
+/*
+ * Vérifie si l'utilisateur
+ * est administrateur.
+ */
+
+verifierRoleAdmin(user);
+
+
+/*
+ * Charge les statuts.
+ */
 
 chargerStatuts();
 
@@ -968,10 +1050,12 @@ connexion.style.display =
 application.style.display =
 "none";
 
+actionsAdmin.style.display =
+"none";
+
 }
 
 });
-
 
 
 /* =========================
@@ -985,7 +1069,6 @@ async function() {
 await auth.signOut();
 
 });
-
 
 
 /* =========================
@@ -1013,7 +1096,6 @@ return nom
 }
 
 
-
 /* =========================
    SELECTION
 ========================= */
@@ -1022,7 +1104,6 @@ function selectionner(
 flux,
 statut
 ) {
-
 
 document
 .querySelectorAll(
@@ -1059,7 +1140,6 @@ bouton.classList.add(
 }
 
 
-
 /* =========================
    ENREGISTRER
 ========================= */
@@ -1067,11 +1147,9 @@ bouton.classList.add(
 boutons.forEach(
 function(bouton) {
 
-
 bouton.addEventListener(
 "click",
 async function() {
-
 
 test.style.display =
 "block";
@@ -1125,7 +1203,6 @@ message.style.display =
 
 try {
 
-
 await db
 .collection("dechetteries")
 .doc(siteId(site))
@@ -1163,11 +1240,9 @@ flux +
 " → " +
 statut;
 
-
 }
 
 catch(error) {
-
 
 message.className =
 "message erreur";
@@ -1192,26 +1267,22 @@ message.innerHTML =
 
 }
 
-
 });
 
 });
-
 
 
 /* =========================
-   CHARGER FIRESTORE
+   CHARGER STATUTS
 ========================= */
 
 async function chargerStatuts() {
-
 
 const site =
 siteSelect.value;
 
 
 try {
-
 
 const snapshot =
 await db
@@ -1242,7 +1313,6 @@ data.statut
 
 });
 
-
 }
 
 catch(error) {
@@ -1256,15 +1326,13 @@ error
 }
 
 
-
 /* =========================
-   CHANGEMENT SITE
+   CHANGEMENT DE SITE
 ========================= */
 
 siteSelect.addEventListener(
 "change",
 function() {
-
 
 boutons.forEach(
 function(btn) {
