@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Administration — SICTOM Zone de Dole</title>
+
 <style>
 
 * {
@@ -52,6 +55,10 @@ header p {
     box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
+.card h2 {
+    margin-top: 0;
+}
+
 #loading {
     text-align: center;
     padding: 25px;
@@ -78,6 +85,10 @@ header p {
 #dashboard {
     display: none;
 }
+
+/* =========================
+   STATISTIQUES
+========================= */
 
 .stats {
     display: grid;
@@ -108,24 +119,110 @@ header p {
     margin-top: 4px;
 }
 
-.site {
-    border-top: 1px solid #eee;
-    padding: 20px 0;
+/* =========================
+   GRAPHIQUES
+========================= */
+
+.graph-container {
+    width: 100%;
+    overflow-x: auto;
 }
 
-.site:first-child {
+.graph {
+    width: 100%;
+    min-width: 650px;
+}
+
+.graph-row {
+    display: grid;
+    grid-template-columns: 190px 1fr 60px;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.graph-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.graph-bar-zone {
+    height: 28px;
+    background: #edf1ee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.graph-bar {
+    height: 100%;
+    border-radius: 8px;
+    transition: width .4s ease;
+}
+
+.graph-bar.pleine {
+    background: #c62828;
+}
+
+.graph-bar.presque {
+    background: #f0a500;
+}
+
+.graph-value {
+    font-weight: bold;
+    text-align: right;
+}
+
+.classement {
+    margin-top: 15px;
+}
+
+.classement-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 0;
+    border-top: 1px solid #eee;
+}
+
+.classement-item:first-child {
     border-top: none;
 }
 
-.site-title {
-    font-size: 21px;
+.classement-gauche {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.classement-rang {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #edf1ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
 }
 
-.site-id {
-    color: #888;
+.classement-nom {
+    font-weight: bold;
+}
+
+.classement-detail {
+    color: #777;
     font-size: 12px;
-    margin-top: 4px;
+    margin-top: 3px;
+}
+
+.classement-score {
+    font-weight: bold;
+    color: #c62828;
+}
+
+.classement-score.zero {
+    color: #087f3d;
 }
 
 .flux {
@@ -179,6 +276,10 @@ header p {
     margin-top: 5px;
 }
 
+/* =========================
+   AGENTS
+========================= */
+
 .agent {
     display: flex;
     justify-content: space-between;
@@ -222,6 +323,34 @@ header p {
     background: #d9f7e5;
     color: #087f3d;
 }
+
+/* =========================
+   SITES
+========================= */
+
+.site {
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.site:first-child {
+    border-top: none;
+}
+
+.site-title {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.site-id {
+    color: #888;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* =========================
+   BOUTONS
+========================= */
 
 .buttons {
     display: flex;
@@ -290,14 +419,23 @@ header p {
 }
 
 </style>
+
 </head>
+
 <body>
+
 <header>
+
 <div class="header-inner">
+
 <h1>👑 Administration</h1>
+
 <p>SICTOM Zone de Dole</p>
+
 </div>
+
 </header>
+
 <div class="container">
 
 <div id="loading" class="card">
@@ -308,78 +446,234 @@ header p {
 
 <div id="dashboard">
 
-<!-- =========================
-     COMPTE
-========================= -->
 <div class="card">
-<div class="success">👑 Administrateur confirmé</div>
-<br>👤 Compte : <strong id="email"></strong>
+
+<div class="success">
+👑 Administrateur confirmé
 </div>
 
-<!-- =========================
-     STATISTIQUES
-========================= -->
+<br>
+
+👤 Compte :
+<strong id="email"></strong>
+
+</div>
+
 <div class="stats">
+
 <div class="stat">
+
 <div class="stat-icon">📍</div>
-<div id="statSites" class="stat-number">0</div>
-<div class="stat-label">Déchèteries</div>
-</div>
-<div class="stat">
-<div class="stat-icon">📦</div>
-<div id="statFlux" class="stat-number">0</div>
-<div class="stat-label">Flux enregistrés</div>
-</div>
-<div class="stat">
-<div class="stat-icon">🟠</div>
-<div id="statPresque" class="stat-number">0</div>
-<div class="stat-label">Presque pleins</div>
-</div>
-<div class="stat">
-<div class="stat-icon">🔴</div>
-<div id="statPleins" class="stat-number">0</div>
-<div class="stat-label">Pleins</div>
-</div>
+
+<div id="statSites" class="stat-number">
+0
 </div>
 
-<!-- =========================
+<div class="stat-label">
+Déchèteries
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-icon">📦</div>
+
+<div id="statFlux" class="stat-number">
+0
+</div>
+
+<div class="stat-label">
+Flux enregistrés
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-icon">🟠</div>
+
+<div id="statPresque" class="stat-number">
+0
+</div>
+
+<div class="stat-label">
+Presque pleins
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-icon">🔴</div>
+
+<div id="statPleins" class="stat-number">
+0
+</div>
+
+<div class="stat-label">
+Pleins
+</div>
+
+</div>
+
+</div>
+
+<!-- GRAPHIQUES -->
+
+<div class="card">
+
+<h2>
+📊 Analyse des déchèteries
+</h2>
+
+<p>
+Classement des déchèteries selon leur niveau de remplissage.
+</p>
+
+<div class="graph-container">
+
+<div id="graphPleins" class="graph">
+
+⏳ Chargement du graphique...
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CLASSEMENT -->
+
+<div class="card">
+
+<h2>
+🏆 Classement des déchèteries
+</h2>
+
+<p>
+Déchèteries classées du plus grand nombre de flux pleins au plus petit.
+</p>
+
+<div id="classementPleins" class="classement">
+
+⏳ Calcul du classement...
+
+</div>
+
+</div>
+
+<!-- CLASSEMENT PRESQUE -->
+
+<div class="card">
+
+<h2>
+🟠 Déchèteries à surveiller
+</h2>
+
+<p>
+Classement selon le nombre de flux presque pleins.
+</p>
+
+<div id="classementPresque" class="classement">
+
+⏳ Calcul du classement...
+
+</div>
+
+</div>
+
+    <!-- =========================
      AGENTS
 ========================= -->
+
 <div class="card">
-<h2>👥 Agents et administrateurs</h2>
-<p>Liste des comptes enregistrés dans Firebase.</p>
-<div id="agents">⏳ Chargement des utilisateurs...</div>
+
+<h2>
+👥 Agents et administrateurs
+</h2>
+
+<p>
+Liste des comptes enregistrés dans Firebase.
+</p>
+
+<div id="agents">
+⏳ Chargement des utilisateurs...
 </div>
+
+</div>
+
 
 <!-- =========================
      FLUX
 ========================= -->
+
 <div class="card">
-<h2>📊 État des déchèteries</h2>
-<div id="sites">⏳ Chargement des flux...</div>
+
+<h2>
+📊 État des déchèteries
+</h2>
+
+<div id="sites">
+⏳ Chargement des flux...
 </div>
+
+</div>
+
 
 <!-- =========================
      ACTIONS
 ========================= -->
+
 <div class="card">
-<h2>⚙️ Accès rapides</h2>
+
+<h2>
+⚙️ Accès rapides
+</h2>
+
 <div class="buttons">
-<a class="button green-button" href="./agent.html">👷 Espace agent</a>
-<a class="button" href="./index.html">🏠 Site public</a>
-<button id="logout" class="button red-button">🚪 Déconnexion</button>
-</div>
+
+<a
+class="button green-button"
+href="./agent.html"
+>
+👷 Espace agent
+</a>
+
+<a
+class="button"
+href="./index.html"
+>
+🏠 Site public
+</a>
+
+<button
+id="logout"
+class="button red-button"
+>
+🚪 Déconnexion
+</button>
+
 </div>
 
 </div>
+
 </div>
+
+</div>
+
 
 <!-- =========================
      FIREBASE
 ========================= -->
+
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+
+
 <script>
 
 /* =========================
@@ -387,28 +681,99 @@ header p {
 ========================= */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
-    authDomain: "sictom-zone-de-dole-17296.firebaseapp.com",
-    projectId: "sictom-zone-de-dole-17296",
-    storageBucket: "sictom-zone-de-dole-17296.firebasestorage.app",
-    messagingSenderId: "378183859073",
-    appId: "1:378183859073:web:3b347f84a072fb0cb54680"
+
+    apiKey:
+    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+
+    authDomain:
+    "sictom-zone-de-dole-17296.firebaseapp.com",
+
+    projectId:
+    "sictom-zone-de-dole-17296",
+
+    storageBucket:
+    "sictom-zone-de-dole-17296.firebasestorage.app",
+
+    messagingSenderId:
+    "378183859073",
+
+    appId:
+    "1:378183859073:web:3b347f84a072fb0cb54680"
+
 };
 
-firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+firebase.initializeApp(
+    firebaseConfig
+);
+
+
+const auth =
+    firebase.auth();
+
+
+const db =
+    firebase.firestore();
+
 
 /* =========================
    ELEMENTS
 ========================= */
 
-const loading = document.getElementById("loading");
-const errorBox = document.getElementById("error");
-const dashboard = document.getElementById("dashboard");
-const sitesBox = document.getElementById("sites");
-const agentsBox = document.getElementById("agents");
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+const errorBox =
+    document.getElementById(
+        "error"
+    );
+
+
+const dashboard =
+    document.getElementById(
+        "dashboard"
+    );
+
+
+const sitesBox =
+    document.getElementById(
+        "sites"
+    );
+
+
+const agentsBox =
+    document.getElementById(
+        "agents"
+    );
+
+
+const graphPleins =
+    document.getElementById(
+        "graphPleins"
+    );
+
+
+const classementPleins =
+    document.getElementById(
+        "classementPleins"
+    );
+
+
+const classementPresque =
+    document.getElementById(
+        "classementPresque"
+    );
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let donneesSites = {};
+
 
 /* =========================
    ERREUR
@@ -416,12 +781,20 @@ const agentsBox = document.getElementById("agents");
 
 function afficherErreur(message) {
 
-    loading.style.display = "none";
-    dashboard.style.display = "none";
-    errorBox.style.display = "block";
-    errorBox.innerHTML = "❌ " + message;
+    loading.style.display =
+        "none";
+
+    dashboard.style.display =
+        "none";
+
+    errorBox.style.display =
+        "block";
+
+    errorBox.innerHTML =
+        "❌ " + message;
 
 }
+
 
 /* =========================
    STATUT
@@ -429,21 +802,56 @@ function afficherErreur(message) {
 
 function statutHTML(statut) {
 
-    if (statut === "disponible") {
-        return `<span class="status disponible">🟢 Disponible</span>`;
+    if (
+        statut ===
+        "disponible"
+    ) {
+
+        return `
+            <span class="status disponible">
+                🟢 Disponible
+            </span>
+        `;
+
     }
 
-    if (statut === "presque") {
-        return `<span class="status presque">🟠 Presque pleine</span>`;
+
+    if (
+        statut ===
+        "presque"
+    ) {
+
+        return `
+            <span class="status presque">
+                🟠 Presque pleine
+            </span>
+        `;
+
     }
 
-    if (statut === "pleine") {
-        return `<span class="status pleine">🔴 Pleine</span>`;
+
+    if (
+        statut ===
+        "pleine"
+    ) {
+
+        return `
+            <span class="status pleine">
+                🔴 Pleine
+            </span>
+        `;
+
     }
 
-    return `<span class="status inconnu">ℹ️ ${statut || "Inconnu"}</span>`;
+
+    return `
+        <span class="status inconnu">
+            ℹ️ ${statut || "Inconnu"}
+        </span>
+    `;
 
 }
+
 
 /* =========================
    NOM SITE
@@ -452,20 +860,41 @@ function statutHTML(statut) {
 function nomSite(id) {
 
     const noms = {
-        "chaussin": "Chaussin",
-        "dole": "Dole",
-        "brevans": "Brevans",
-        "tavaux": "Tavaux",
-        "dampierre": "Dampierre",
-        "mont-sous-vaudrey": "Mont-sous-Vaudrey",
-        "montmirey-le-chateau": "Montmirey-le-Château",
-        "saligney": "Saligney",
-        "villers-farlay": "Villers-Farlay"
+
+        "chaussin":
+        "Chaussin",
+
+        "dole":
+        "Dole",
+
+        "brevans":
+        "Brevans",
+
+        "tavaux":
+        "Tavaux",
+
+        "dampierre":
+        "Dampierre",
+
+        "mont-sous-vaudrey":
+        "Mont-sous-Vaudrey",
+
+        "montmirey-le-chateau":
+        "Montmirey-le-Château",
+
+        "saligney":
+        "Saligney",
+
+        "villers-farlay":
+        "Villers-Farlay"
+
     };
+
 
     return noms[id] || id;
 
 }
+
 
 /* =========================
    NOM FLUX
@@ -473,68 +902,116 @@ function nomSite(id) {
 
 function nomFlux(id, data) {
 
-    if (data.nom) {
+    if (
+        data.nom
+    ) {
+
         return data.nom;
+
     }
 
+
     const noms = {
-        "bois-a": "🪵 Bois A",
-        "bois-b": "🪵 Bois B",
-        "mobilier": "🛋️ Mobilier",
-        "carton": "📦 Carton",
-        "gravats": "🪨 Gravats",
-        "ferraille": "🔩 Ferraille",
-        "plastique-dur": "🧴 Plastique dur",
-        "tout-venant": "🗑️ Tout-venant"
+
+        "bois-a":
+        "🪵 Bois A",
+
+        "bois-b":
+        "🪵 Bois B",
+
+        "mobilier":
+        "🛋️ Mobilier",
+
+        "carton":
+        "📦 Carton",
+
+        "gravats":
+        "🪨 Gravats",
+
+        "ferraille":
+        "🔩 Ferraille",
+
+        "plastique-dur":
+        "🧴 Plastique dur",
+
+        "tout-venant":
+        "🗑️ Tout-venant"
+
     };
+
 
     return noms[id] || id;
 
 }
 
+
 /* =========================
    DATE
 ========================= */
 
-function afficherDate(timestamp) {
+function afficherDate(
+    timestamp
+) {
 
-    if (!timestamp) {
+    if (
+        !timestamp
+    ) {
+
         return "";
+
     }
+
 
     try {
 
-        return timestamp.toDate().toLocaleString(
-            "fr-FR",
-            {
-                dateStyle: "short",
-                timeStyle: "short"
-            }
-        );
+        return timestamp
+            .toDate()
+            .toLocaleString(
+                "fr-FR",
+                {
+                    dateStyle:
+                    "short",
+
+                    timeStyle:
+                    "short"
+                }
+            );
 
     }
 
     catch(error) {
+
         return "";
+
     }
 
 }
 
-/* =========================
-   CHARGER LES AGENTS
+    /* =========================
+   CHARGER AGENTS
 ========================= */
 
 async function chargerAgents() {
 
-    agentsBox.innerHTML = "⏳ Chargement des utilisateurs...";
+    agentsBox.innerHTML =
+        "⏳ Chargement des utilisateurs...";
+
 
     try {
 
-        const snapshot = await db.collection("users").get();
+        const snapshot =
+            await db
+                .collection("users")
+                .get();
 
-        agentsBox.innerHTML = "";
 
-        if (snapshot.empty) {
+        agentsBox.innerHTML =
+            "";
+
+
+        if (
+            snapshot.empty
+        ) {
 
             agentsBox.innerHTML = `
                 <div class="empty">
@@ -546,301 +1023,1111 @@ async function chargerAgents() {
 
         }
 
+
         const utilisateurs = [];
 
-        snapshot.forEach(function(doc) {
 
-            utilisateurs.push({
-                id: doc.id,
-                data: doc.data()
-            });
+        snapshot.forEach(
+            function(doc) {
 
-        });
+                utilisateurs.push({
 
-        utilisateurs.sort(function(a, b) {
+                    id:
+                    doc.id,
 
-            const nomA = (a.data.prenom || "") + " " + (a.data.nom || "");
-            const nomB = (b.data.prenom || "") + " " + (b.data.nom || "");
+                    data:
+                    doc.data()
 
-            return nomA.localeCompare(nomB, "fr");
+                });
 
-        });
+            }
+        );
 
-        utilisateurs.forEach(function(utilisateur) {
 
-            const data = utilisateur.data;
+        utilisateurs.sort(
+            function(a, b) {
 
-            const prenom = typeof data.prenom === "string" ? data.prenom.trim() : "";
-            const nom = typeof data.nom === "string" ? data.nom.trim() : "";
-            const email = data.email || "";
-            const role = data.role || "agent";
+                const nomA =
+                    (
+                        a.data.prenom ||
+                        ""
+                    ) +
+                    " " +
+                    (
+                        a.data.nom ||
+                        ""
+                    );
 
-            const nomComplet = [prenom, nom].filter(Boolean).join(" ");
-            const affichageNom = nomComplet || email || "Utilisateur";
 
-            const agent = document.createElement("div");
-            agent.className = "agent";
+                const nomB =
+                    (
+                        b.data.prenom ||
+                        ""
+                    ) +
+                    " " +
+                    (
+                        b.data.nom ||
+                        ""
+                    );
 
-            agent.innerHTML = `
-                <div>
-                    <div class="agent-name">
-                        👤 ${affichageNom}
+
+                return nomA.localeCompare(
+                    nomB,
+                    "fr"
+                );
+
+            }
+        );
+
+
+        utilisateurs.forEach(
+            function(utilisateur) {
+
+                const data =
+                    utilisateur.data;
+
+
+                const prenom =
+                    typeof data.prenom ===
+                    "string"
+                    ?
+                    data.prenom.trim()
+                    :
+                    "";
+
+
+                const nom =
+                    typeof data.nom ===
+                    "string"
+                    ?
+                    data.nom.trim()
+                    :
+                    "";
+
+
+                const email =
+                    data.email ||
+                    "";
+
+
+                const role =
+                    data.role ||
+                    "agent";
+
+
+                const nomComplet =
+                    [
+                        prenom,
+                        nom
+                    ]
+                    .filter(Boolean)
+                    .join(" ");
+
+
+                const affichageNom =
+                    nomComplet ||
+                    email ||
+                    "Utilisateur";
+
+
+                const agent =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                agent.className =
+                    "agent";
+
+
+                agent.innerHTML = `
+
+                    <div>
+
+                        <div class="agent-name">
+                            ${affichageNom}
+                        </div>
+
+                        ${
+                            email
+                            ?
+                            `
+                            <div class="agent-email">
+                                ${email}
+                            </div>
+                            `
+                            :
+                            ""
+                        }
+
                     </div>
-                    ${
-                        email
-                        ? `<div class="agent-email">${email}</div>`
-                        : ""
-                    }
-                </div>
-                <div>
-                    <span class="role ${role === "admin" ? "role-admin" : "role-agent"}">
-                        ${role === "admin" ? "👑 Administrateur" : "👷 Agent"}
-                    </span>
-                </div>
-            `;
 
-            agentsBox.appendChild(agent);
+                    <div>
 
-        });
+                        <span class="role ${
+                            role === "admin"
+                            ?
+                            "role-admin"
+                            :
+                            "role-agent"
+                        }">
+
+                            ${
+                                role === "admin"
+                                ?
+                                "Administrateur"
+                                :
+                                "Agent"
+                            }
+
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                agentsBox.appendChild(
+                    agent
+                );
+
+            }
+        );
 
     }
 
     catch(error) {
 
-        console.error("Erreur agents :", error);
+        console.error(
+            "Erreur agents :",
+            error
+        );
+
 
         agentsBox.innerHTML = `
-            <div class="error" style="display:block;">
-                ❌ Impossible de charger les agents.
+
+            <div
+                class="error"
+                style="display:block;"
+            >
+
+                Impossible de charger
+                les agents.
+
                 <br><br>
-                <strong>Code :</strong> ${error.code || "inconnu"}
+
+                <strong>
+                    Code :
+                </strong>
+
+                ${
+                    error.code ||
+                    "inconnu"
+                }
+
                 <br><br>
-                <strong>Message :</strong> ${error.message || "inconnu"}
+
+                <strong>
+                    Message :
+                </strong>
+
+                ${
+                    error.message ||
+                    "inconnu"
+                }
+
             </div>
+
         `;
 
     }
 
 }
 
-/* =========================
-   CHARGER LES FLUX
-========================= */
-
-function chargerFlux() {
-
-    db.collectionGroup("flux").onSnapshot(
-
-        function(snapshot) {
-
-            const sites = {};
-
-            let totalFlux = 0;
-            let totalPresque = 0;
-            let totalPleins = 0;
-
-            snapshot.forEach(function(doc) {
-
-                const data = doc.data();
-                const chemin = doc.ref.path.split("/");
-
-                if (chemin.length < 4) {
-                    return;
-                }
-
-                const siteId = chemin[1];
-                const fluxId = chemin[3];
-
-                if (!sites[siteId]) {
-                    sites[siteId] = [];
-                }
-
-                sites[siteId].push({
-                    id: fluxId,
-                    data: data
-                });
-
-                totalFlux++;
-
-                if (data.statut === "presque") {
-                    totalPresque++;
-                }
-
-                if (data.statut === "pleine") {
-                    totalPleins++;
-                }
-
-            });
-
-            const totalSites = Object.keys(sites).length;
-
-            document.getElementById("statSites").textContent = totalSites;
-            document.getElementById("statFlux").textContent = totalFlux;
-            document.getElementById("statPresque").textContent = totalPresque;
-            document.getElementById("statPleins").textContent = totalPleins;
-
-            sitesBox.innerHTML = "";
-
-            if (totalFlux === 0) {
-
-                sitesBox.innerHTML = `
-                    <div class="empty">
-                        Aucun flux trouvé dans Firestore.
-                    </div>
-                `;
-
-                return;
-
-            }
-
-            const ids = Object.keys(sites).sort();
-
-            ids.forEach(function(siteId) {
-
-                const site = document.createElement("div");
-                site.className = "site";
-
-                let fluxHTML = "";
-
-                sites[siteId]
-                    .sort(function(a, b) {
-                        return a.id.localeCompare(b.id);
-                    })
-                    .forEach(function(item) {
-
-                        const data = item.data;
-                        const statut = data.statut || "inconnu";
-                        const modifiePar = data.modifiePar || "";
-                        const date = afficherDate(data.miseAJour);
-
-                        fluxHTML += `
-                            <div class="flux">
-                                <div>
-                                    <div class="flux-name">
-                                        ${nomFlux(item.id, data)}
-                                    </div>
-                                    ${
-                                        modifiePar
-                                        ? `<div class="meta">👤 ${modifiePar}${date ? " — " + date : ""}</div>`
-                                        : (date ? `<div class="meta">${date}</div>` : "")
-                                    }
-                                </div>
-                                <div>
-                                    ${statutHTML(statut)}
-                                </div>
-                            </div>
-                        `;
-
-                    });
-
-                site.innerHTML = `
-                    <div class="site-title">${nomSite(siteId)}</div>
-                    <div class="site-id">${siteId}</div>
-                    ${fluxHTML}
-                `;
-
-                sitesBox.appendChild(site);
-
-            });
-
-        },
-
-        function(error) {
-
-            console.error("Erreur flux :", error);
-
-            sitesBox.innerHTML = `
-                <div class="error" style="display:block;">
-                    ❌ Impossible de charger les flux.
-                    <br><br>
-                    <strong>Code :</strong> ${error.code || "inconnu"}
-                    <br><br>
-                    <strong>Message :</strong> ${error.message || "inconnu"}
-                </div>
-            `;
-
-        }
-
-    );
-
-}
 
 /* =========================
-   VÉRIFICATION ADMIN
+   CONSTRUIRE GRAPHIQUES
 ========================= */
 
-auth.onAuthStateChanged(function(user) {
+function construireGraphiques() {
 
-    // Aucun utilisateur connecté → retour à la page de connexion
-    if (!user) {
+    const ids =
+        Object.keys(
+            donneesSites
+        );
 
-        window.location.href = "./login.html";
+
+    if (
+        ids.length === 0
+    ) {
+
+        graphPleins.innerHTML = `
+            <div class="empty">
+                Aucun flux disponible.
+            </div>
+        `;
+
+
+        classementPleins.innerHTML = `
+            <div class="empty">
+                Aucun classement disponible.
+            </div>
+        `;
+
+
+        classementPresque.innerHTML = `
+            <div class="empty">
+                Aucun classement disponible.
+            </div>
+        `;
+
+
         return;
 
     }
 
-    // Utilisateur connecté : on vérifie son rôle dans Firestore
-    db.collection("users").doc(user.uid).get()
-        .then(function(doc) {
 
-            if (!doc.exists) {
+    const classement = [];
 
-                afficherErreur(
-                    "Aucun profil trouvé pour ce compte. " +
-                    "Contactez un administrateur."
+
+    ids.forEach(
+        function(siteId) {
+
+            const site =
+                donneesSites[
+                    siteId
+                ];
+
+
+            classement.push({
+
+                id:
+                siteId,
+
+                nom:
+                nomSite(siteId),
+
+                pleins:
+                site.pleins,
+
+                presque:
+                site.presque,
+
+                total:
+                site.total
+
+            });
+
+        }
+    );
+
+
+    /* =====================
+       TRI PLEINS
+    ===================== */
+
+    classement.sort(
+        function(a, b) {
+
+            if (
+                b.pleins !==
+                a.pleins
+            ) {
+
+                return (
+                    b.pleins -
+                    a.pleins
                 );
-                return;
 
             }
 
-            const data = doc.data();
 
-            if (data.role !== "admin") {
-
-                afficherErreur(
-                    "Accès refusé : ce compte n'a pas les droits administrateur."
-                );
-                return;
-
-            }
-
-            // Rôle admin confirmé : on affiche le tableau de bord
-            document.getElementById("email").textContent = user.email || "";
-
-            loading.style.display = "none";
-            errorBox.style.display = "none";
-            dashboard.style.display = "block";
-
-            chargerAgents();
-            chargerFlux();
-
-        })
-        .catch(function(error) {
-
-            console.error("Erreur vérification rôle :", error);
-
-            afficherErreur(
-                "Impossible de vérifier vos droits. " +
-                "<br><br><strong>Code :</strong> " + (error.code || "inconnu") +
-                "<br><strong>Message :</strong> " + (error.message || "inconnu")
+            return (
+                b.presque -
+                a.presque
             );
 
-        });
+        }
+    );
 
-});
+
+    const maximum =
+        Math.max(
+            ...classement.map(
+                function(item) {
+                    return item.pleins;
+                }
+            ),
+            1
+        );
+
+
+    let graphHTML = "";
+
+
+    classement.forEach(
+        function(item) {
+
+            const largeur =
+                (
+                    item.pleins /
+                    maximum
+                ) *
+                100;
+
+
+            graphHTML += `
+
+                <div class="graph-row">
+
+                    <div class="graph-name">
+                        ${item.nom}
+                    </div>
+
+                    <div class="graph-bar-zone">
+
+                        <div
+                            class="graph-bar pleine"
+                            style="width:${largeur}%"
+                        ></div>
+
+                    </div>
+
+                    <div class="graph-value">
+                        ${item.pleins}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    graphPleins.innerHTML =
+        graphHTML;
+
+
+    /* =====================
+       CLASSEMENT PLEINS
+    ===================== */
+
+    let classementHTML = "";
+
+
+    classement.forEach(
+        function(item, index) {
+
+            const scoreClass =
+                item.pleins === 0
+                ?
+                "zero"
+                :
+                "";
+
+
+            classementHTML += `
+
+                <div class="classement-item">
+
+                    <div class="classement-gauche">
+
+                        <div class="classement-rang">
+                            ${index + 1}
+                        </div>
+
+                        <div>
+
+                            <div class="classement-nom">
+                                ${item.nom}
+                            </div>
+
+                            <div class="classement-detail">
+                                ${item.total} flux enregistrés
+                                · ${item.presque} presque plein(s)
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="classement-score ${scoreClass}">
+                        🔴 ${item.pleins}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    classementPleins.innerHTML =
+        classementHTML;
+
+
+    /* =====================
+       CLASSEMENT PRESQUE
+    ===================== */
+
+    const classementPresqueData =
+        [...classement].sort(
+            function(a, b) {
+
+                if (
+                    b.presque !==
+                    a.presque
+                ) {
+
+                    return (
+                        b.presque -
+                        a.presque
+                    );
+
+                }
+
+
+                return (
+                    b.pleins -
+                    a.pleins
+                );
+
+            }
+        );
+
+
+    let presqueHTML = "";
+
+
+    classementPresqueData.forEach(
+        function(item, index) {
+
+            const scoreClass =
+                item.presque === 0
+                ?
+                "zero"
+                :
+                "";
+
+
+            presqueHTML += `
+
+                <div class="classement-item">
+
+                    <div class="classement-gauche">
+
+                        <div class="classement-rang">
+                            ${index + 1}
+                        </div>
+
+                        <div>
+
+                            <div class="classement-nom">
+                                ${item.nom}
+                            </div>
+
+                            <div class="classement-detail">
+                                ${item.pleins} plein(s)
+                                · ${item.total} flux
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="classement-score ${scoreClass}">
+                        🟠 ${item.presque}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    classementPresque.innerHTML =
+        presqueHTML;
+
+}
+
 
 /* =========================
-   DÉCONNEXION
+   CHARGER FLUX
 ========================= */
 
-document.getElementById("logout").addEventListener("click", function() {
+function chargerFlux() {
 
-    auth.signOut().then(function() {
-        window.location.href = "./login.html";
-    });
+    db.collectionGroup("flux")
 
-});
+        .onSnapshot(
+
+            function(snapshot) {
+
+                donneesSites = {};
+
+
+                let totalFlux =
+                    0;
+
+
+                let totalPresque =
+                    0;
+
+
+                let totalPleins =
+                    0;
+
+
+                snapshot.forEach(
+                    function(doc) {
+
+                        const data =
+                            doc.data();
+
+
+                        const chemin =
+                            doc.ref.path.split(
+                                "/"
+                            );
+
+
+                        if (
+                            chemin.length < 4
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const siteId =
+                            chemin[1];
+
+
+                        const fluxId =
+                            chemin[3];
+
+
+                        if (
+                            !donneesSites[
+                                siteId
+                            ]
+                        ) {
+
+                            donneesSites[
+                                siteId
+                            ] = {
+
+                                flux: [],
+
+                                total: 0,
+
+                                pleins: 0,
+
+                                presque: 0
+
+                            };
+
+                        }
+
+
+                        donneesSites[
+                            siteId
+                        ]
+                        .flux
+                        .push({
+
+                            id:
+                            fluxId,
+
+                            data:
+                            data
+
+                        });
+
+
+                        donneesSites[
+                            siteId
+                        ].total++;
+
+
+                        totalFlux++;
+
+
+                        if (
+                            data.statut ===
+                            "pleine"
+                        ) {
+
+                            donneesSites[
+                                siteId
+                            ].pleins++;
+
+
+                            totalPleins++;
+
+                        }
+
+
+                        if (
+                            data.statut ===
+                            "presque"
+                        ) {
+
+                            donneesSites[
+                                siteId
+                            ].presque++;
+
+
+                            totalPresque++;
+
+                        }
+
+                    }
+                );
+
+
+                const totalSites =
+                    Object.keys(
+                        donneesSites
+                    ).length;
+
+
+                document.getElementById(
+                    "statSites"
+                ).textContent =
+                    totalSites;
+
+
+                document.getElementById(
+                    "statFlux"
+                ).textContent =
+                    totalFlux;
+
+
+                document.getElementById(
+                    "statPresque"
+                ).textContent =
+                    totalPresque;
+
+
+                document.getElementById(
+                    "statPleins"
+                ).textContent =
+                    totalPleins;
+
+
+                construireGraphiques();
+
+
+                afficherSites();
+
+            },
+
+            function(error) {
+
+                console.error(
+                    "Erreur flux :",
+                    error
+                );
+
+
+                sitesBox.innerHTML = `
+
+                    <div
+                        class="error"
+                        style="display:block;"
+                    >
+
+                        Impossible de charger
+                        les flux.
+
+                        <br><br>
+
+                        <strong>
+                            Code :
+                        </strong>
+
+                        ${
+                            error.code ||
+                            "inconnu"
+                        }
+
+                        <br><br>
+
+                        <strong>
+                            Message :
+                        </strong>
+
+                        ${
+                            error.message ||
+                            "inconnu"
+                        }
+
+                    </div>
+
+                `;
+
+            }
+
+        );
+
+    }
+
+    /* =========================
+   AFFICHER LES SITES
+========================= */
+
+function afficherSites() {
+
+    sitesBox.innerHTML =
+        "";
+
+
+    const ids =
+        Object.keys(
+            donneesSites
+        )
+        .sort();
+
+
+    if (
+        ids.length === 0
+    ) {
+
+        sitesBox.innerHTML = `
+
+            <div class="empty">
+
+                Aucun flux trouvé
+                dans Firestore.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    ids.forEach(
+        function(siteId) {
+
+            const siteData =
+                donneesSites[
+                    siteId
+                ];
+
+
+            const site =
+                document.createElement(
+                    "div"
+                );
+
+
+            site.className =
+                "site";
+
+
+            let fluxHTML =
+                "";
+
+
+            siteData.flux
+                .sort(
+                    function(a, b) {
+
+                        return a.id.localeCompare(
+                            b.id
+                        );
+
+                    }
+                )
+                .forEach(
+                    function(item) {
+
+                        const data =
+                            item.data;
+
+
+                        const statut =
+                            data.statut ||
+                            "inconnu";
+
+
+                        const modifiePar =
+                            data.modifiePar ||
+                            "";
+
+
+                        const date =
+                            afficherDate(
+                                data.miseAJour
+                            );
+
+
+                        fluxHTML += `
+
+                            <div class="flux">
+
+                                <div>
+
+                                    <div class="flux-name">
+                                        ${nomFlux(
+                                            item.id,
+                                            data
+                                        )}
+                                    </div>
+
+                                    ${
+                                        modifiePar
+                                        ?
+                                        `
+                                        <div class="meta">
+                                            ${modifiePar}
+                                            ${
+                                                date
+                                                ?
+                                                " — " + date
+                                                :
+                                                ""
+                                            }
+                                        </div>
+                                        `
+                                        :
+                                        (
+                                            date
+                                            ?
+                                            `
+                                            <div class="meta">
+                                                ${date}
+                                            </div>
+                                            `
+                                            :
+                                            ""
+                                        )
+                                    }
+
+                                </div>
+
+                                <div>
+
+                                    ${statutHTML(
+                                        statut
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+
+            site.innerHTML = `
+
+                <div class="site-title">
+
+                    ${nomSite(siteId)}
+
+                </div>
+
+                <div class="site-id">
+
+                    ${siteId}
+
+                </div>
+
+                ${fluxHTML}
+
+            `;
+
+
+            sitesBox.appendChild(
+                site
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   VERIFICATION COMPTE
+========================= */
+
+auth.onAuthStateChanged(
+    function(user) {
+
+        if (
+            !user
+        ) {
+
+            afficherErreur(
+                "Aucun compte connecté. " +
+                "Connectez-vous avec un compte administrateur."
+            );
+
+            return;
+
+        }
+
+
+        loading.style.display =
+            "block";
+
+
+        errorBox.style.display =
+            "none";
+
+
+        dashboard.style.display =
+            "none";
+
+
+        loading.innerHTML =
+            "🔄 Vérification des droits administrateur...";
+
+
+        db.collection("users")
+            .doc(user.uid)
+            .get()
+
+            .then(
+                function(doc) {
+
+                    if (
+                        !doc.exists
+                    ) {
+
+                        afficherErreur(
+                            "Aucun profil trouvé pour ce compte."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const data =
+                        doc.data();
+
+
+                    if (
+                        data.role !==
+                        "admin"
+                    ) {
+
+                        afficherErreur(
+                            "Accès refusé : ce compte n'a pas les droits administrateur."
+                        );
+
+                        return;
+
+                    }
+
+
+                    document.getElementById(
+                        "email"
+                    ).textContent =
+                        user.email ||
+                        "";
+
+
+                    loading.style.display =
+                        "none";
+
+
+                    errorBox.style.display =
+                        "none";
+
+
+                    dashboard.style.display =
+                        "block";
+
+
+                    chargerAgents();
+
+                    chargerFlux();
+
+                }
+            )
+
+            .catch(
+                function(error) {
+
+                    console.error(
+                        "Erreur vérification rôle :",
+                        error
+                    );
+
+
+                    afficherErreur(
+                        "Impossible de vérifier vos droits." +
+                        "<br><br>" +
+                        "<strong>Code :</strong> " +
+                        (
+                            error.code ||
+                            "inconnu"
+                        ) +
+                        "<br><br>" +
+                        "<strong>Message :</strong> " +
+                        (
+                            error.message ||
+                            "inconnu"
+                        )
+                    );
+
+                }
+            );
+
+    }
+);
+
+
+/* =========================
+   DECONNEXION
+========================= */
+
+document.getElementById(
+    "logout"
+)
+.addEventListener(
+    "click",
+    function() {
+
+        auth.signOut()
+            .then(
+                function() {
+
+                    window.location.href =
+                        "./index.html";
+
+                }
+            )
+            .catch(
+                function(error) {
+
+                    afficherErreur(
+                        "Impossible de se déconnecter : " +
+                        error.message
+                    );
+
+                }
+            );
+
+    }
+);
 
 </script>
+
 </body>
 </html>
