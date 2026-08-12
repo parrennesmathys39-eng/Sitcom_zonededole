@@ -811,9 +811,9 @@ footer::before {
 
 }
 
-</style>
+   </style>
 
-</head>
+   </head>
 
 
 <body>
@@ -958,8 +958,7 @@ src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js">
 
 <script>
 
-
-/* =====================================================
+   /* =====================================================
    FIREBASE
 ===================================================== */
 
@@ -1363,4 +1362,568 @@ async function afficherFiche(site) {
 
             `
 
-            <div class="importan
+            <div class="important">
+
+                ⭐
+
+                <strong>
+                    À surveiller particulièrement
+                </strong>
+
+                <br><br>
+
+                🪵 Bois A et Bois B
+
+                <br>
+
+                🛋️ Mobilier
+
+            </div>
+
+            `
+
+            :
+
+            ""
+
+        }
+
+
+        <h4>
+
+            État actuel des flux
+
+        </h4>
+
+
+        <div id="flux-${siteId(site.nom)}">
+
+            <div class="firebase-status">
+
+                🔄 Chargement des informations...
+
+            </div>
+
+        </div>
+
+
+        <div class="mise-a-jour">
+
+            🕐 Les statuts sont mis à jour
+            directement par les agents.
+
+        </div>
+
+
+        <a
+            class="itineraire"
+            href="https://www.google.com/maps/dir/?api=1&destination=${site.lat},${site.lng}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            📍 Itinéraire
+
+        </a>
+
+    </div>
+
+    `;
+
+
+    container.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+    });
+
+
+    chargerFlux(site);
+
+}
+
+
+
+/* =====================================================
+   CHARGER FLUX
+===================================================== */
+
+function chargerFlux(site) {
+
+
+    const id =
+        siteId(site.nom);
+
+
+    const container =
+        document.getElementById(
+            "flux-" + id
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    db.collection("dechetteries")
+        .doc(id)
+        .collection("flux")
+        .onSnapshot(
+
+            function(snapshot) {
+
+
+                const donnees = {};
+
+
+                snapshot.forEach(
+
+                    function(doc) {
+
+                        donnees[
+                            doc.id
+                        ] = doc.data();
+
+                    }
+
+                );
+
+
+                let html = "";
+
+
+                /* =========================
+                   FLUX
+                ========================= */
+
+                let fluxAfficher = [
+
+                    "tout-venant",
+                    "carton",
+                    "gravats",
+                    "ferraille",
+                    "bois-a",
+                    "bois-b",
+                    "mobilier",
+                    "platre",
+                    "plastique-dur"
+
+                ];
+
+
+                if (
+                    site.nom === "Saint-Aubin"
+                ) {
+
+                    fluxAfficher = [
+
+                        "vegetaux"
+
+                    ];
+
+                }
+
+
+                /* =========================
+                   AFFICHAGE
+                ========================= */
+
+                fluxAfficher.forEach(
+
+                    function(fluxId) {
+
+
+                        const data =
+                            donnees[fluxId];
+
+
+                        let nom =
+                            fluxNoms[fluxId];
+
+
+                        if (
+                            fluxId === "vegetaux"
+                        ) {
+
+                            nom =
+                                "🌿 Végétaux";
+
+                        }
+
+
+                        const statut =
+                            data
+                            ? data.statut
+                            : null;
+
+
+                        html += `
+
+                        <div class="benne">
+
+                            <span class="benne-name">
+
+                                ${nom}
+
+                            </span>
+
+                            ${statutHTML(statut)}
+
+                        </div>
+
+                        `;
+
+                    }
+
+                );
+
+
+                /* =========================
+                   DERNIERE DATE
+                ========================= */
+
+                let dernierTimestamp =
+                    null;
+
+
+                snapshot.forEach(
+
+                    function(doc) {
+
+                        const data =
+                            doc.data();
+
+
+                        if (
+                            data.miseAJour
+                        ) {
+
+                            if (
+                                !dernierTimestamp ||
+
+                                data.miseAJour.toMillis()
+                                >
+                                dernierTimestamp.toMillis()
+
+                            ) {
+
+                                dernierTimestamp =
+                                    data.miseAJour;
+
+                            }
+
+                        }
+
+                    }
+
+                );
+
+
+                if (
+                    dernierTimestamp
+                ) {
+
+                    html += `
+
+                    <div class="mise-a-jour">
+
+                        🕐 Dernière mise à jour :
+
+                        <strong>
+
+                            ${afficherDate(
+                                dernierTimestamp
+                            )}
+
+                        </strong>
+
+                    </div>
+
+                    `;
+
+                }
+
+                else {
+
+                    html += `
+
+                    <div class="mise-a-jour">
+
+                        🕐 Aucun statut n'a encore été
+                        renseigné par un agent.
+
+                    </div>
+
+                    `;
+
+                }
+
+
+                container.innerHTML =
+                    html;
+
+            },
+
+
+            function(error) {
+
+
+                console.error(error);
+
+
+                container.innerHTML = `
+
+                <div class="firebase-status erreur">
+
+                    ❌ Impossible de charger
+                    les informations actuellement.
+
+                </div>
+
+                `;
+
+            }
+
+        );
+
+}
+
+
+
+/* =====================================================
+   MARQUEURS
+===================================================== */
+
+dechetteries.forEach(
+
+    function(site) {
+
+
+        const marker =
+            L.marker([
+
+                site.lat,
+                site.lng
+
+            ]).addTo(map);
+
+
+        marker.bindPopup(`
+
+            <strong>
+                ♻️ ${site.nom}
+            </strong>
+
+            <br><br>
+
+            ${site.type}
+
+            <br>
+
+            📍 ${site.adresse}
+
+            <br><br>
+
+            <span
+                style="
+                    color:#087f3d;
+                    font-weight:bold;
+                "
+            >
+                Cliquez pour voir les statuts
+            </span>
+
+        `);
+
+
+        marker.on(
+
+            "click",
+
+            function() {
+
+                afficherFiche(site);
+
+            }
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   RECHERCHE
+===================================================== */
+
+document
+    .getElementById("search")
+    .addEventListener(
+
+        "input",
+
+        function() {
+
+
+            const recherche =
+                this.value
+                    .toLowerCase()
+                    .trim();
+
+
+            if (
+                recherche === ""
+            ) {
+
+                return;
+
+            }
+
+
+            /* =========================
+               RECHERCHE DECHETERIE
+            ========================= */
+
+            const site =
+                dechetteries.find(
+
+                    function(site) {
+
+                        return site.nom
+                            .toLowerCase()
+                            .includes(
+                                recherche
+                            );
+
+                    }
+
+                );
+
+
+            if (site) {
+
+
+                map.setView(
+
+                    [
+                        site.lat,
+                        site.lng
+                    ],
+
+                    14
+
+                );
+
+
+                afficherFiche(site);
+
+
+                return;
+
+            }
+
+
+            /* =========================
+               RECHERCHE FLUX
+            ========================= */
+
+            for (
+
+                let i = 0;
+
+                i < dechetteries.length;
+
+                i++
+
+            ) {
+
+
+                const fluxTrouve =
+
+                    Object.values(
+                        fluxNoms
+                    ).some(
+
+                        function(nom) {
+
+                            return nom
+                                .toLowerCase()
+                                .includes(
+                                    recherche
+                                );
+
+                        }
+
+                    );
+
+
+                if (fluxTrouve) {
+
+
+                    map.setView(
+
+                        [
+                            dechetteries[i].lat,
+                            dechetteries[i].lng
+                        ],
+
+                        11
+
+                    );
+
+
+                    afficherFiche(
+                        dechetteries[i]
+                    );
+
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+
+/* =====================================================
+   FIREBASE STATUS
+===================================================== */
+
+const firebaseStatus =
+    document.getElementById(
+        "firebaseStatus"
+    );
+
+
+firebaseStatus.innerHTML =
+    "🟢 Informations connectées en temps réel";
+
+
+
+/* =====================================================
+   OUVERTURE PAR DEFAUT
+===================================================== */
+
+afficherFiche(
+    dechetteries[0]
+);
+
+</script>
+
+
+</body>
+
+</html>
+
+   
