@@ -4,44 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Administration — SICTOM Zone de Dole</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-
 <style>
-
-:root {
-
-    --vert-nuit: #14342A;
-    --vert-foret: #1B4B3A;
-    --vert-mousse: #4C7A63;
-    --vert-clair: #E8F0EA;
-
-    --fond: #F5F6F3;
-    --papier: #FFFFFF;
-
-    --encre: #1B2420;
-    --encre-douce: #5B665F;
-    --trait: #E1E4DF;
-
-    --ok-fond: #E4F3E8;
-    --ok-texte: #1E6B3E;
-    --ok-trait: #B7DEC3;
-
-    --attn-fond: #FDF1DC;
-    --attn-texte: #8A5A00;
-    --attn-trait: #F1D79E;
-
-    --alerte-fond: #FBE6E4;
-    --alerte-texte: #B23227;
-    --alerte-trait: #F0C0BB;
-
-    --rayon: 6px;
-    --rayon-lg: 10px;
-    --ombre: 0 1px 2px rgba(20, 30, 25, 0.06), 0 8px 24px rgba(20, 30, 25, 0.06);
-
-}
 
 * {
     box-sizing: border-box;
@@ -49,296 +12,120 @@
 
 body {
     margin: 0;
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--fond);
-    color: var(--encre);
-    -webkit-font-smoothing: antialiased;
-}
-
-h1, h2 {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-family: Arial, sans-serif;
+    background: #f4f7f5;
+    color: #17231b;
 }
 
 header {
-    background: var(--vert-nuit);
-    color: #EFF4F0;
-    padding: 26px 18px 24px;
-    border-bottom: 3px solid var(--vert-mousse);
+    background: linear-gradient(135deg, #087f3d, #18a558);
+    color: white;
+    padding: 25px 18px 30px;
 }
 
 .header-inner {
     max-width: 1100px;
     margin: auto;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.marque {
-    width: 42px;
-    height: 42px;
-    border-radius: var(--rayon);
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.18);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.03em;
-    flex-shrink: 0;
 }
 
 header h1 {
     margin: 0;
-    font-size: 19px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-size: 27px;
 }
 
 header p {
-    margin: 2px 0 0;
-    font-size: 13px;
-    color: #B8C7BE;
+    margin: 8px 0 0;
+    opacity: .9;
 }
 
 .container {
     max-width: 1100px;
     margin: auto;
-    padding: 22px 18px 60px;
+    padding: 20px;
 }
 
 .card {
-    background: var(--papier);
-    padding: 22px;
-    border-radius: var(--rayon-lg);
-    border: 1px solid var(--trait);
-    margin-bottom: 18px;
-    box-shadow: var(--ombre);
-}
-
-.card h2 {
-    margin: 0 0 4px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.card > p {
-    margin: 0 0 16px;
-    font-size: 13.5px;
-    color: var(--encre-douce);
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
 #loading {
     text-align: center;
-    padding: 30px 22px;
-    color: var(--encre-douce);
-    font-weight: 600;
-    font-size: 14px;
+    padding: 25px;
 }
 
 .error {
     display: none;
-    background: var(--alerte-fond);
-    color: var(--alerte-texte);
-    border: 1px solid var(--alerte-trait);
-    padding: 16px 18px;
-    border-radius: var(--rayon-lg);
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 1.5;
+    background: #ffdede;
+    color: #c62828;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: bold;
     word-break: break-word;
 }
 
 .success {
-    background: var(--ok-fond);
-    color: var(--ok-texte);
-    border: 1px solid var(--ok-trait);
-    padding: 13px 16px;
-    border-radius: var(--rayon);
-    font-weight: 600;
-    font-size: 14px;
-    display: inline-block;
+    background: #d9f7e5;
+    color: #087f3d;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
 #dashboard {
     display: none;
 }
 
-/* =========================
-   CONNEXION
-========================= */
-
-#connexion {
-    display: none;
-    max-width: 420px;
-    margin: 48px auto;
-    padding: 0 18px;
-}
-
-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: var(--encre);
-}
-
-input {
-    width: 100%;
-    padding: 12px 13px;
-    border: 1px solid #D3D8D2;
-    border-radius: var(--rayon);
-    font-size: 15px;
-    font-family: inherit;
-    background: var(--papier);
-    color: var(--encre);
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--vert-mousse);
-    box-shadow: 0 0 0 3px rgba(76, 122, 99, 0.15);
-}
-
-.champ {
-    margin-bottom: 15px;
-}
-
-#connexionBtn {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: var(--rayon);
-    background: var(--vert-foret);
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 4px;
-    transition: background 0.15s ease;
-}
-
-#connexionBtn:hover:not(:disabled) {
-    background: var(--vert-nuit);
-}
-
-#connexionBtn:disabled {
-    opacity: 0.55;
-    cursor: wait;
-}
-
-.message {
-    display: none;
-    margin-top: 15px;
-    padding: 12px 14px;
-    border-radius: var(--rayon);
-    border: 1px solid transparent;
-    font-size: 13.5px;
-    line-height: 1.5;
-    word-break: break-word;
-}
-
-.erreur {
-    background: var(--alerte-fond);
-    color: var(--alerte-texte);
-    border-color: var(--alerte-trait);
-}
-
-.succes {
-    background: var(--ok-fond);
-    color: var(--ok-texte);
-    border-color: var(--ok-trait);
-}
-
-.info {
-    background: var(--attn-fond);
-    color: var(--attn-texte);
-    border-color: var(--attn-trait);
-}
-
-.code {
-    background: rgba(0,0,0,0.04);
-    padding: 10px 11px;
-    border-radius: 5px;
-    margin-top: 9px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    overflow-wrap: anywhere;
-}
-
-/* =========================
-   STATISTIQUES
-========================= */
-
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 18px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .stat {
-    background: var(--papier);
+    background: white;
     padding: 18px;
-    border-radius: var(--rayon-lg);
-    border: 1px solid var(--trait);
-    box-shadow: var(--ombre);
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
 .stat-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: var(--rayon);
-    background: var(--vert-clair);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
+    font-size: 28px;
 }
 
 .stat-number {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    margin-top: 12px;
-    line-height: 1;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 7px;
 }
 
 .stat-label {
-    color: var(--encre-douce);
-    margin-top: 5px;
-    font-size: 13px;
-    font-weight: 500;
+    color: #777;
+    margin-top: 4px;
 }
 
-/* =========================
-   SITES / FLUX
-========================= */
-
 .site {
-    border-top: 1px solid var(--trait);
-    padding: 18px 0;
+    border-top: 1px solid #eee;
+    padding: 20px 0;
 }
 
 .site:first-child {
     border-top: none;
-    padding-top: 4px;
 }
 
 .site-title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 21px;
+    font-weight: bold;
 }
 
 .site-id {
-    color: var(--encre-douce);
+    color: #888;
     font-size: 12px;
-    margin-top: 2px;
-    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 4px;
 }
 
 .flux {
@@ -346,114 +133,95 @@ input:focus {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    padding: 12px 0;
-    border-top: 1px solid var(--trait);
+    padding: 13px 0;
+    border-top: 1px solid #eee;
 }
 
-.flux:first-of-type {
+.flux:first-child {
     margin-top: 12px;
 }
 
 .flux-name {
     font-weight: 500;
-    font-size: 14px;
 }
 
 .status {
-    padding: 6px 11px;
+    padding: 7px 11px;
     border-radius: 20px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: bold;
     white-space: nowrap;
-    border: 1px solid transparent;
 }
 
 .disponible {
-    background: var(--ok-fond);
-    color: var(--ok-texte);
-    border-color: var(--ok-trait);
+    background: #d9f7e5;
+    color: #087f3d;
 }
 
 .presque {
-    background: var(--attn-fond);
-    color: var(--attn-texte);
-    border-color: var(--attn-trait);
+    background: #fff0c2;
+    color: #946200;
 }
 
 .pleine {
-    background: var(--alerte-fond);
-    color: var(--alerte-texte);
-    border-color: var(--alerte-trait);
+    background: #ffdede;
+    color: #c62828;
 }
 
 .inconnu {
-    background: #EEF0EC;
-    color: var(--encre-douce);
-    border-color: var(--trait);
+    background: #eee;
+    color: #666;
 }
 
 .meta {
-    color: var(--encre-douce);
+    color: #888;
     font-size: 12px;
-    margin-top: 4px;
+    margin-top: 5px;
 }
-
-/* =========================
-   AGENTS
-========================= */
 
 .agent {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    padding: 14px 0;
-    border-top: 1px solid var(--trait);
+    padding: 15px 0;
+    border-top: 1px solid #eee;
 }
 
 .agent:first-child {
     border-top: none;
-    padding-top: 4px;
 }
 
 .agent-name {
-    font-weight: 600;
-    font-size: 14.5px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .agent-email {
-    color: var(--encre-douce);
+    color: #777;
     font-size: 13px;
-    margin-top: 2px;
+    margin-top: 4px;
     word-break: break-word;
 }
 
 .role {
-    padding: 6px 12px;
+    padding: 7px 12px;
     border-radius: 20px;
-    background: #EEF0EC;
-    color: var(--encre-douce);
+    background: #eee;
+    color: #555;
     font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    border: 1px solid var(--trait);
+    font-weight: bold;
 }
 
 .role-admin {
-    background: var(--vert-nuit);
+    background: #17231b;
     color: white;
-    border-color: var(--vert-nuit);
 }
 
 .role-agent {
-    background: var(--ok-fond);
-    color: var(--ok-texte);
-    border-color: var(--ok-trait);
+    background: #d9f7e5;
+    color: #087f3d;
 }
-
-/* =========================
-   BOUTONS
-========================= */
 
 .buttons {
     display: flex;
@@ -462,49 +230,30 @@ input:focus {
 }
 
 .button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border: 1px solid var(--vert-nuit);
-    padding: 11px 16px;
-    border-radius: var(--rayon);
-    background: var(--vert-nuit);
+    display: inline-block;
+    border: none;
+    padding: 13px 16px;
+    border-radius: 10px;
+    background: #17231b;
     color: white;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 13.5px;
-    font-family: inherit;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.15s ease, opacity 0.15s ease;
-}
-
-.button:hover {
-    opacity: 0.9;
 }
 
 .green-button {
-    background: var(--vert-foret);
-    border-color: var(--vert-foret);
+    background: #087f3d;
 }
 
 .red-button {
-    background: var(--papier);
-    color: var(--alerte-texte);
-    border-color: var(--alerte-trait);
-}
-
-.red-button:hover {
-    background: var(--alerte-fond);
-    opacity: 1;
+    background: #c62828;
 }
 
 .empty {
-    padding: 18px;
-    background: var(--fond);
-    border: 1px dashed var(--trait);
-    border-radius: var(--rayon);
-    color: var(--encre-douce);
-    font-size: 13.5px;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    color: #777;
 }
 
 @media (max-width: 750px) {
@@ -518,7 +267,7 @@ input:focus {
 @media (max-width: 500px) {
 
     .container {
-        padding: 16px;
+        padding: 14px;
     }
 
     .stats {
@@ -530,7 +279,7 @@ input:focus {
     }
 
     .stat-number {
-        font-size: 23px;
+        font-size: 25px;
     }
 
     .flux,
@@ -545,86 +294,17 @@ input:focus {
 <body>
 <header>
 <div class="header-inner">
-<div class="marque">ST</div>
-<div>
-<h1>Administration</h1>
+<h1>👑 Administration</h1>
 <p>SICTOM Zone de Dole</p>
-</div>
 </div>
 </header>
 <div class="container">
 
 <div id="loading" class="card">
-Vérification du compte...
+🔄 Vérification du compte...
 </div>
 
 <div id="error" class="error"></div>
-
-<div id="erreurActions" style="display:none; margin-bottom: 18px;">
-<button id="logoutErreur" class="button red-button">Se déconnecter</button>
-</div>
-
-
-<!-- =========================
-     CONNEXION
-     (affichée si personne n'est
-     connecté — remplace login.html
-     qui n'existe pas)
-========================= -->
-
-<div id="connexion">
-
-<div class="card">
-
-<h2>Connexion administrateur</h2>
-
-<p>
-Connectez-vous avec un compte disposant des droits administrateur.
-</p>
-
-<div class="champ">
-
-<label for="email">
-Email
-</label>
-
-<input
-type="email"
-id="email"
-placeholder="prenom.nom@sictom-dole.fr"
-autocomplete="email"
->
-
-</div>
-
-<div class="champ">
-
-<label for="password">
-Mot de passe
-</label>
-
-<input
-type="password"
-id="password"
-placeholder="Votre mot de passe"
-autocomplete="current-password"
->
-
-</div>
-
-<button id="connexionBtn">
-Se connecter
-</button>
-
-<div
-id="messageConnexion"
-class="message"
-></div>
-
-</div>
-
-</div>
-
 
 <div id="dashboard">
 
@@ -632,8 +312,8 @@ class="message"
      COMPTE
 ========================= -->
 <div class="card">
-<div class="success">Administrateur confirmé</div>
-<br><br>Compte : <strong id="emailCompte"></strong>
+<div class="success">👑 Administrateur confirmé</div>
+<br>👤 Compte : <strong id="email"></strong>
 </div>
 
 <!-- =========================
@@ -666,28 +346,28 @@ class="message"
      AGENTS
 ========================= -->
 <div class="card">
-<h2>Agents et administrateurs</h2>
+<h2>👥 Agents et administrateurs</h2>
 <p>Liste des comptes enregistrés dans Firebase.</p>
-<div id="agents">Chargement des utilisateurs...</div>
+<div id="agents">⏳ Chargement des utilisateurs...</div>
 </div>
 
 <!-- =========================
      FLUX
 ========================= -->
 <div class="card">
-<h2>État des déchèteries</h2>
-<div id="sites">Chargement des flux...</div>
+<h2>📊 État des déchèteries</h2>
+<div id="sites">⏳ Chargement des flux...</div>
 </div>
 
 <!-- =========================
      ACTIONS
 ========================= -->
 <div class="card">
-<h2>Accès rapides</h2>
+<h2>⚙️ Accès rapides</h2>
 <div class="buttons">
-<a class="button green-button" href="./agent.html">Espace agent</a>
-<a class="button" href="./index.html">Site public</a>
-<button id="logout" class="button red-button">Déconnexion</button>
+<a class="button green-button" href="./agent.html">👷 Espace agent</a>
+<a class="button" href="./index.html">🏠 Site public</a>
+<button id="logout" class="button red-button">🚪 Déconnexion</button>
 </div>
 </div>
 
@@ -726,24 +406,9 @@ const db = firebase.firestore();
 
 const loading = document.getElementById("loading");
 const errorBox = document.getElementById("error");
-const erreurActions = document.getElementById("erreurActions");
-const connexion = document.getElementById("connexion");
 const dashboard = document.getElementById("dashboard");
 const sitesBox = document.getElementById("sites");
 const agentsBox = document.getElementById("agents");
-
-const connexionBtn = document.getElementById("connexionBtn");
-const messageConnexion = document.getElementById("messageConnexion");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-
-/* =========================
-   DESABONNEMENT ECOUTE FLUX
-   (evite les erreurs de permission
-   apres une deconnexion)
-========================= */
-
-let desabonnerFlux = null;
 
 /* =========================
    ERREUR
@@ -752,11 +417,9 @@ let desabonnerFlux = null;
 function afficherErreur(message) {
 
     loading.style.display = "none";
-    connexion.style.display = "none";
     dashboard.style.display = "none";
     errorBox.style.display = "block";
-    errorBox.innerHTML = message;
-    erreurActions.style.display = "block";
+    errorBox.innerHTML = "❌ " + message;
 
 }
 
@@ -778,7 +441,7 @@ function statutHTML(statut) {
         return `<span class="status pleine">🔴 Pleine</span>`;
     }
 
-    return `<span class="status inconnu">${statut || "Inconnu"}</span>`;
+    return `<span class="status inconnu">ℹ️ ${statut || "Inconnu"}</span>`;
 
 }
 
@@ -863,7 +526,7 @@ function afficherDate(timestamp) {
 
 async function chargerAgents() {
 
-    agentsBox.innerHTML = "Chargement des utilisateurs...";
+    agentsBox.innerHTML = "⏳ Chargement des utilisateurs...";
 
     try {
 
@@ -921,7 +584,7 @@ async function chargerAgents() {
             agent.innerHTML = `
                 <div>
                     <div class="agent-name">
-                        ${affichageNom}
+                        👤 ${affichageNom}
                     </div>
                     ${
                         email
@@ -931,7 +594,7 @@ async function chargerAgents() {
                 </div>
                 <div>
                     <span class="role ${role === "admin" ? "role-admin" : "role-agent"}">
-                        ${role === "admin" ? "Administrateur" : "Agent"}
+                        ${role === "admin" ? "👑 Administrateur" : "👷 Agent"}
                     </span>
                 </div>
             `;
@@ -948,7 +611,7 @@ async function chargerAgents() {
 
         agentsBox.innerHTML = `
             <div class="error" style="display:block;">
-                Impossible de charger les agents.
+                ❌ Impossible de charger les agents.
                 <br><br>
                 <strong>Code :</strong> ${error.code || "inconnu"}
                 <br><br>
@@ -966,7 +629,7 @@ async function chargerAgents() {
 
 function chargerFlux() {
 
-    desabonnerFlux = db.collectionGroup("flux").onSnapshot(
+    db.collectionGroup("flux").onSnapshot(
 
         function(snapshot) {
 
@@ -983,7 +646,9 @@ function chargerFlux() {
 
                 if (chemin.length < 4) {
                     return;
-                    const siteId = chemin[1];
+                }
+
+                const siteId = chemin[1];
                 const fluxId = chemin[3];
 
                 if (!sites[siteId]) {
@@ -1056,7 +721,7 @@ function chargerFlux() {
                                     </div>
                                     ${
                                         modifiePar
-                                        ? `<div class="meta">${modifiePar}${date ? " — " + date : ""}</div>`
+                                        ? `<div class="meta">👤 ${modifiePar}${date ? " — " + date : ""}</div>`
                                         : (date ? `<div class="meta">${date}</div>` : "")
                                     }
                                 </div>
@@ -1086,7 +751,7 @@ function chargerFlux() {
 
             sitesBox.innerHTML = `
                 <div class="error" style="display:block;">
-                    Impossible de charger les flux.
+                    ❌ Impossible de charger les flux.
                     <br><br>
                     <strong>Code :</strong> ${error.code || "inconnu"}
                     <br><br>
@@ -1101,94 +766,18 @@ function chargerFlux() {
 }
 
 /* =========================
-   CONNEXION
-========================= */
-
-connexionBtn.addEventListener("click", async function() {
-
-    messageConnexion.style.display = "block";
-    messageConnexion.className = "message info";
-    messageConnexion.innerHTML = "Connexion à Firebase...";
-
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-
-    if (!email || !password) {
-
-        messageConnexion.className = "message erreur";
-        messageConnexion.innerHTML = "Entre ton email et ton mot de passe.";
-        return;
-
-    }
-
-    connexionBtn.disabled = true;
-    connexionBtn.textContent = "Connexion...";
-
-    try {
-
-        await auth.signInWithEmailAndPassword(email, password);
-
-        messageConnexion.className = "message succes";
-        messageConnexion.innerHTML = "Connexion réussie.";
-
-    }
-
-    catch(error) {
-
-        messageConnexion.className = "message erreur";
-
-        messageConnexion.innerHTML =
-            "<strong>Erreur Firebase</strong>" +
-            "<div class='code'>" +
-            "<strong>Code :</strong><br>" +
-            (error.code || "inconnu") +
-            "<br><br>" +
-            "<strong>Message :</strong><br>" +
-            (error.message || "inconnu") +
-            "</div>";
-
-    }
-
-    finally {
-
-        connexionBtn.disabled = false;
-        connexionBtn.textContent = "Se connecter";
-
-    }
-
-});
-
-/* =========================
    VÉRIFICATION ADMIN
 ========================= */
 
 auth.onAuthStateChanged(function(user) {
 
-    // On coupe une éventuelle écoute active avant de changer de vue
-    if (desabonnerFlux) {
-
-        desabonnerFlux();
-        desabonnerFlux = null;
-
-    }
-
-    // Aucun utilisateur connecté → on affiche le formulaire de connexion
+    // Aucun utilisateur connecté → retour à la page de connexion
     if (!user) {
 
-        loading.style.display = "none";
-        errorBox.style.display = "none";
-        erreurActions.style.display = "none";
-        dashboard.style.display = "none";
-        connexion.style.display = "block";
+        window.location.href = "./login.html";
         return;
 
     }
-
-    connexion.style.display = "none";
-    errorBox.style.display = "none";
-    erreurActions.style.display = "none";
-    loading.style.display = "block";
-    loading.innerHTML = "Vérification des droits...";
 
     // Utilisateur connecté : on vérifie son rôle dans Firestore
     db.collection("users").doc(user.uid).get()
@@ -1216,7 +805,7 @@ auth.onAuthStateChanged(function(user) {
             }
 
             // Rôle admin confirmé : on affiche le tableau de bord
-            document.getElementById("emailCompte").textContent = user.email || "";
+            document.getElementById("email").textContent = user.email || "";
 
             loading.style.display = "none";
             errorBox.style.display = "none";
@@ -1244,26 +833,14 @@ auth.onAuthStateChanged(function(user) {
    DÉCONNEXION
 ========================= */
 
-function deconnecter() {
+document.getElementById("logout").addEventListener("click", function() {
 
-    // On coupe l'écoute temps réel avant de se déconnecter
-    // pour éviter les erreurs de permission après coup.
-    if (desabonnerFlux) {
+    auth.signOut().then(function() {
+        window.location.href = "./login.html";
+    });
 
-        desabonnerFlux();
-        desabonnerFlux = null;
-
-    }
-
-    auth.signOut();
-    // onAuthStateChanged se charge d'afficher le formulaire de connexion.
-
-}
-
-document.getElementById("logout").addEventListener("click", deconnecter);
-document.getElementById("logoutErreur").addEventListener("click", deconnecter);
+});
 
 </script>
 </body>
 </html>
-               
