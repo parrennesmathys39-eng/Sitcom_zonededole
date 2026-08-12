@@ -983,4 +983,287 @@ function chargerFlux() {
 
                 if (chemin.length < 4) {
                     return;
+                    const siteId = chemin[1];
+                const fluxId = chemin[3];
+
+                if (!sites[siteId]) {
+                    sites[siteId] = [];
+                }
+
+                sites[siteId].push({
+                    id: fluxId,
+                    data: data
+                });
+
+                totalFlux++;
+
+                if (data.statut === "presque") {
+                    totalPresque++;
+                }
+
+                if (data.statut === "pleine") {
+                    totalPleins++;
+                }
+
+            });
+
+            const totalSites = Object.keys(sites).length;
+
+            document.getElementById("statSites").textContent = totalSites;
+            document.getElementById("statFlux").textContent = totalFlux;
+            document.getElementById("statPresque").textContent = totalPresque;
+            document.getElementById("statPleins").textContent = totalPleins;
+
+            sitesBox.innerHTML = "";
+
+            if (totalFlux === 0) {
+
+                sitesBox.innerHTML = `
+                    <div class="empty">
+                        Aucun flux trouvé dans Firestore.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            const ids = Object.keys(sites).sort();
+
+            ids.forEach(function(siteId) {
+
+                const site = document.createElement("div");
+                site.className = "site";
+
+                let fluxHTML = "";
+
+                sites[siteId]
+                    .sort(function(a, b) {
+                        return a.id.localeCompare(b.id);
+                    })
+                    .forEach(function(item) {
+
+                        const data = item.data;
+                        const statut = data.statut || "inconnu";
+                        const modifiePar = data.modifiePar || "";
+                        const date = afficherDate(data.miseAJour);
+
+                        fluxHTML += `
+                            <div class="flux">
+                                <div>
+                                    <div class="flux-name">
+                                        ${nomFlux(item.id, data)}
+                                    </div>
+                                    ${
+                                        modifiePar
+                                        ? `<div class="meta">${modifiePar}${date ? " — " + date : ""}</div>`
+                                        : (date ? `<div class="meta">${date}</div>` : "")
+                                    }
+                                </div>
+                                <div>
+                                    ${statutHTML(statut)}
+                                </div>
+                            </div>
+                        `;
+
+                    });
+
+                site.innerHTML = `
+                    <div class="site-title">${nomSite(siteId)}</div>
+                    <div class="site-id">${siteId}</div>
+                    ${fluxHTML}
+                `;
+
+                sitesBox.appendChild(site);
+
+            });
+
+        },
+
+        function(error) {
+
+            console.error("Erreur flux :", error);
+
+            sitesBox.innerHTML = `
+                <div class="error" style="display:block;">
+                    Impossible de charger les flux.
+                    <br><br>
+                    <strong>Code :</strong> ${error.code || "inconnu"}
+                    <br><br>
+                    <strong>Message :</strong> ${error.message || "inconnu"}
+                </div>
+            `;
+
+        }
+
+    );
+
+}
+
+/* =========================
+   CONNEXION
+========================= */
+
+connexionBtn.addEventListener("click", async function() {
+
+    messageConnexion.style.display = "block";
+    messageConnexion.className = "message info";
+    messageConnexion.innerHTML = "Connexion à Firebase...";
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+
+        messageConnexion.className = "message erreur";
+        messageConnexion.innerHTML = "Entre ton email et ton mot de passe.";
+        return;
+
+    }
+
+    connexionBtn.disabled = true;
+    connexionBtn.textContent = "Connexion...";
+
+    try {
+
+        await auth.signInWithEmailAndPassword(email, password);
+
+        messageConnexion.className = "message succes";
+        messageConnexion.innerHTML = "Connexion réussie.";
+
+    }
+
+    catch(error) {
+
+        messageConnexion.className = "message erreur";
+
+        messageConnexion.innerHTML =
+            "<strong>Erreur Firebase</strong>" +
+            "<div class='code'>" +
+            "<strong>Code :</strong><br>" +
+            (error.code || "inconnu") +
+            "<br><br>" +
+            "<strong>Message :</strong><br>" +
+            (error.message || "inconnu") +
+            "</div>";
+
+    }
+
+    finally {
+
+        connexionBtn.disabled = false;
+        connexionBtn.textContent = "Se connecter";
+
+    }
+
+});
+
+/* =========================
+   VÉRIFICATION ADMIN
+========================= */
+
+auth.onAuthStateChanged(function(user) {
+
+    // On coupe une éventuelle écoute active avant de changer de vue
+    if (desabonnerFlux) {
+
+        desabonnerFlux();
+        desabonnerFlux = null;
+
+    }
+
+    // Aucun utilisateur connecté → on affiche le formulaire de connexion
+    if (!user) {
+
+        loading.style.display = "none";
+        errorBox.style.display = "none";
+        erreurActions.style.display = "none";
+        dashboard.style.display = "none";
+        connexion.style.display = "block";
+        return;
+
+    }
+
+    connexion.style.display = "none";
+    errorBox.style.display = "none";
+    erreurActions.style.display = "none";
+    loading.style.display = "block";
+    loading.innerHTML = "Vérification des droits...";
+
+    // Utilisateur connecté : on vérifie son rôle dans Firestore
+    db.collection("users").doc(user.uid).get()
+        .then(function(doc) {
+
+            if (!doc.exists) {
+
+                afficherErreur(
+                    "Aucun profil trouvé pour ce compte. " +
+                    "Contactez un administrateur."
+                );
+                return;
+
+            }
+
+            const data = doc.data();
+
+            if (data.role !== "admin") {
+
+                afficherErreur(
+                    "Accès refusé : ce compte n'a pas les droits administrateur."
+                );
+                return;
+
+            }
+
+            // Rôle admin confirmé : on affiche le tableau de bord
+            document.getElementById("emailCompte").textContent = user.email || "";
+
+            loading.style.display = "none";
+            errorBox.style.display = "none";
+            dashboard.style.display = "block";
+
+            chargerAgents();
+            chargerFlux();
+
+        })
+        .catch(function(error) {
+
+            console.error("Erreur vérification rôle :", error);
+
+            afficherErreur(
+                "Impossible de vérifier vos droits. " +
+                "<br><br><strong>Code :</strong> " + (error.code || "inconnu") +
+                "<br><strong>Message :</strong> " + (error.message || "inconnu")
+            );
+
+        });
+
+});
+
+/* =========================
+   DÉCONNEXION
+========================= */
+
+function deconnecter() {
+
+    // On coupe l'écoute temps réel avant de se déconnecter
+    // pour éviter les erreurs de permission après coup.
+    if (desabonnerFlux) {
+
+        desabonnerFlux();
+        desabonnerFlux = null;
+
+    }
+
+    auth.signOut();
+    // onAuthStateChanged se charge d'afficher le formulaire de connexion.
+
+}
+
+document.getElementById("logout").addEventListener("click", deconnecter);
+document.getElementById("logoutErreur").addEventListener("click", deconnecter);
+
+</script>
+</body>
+</html>
                
