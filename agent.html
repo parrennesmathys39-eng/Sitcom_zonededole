@@ -67,36 +67,42 @@
       padding: 16px 20px;
       border-bottom: 4px solid var(--vert-mousse);
       transition: background 0.5s ease;
-      position: relative; /* Défile désormais normalement au scroll */
+      position: relative;
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
 
-    .entete-contenu {
+    .header-top {
       max-width: 800px;
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
     }
 
     .logo-badge {
       background: #FFFFFF;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: var(--rayon);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       flex-shrink: 0;
-      max-width: 150px;
     }
 
     .logo-badge img {
+      height: 38px;
       max-height: 40px;
       max-width: 100%;
       width: auto;
-      height: auto;
       object-fit: contain;
       display: block;
     }
@@ -104,6 +110,7 @@
     .titres-entete {
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
     }
 
     header h1 {
@@ -119,6 +126,28 @@
       font-size: 13px;
       color: #C2D1C8;
       font-weight: 500;
+    }
+
+    .header-live {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #EFF4F0;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #2EA25B;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #2EA25B;
     }
 
     .container {
@@ -553,7 +582,6 @@
       transform: translateY(-1px);
     }
 
-    /* ÉTATS SÉLECTIONNÉS FORTEMENT VISIBLES */
     .statut.selectionne {
       color: white !important;
       border-width: 2px;
@@ -579,23 +607,110 @@
       background: white;
     }
 
-    /* ADAPTATIONS MOBILES EN-TÊTE ET BOUTONS */
-    @media (max-width: 480px) {
+    /* =========================
+       MODALE COMMANDER ENLÈVEMENT
+    ========================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(20, 35, 25, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: var(--papier);
+      border-radius: var(--rayon-lg);
+      width: 100%;
+      max-width: 450px;
+      padding: 24px;
+      box-shadow: var(--ombre-forte);
+      border: 1px solid var(--trait);
+      animation: modalApparition 0.2s ease-out;
+    }
+
+    @keyframes modalApparition {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      margin-bottom: 16px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 19px;
+      color: var(--vert-nuit);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-header p {
+      margin: 6px 0 0;
+      font-size: 13.5px;
+      color: var(--encre-douce);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+
+    .btn-modal {
+      padding: 10px 16px;
+      border-radius: var(--rayon);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .btn-modal-secondaire {
+      background: #F0F2EF;
+      color: var(--encre-douce);
+      border-color: var(--trait);
+    }
+
+    .btn-modal-secondaire:hover {
+      background: #E2E6E1;
+    }
+
+    .btn-modal-primaire {
+      background: var(--attn-trait);
+      color: #FFFFFF;
+    }
+
+    .btn-modal-primaire:hover {
+      background: #D49018;
+    }
+
+    @media (max-width: 580px) {
       header {
         padding: 12px 16px;
       }
 
-      .entete-contenu {
+      .header-top {
         gap: 10px;
       }
 
       .logo-badge {
-        max-width: 110px;
-        padding: 4px 6px;
+        padding: 4px 8px;
       }
 
       .logo-badge img {
-        max-height: 32px;
+        height: 30px;
       }
 
       header h1 {
@@ -604,6 +719,11 @@
 
       header p {
         font-size: 11px;
+      }
+
+      .header-live {
+        font-size: 11px;
+        padding: 4px 8px;
       }
 
       .boutons {
@@ -625,20 +745,26 @@
 
   <!-- BANDEAU HAUT -->
   <header id="bandeau">
-    <div class="entete-contenu">
-      <div class="logo-badge">
-        <img src="logo.png" alt="SICTOM Zone de Dole">
+    <div class="header-top">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="logo.png" alt="SICTOM Zone de Dole">
+        </div>
       </div>
+
       <div class="titres-entete">
         <h1>Espace Agent</h1>
         <p>SICTOM Zone de Dole — Gestion des flux en déchèterie</p>
       </div>
+
+      <div class="header-live">
+        <span class="live-dot"></span>
+        Données en temps réel
+      </div>
     </div>
   </header>
 
-  <!-- =========================
-       CONNEXION
-  ========================= -->
+  <!-- CONNEXION -->
   <div id="connexion">
     <div class="card">
       <h2>Connexion Agent</h2>
@@ -660,9 +786,7 @@
     </div>
   </div>
 
-  <!-- =========================
-       APPLICATION
-  ========================= -->
+  <!-- APPLICATION -->
   <div id="application">
     <div class="container">
 
@@ -886,9 +1010,32 @@
     </div>
   </div>
 
-  <!-- =========================
-       FIREBASE & LOGIQUE SCRIPT
-  ========================= -->
+  <!-- MODALE : COMMANDER VOS ENLÈVEMENTS -->
+  <div id="modalEnlevement" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🚛 Commander vos enlèvements <small style="font-size: 11px; font-weight: normal; color: var(--encre-douce);">(Facultatif)</small></h3>
+        <p>Souhaitez-vous informer l'administration pour anticiper une rotation de benne ?</p>
+      </div>
+
+      <div class="champ">
+        <label for="numeroBenne">Numéro de la benne (optionnel)</label>
+        <input type="text" id="numeroBenne" placeholder="ex: Benne n°4, B-12...">
+      </div>
+
+      <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+        <input type="checkbox" id="notifierAdmin" checked style="width: auto; cursor: pointer;">
+        <label for="notifierAdmin" style="margin: 0; cursor: pointer; font-weight: 500; font-size: 14px;">Envoyer une demande d'enlèvement à l'admin</label>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btnAnnulerModal" class="btn-modal btn-modal-secondaire">Passer sans commande</button>
+        <button id="btnValiderModal" class="btn-modal btn-modal-primaire">Valider & Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE & SCRIPT -->
   <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script> 
@@ -926,6 +1073,15 @@
     const bandeau = document.getElementById("bandeau"); 
     const etatConnexion = document.getElementById("etatConnexion"); 
 
+    /* MODALE ENLÈVEMENT */
+    const modalEnlevement = document.getElementById("modalEnlevement");
+    const numeroBenneInput = document.getElementById("numeroBenne");
+    const notifierAdminCheckbox = document.getElementById("notifierAdmin");
+    const btnAnnulerModal = document.getElementById("btnAnnulerModal");
+    const btnValiderModal = document.getElementById("btnValiderModal");
+
+    let fluxEnCours = null;
+    let statutEnCours = null;
     let nomUtilisateur = ""; 
 
     /* COULEURS DU BANDEAU */ 
@@ -1105,9 +1261,70 @@
       } 
     } 
 
-    /* ENREGISTRER FLUX */ 
+    /* LOGIQUE D'ENREGISTREMENT FLUX */
+    async function enregistrerStatut(flux, statut, avecCommande = false, numeroBenne = "") {
+      const user = auth.currentUser; 
+      if (!user) return; 
+
+      const site = siteSelect.value; 
+      selectionner(flux, statut); 
+
+      message.className = "message info"; 
+      message.innerHTML = "Enregistrement de " + flux + " pour " + site + "..."; 
+      message.style.display = "block"; 
+
+      boutons.forEach(function(btn) { btn.disabled = true; }); 
+
+      try { 
+        if (!nomUtilisateur || nomUtilisateur === user.email) { 
+          await chargerProfilUtilisateur(user); 
+        } 
+
+        // Enregistrement standard de l'état de la benne
+        await db.collection("dechetteries").doc(siteId(site)).collection("flux").doc(flux).set({ 
+          site: site, 
+          flux: flux, 
+          statut: statut, 
+          modifiePar: nomUtilisateur || user.email || "Utilisateur", 
+          modifieParEmail: user.email || "", 
+          miseAJour: firebase.firestore.FieldValue.serverTimestamp() 
+        }, { merge: true }); 
+
+        let detailCommande = "";
+
+        // Envoi optionnel d'une demande à l'administrateur
+        if (avecCommande) {
+          await db.collection("demandes_enlevement").add({
+            site: site,
+            siteId: siteId(site),
+            flux: flux,
+            statut: statut,
+            numeroBenne: numeroBenne.trim() || "Non renseigné",
+            agent: nomUtilisateur || user.email || "Utilisateur",
+            agentEmail: user.email || "",
+            statutDemande: "en_attente",
+            dateDemande: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          detailCommande = "<br><small>🔔 Demande d'enlèvement envoyée à l'administration.</small>";
+        }
+
+        message.className = "message succes"; 
+        message.innerHTML = "<strong>Enregistré</strong><br><br>" + site + " — " + flux + " → " + statut + detailCommande; 
+        message.style.display = "block"; 
+
+        changerCouleurBandeau(); 
+
+      } catch(error) { 
+        console.error("Erreur écriture Firestore :", error); 
+        afficherErreur("Impossible d'enregistrer le flux", error); 
+      } finally { 
+        boutons.forEach(function(btn) { btn.disabled = false; }); 
+      } 
+    }
+
+    /* CLIC SUR LES BOUTONS DE STATUT */ 
     boutons.forEach(function(bouton) { 
-      bouton.addEventListener("click", async function() { 
+      bouton.addEventListener("click", function() { 
         const user = auth.currentUser; 
 
         if (!user) { 
@@ -1120,48 +1337,37 @@
 
         const flux = bouton.dataset.flux; 
         const statut = bouton.dataset.statut; 
-        const site = siteSelect.value; 
 
-        selectionner(flux, statut); 
-
-        message.className = "message info"; 
-        message.innerHTML = "Enregistrement de " + flux + " pour " + site + "..."; 
-        message.style.display = "block"; 
-
-        boutons.forEach(function(btn) { 
-          btn.disabled = true; 
-        }); 
-
-        try { 
-          if (!nomUtilisateur || nomUtilisateur === user.email) { 
-            await chargerProfilUtilisateur(user); 
-          } 
-
-          await db.collection("dechetteries").doc(siteId(site)).collection("flux").doc(flux).set({ 
-            site: site, 
-            flux: flux, 
-            statut: statut, 
-            modifiePar: nomUtilisateur || user.email || "Utilisateur", 
-            modifieParEmail: user.email || "", 
-            miseAJour: firebase.firestore.FieldValue.serverTimestamp() 
-          }, { merge: true }); 
-
-          message.className = "message succes"; 
-          message.innerHTML = "<strong>Enregistré</strong><br><br>" + site + " — " + flux + " → " + statut; 
-          message.style.display = "block"; 
-
-          changerCouleurBandeau(); 
-
-        } catch(error) { 
-          console.error("Erreur écriture Firestore :", error); 
-          afficherErreur("Impossible d'enregistrer le flux", error); 
-        } finally { 
-          boutons.forEach(function(btn) { 
-            btn.disabled = false; 
-          }); 
-        } 
+        if (statut === "presque") {
+          // Ouvre la modale spéciale "Commander vos enlèvements"
+          fluxEnCours = flux;
+          statutEnCours = statut;
+          numeroBenneInput.value = "";
+          notifierAdminCheckbox.checked = true;
+          modalEnlevement.style.display = "flex";
+        } else {
+          // Processus direct pour "disponible" et "pleine"
+          enregistrerStatut(flux, statut, false);
+        }
       }); 
     }); 
+
+    /* BOUTONS MODALE */
+    btnAnnulerModal.addEventListener("click", function() {
+      modalEnlevement.style.display = "none";
+      if (fluxEnCours && statutEnCours) {
+        enregistrerStatut(fluxEnCours, statutEnCours, false);
+      }
+    });
+
+    btnValiderModal.addEventListener("click", function() {
+      modalEnlevement.style.display = "none";
+      if (fluxEnCours && statutEnCours) {
+        const faireDemande = notifierAdminCheckbox.checked;
+        const numBenne = numeroBenneInput.value;
+        enregistrerStatut(fluxEnCours, statutEnCours, faireDemande, numBenne);
+      }
+    });
 
     /* CHANGEMENT DE SITE */ 
     siteSelect.addEventListener("change", async function() { 
@@ -1173,7 +1379,6 @@
     }); 
 
     console.log("✅ agent.html chargé correctement."); 
-    console.log("Firebase projectId :", firebaseConfig.projectId); 
   </script> 
 </body> 
 </html>
