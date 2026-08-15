@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administration — SICTOM Zone de Dole</title>
 
-  <!-- FONTS IDENTIQUES À AGENT.HTML -->
+  <!-- FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -41,7 +41,6 @@
       --rayon: 8px;
       --rayon-lg: 14px;
       --ombre: 0 2px 8px rgba(20, 35, 25, 0.05), 0 10px 25px rgba(20, 35, 25, 0.05);
-      --ombre-forte: 0 4px 16px rgba(0, 0, 0, 0.12);
     }
 
     * {
@@ -66,7 +65,6 @@
       color: #EFF4F0;
       padding: 16px 20px;
       border-bottom: 4px solid var(--vert-mousse);
-      transition: background 0.5s ease;
       position: relative;
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0,0,0,0.15);
@@ -117,7 +115,6 @@
       margin: 0;
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.01em;
       line-height: 1.2;
     }
 
@@ -128,7 +125,6 @@
       font-weight: 500;
     }
 
-    /* PRÉNOM EN HAUT À DROITE */
     .header-user {
       display: flex;
       align-items: center;
@@ -282,7 +278,6 @@
       justify-content: center;
       font-weight: 700;
       font-size: 15px;
-      font-family: 'Space Grotesk', sans-serif;
     }
 
     .libelle-agent {
@@ -318,22 +313,29 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
     }
 
     .deconnexion { background: #F4F6F3; color: var(--encre); }
-    .deconnexion:hover { background: #E8EBE5; }
     .bouton-agent-link { background: var(--vert-foret); color: white; border-color: var(--vert-foret); }
-    .bouton-agent-link:hover { background: var(--vert-nuit); }
 
-    /* SECTION DEMANDES D'ENLÈVEMENT (SANS PRIORITAIRES) */
-    .notif-card {
+    /* SECTION CARTE (REMPLACE LES ACCORDÉONS) */
+    .section-card {
       background: var(--papier);
       padding: 20px;
       border-radius: var(--rayon-lg);
       border: 1px solid var(--trait);
       box-shadow: var(--ombre);
       margin-bottom: 16px;
+    }
+
+    .section-header-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--vert-nuit);
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .liste-demandes {
@@ -394,57 +396,6 @@
     .badge-j1 { background: var(--ok-fond); color: var(--ok-texte); border: 1px solid var(--ok-trait); }
     .badge-j2 { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
 
-    /* STYLE DE TOUS LES ONGLETS DEPLIABLES (ACCORDÉONS MOBILE) */
-    details.accordion-item {
-      background: var(--papier);
-      border: 1px solid var(--trait);
-      border-radius: var(--rayon-lg);
-      margin-bottom: 14px;
-      box-shadow: var(--ombre);
-      overflow: hidden;
-      transition: border-color 0.2s ease;
-    }
-
-    details.accordion-item[open] {
-      border-color: var(--vert-mousse);
-    }
-
-    summary.accordion-header {
-      padding: 16px 20px;
-      font-weight: 700;
-      font-size: 15.5px;
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--vert-nuit);
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-      background: var(--papier);
-    }
-
-    summary.accordion-header::-webkit-details-marker {
-      display: none;
-    }
-
-    summary.accordion-header::after {
-      content: "▼";
-      font-size: 11px;
-      color: var(--encre-douce);
-      transition: transform 0.2s ease;
-    }
-
-    details[open] summary.accordion-header::after {
-      transform: rotate(180deg);
-    }
-
-    .accordion-body {
-      padding: 0 20px 20px 20px;
-      border-top: 1px solid var(--trait);
-      margin-top: -1px;
-    }
-
     /* STATISTIQUES GLOBALES */
     .grille-stats {
       display: grid;
@@ -478,7 +429,6 @@
     .stat-valeur {
       font-size: 20px;
       font-weight: 700;
-      font-family: 'Space Grotesk', sans-serif;
       line-height: 1.1;
     }
 
@@ -489,7 +439,7 @@
       margin-top: 2px;
     }
 
-    /* ÉTAT GLOBAL : LÉGENDE ET BARRES (ROUGE -> ORANGE -> VERT) */
+    /* ÉTAT GLOBAL : BARRES ET LÉGENDE */
     .bar-legend {
       display: flex;
       gap: 14px;
@@ -557,7 +507,6 @@
       transition: width 0.3s ease;
     }
 
-    /* BARRE ET ORDRE : ROUGE -> ORANGE -> VERT */
     .bar-segment.pleine { background: var(--alerte-trait); }
     .bar-segment.presque { background: var(--attn-trait); }
     .bar-segment.disponible { background: var(--ok-trait); }
@@ -684,7 +633,7 @@
     .statut-traite { background: var(--ok-fond); color: var(--ok-texte); border: 1px solid var(--ok-trait); }
     .statut-attente { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
 
-    /* GRILLE D'AGENTS */
+    /* AGENTS */
     .agents-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -729,8 +678,7 @@
       .header-top { justify-content: baseline; }
       .grille-classements { grid-template-columns: 1fr; }
       .container { padding: 12px 10px 50px; }
-      summary.accordion-header { padding: 14px 16px; font-size: 15px; }
-      .accordion-body { padding: 0 14px 16px 14px; }
+      .section-card { padding: 16px; }
     }
   </style>
 </head>
@@ -747,10 +695,9 @@
 
       <div class="titres-entete">
         <h1>Administration</h1>
-        <p>SICTOM Zone de Dole — Pilotage & Enlèvements</p>
+        <p>SICTOM Zone de Dole — Pilotage & Suivi</p>
       </div>
 
-      <!-- PRÉNOM DE L'UTILISATEUR EN HAUT À DROITE -->
       <div class="header-user">
         <span class="user-dot"></span>
         <span id="prenomHeader">Chargement...</span>
@@ -758,7 +705,7 @@
     </div>
   </header>
 
-  <!-- FORMULAIRE DE CONNEXION ADMIN -->
+  <!-- FORMULAIRE DE CONNEXION -->
   <div id="connexion">
     <div class="card">
       <h2>Connexion Administrateur</h2>
@@ -799,131 +746,109 @@
         </div>
       </div>
 
-      <!-- 1. PREMIER REQUÉRANT SUR MOBILE : DEMANDES D'ENLÈVEMENT (SANS "PRIORITAIRES") -->
-      <div class="notif-card">
-        <div>
-          <h2 style="margin:0; font-size:18px; color:var(--vert-nuit);">📋 Demandes d'enlèvement</h2>
-          <p style="margin:4px 0 0; font-size:12.5px; color:var(--encre-douce);">
-            Ordres de rotation transmis par les agents (Heure limite de traitement : 15h30).
-          </p>
-        </div>
+      <!-- DEMANDES D'ENLÈVEMENT -->
+      <div class="section-card">
+        <h2 class="section-header-title">📋 Demandes d'enlèvement</h2>
+        <p style="margin:4px 0 0; font-size:12.5px; color:var(--encre-douce);">
+          Ordres de rotation transmis par les agents (Heure limite de traitement : 15h30).
+        </p>
 
         <div id="listeEnlevements" class="liste-demandes">
           <div class="message info" style="display:block;">Analyse des demandes d'enlèvement...</div>
         </div>
       </div>
 
-      <!-- ONGLETS DÉPLIABLES POUR MOBILE ET DESKTOP -->
-
-      <!-- ONGLET 1 : ÉTAT GLOBAL (A-Z) ET STATISTIQUES (OUVERT PAR DÉFAUT) -->
-      <details class="accordion-item" open>
-        <summary class="accordion-header">
-          📊 État global des déchèteries & Synthèse
-        </summary>
-        <div class="accordion-body">
-          
-          <!-- STATISTIQUES GLOBALES -->
-          <div class="grille-stats">
-            <div class="stat-card">
-              <div class="stat-icon">📍</div>
-              <div>
-                <div id="statSites" class="stat-valeur">0</div>
-                <div class="stat-label">Sites suivis</div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon">🔴</div>
-              <div>
-                <div id="statPleins" class="stat-valeur">0</div>
-                <div class="stat-label">Bennes pleines</div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon">🟠</div>
-              <div>
-                <div id="statPresque" class="stat-valeur">0</div>
-                <div class="stat-label">Presque pleines</div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon">🟢</div>
-              <div>
-                <div id="statDispo" class="stat-valeur">0</div>
-                <div class="stat-label">Disponibles</div>
-              </div>
+      <!-- SECTION 1 : ÉTAT GLOBAL (TRIÉ PAR ROUGE > ORANGE > VERT) -->
+      <div class="section-card">
+        <h2 class="section-header-title">📊 État global des déchèteries (Trié par niveau d'alerte)</h2>
+        
+        <!-- STATISTIQUES GLOBALES -->
+        <div class="grille-stats">
+          <div class="stat-card">
+            <div class="stat-icon">📍</div>
+            <div>
+              <div id="statSites" class="stat-valeur">0</div>
+              <div class="stat-label">Sites suivis</div>
             </div>
           </div>
 
-          <!-- LÉGENDE CORRIGÉE : ROUGE -> ORANGE -> VERT -->
-          <div class="bar-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--alerte-trait)"></div> Pleine</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--attn-trait)"></div> Presque pleine</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--ok-trait)"></div> Disponible</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--gris-inconnu)"></div> Non renseigné</div>
-          </div>
-
-          <div id="sitesAZ">
-            <div class="message info" style="display:block;">Chargement de l'état des sites...</div>
-          </div>
-        </div>
-      </details>
-
-      <!-- ONGLET 2 : CLASSEMENTS -->
-      <details class="accordion-item">
-        <summary class="accordion-header">
-          🏆 Classement par taux de remplissage
-        </summary>
-        <div class="accordion-body">
-          <div class="grille-classements">
-            <!-- CLASSEMENT 1 : PLEINES -->
-            <div class="classement-card">
-              <h3>🔴 Bennes Pleines</h3>
-              <p>Sites nécessitant des enlèvements prioritaires.</p>
-              <div id="classementPleines">Chargement...</div>
+          <div class="stat-card">
+            <div class="stat-icon">🔴</div>
+            <div>
+              <div id="statPleins" class="stat-valeur">0</div>
+              <div class="stat-label">Bennes pleines</div>
             </div>
+          </div>
 
-            <!-- CLASSEMENT 2 : PRESQUE PLEINES -->
-            <div class="classement-card">
-              <h3>🟠 Bennes Presque Pleines</h3>
-              <p>Sites à surveiller pour le prochain tour.</p>
-              <div id="classementPresques">Chargement...</div>
+          <div class="stat-card">
+            <div class="stat-icon">🟠</div>
+            <div>
+              <div id="statPresque" class="stat-valeur">0</div>
+              <div class="stat-label">Presque pleines</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">🟢</div>
+            <div>
+              <div id="statDispo" class="stat-valeur">0</div>
+              <div class="stat-label">Disponibles</div>
             </div>
           </div>
         </div>
-      </details>
 
-      <!-- ONGLET 3 : HISTORIQUE DES INTERVENTIONS & ENLÈVEMENTS -->
-      <details class="accordion-item">
-        <summary class="accordion-header">
-          📜 Historique des demandes & rotations
-        </summary>
-        <div class="accordion-body">
-          <p style="font-size:13px; color:var(--encre-douce); margin-top:14px; margin-bottom:10px;">
-            Journal d'activité récent des demandes formulées par les agents sur le terrain.
-          </p>
-          <div id="listeHistorique" class="liste-historique">
-            <div class="message info" style="display:block;">Chargement de l'historique...</div>
+        <!-- LÉGENDE : ROUGE -> ORANGE -> VERT -->
+        <div class="bar-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--alerte-trait)"></div> Pleine</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--attn-trait)"></div> Presque pleine</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--ok-trait)"></div> Disponible</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--gris-inconnu)"></div> Non renseigné</div>
+        </div>
+
+        <div id="sitesAZ">
+          <div class="message info" style="display:block;">Chargement de l'état des sites...</div>
+        </div>
+      </div>
+
+      <!-- SECTION 2 : CLASSEMENTS -->
+      <div class="section-card">
+        <h2 class="section-header-title">🏆 Classement par taux de remplissage</h2>
+        <div class="grille-classements">
+          <div class="classement-card">
+            <h3>🔴 Bennes Pleines</h3>
+            <p>Sites nécessitant des enlèvements prioritaires.</p>
+            <div id="classementPleines">Chargement...</div>
+          </div>
+
+          <div class="classement-card">
+            <h3>🟠 Bennes Presque Pleines</h3>
+            <p>Sites à surveiller pour le prochain tour.</p>
+            <div id="classementPresques">Chargement...</div>
           </div>
         </div>
-      </details>
+      </div>
 
-      <!-- ONGLET 4 : ÉQUIPE & AGENTS -->
-      <details class="accordion-item">
-        <summary class="accordion-header">
-          👥 Personnels & Agents enregistrés
-        </summary>
-        <div class="accordion-body">
-          <p style="font-size:13px; color:var(--encre-douce); margin-top:14px; margin-bottom:10px;">
-            Utilisateurs et agents rattachés au secteur Dole.
-          </p>
-          <div id="agentsGrid" class="agents-grid">
-            <div class="message info" style="display:block;">Chargement des agents...</div>
-          </div>
+      <!-- SECTION 3 : HISTORIQUE DES CHANGEMENTS DE STATUT -->
+      <div class="section-card">
+        <h2 class="section-header-title">📜 Historique des changements de statut</h2>
+        <p style="font-size:13px; color:var(--encre-douce); margin-top:4px; margin-bottom:10px;">
+          Journal d'activité récent des modifications de statut effectuées sur le terrain.
+        </p>
+        <div id="listeHistorique" class="liste-historique">
+          <div class="message info" style="display:block;">Chargement de l'historique...</div>
         </div>
-      </details>
+      </div>
+
+      <!-- SECTION 4 : AGENTS -->
+      <div class="section-card">
+        <h2 class="section-header-title">👥 Personnels & Agents enregistrés</h2>
+        <p style="font-size:13px; color:var(--encre-douce); margin-top:4px; margin-bottom:10px;">
+          Utilisateurs et agents rattachés au secteur Dole.
+        </p>
+        <div id="agentsGrid" class="agents-grid">
+          <div class="message info" style="display:block;">Chargement des agents...</div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -956,6 +881,7 @@
     let donneesSites = {};
 
     function formatNomSite(id) {
+      if (!id) return "Inconnu";
       const noms = {
         "brevans": "Brevans", "chaussin": "Chaussin", "dampierre": "Dampierre",
         "dole": "Dole", "mont-sous-vaudrey": "Mont-sous-Vaudrey",
@@ -972,7 +898,7 @@
         "carton": "📦 Carton", "gravats": "🪨 Gravats", "ferraille": "🔩 Ferraille",
         "plastique-dur": "🧴 Plastique dur", "tout-venant": "🗑️ Tout-venant", "platre": "🧱 Plâtre"
       };
-      return noms[id] || id;
+      return noms[id] || id || "Non spécifié";
     }
 
     /* RÈGLE CUTOFF DE 15H30 */
@@ -1000,7 +926,7 @@
       }
     }
 
-    /* CHARGER LE PROFIL ET PRENOM */
+    /* CHARGER LE PROFIL */
     async function chargerProfilAdmin(user) {
       let prenomAffichage = "Admin";
       let nomComplet = user.email;
@@ -1028,7 +954,7 @@
       avatarAgent.textContent = prenomAffichage.charAt(0).toUpperCase();
     }
 
-    /* DEMANDES D'ENLÈVEMENT (SANS LE MOT PRIORITAIRES) */
+    /* DEMANDES D'ENLÈVEMENT AVEC GESTION DES ERREURS DE PERMISSION */
     async function chargerDemandesEnlevement() {
       const container = document.getElementById("listeEnlevements");
       try {
@@ -1069,14 +995,28 @@
 
         container.innerHTML = html;
       } catch(e) {
-        container.innerHTML = `<div class="message erreur" style="display:block;">Erreur chargement : ${e.message}</div>`;
+        let txtErreur = e.message;
+        if (e.code === 'permission-denied' || txtErreur.includes('permissions')) {
+          txtErreur = "Permission Firestore insuffisante pour lire 'demandes_enlevement'. Vérifiez les règles Firestore.";
+        }
+        container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur chargement : ${txtErreur}</div>`;
       }
     }
 
-    /* BARRE DE STATUT GLOBAL : ORDRE ROUGE -> ORANGE -> VERT */
-    function afficherEtatGlobalAZ() {
+    /* ÉTAT GLOBAL : CLASSÉ PAR NB ROUGE -> NB ORANGE -> NB VERT */
+    function afficherEtatGlobal() {
       const container = document.getElementById("sitesAZ");
-      const sitesTries = Object.keys(donneesSites).sort((a, b) => formatNomSite(a).localeCompare(formatNomSite(b), 'fr'));
+      
+      // Tri dynamique : Bennes pleines (Rouge) puis presque pleines (Orange) puis disponibles (Vert)
+      const sitesTries = Object.keys(donneesSites).sort((a, b) => {
+        const siteA = donneesSites[a];
+        const siteB = donneesSites[b];
+
+        if (siteB.pleins !== siteA.pleins) return siteB.pleins - siteA.pleins;
+        if (siteB.presque !== siteA.presque) return siteB.presque - siteA.presque;
+        if (siteB.disponibles !== siteA.disponibles) return siteB.disponibles - siteA.disponibles;
+        return formatNomSite(a).localeCompare(formatNomSite(b), 'fr');
+      });
 
       if (sitesTries.length === 0) {
         container.innerHTML = `<div class="message info" style="display:block;">Aucune donnée enregistrée.</div>`;
@@ -1093,12 +1033,11 @@
         const pctPleine = (site.pleins / total) * 100;
         const pctInconnu = (site.inconnus / total) * 100;
 
-        /* ORDRE EXIGÉ : ROUGE -> ORANGE -> VERT -> GRIS */
         html += `
           <div class="site-row-az">
             <div class="site-header-az">
               <span class="site-name-az">${formatNomSite(siteId)}</span>
-              <span class="site-details-az">${site.pleins} pleines · ${site.presque} presque · ${site.disponibles} disponibles</span>
+              <span class="site-details-az">🔴 ${site.pleins} pleines · 🟠 ${site.presque} presque · 🟢 ${site.disponibles} dispo</span>
             </div>
             <div class="multi-bar-container">
               <div class="bar-segment pleine" style="width: ${pctPleine}%" title="Pleines: ${site.pleins}"></div>
@@ -1158,16 +1097,20 @@
       containerPresques.innerHTML = htmlPresques;
     }
 
-    /* HISTORIQUE COMPLET DES DEMANDES ET INTERVENTIONS */
+    /* HISTORIQUE DES CHANGEMENTS DE STATUT */
     async function chargerHistorique() {
       const container = document.getElementById("listeHistorique");
       try {
-        const snapshot = await db.collection("demandes_enlevement")
-                                  .limit(20)
-                                  .get();
+        let snapshot;
+        // Tente la collection "historique_statuts" puis fallback vers "demandes_enlevement" ou "historique"
+        try {
+          snapshot = await db.collection("historique_statuts").limit(20).get();
+        } catch(err) {
+          snapshot = await db.collection("demandes_enlevement").limit(20).get();
+        }
 
         if (snapshot.empty) {
-          container.innerHTML = '<div class="message info" style="display:block;">Aucun historique récent trouvé.</div>';
+          container.innerHTML = '<div class="message info" style="display:block;">Aucun changement de statut récent.</div>';
           return;
         }
 
@@ -1175,23 +1118,26 @@
         snapshot.forEach(doc => {
           const d = doc.data();
           let dateStr = "Récemment";
-          if (d.dateDemande) {
-            let obj = d.dateDemande.toDate ? d.dateDemande.toDate() : new Date(d.dateDemande);
+          const timestamp = d.dateChangement || d.dateDemande || d.date;
+          if (timestamp) {
+            let obj = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
             dateStr = obj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit' });
           }
 
-          const estTraite = d.statutDemande === "traite" || d.statutDemande === "terminee";
-          const badgeClass = estTraite ? "statut-traite" : "statut-attente";
-          const statutTxt = estTraite ? "Traité" : "En attente";
+          const statut = d.nouveauStatut || d.statut || d.statutDemande || "Modifié";
+          let badgeClass = "statut-attente";
+          if (statut === "pleine" || statut === "urgent") badgeClass = "count-rouge";
+          else if (statut === "presque") badgeClass = "count-orange";
+          else if (statut === "disponible" || statut === "traite") badgeClass = "statut-traite";
 
           html += `
             <div class="historique-item">
               <div>
-                <div class="historique-nom">${d.site || formatNomSite(d.siteId)} — ${formatNomFlux(d.flux)}</div>
-                <div class="historique-sub">Demandé par ${d.agent || 'Agent'} le ${dateStr}</div>
+                <div class="historique-nom">${d.site || formatNomSite(d.siteId)} — ${formatNomFlux(d.flux, d)}</div>
+                <div class="historique-sub">Modifié par ${d.agent || 'Agent'} le ${dateStr}</div>
               </div>
               <div>
-                <span class="badge-statut ${badgeClass}">${statutTxt}</span>
+                <span class="badge-statut ${badgeClass}">${statut.toUpperCase()}</span>
               </div>
             </div>
           `;
@@ -1199,11 +1145,15 @@
 
         container.innerHTML = html;
       } catch(e) {
-        container.innerHTML = `<div class="message erreur" style="display:block;">Erreur chargement historique : ${e.message}</div>`;
+        let txtErreur = e.message;
+        if (e.code === 'permission-denied' || txtErreur.includes('permissions')) {
+          txtErreur = "Permissions insuffisantes pour lire l'historique des statuts.";
+        }
+        container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur chargement : ${txtErreur}</div>`;
       }
     }
 
-    /* CHARGEMENT DES AGENTS ENREGISTRÉS */
+    /* CHARGEMENT DES AGENTS */
     async function chargerAgents() {
       const container = document.getElementById("agentsGrid");
       try {
@@ -1237,7 +1187,7 @@
       }
     }
 
-    /* SYNCHRONISATION FIRESTORE TEMPS RÉEL */
+    /* SYNCHRONISATION EN TEMPS RÉEL */
     function ecouterFluxTempsReel() {
       db.collectionGroup("flux").onSnapshot(snapshot => {
         donneesSites = {};
@@ -1276,12 +1226,14 @@
         document.getElementById("statPresque").textContent = totalPresque;
         document.getElementById("statDispo").textContent = totalDispo;
 
-        afficherEtatGlobalAZ();
+        afficherEtatGlobal();
         afficherDeuxClassements();
+      }, err => {
+        console.error("Erreur écoute des flux:", err);
       });
     }
 
-    /* AUTHENTIFICATION & DÉCONNEXION */
+    /* AUTHENTIFICATION */
     auth.onAuthStateChanged(async user => {
       if (!user) {
         connexion.style.display = "block";
@@ -1289,23 +1241,27 @@
         return;
       }
 
-      const docUser = await db.collection("users").doc(user.uid).get();
-      if (docUser.exists && docUser.data().role === "admin") {
-        connexion.style.display = "none";
-        application.style.display = "block";
+      try {
+        const docUser = await db.collection("users").doc(user.uid).get();
+        if (docUser.exists && docUser.data().role === "admin") {
+          connexion.style.display = "none";
+          application.style.display = "block";
 
-        await chargerProfilAdmin(user);
-        chargerDemandesEnlevement();
-        chargerHistorique();
-        chargerAgents();
-        ecouterFluxTempsReel();
-      } else {
-        connexion.style.display = "block";
-        application.style.display = "none";
-        const msg = document.getElementById("messageConnexion");
-        msg.className = "message erreur";
-        msg.style.display = "block";
-        msg.textContent = "❌ Accès refusé : privilèges administrateur requis.";
+          await chargerProfilAdmin(user);
+          chargerDemandesEnlevement();
+          chargerHistorique();
+          chargerAgents();
+          ecouterFluxTempsReel();
+        } else {
+          connexion.style.display = "block";
+          application.style.display = "none";
+          const msg = document.getElementById("messageConnexion");
+          msg.className = "message erreur";
+          msg.style.display = "block";
+          msg.textContent = "❌ Accès refusé : privilèges administrateur requis.";
+        }
+      } catch(e) {
+        console.error("Erreur d'authentification:", e);
       }
     });
 
