@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Administration — SICTOM Zone de Dole</title>
-
 <style>
+
+:root {
+    --primary: #087f3d;
+    --primary-dark: #055a2b;
+    --primary-light: #18a558;
+    --bg: #f4f7f5;
+    --card-bg: #ffffff;
+    --text: #17231b;
+    --text-muted: #6b7c70;
+    --red: #e53935;
+    --orange: #fb8c00;
+    --green: #43a047;
+    --grey: #bdc3c7;
+    --border-radius: 16px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
 
 * {
     box-sizing: border-box;
@@ -15,71 +28,124 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f7f5;
-    color: #17231b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
 }
 
+/* =========================
+   HEADER & BRANDING
+========================= */
+
 header {
-    background: linear-gradient(135deg, #087f3d, #18a558);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
     color: white;
-    padding: 25px 18px 30px;
+    padding: 24px 20px 32px;
+    box-shadow: 0 4px 12px rgba(8, 127, 61, 0.15);
 }
 
 .header-inner {
     max-width: 1100px;
     margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-header h1 {
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-logo {
+    width: 48px;
+    height: 48px;
+    background: white;
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.brand-title h1 {
     margin: 0;
-    font-size: 27px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
-header p {
-    margin: 8px 0 0;
-    opacity: .9;
+.brand-title p {
+    margin: 2px 0 0;
+    opacity: 0.9;
+    font-size: 13px;
+}
+
+.user-badge {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .container {
     max-width: 1100px;
-    margin: auto;
-    padding: 20px;
+    margin: -15px auto 40px;
+    padding: 0 16px;
 }
+
+/* =========================
+   CARDS & UTILS
+========================= */
 
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 18px;
+    background: var(--card-bg);
+    padding: 22px;
+    border-radius: var(--border-radius);
     margin-bottom: 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-.card h2 {
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-top: 0;
+    margin-bottom: 6px;
+    font-size: 18px;
+    color: var(--text);
+}
+
+.card-subtitle {
+    margin: 0 0 18px;
+    color: var(--text-muted);
+    font-size: 13px;
 }
 
 #loading {
     text-align: center;
-    padding: 25px;
+    padding: 40px;
 }
 
 .error {
     display: none;
-    background: #ffdede;
-    color: #c62828;
-    padding: 18px;
-    border-radius: 14px;
-    font-weight: bold;
-    word-break: break-word;
-}
-
-.success {
-    background: #d9f7e5;
-    color: #087f3d;
+    background: #ffebee;
+    color: var(--red);
     padding: 16px;
     border-radius: 12px;
-    font-weight: bold;
+    font-weight: 600;
+    border: 1px solid #ffcdd2;
+    margin-bottom: 20px;
 }
 
 #dashboard {
@@ -87,12 +153,71 @@ header p {
 }
 
 /* =========================
-   STATISTIQUES
+   NOTIFICATIONS / ENLEVEMENTS
+========================= */
+
+.section-enlèvements {
+    border-left: 5px solid var(--red);
+}
+
+.enlevement-card {
+    background: #fff8f8;
+    border: 1px solid #ffe5e5;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.enlevement-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.enlevement-site {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.enlevement-flux {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.planning-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-avant-15h {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.badge-apres-15h {
+    background: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+}
+
+/* =========================
+   STATS
 ========================= */
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     margin-bottom: 20px;
 }
@@ -100,256 +225,210 @@ header p {
 .stat {
     background: white;
     padding: 18px;
-    border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .stat-icon {
-    font-size: 28px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
 }
 
 .stat-number {
-    font-size: 30px;
-    font-weight: bold;
-    margin-top: 7px;
+    font-size: 24px;
+    font-weight: 800;
 }
 
 .stat-label {
-    color: #777;
-    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 12px;
 }
 
 /* =========================
-   GRAPHIQUES
+   ETAT GLOBAL (A-Z + BARS)
 ========================= */
 
-.graph-container {
-    width: 100%;
-    overflow-x: auto;
+.site-row-az {
+    padding: 14px 0;
+    border-bottom: 1px solid #edf1ee;
 }
 
-.graph {
-    width: 100%;
-    min-width: 650px;
+.site-row-az:last-child {
+    border-bottom: none;
 }
 
-.graph-row {
-    display: grid;
-    grid-template-columns: 190px 1fr 60px;
+.site-header-az {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    margin: 12px 0;
+    margin-bottom: 8px;
 }
 
-.graph-name {
-    font-weight: bold;
-    font-size: 14px;
+.site-name-az {
+    font-weight: 700;
+    font-size: 15px;
 }
 
-.graph-bar-zone {
-    height: 28px;
-    background: #edf1ee;
-    border-radius: 8px;
+.site-details-az {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.multi-bar-container {
+    height: 12px;
+    width: 100%;
+    background: var(--grey);
+    border-radius: 6px;
     overflow: hidden;
+    display: flex;
 }
 
-.graph-bar {
+.bar-segment {
     height: 100%;
-    border-radius: 8px;
-    transition: width .4s ease;
+    transition: width 0.4s ease;
 }
 
-.graph-bar.pleine {
-    background: #c62828;
+.bar-segment.pleine { background: var(--red); }
+.bar-segment.presque { background: var(--orange); }
+.bar-segment.disponible { background: var(--green); }
+.bar-segment.inconnu { background: var(--grey); }
+
+.bar-legend {
+    display: flex;
+    gap: 15px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
 }
 
-.graph-bar.presque {
-    background: #f0a500;
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.graph-value {
-    font-weight: bold;
-    text-align: right;
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
 }
 
-.classement {
-    margin-top: 15px;
-}
+/* =========================
+   CLASSEMENTS
+========================= */
 
 .classement-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    padding: 13px 0;
-    border-top: 1px solid #eee;
+    padding: 12px 0;
+    border-bottom: 1px solid #edf1ee;
 }
 
-.classement-item:first-child {
-    border-top: none;
+.classement-item:last-child {
+    border-bottom: none;
 }
 
 .classement-gauche {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .classement-rang {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: #edf1ee;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-}
-
-.classement-nom {
-    font-weight: bold;
-}
-
-.classement-detail {
-    color: #777;
+    font-weight: 700;
     font-size: 12px;
-    margin-top: 3px;
 }
 
 .classement-score {
-    font-weight: bold;
-    color: #c62828;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
 }
 
-.classement-score.zero {
-    color: #087f3d;
-}
-
-.flux {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 0;
-    border-top: 1px solid #eee;
-}
-
-.flux:first-child {
-    margin-top: 12px;
-}
-
-.flux-name {
-    font-weight: 500;
-}
-
-.status {
-    padding: 7px 11px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.disponible {
-    background: #d9f7e5;
-    color: #087f3d;
-}
-
-.presque {
-    background: #fff0c2;
-    color: #946200;
-}
-
-.pleine {
-    background: #ffdede;
-    color: #c62828;
-}
-
-.inconnu {
-    background: #eee;
-    color: #666;
-}
-
-.meta {
-    color: #888;
-    font-size: 12px;
-    margin-top: 5px;
-}
+.classement-score.red { background: #ffebee; color: var(--red); }
+.classement-score.orange { background: #fff3e0; color: var(--orange); }
+.classement-score.zero { background: #e8f5e9; color: var(--green); }
 
 /* =========================
    AGENTS
 ========================= */
 
-.agent {
+.agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.agent-card {
+    background: #fafcfb;
+    border: 1px solid #edf1ee;
+    border-radius: 12px;
+    padding: 14px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-top: 1px solid #eee;
+    justify-content: space-between;
 }
 
-.agent:first-child {
-    border-top: none;
-}
-
-.agent-name {
+.agent-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
     font-size: 16px;
 }
 
+.agent-details {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.agent-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
 .agent-email {
-    color: #777;
-    font-size: 13px;
-    margin-top: 4px;
-    word-break: break-word;
-}
-
-.role {
-    padding: 7px 12px;
-    border-radius: 20px;
-    background: #eee;
-    color: #555;
+    color: var(--text-muted);
     font-size: 12px;
-    font-weight: bold;
+    word-break: break-all;
 }
 
-.role-admin {
-    background: #17231b;
-    color: white;
+.role-tag {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.role-agent {
-    background: #d9f7e5;
-    color: #087f3d;
-}
+.role-admin { background: #17231b; color: white; }
+.role-agent { background: #e8f5e9; color: var(--primary); }
 
 /* =========================
-   SITES
-========================= */
-
-.site {
-    border-top: 1px solid #eee;
-    padding: 20px 0;
-}
-
-.site:first-child {
-    border-top: none;
-}
-
-.site-title {
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.site-id {
-    color: #888;
-    font-size: 12px;
-    margin-top: 4px;
-}
-
-/* =========================
-   BOUTONS
+   BUTTONS
 ========================= */
 
 .buttons {
@@ -359,1775 +438,491 @@ header p {
 }
 
 .button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     border: none;
-    padding: 13px 16px;
+    padding: 12px 18px;
     border-radius: 10px;
-    background: #17231b;
+    background: var(--text);
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
+    transition: opacity 0.2s;
 }
 
-.green-button {
-    background: #087f3d;
-}
+.button:hover { opacity: 0.9; }
+.green-button { background: var(--primary); }
+.red-button { background: var(--red); }
 
-.red-button {
-    background: #c62828;
-}
-
-.empty {
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 12px;
-    color: #777;
-}
-
-@media (max-width: 750px) {
-
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
-@media (max-width: 500px) {
-
-    .container {
-        padding: 14px;
-    }
-
-    .stats {
-        gap: 10px;
-    }
-
-    .stat {
-        padding: 14px;
-    }
-
-    .stat-number {
-        font-size: 25px;
-    }
-
-    .flux,
-    .agent {
-        align-items: flex-start;
-    }
-
+@media (max-width: 600px) {
+    .enlevement-card { flex-direction: column; align-items: flex-start; }
+    .agents-grid { grid-template-columns: 1fr; }
 }
 
 </style>
-
 </head>
-
 <body>
 
 <header>
-
-<div class="header-inner">
-
-<h1>👑 Administration</h1>
-
-<p>SICTOM Zone de Dole</p>
-
-</div>
-
+    <div class="header-inner">
+        <div class="brand">
+            <div class="brand-logo">♻️</div>
+            <div class="brand-title">
+                <h1>SICTOM Zone de Dole</h1>
+                <p>Espace d'Administration & Pilotage</p>
+            </div>
+        </div>
+        <div class="user-badge" id="userBadge">👑 Administration</div>
+    </div>
 </header>
 
 <div class="container">
 
-<div id="loading" class="card">
-🔄 Vérification du compte...
+    <div id="loading" class="card">
+        🔄 Chargement du tableau de bord...
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div id="dashboard">
+
+        <!-- =========================
+             1. NOTIFICATIONS / ENLEVEMENTS (PREMIER DANS LA PAGE)
+        ========================= -->
+        <div class="card section-enlèvements">
+            <h2 class="card-title">🚨 Demandes d'enlèvement prioritaires</h2>
+            <p class="card-subtitle">
+                Caissons nécessitant une rotation urgente. Planning automatiquement ajusté selon l'heure de commande (Cutoff : 15h30).
+            </p>
+
+            <div id="enlevementsList">
+                ⏳ Analyse des enlèvements...
+            </div>
+        </div>
+
+        <!-- STATISTIQUES GLOBALES -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">📍</div>
+                <div>
+                    <div id="statSites" class="stat-number">0</div>
+                    <div class="stat-label">Déchèteries</div>
+                </div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">📦</div>
+                <div>
+                    <div id="statFlux" class="stat-number">0</div>
+                    <div class="stat-label">Flux suivis</div>
+                </div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">🔴</div>
+                <div>
+                    <div id="statPleins" class="stat-number">0</div>
+                    <div class="stat-label">Caissons pleins</div>
+                </div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">🟠</div>
+                <div>
+                    <div id="statPresque" class="stat-number">0</div>
+                    <div class="stat-label">Presque pleins</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================
+             2. ETAT GLOBAL DES DECHETERIES (A-Z + BARS PROPORTIONNELLES)
+        ========================= -->
+        <div class="card">
+            <h2 class="card-title">📊 État global des déchèteries (A-Z)</h2>
+            <p class="card-subtitle">
+                Répartition proportionnelle des états de caissons par site (Vert = Disponible, Orange = Presque plein, Rouge = Plein, Gris = Non renseigné).
+            </p>
+
+            <div class="bar-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Disponible</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Presque plein</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Plein</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--grey)"></div>Non renseigné</div>
+            </div>
+            <br>
+
+            <div id="sitesAZ">
+                ⏳ Chargement des sites...
+            </div>
+        </div>
+
+        <!-- =========================
+             3. CLASSEMENT PAR NIVEAU DE REMPLISSAGE
+        ========================= -->
+        <div class="card">
+            <h2 class="card-title">🏆 Déchèteries les plus sollicitées</h2>
+            <p class="card-subtitle">
+                Classement par nombre de caissons pleins et à surveiller.
+            </p>
+
+            <div id="classementPleins">
+                ⏳ Calcul du classement...
+            </div>
+        </div>
+
+        <!-- =========================
+             4. LISTE DES AGENTS
+        ========================= -->
+        <div class="card">
+            <h2 class="card-title">👥 Agents et Utilisateurs</h2>
+            <p class="card-subtitle">
+                Comptes enregistrés et rôles associés dans la zone Dole.
+            </p>
+
+            <div id="agentsGrid" class="agents-grid">
+                ⏳ Chargement des agents...
+            </div>
+        </div>
+
+        <!-- ACTIONS & NAVIGATION -->
+        <div class="card">
+            <h2 class="card-title">⚙️ Accès rapides</h2>
+            <div class="buttons">
+                <a class="button green-button" href="./agent.html">👷 Espace Agent</a>
+                <a class="button" href="./index.html">🏠 Site public</a>
+                <button id="logout" class="button red-button">🚪 Déconnexion</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<div id="error" class="error"></div>
-
-<div id="dashboard">
-
-<div class="card">
-
-<div class="success">
-👑 Administrateur confirmé
-</div>
-
-<br>
-
-👤 Compte :
-<strong id="email"></strong>
-
-</div>
-
-<div class="stats">
-
-<div class="stat">
-
-<div class="stat-icon">📍</div>
-
-<div id="statSites" class="stat-number">
-0
-</div>
-
-<div class="stat-label">
-Déchèteries
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="stat-icon">📦</div>
-
-<div id="statFlux" class="stat-number">
-0
-</div>
-
-<div class="stat-label">
-Flux enregistrés
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="stat-icon">🟠</div>
-
-<div id="statPresque" class="stat-number">
-0
-</div>
-
-<div class="stat-label">
-Presque pleins
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="stat-icon">🔴</div>
-
-<div id="statPleins" class="stat-number">
-0
-</div>
-
-<div class="stat-label">
-Pleins
-</div>
-
-</div>
-
-</div>
-
-<!-- GRAPHIQUES -->
-
-<div class="card">
-
-<h2>
-📊 Analyse des déchèteries
-</h2>
-
-<p>
-Classement des déchèteries selon leur niveau de remplissage.
-</p>
-
-<div class="graph-container">
-
-<div id="graphPleins" class="graph">
-
-⏳ Chargement du graphique...
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CLASSEMENT -->
-
-<div class="card">
-
-<h2>
-🏆 Classement des déchèteries
-</h2>
-
-<p>
-Déchèteries classées du plus grand nombre de flux pleins au plus petit.
-</p>
-
-<div id="classementPleins" class="classement">
-
-⏳ Calcul du classement...
-
-</div>
-
-</div>
-
-<!-- CLASSEMENT PRESQUE -->
-
-<div class="card">
-
-<h2>
-🟠 Déchèteries à surveiller
-</h2>
-
-<p>
-Classement selon le nombre de flux presque pleins.
-</p>
-
-<div id="classementPresque" class="classement">
-
-⏳ Calcul du classement...
-
-</div>
-
-</div>
-
-    <!-- =========================
-     AGENTS
-========================= -->
-
-<div class="card">
-
-<h2>
-👥 Agents et administrateurs
-</h2>
-
-<p>
-Liste des comptes enregistrés dans Firebase.
-</p>
-
-<div id="agents">
-⏳ Chargement des utilisateurs...
-</div>
-
-</div>
-
-
-<!-- =========================
-     FLUX
-========================= -->
-
-<div class="card">
-
-<h2>
-📊 État des déchèteries
-</h2>
-
-<div id="sites">
-⏳ Chargement des flux...
-</div>
-
-</div>
-
-
-<!-- =========================
-     ACTIONS
-========================= -->
-
-<div class="card">
-
-<h2>
-⚙️ Accès rapides
-</h2>
-
-<div class="buttons">
-
-<a
-class="button green-button"
-href="./agent.html"
->
-👷 Espace agent
-</a>
-
-<a
-class="button"
-href="./index.html"
->
-🏠 Site public
-</a>
-
-<button
-id="logout"
-class="button red-button"
->
-🚪 Déconnexion
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     FIREBASE
-========================= -->
-
+<!-- SDK FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
 
-
 <script>
-
-/* =========================
-   FIREBASE
-========================= */
-
 const firebaseConfig = {
-
-    apiKey:
-    "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
-
-    authDomain:
-    "sictom-zone-de-dole-17296.firebaseapp.com",
-
-    projectId:
-    "sictom-zone-de-dole-17296",
-
-    storageBucket:
-    "sictom-zone-de-dole-17296.firebasestorage.app",
-
-    messagingSenderId:
-    "378183859073",
-
-    appId:
-    "1:378183859073:web:3b347f84a072fb0cb54680"
-
+    apiKey: "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+    authDomain: "sictom-zone-de-dole-17296.firebaseapp.com",
+    projectId: "sictom-zone-de-dole-17296",
+    storageBucket: "sictom-zone-de-dole-17296.firebasestorage.app",
+    messagingSenderId: "378183859073",
+    appId: "1:378183859073:web:3b347f84a072fb0cb54680"
 };
 
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-firebase.initializeApp(
-    firebaseConfig
-);
-
-
-const auth =
-    firebase.auth();
-
-
-const db =
-    firebase.firestore();
-
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const loading =
-    document.getElementById(
-        "loading"
-    );
-
-
-const errorBox =
-    document.getElementById(
-        "error"
-    );
-
-
-const dashboard =
-    document.getElementById(
-        "dashboard"
-    );
-
-
-const sitesBox =
-    document.getElementById(
-        "sites"
-    );
-
-
-const agentsBox =
-    document.getElementById(
-        "agents"
-    );
-
-
-const graphPleins =
-    document.getElementById(
-        "graphPleins"
-    );
-
-
-const classementPleins =
-    document.getElementById(
-        "classementPleins"
-    );
-
-
-const classementPresque =
-    document.getElementById(
-        "classementPresque"
-    );
-
-
-/* =========================
-   VARIABLES
-========================= */
+const loading = document.getElementById("loading");
+const errorBox = document.getElementById("error");
+const dashboard = document.getElementById("dashboard");
 
 let donneesSites = {};
 
-
-/* =========================
-   ERREUR
-========================= */
-
-function afficherErreur(message) {
-
-    loading.style.display =
-        "none";
-
-    dashboard.style.display =
-        "none";
-
-    errorBox.style.display =
-        "block";
-
-    errorBox.innerHTML =
-        "❌ " + message;
-
-}
-
-
-/* =========================
-   STATUT
-========================= */
-
-function statutHTML(statut) {
-
-    if (
-        statut ===
-        "disponible"
-    ) {
-
-        return `
-            <span class="status disponible">
-                🟢 Disponible
-            </span>
-        `;
-
-    }
-
-
-    if (
-        statut ===
-        "presque"
-    ) {
-
-        return `
-            <span class="status presque">
-                🟠 Presque pleine
-            </span>
-        `;
-
-    }
-
-
-    if (
-        statut ===
-        "pleine"
-    ) {
-
-        return `
-            <span class="status pleine">
-                🔴 Pleine
-            </span>
-        `;
-
-    }
-
-
-    return `
-        <span class="status inconnu">
-            ℹ️ ${statut || "Inconnu"}
-        </span>
-    `;
-
-}
-
-
-/* =========================
-   NOM SITE
-========================= */
-
 function nomSite(id) {
-
     const noms = {
-
-        "chaussin":
-        "Chaussin",
-
-        "dole":
-        "Dole",
-
-        "brevans":
-        "Brevans",
-
-        "tavaux":
-        "Tavaux",
-
-        "dampierre":
-        "Dampierre",
-
-        "mont-sous-vaudrey":
-        "Mont-sous-Vaudrey",
-
-        "montmirey-le-chateau":
-        "Montmirey-le-Château",
-
-        "saligney":
-        "Saligney",
-
-        "villers-farlay":
-        "Villers-Farlay"
-
+        "brevans": "Brevans",
+        "chaussin": "Chaussin",
+        "dampierre": "Dampierre",
+        "dole": "Dole",
+        "mont-sous-vaudrey": "Mont-sous-Vaudrey",
+        "montmirey-le-chateau": "Montmirey-le-Château",
+        "saligney": "Saligney",
+        "tavaux": "Tavaux",
+        "villers-farlay": "Villers-Farlay"
     };
-
-
-    return noms[id] || id;
-
+    return noms[id] || id.charAt(0).toUpperCase() + id.slice(1);
 }
-
-
-/* =========================
-   NOM FLUX
-========================= */
 
 function nomFlux(id, data) {
-
-    if (
-        data.nom
-    ) {
-
-        return data.nom;
-
-    }
-
-
+    if (data && data.nom) return data.nom;
     const noms = {
-
-        "bois-a":
-        "🪵 Bois A",
-
-        "bois-b":
-        "🪵 Bois B",
-
-        "mobilier":
-        "🛋️ Mobilier",
-
-        "carton":
-        "📦 Carton",
-
-        "gravats":
-        "🪨 Gravats",
-
-        "ferraille":
-        "🔩 Ferraille",
-
-        "plastique-dur":
-        "🧴 Plastique dur",
-
-        "tout-venant":
-        "🗑️ Tout-venant"
-
+        "bois-a": "🪵 Bois A",
+        "bois-b": "🪵 Bois B",
+        "mobilier": "🛋️ Mobilier",
+        "carton": "📦 Carton",
+        "gravats": "🪨 Gravats",
+        "ferraille": "🔩 Ferraille",
+        "plastique-dur": "🧴 Plastique dur",
+        "tout-venant": "🗑️ Tout-venant"
     };
-
-
     return noms[id] || id;
-
 }
-
 
 /* =========================
-   DATE
+   LOGIQUE DE PLANNING 15H30
 ========================= */
-
-function afficherDate(
-    timestamp
-) {
-
-    if (
-        !timestamp
-    ) {
-
-        return "";
-
-    }
-
-
+function evaluerPlanning15h30(timestamp) {
+    if (!timestamp) return { badge: '<span class="planning-badge badge-avant-15h">⚡ Traitement Demain</span>', dateText: 'Non spécifié' };
+    
+    let d;
     try {
-
-        return timestamp
-            .toDate()
-            .toLocaleString(
-                "fr-FR",
-                {
-                    dateStyle:
-                    "short",
-
-                    timeStyle:
-                    "short"
-                }
-            );
-
+        d = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    } catch(e) {
+        d = new Date();
     }
 
-    catch(error) {
+    const heures = d.getHours();
+    const minutes = d.getMinutes();
+    const apres15h30 = (heures > 15) || (heures === 15 && minutes >= 30);
+    
+    const dateFormatee = d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }) + ' à ' + 
+                         d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
-        return "";
-
+    if (apres15h30) {
+        return {
+            badge: '<span class="planning-badge badge-apres-15h">⏰ Commande > 15h30 — Traitement à J+2</span>',
+            dateText: dateFormatee
+        };
+    } else {
+        return {
+            badge: '<span class="planning-badge badge-avant-15h">⚡ Commande < 15h30 — Traitement Demain</span>',
+            dateText: dateFormatee
+        };
     }
-
 }
 
-    /* =========================
+/* =========================
+   CHARGER & AFFICHER ENLEVEMENTS
+========================= */
+function afficherEnlevementsPrioritaires() {
+    const listContainer = document.getElementById("enlevementsList");
+    let enlevements = [];
+
+    Object.keys(donneesSites).forEach(siteId => {
+        const site = donneesSites[siteId];
+        site.flux.forEach(f => {
+            if (f.data.statut === "pleine") {
+                enlevements.push({
+                    siteId: siteId,
+                    siteNom: nomSite(siteId),
+                    fluxId: f.id,
+                    fluxNom: nomFlux(f.id, f.data),
+                    timestamp: f.data.miseAJour
+                });
+            }
+        });
+    });
+
+    if (enlevements.length === 0) {
+        listContainer.innerHTML = `
+            <div style="background:#e8f5e9; color:#2e7d32; padding:14px; border-radius:12px; font-weight:bold;">
+                ✅ Aucun enlèvement urgent requis pour le moment.
+            </div>
+        `;
+        return;
+    }
+
+    let html = "";
+    enlevements.forEach(item => {
+        const planning = evaluerPlanning15h30(item.timestamp);
+        html += `
+            <div class="enlevement-card">
+                <div class="enlevement-info">
+                    <div class="enlevement-site">📍 Déchèterie de ${item.siteNom}</div>
+                    <div class="enlevement-flux">Caisson : <strong>${item.fluxNom}</strong> (Mise à jour : ${planning.dateText})</div>
+                </div>
+                <div>
+                    ${planning.badge}
+                </div>
+            </div>
+        `;
+    });
+
+    listContainer.innerHTML = html;
+}
+
+/* =========================
+   CHARGER ETAT GLOBAL A-Z
+========================= */
+function afficherEtatGlobalAZ() {
+    const container = document.getElementById("sitesAZ");
+    const sitesSorted = Object.keys(donneesSites).sort((a, b) => nomSite(a).localeCompare(nomSite(b), 'fr'));
+
+    if (sitesSorted.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted)">Aucune donnée disponible.</div>';
+        return;
+    }
+
+    let html = "";
+    sitesSorted.forEach(siteId => {
+        const site = donneesSites[siteId];
+        const total = site.total || 1; 
+        
+        const pctPleine = (site.pleins / total) * 100;
+        const pctPresque = (site.presque / total) * 100;
+        const pctDispo = (site.disponibles / total) * 100;
+        const pctInconnu = (site.inconnus / total) * 100;
+
+        html += `
+            <div class="site-row-az">
+                <div class="site-header-az">
+                    <span class="site-name-az">${nomSite(siteId)}</span>
+                    <span class="site-details-az">${site.pleins} pleins · ${site.presque} presque pleins · ${site.total} caissons</span>
+                </div>
+                <div class="multi-bar-container">
+                    <div class="bar-segment pleine" style="width: ${pctPleine}%" title="Pleins: ${site.pleins}"></div>
+                    <div class="bar-segment presque" style="width: ${pctPresque}%" title="Presque pleins: ${site.presque}"></div>
+                    <div class="bar-segment disponible" style="width: ${pctDispo}%" title="Disponibles: ${site.disponibles}"></div>
+                    <div class="bar-segment inconnu" style="width: ${pctInconnu}%" title="Non renseignés: ${site.inconnus}"></div>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+/* =========================
+   CLASSEMENT
+========================= */
+function afficherClassement() {
+    const container = document.getElementById("classementPleins");
+    const liste = Object.keys(donneesSites).map(id => ({
+        id: id,
+        nom: nomSite(id),
+        pleins: donneesSites[id].pleins,
+        presque: donneesSites[id].presque
+    })).sort((a, b) => b.pleins - a.pleins || b.presque - a.presque);
+
+    let html = "";
+    liste.forEach((item, index) => {
+        const badgeClass = item.pleins > 0 ? 'red' : (item.presque > 0 ? 'orange' : 'zero');
+        html += `
+            <div class="classement-item">
+                <div class="classement-gauche">
+                    <div class="classement-rang">${index + 1}</div>
+                    <div>
+                        <strong>${item.nom}</strong>
+                        <div style="font-size:12px; color:var(--text-muted);">${item.presque} caisson(s) presque plein(s)</div>
+                    </div>
+                </div>
+                <div class="classement-score ${badgeClass}">
+                    🔴 ${item.pleins} plein(s)
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+/* =========================
    CHARGER AGENTS
 ========================= */
-
 async function chargerAgents() {
-
-    agentsBox.innerHTML =
-        "⏳ Chargement des utilisateurs...";
-
-
+    const container = document.getElementById("agentsGrid");
     try {
-
-        const snapshot =
-            await db
-                .collection("users")
-                .get();
-
-
-        agentsBox.innerHTML =
-            "";
-
-
-        if (
-            snapshot.empty
-        ) {
-
-            agentsBox.innerHTML = `
-                <div class="empty">
-                    Aucun utilisateur trouvé.
-                </div>
-            `;
-
+        const snapshot = await db.collection("users").get();
+        if (snapshot.empty) {
+            container.innerHTML = '<div>Aucun agent inscrit.</div>';
             return;
-
         }
 
+        let html = "";
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const nom = [data.prenom, data.nom].filter(Boolean).join(" ") || data.email || "Utilisateur";
+            const initiales = nom.substring(0, 2).toUpperCase();
+            const role = data.role === "admin" ? "Admin" : "Agent";
+            const roleClass = data.role === "admin" ? "role-admin" : "role-agent";
 
-        const utilisateurs = [];
-
-
-        snapshot.forEach(
-            function(doc) {
-
-                utilisateurs.push({
-
-                    id:
-                    doc.id,
-
-                    data:
-                    doc.data()
-
-                });
-
-            }
-        );
-
-
-        utilisateurs.sort(
-            function(a, b) {
-
-                const nomA =
-                    (
-                        a.data.prenom ||
-                        ""
-                    ) +
-                    " " +
-                    (
-                        a.data.nom ||
-                        ""
-                    );
-
-
-                const nomB =
-                    (
-                        b.data.prenom ||
-                        ""
-                    ) +
-                    " " +
-                    (
-                        b.data.nom ||
-                        ""
-                    );
-
-
-                return nomA.localeCompare(
-                    nomB,
-                    "fr"
-                );
-
-            }
-        );
-
-
-        utilisateurs.forEach(
-            function(utilisateur) {
-
-                const data =
-                    utilisateur.data;
-
-
-                const prenom =
-                    typeof data.prenom ===
-                    "string"
-                    ?
-                    data.prenom.trim()
-                    :
-                    "";
-
-
-                const nom =
-                    typeof data.nom ===
-                    "string"
-                    ?
-                    data.nom.trim()
-                    :
-                    "";
-
-
-                const email =
-                    data.email ||
-                    "";
-
-
-                const role =
-                    data.role ||
-                    "agent";
-
-
-                const nomComplet =
-                    [
-                        prenom,
-                        nom
-                    ]
-                    .filter(Boolean)
-                    .join(" ");
-
-
-                const affichageNom =
-                    nomComplet ||
-                    email ||
-                    "Utilisateur";
-
-
-                const agent =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                agent.className =
-                    "agent";
-
-
-                agent.innerHTML = `
-
-                    <div>
-
-                        <div class="agent-name">
-                            ${affichageNom}
-                        </div>
-
-                        ${
-                            email
-                            ?
-                            `
-                            <div class="agent-email">
-                                ${email}
-                            </div>
-                            `
-                            :
-                            ""
-                        }
-
+            html += `
+                <div class="agent-card">
+                    <div class="agent-avatar">${initiales}</div>
+                    <div class="agent-details">
+                        <div class="agent-name">${nom}</div>
+                        <div class="agent-email">${data.email || ''}</div>
                     </div>
-
-                    <div>
-
-                        <span class="role ${
-                            role === "admin"
-                            ?
-                            "role-admin"
-                            :
-                            "role-agent"
-                        }">
-
-                            ${
-                                role === "admin"
-                                ?
-                                "Administrateur"
-                                :
-                                "Agent"
-                            }
-
-                        </span>
-
-                    </div>
-
-                `;
-
-
-                agentsBox.appendChild(
-                    agent
-                );
-
-            }
-        );
-
+                    <span class="role-tag ${roleClass}">${role}</span>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    } catch(e) {
+        container.innerHTML = '<div style="color:var(--red);">Erreur lors du chargement des agents.</div>';
     }
-
-    catch(error) {
-
-        console.error(
-            "Erreur agents :",
-            error
-        );
-
-
-        agentsBox.innerHTML = `
-
-            <div
-                class="error"
-                style="display:block;"
-            >
-
-                Impossible de charger
-                les agents.
-
-                <br><br>
-
-                <strong>
-                    Code :
-                </strong>
-
-                ${
-                    error.code ||
-                    "inconnu"
-                }
-
-                <br><br>
-
-                <strong>
-                    Message :
-                </strong>
-
-                ${
-                    error.message ||
-                    "inconnu"
-                }
-
-            </div>
-
-        `;
-
-    }
-
 }
 
-
 /* =========================
-   CONSTRUIRE GRAPHIQUES
+   SYNCHRONISATION FIRESTORE
 ========================= */
-
-function construireGraphiques() {
-
-    const ids =
-        Object.keys(
-            donneesSites
-        );
-
-
-    if (
-        ids.length === 0
-    ) {
-
-        graphPleins.innerHTML = `
-            <div class="empty">
-                Aucun flux disponible.
-            </div>
-        `;
-
-
-        classementPleins.innerHTML = `
-            <div class="empty">
-                Aucun classement disponible.
-            </div>
-        `;
-
-
-        classementPresque.innerHTML = `
-            <div class="empty">
-                Aucun classement disponible.
-            </div>
-        `;
-
-
-        return;
-
-    }
-
-
-    const classement = [];
-
-
-    ids.forEach(
-        function(siteId) {
-
-            const site =
-                donneesSites[
-                    siteId
-                ];
-
-
-            classement.push({
-
-                id:
-                siteId,
-
-                nom:
-                nomSite(siteId),
-
-                pleins:
-                site.pleins,
-
-                presque:
-                site.presque,
-
-                total:
-                site.total
-
-            });
-
-        }
-    );
-
-
-    /* =====================
-       TRI PLEINS
-    ===================== */
-
-    classement.sort(
-        function(a, b) {
-
-            if (
-                b.pleins !==
-                a.pleins
-            ) {
-
-                return (
-                    b.pleins -
-                    a.pleins
-                );
-
-            }
-
-
-            return (
-                b.presque -
-                a.presque
-            );
-
-        }
-    );
-
-
-    const maximum =
-        Math.max(
-            ...classement.map(
-                function(item) {
-                    return item.pleins;
-                }
-            ),
-            1
-        );
-
-
-    let graphHTML = "";
-
-
-    classement.forEach(
-        function(item) {
-
-            const largeur =
-                (
-                    item.pleins /
-                    maximum
-                ) *
-                100;
-
-
-            graphHTML += `
-
-                <div class="graph-row">
-
-                    <div class="graph-name">
-                        ${item.nom}
-                    </div>
-
-                    <div class="graph-bar-zone">
-
-                        <div
-                            class="graph-bar pleine"
-                            style="width:${largeur}%"
-                        ></div>
-
-                    </div>
-
-                    <div class="graph-value">
-                        ${item.pleins}
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    graphPleins.innerHTML =
-        graphHTML;
-
-
-    /* =====================
-       CLASSEMENT PLEINS
-    ===================== */
-
-    let classementHTML = "";
-
-
-    classement.forEach(
-        function(item, index) {
-
-            const scoreClass =
-                item.pleins === 0
-                ?
-                "zero"
-                :
-                "";
-
-
-            classementHTML += `
-
-                <div class="classement-item">
-
-                    <div class="classement-gauche">
-
-                        <div class="classement-rang">
-                            ${index + 1}
-                        </div>
-
-                        <div>
-
-                            <div class="classement-nom">
-                                ${item.nom}
-                            </div>
-
-                            <div class="classement-detail">
-                                ${item.total} flux enregistrés
-                                · ${item.presque} presque plein(s)
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="classement-score ${scoreClass}">
-                        🔴 ${item.pleins}
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    classementPleins.innerHTML =
-        classementHTML;
-
-
-    /* =====================
-       CLASSEMENT PRESQUE
-    ===================== */
-
-    const classementPresqueData =
-        [...classement].sort(
-            function(a, b) {
-
-                if (
-                    b.presque !==
-                    a.presque
-                ) {
-
-                    return (
-                        b.presque -
-                        a.presque
-                    );
-
-                }
-
-
-                return (
-                    b.pleins -
-                    a.pleins
-                );
-
-            }
-        );
-
-
-    let presqueHTML = "";
-
-
-    classementPresqueData.forEach(
-        function(item, index) {
-
-            const scoreClass =
-                item.presque === 0
-                ?
-                "zero"
-                :
-                "";
-
-
-            presqueHTML += `
-
-                <div class="classement-item">
-
-                    <div class="classement-gauche">
-
-                        <div class="classement-rang">
-                            ${index + 1}
-                        </div>
-
-                        <div>
-
-                            <div class="classement-nom">
-                                ${item.nom}
-                            </div>
-
-                            <div class="classement-detail">
-                                ${item.pleins} plein(s)
-                                · ${item.total} flux
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="classement-score ${scoreClass}">
-                        🟠 ${item.presque}
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    classementPresque.innerHTML =
-        presqueHTML;
-
-}
-
-
-/* =========================
-   CHARGER FLUX
-========================= */
-
 function chargerFlux() {
-
-    db.collectionGroup("flux")
-
-        .onSnapshot(
-
-            function(snapshot) {
-
-                donneesSites = {};
-
-
-                let totalFlux =
-                    0;
-
-
-                let totalPresque =
-                    0;
-
-
-                let totalPleins =
-                    0;
-
-
-                snapshot.forEach(
-                    function(doc) {
-
-                        const data =
-                            doc.data();
-
-
-                        const chemin =
-                            doc.ref.path.split(
-                                "/"
-                            );
-
-
-                        if (
-                            chemin.length < 4
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const siteId =
-                            chemin[1];
-
-
-                        const fluxId =
-                            chemin[3];
-
-
-                        if (
-                            !donneesSites[
-                                siteId
-                            ]
-                        ) {
-
-                            donneesSites[
-                                siteId
-                            ] = {
-
-                                flux: [],
-
-                                total: 0,
-
-                                pleins: 0,
-
-                                presque: 0
-
-                            };
-
-                        }
-
-
-                        donneesSites[
-                            siteId
-                        ]
-                        .flux
-                        .push({
-
-                            id:
-                            fluxId,
-
-                            data:
-                            data
-
-                        });
-
-
-                        donneesSites[
-                            siteId
-                        ].total++;
-
-
-                        totalFlux++;
-
-
-                        if (
-                            data.statut ===
-                            "pleine"
-                        ) {
-
-                            donneesSites[
-                                siteId
-                            ].pleins++;
-
-
-                            totalPleins++;
-
-                        }
-
-
-                        if (
-                            data.statut ===
-                            "presque"
-                        ) {
-
-                            donneesSites[
-                                siteId
-                            ].presque++;
-
-
-                            totalPresque++;
-
-                        }
-
-                    }
-                );
-
-
-                const totalSites =
-                    Object.keys(
-                        donneesSites
-                    ).length;
-
-
-                document.getElementById(
-                    "statSites"
-                ).textContent =
-                    totalSites;
-
-
-                document.getElementById(
-                    "statFlux"
-                ).textContent =
-                    totalFlux;
-
-
-                document.getElementById(
-                    "statPresque"
-                ).textContent =
-                    totalPresque;
-
-
-                document.getElementById(
-                    "statPleins"
-                ).textContent =
-                    totalPleins;
-
-
-                construireGraphiques();
-
-
-                afficherSites();
-
-            },
-
-            function(error) {
-
-                console.error(
-                    "Erreur flux :",
-                    error
-                );
-
-
-                sitesBox.innerHTML = `
-
-                    <div
-                        class="error"
-                        style="display:block;"
-                    >
-
-                        Impossible de charger
-                        les flux.
-
-                        <br><br>
-
-                        <strong>
-                            Code :
-                        </strong>
-
-                        ${
-                            error.code ||
-                            "inconnu"
-                        }
-
-                        <br><br>
-
-                        <strong>
-                            Message :
-                        </strong>
-
-                        ${
-                            error.message ||
-                            "inconnu"
-                        }
-
-                    </div>
-
-                `;
-
+    db.collectionGroup("flux").onSnapshot(snapshot => {
+        donneesSites = {};
+        let totalFlux = 0, totalPleins = 0, totalPresque = 0;
+
+        snapshot.forEach(doc => {
+            const chemin = doc.ref.path.split("/");
+            if (chemin.length < 4) return;
+            const siteId = chemin[1];
+            const fluxId = chemin[3];
+            const data = doc.data();
+
+            if (!donneesSites[siteId]) {
+                donneesSites[siteId] = { flux: [], total: 0, pleins: 0, presque: 0, disponibles: 0, inconnus: 0 };
             }
 
-        );
+            donneesSites[siteId].flux.push({ id: fluxId, data: data });
+            donneesSites[siteId].total++;
+            totalFlux++;
 
-    }
+            if (data.statut === "pleine") {
+                donneesSites[siteId].pleins++;
+                totalPleins++;
+            } else if (data.statut === "presque") {
+                donneesSites[siteId].presque++;
+                totalPresque++;
+            } else if (data.statut === "disponible") {
+                donneesSites[siteId].disponibles++;
+            } else {
+                donneesSites[siteId].inconnus++;
+            }
+        });
 
-    /* =========================
-   AFFICHER LES SITES
-========================= */
+        document.getElementById("statSites").textContent = Object.keys(donneesSites).length;
+        document.getElementById("statFlux").textContent = totalFlux;
+        document.getElementById("statPleins").textContent = totalPleins;
+        document.getElementById("statPresque").textContent = totalPresque;
 
-function afficherSites() {
-
-    sitesBox.innerHTML =
-        "";
-
-
-    const ids =
-        Object.keys(
-            donneesSites
-        )
-        .sort();
-
-
-    if (
-        ids.length === 0
-    ) {
-
-        sitesBox.innerHTML = `
-
-            <div class="empty">
-
-                Aucun flux trouvé
-                dans Firestore.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    ids.forEach(
-        function(siteId) {
-
-            const siteData =
-                donneesSites[
-                    siteId
-                ];
-
-
-            const site =
-                document.createElement(
-                    "div"
-                );
-
-
-            site.className =
-                "site";
-
-
-            let fluxHTML =
-                "";
-
-
-            siteData.flux
-                .sort(
-                    function(a, b) {
-
-                        return a.id.localeCompare(
-                            b.id
-                        );
-
-                    }
-                )
-                .forEach(
-                    function(item) {
-
-                        const data =
-                            item.data;
-
-
-                        const statut =
-                            data.statut ||
-                            "inconnu";
-
-
-                        const modifiePar =
-                            data.modifiePar ||
-                            "";
-
-
-                        const date =
-                            afficherDate(
-                                data.miseAJour
-                            );
-
-
-                        fluxHTML += `
-
-                            <div class="flux">
-
-                                <div>
-
-                                    <div class="flux-name">
-                                        ${nomFlux(
-                                            item.id,
-                                            data
-                                        )}
-                                    </div>
-
-                                    ${
-                                        modifiePar
-                                        ?
-                                        `
-                                        <div class="meta">
-                                            ${modifiePar}
-                                            ${
-                                                date
-                                                ?
-                                                " — " + date
-                                                :
-                                                ""
-                                            }
-                                        </div>
-                                        `
-                                        :
-                                        (
-                                            date
-                                            ?
-                                            `
-                                            <div class="meta">
-                                                ${date}
-                                            </div>
-                                            `
-                                            :
-                                            ""
-                                        )
-                                    }
-
-                                </div>
-
-                                <div>
-
-                                    ${statutHTML(
-                                        statut
-                                    )}
-
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    }
-                );
-
-
-            site.innerHTML = `
-
-                <div class="site-title">
-
-                    ${nomSite(siteId)}
-
-                </div>
-
-                <div class="site-id">
-
-                    ${siteId}
-
-                </div>
-
-                ${fluxHTML}
-
-            `;
-
-
-            sitesBox.appendChild(
-                site
-            );
-
-        }
-    );
-
+        afficherEnlevementsPrioritaires();
+        afficherEtatGlobalAZ();
+        afficherClassement();
+    });
 }
 
-
 /* =========================
-   VERIFICATION COMPTE
+   AUTH & INITIALISATION
 ========================= */
+auth.onAuthStateChanged(user => {
+    if (!user) {
+        loading.style.display = "none";
+        errorBox.style.display = "block";
+        errorBox.textContent = "❌ Connexion requise.";
+        return;
+    }
 
-auth.onAuthStateChanged(
-    function(user) {
-
-        if (
-            !user
-        ) {
-
-            afficherErreur(
-                "Aucun compte connecté. " +
-                "Connectez-vous avec un compte administrateur."
-            );
-
-            return;
-
+    db.collection("users").doc(user.uid).get().then(doc => {
+        if (doc.exists && doc.data().role === "admin") {
+            loading.style.display = "none";
+            dashboard.style.display = "block";
+            document.getElementById("userBadge").textContent = "👑 " + (user.email || "Admin");
+            chargerAgents();
+            chargerFlux();
+        } else {
+            loading.style.display = "none";
+            errorBox.style.display = "block";
+            errorBox.textContent = "❌ Accès réservé aux administrateurs.";
         }
+    });
+});
 
-
-        loading.style.display =
-            "block";
-
-
-        errorBox.style.display =
-            "none";
-
-
-        dashboard.style.display =
-            "none";
-
-
-        loading.innerHTML =
-            "🔄 Vérification des droits administrateur...";
-
-
-        db.collection("users")
-            .doc(user.uid)
-            .get()
-
-            .then(
-                function(doc) {
-
-                    if (
-                        !doc.exists
-                    ) {
-
-                        afficherErreur(
-                            "Aucun profil trouvé pour ce compte."
-                        );
-
-                        return;
-
-                    }
-
-
-                    const data =
-                        doc.data();
-
-
-                    if (
-                        data.role !==
-                        "admin"
-                    ) {
-
-                        afficherErreur(
-                            "Accès refusé : ce compte n'a pas les droits administrateur."
-                        );
-
-                        return;
-
-                    }
-
-
-                    document.getElementById(
-                        "email"
-                    ).textContent =
-                        user.email ||
-                        "";
-
-
-                    loading.style.display =
-                        "none";
-
-
-                    errorBox.style.display =
-                        "none";
-
-
-                    dashboard.style.display =
-                        "block";
-
-
-                    chargerAgents();
-
-                    chargerFlux();
-
-                }
-            )
-
-            .catch(
-                function(error) {
-
-                    console.error(
-                        "Erreur vérification rôle :",
-                        error
-                    );
-
-
-                    afficherErreur(
-                        "Impossible de vérifier vos droits." +
-                        "<br><br>" +
-                        "<strong>Code :</strong> " +
-                        (
-                            error.code ||
-                            "inconnu"
-                        ) +
-                        "<br><br>" +
-                        "<strong>Message :</strong> " +
-                        (
-                            error.message ||
-                            "inconnu"
-                        )
-                    );
-
-                }
-            );
-
-    }
-);
-
-
-/* =========================
-   DECONNEXION
-========================= */
-
-document.getElementById(
-    "logout"
-)
-.addEventListener(
-    "click",
-    function() {
-
-        auth.signOut()
-            .then(
-                function() {
-
-                    window.location.href =
-                        "./index.html";
-
-                }
-            )
-            .catch(
-                function(error) {
-
-                    afficherErreur(
-                        "Impossible de se déconnecter : " +
-                        error.message
-                    );
-
-                }
-            );
-
-    }
-);
-
+document.getElementById("logout").addEventListener("click", () => {
+    auth.signOut().then(() => window.location.href = "./index.html");
+});
 </script>
-
 </body>
 </html>
