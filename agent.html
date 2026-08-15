@@ -1010,13 +1010,16 @@
   <div id="modalEnlevement" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>🚛 Commander vos enlèvements <small style="font-size: 11px; font-weight: normal; color: var(--encre-douce);">(Facultatif)</small></h3>
-        <p>Souhaitez-vous informer l'administration pour anticiper une rotation de benne ?</p>
+        <h3>🚛 Commander vos enlèvements</h3>
+        <p>Informer l'administration pour anticiper une rotation de benne.</p>
       </div>
 
       <div class="champ">
-        <label for="numeroBenne">Numéro de la benne (optionnel)</label>
+        <label for="numeroBenne">Numéro de la benne <span style="color: var(--alerte-texte);">*</span></label>
         <input type="text" id="numeroBenne" placeholder="ex: Benne n°4, B-12...">
+        <div id="erreurNumeroBenne" style="display:none; color: var(--alerte-texte); font-size: 12.5px; font-weight: 600; margin-top: 6px;">
+          ⚠️ Veuillez saisir un numéro de benne pour commander l'enlèvement.
+        </div>
       </div>
 
       <div class="modal-actions">
@@ -1067,6 +1070,7 @@
     /* MODALE ENLÈVEMENT */
     const modalEnlevement = document.getElementById("modalEnlevement");
     const numeroBenneInput = document.getElementById("numeroBenne");
+    const erreurNumeroBenne = document.getElementById("erreurNumeroBenne");
     const btnPasserModal = document.getElementById("btnPasserModal");
     const btnValiderModal = document.getElementById("btnValiderModal");
 
@@ -1289,7 +1293,7 @@
             siteId: siteId(site),
             flux: flux,
             statut: statut,
-            numeroBenne: numeroBenne.trim() || "Non renseigné",
+            numeroBenne: numeroBenne.trim(),
             agent: nomUtilisateur || user.email || "Utilisateur",
             agentEmail: user.email || "",
             statutDemande: "en_attente",
@@ -1333,6 +1337,8 @@
           fluxEnCours = flux;
           statutEnCours = statut;
           numeroBenneInput.value = "";
+          numeroBenneInput.style.borderColor = "#CBD1C9";
+          erreurNumeroBenne.style.display = "none";
           modalEnlevement.style.display = "flex";
         } else {
           // Processus direct pour "disponible" et "pleine"
@@ -1340,6 +1346,14 @@
         }
       }); 
     }); 
+
+    /* RÉINITIALISATION DE L'ERREUR QUAND L'AGENT TAPE DANS LE CHAMP */
+    numeroBenneInput.addEventListener("input", function() {
+      if (this.value.trim() !== "") {
+        this.style.borderColor = "#CBD1C9";
+        erreurNumeroBenne.style.display = "none";
+      }
+    });
 
     /* BOUTONS MODALE */
     btnPasserModal.addEventListener("click", function() {
@@ -1350,9 +1364,18 @@
     });
 
     btnValiderModal.addEventListener("click", function() {
+      const numBenne = numeroBenneInput.value.trim();
+
+      // Vérification du numéro de benne obligatoire
+      if (!numBenne) {
+        numeroBenneInput.style.borderColor = "var(--alerte-trait)";
+        erreurNumeroBenne.style.display = "block";
+        numeroBenneInput.focus();
+        return;
+      }
+
       modalEnlevement.style.display = "none";
       if (fluxEnCours && statutEnCours) {
-        const numBenne = numeroBenneInput.value;
         enregistrerStatut(fluxEnCours, statutEnCours, true, numBenne);
       }
     });
