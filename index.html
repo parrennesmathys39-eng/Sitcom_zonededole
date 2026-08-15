@@ -1371,7 +1371,7 @@ input:focus-visible {
             <input
                 type="text"
                 id="search"
-                placeholder="🔎  Rechercher une déchèterie ou un déchet..."
+                placeholder="🔎  Rechercher une déchèterie..."
                 autocomplete="off"
             >
 
@@ -1896,7 +1896,10 @@ function afficherDate(timestamp) {
    FICHE
 ===================================================== */
 
-async function afficherFiche(site) {
+async function afficherFiche(site, options) {
+
+    const scroller =
+        !options || options.scroll !== false;
 
     const container =
         document.getElementById(
@@ -2033,13 +2036,17 @@ async function afficherFiche(site) {
     `;
 
 
-    container.scrollIntoView({
+    if (scroller) {
 
-        behavior: "smooth",
+        container.scrollIntoView({
 
-        block: "start"
+            behavior: "smooth",
 
-    });
+            block: "start"
+
+        });
+
+    }
 
 
     chargerFlux(site);
@@ -2531,8 +2538,31 @@ firebaseStatus.innerHTML = `
    OUVERTURE PAR DEFAUT
 ===================================================== */
 
+/*
+   On repart toujours d'une recherche vide
+   et du haut de la page, même si le
+   navigateur essaie de restaurer un ancien
+   défilement ou une ancienne saisie.
+*/
+
+if (
+    "scrollRestoration" in history
+) {
+
+    history.scrollRestoration =
+        "manual";
+
+}
+
+document
+    .getElementById("search")
+    .value = "";
+
+window.scrollTo(0, 0);
+
 afficherFiche(
-    dechetteries[0]
+    dechetteries[0],
+    { scroll: false }
 );
 
 </script>
