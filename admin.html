@@ -1,928 +1,1173 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Administration — SICTOM Zone de Dole</title>
-<style>
-
-:root {
-    --primary: #087f3d;
-    --primary-dark: #055a2b;
-    --primary-light: #18a558;
-    --bg: #f4f7f5;
-    --card-bg: #ffffff;
-    --text: #17231b;
-    --text-muted: #6b7c70;
-    --red: #e53935;
-    --orange: #fb8c00;
-    --green: #43a047;
-    --grey: #bdc3c7;
-    --border-radius: 16px;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
-}
-
-/* =========================
-   HEADER & BRANDING
-========================= */
-
-header {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
-    color: white;
-    padding: 24px 20px 32px;
-    box-shadow: 0 4px 12px rgba(8, 127, 61, 0.15);
-}
-
-.header-inner {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.brand-logo {
-    width: 48px;
-    height: 48px;
-    background: white;
-    color: var(--primary);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-
-.brand-title h1 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-}
-
-.brand-title p {
-    margin: 2px 0 0;
-    opacity: 0.9;
-    font-size: 13px;
-}
-
-.user-badge {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 13px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.container {
-    max-width: 1100px;
-    margin: -15px auto 40px;
-    padding: 0 16px;
-}
-
-/* =========================
-   CARDS & UTILS
-========================= */
-
-.card {
-    background: var(--card-bg);
-    padding: 22px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-}
-
-.card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 0;
-    margin-bottom: 6px;
-    font-size: 18px;
-    color: var(--text);
-}
-
-.card-subtitle {
-    margin: 0 0 18px;
-    color: var(--text-muted);
-    font-size: 13px;
-}
-
-#loading {
-    text-align: center;
-    padding: 40px;
-}
-
-.error {
-    display: none;
-    background: #ffebee;
-    color: var(--red);
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: 600;
-    border: 1px solid #ffcdd2;
-    margin-bottom: 20px;
-}
-
-#dashboard {
-    display: none;
-}
-
-/* =========================
-   NOTIFICATIONS / ENLEVEMENTS
-========================= */
-
-.section-enlèvements {
-    border-left: 5px solid var(--red);
-}
-
-.enlevement-card {
-    background: #fff8f8;
-    border: 1px solid #ffe5e5;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.enlevement-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.enlevement-site {
-    font-weight: 700;
-    font-size: 15px;
-}
-
-.enlevement-flux {
-    font-size: 13px;
-    color: var(--text-muted);
-}
-
-.planning-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.badge-avant-15h {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #c8e6c9;
-}
-
-.badge-apres-15h {
-    background: #fff3e0;
-    color: #e65100;
-    border: 1px solid #ffe0b2;
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.stat {
-    background: white;
-    padding: 18px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.stat-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-}
-
-.stat-number {
-    font-size: 24px;
-    font-weight: 800;
-}
-
-.stat-label {
-    color: var(--text-muted);
-    font-size: 12px;
-}
-
-/* =========================
-   ETAT GLOBAL (A-Z + BARS)
-========================= */
-
-.site-row-az {
-    padding: 14px 0;
-    border-bottom: 1px solid #edf1ee;
-}
-
-.site-row-az:last-child {
-    border-bottom: none;
-}
-
-.site-header-az {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.site-name-az {
-    font-weight: 700;
-    font-size: 15px;
-}
-
-.site-details-az {
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-.multi-bar-container {
-    height: 12px;
-    width: 100%;
-    background: var(--grey);
-    border-radius: 6px;
-    overflow: hidden;
-    display: flex;
-}
-
-.bar-segment {
-    height: 100%;
-    transition: width 0.4s ease;
-}
-
-.bar-segment.pleine { background: var(--red); }
-.bar-segment.presque { background: var(--orange); }
-.bar-segment.disponible { background: var(--green); }
-.bar-segment.inconnu { background: var(--grey); }
-
-.bar-legend {
-    display: flex;
-    gap: 15px;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 6px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-/* =========================
-   CLASSEMENTS
-========================= */
-
-.classement-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #edf1ee;
-}
-
-.classement-item:last-child {
-    border-bottom: none;
-}
-
-.classement-gauche {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.classement-rang {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #edf1ee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 12px;
-}
-
-.classement-score {
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 13px;
-}
-
-.classement-score.red { background: #ffebee; color: var(--red); }
-.classement-score.orange { background: #fff3e0; color: var(--orange); }
-.classement-score.zero { background: #e8f5e9; color: var(--green); }
-
-/* =========================
-   AGENTS
-========================= */
-
-.agents-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.agent-card {
-    background: #fafcfb;
-    border: 1px solid #edf1ee;
-    border-radius: 12px;
-    padding: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.agent-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.agent-details {
-    margin-left: 10px;
-    flex-grow: 1;
-}
-
-.agent-name {
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.agent-email {
-    color: var(--text-muted);
-    font-size: 12px;
-    word-break: break-all;
-}
-
-.role-tag {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.role-admin { background: #17231b; color: white; }
-.role-agent { background: #e8f5e9; color: var(--primary); }
-
-/* =========================
-   BUTTONS
-========================= */
-
-.buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 10px;
-    background: var(--text);
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.button:hover { opacity: 0.9; }
-.green-button { background: var(--primary); }
-.red-button { background: var(--red); }
-
-@media (max-width: 600px) {
-    .enlevement-card { flex-direction: column; align-items: flex-start; }
-    .agents-grid { grid-template-columns: 1fr; }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — SICTOM Zone de Dole</title>
+
+  <!-- FONTS IDENTIQUES À AGENT.HTML -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --vert-nuit: #14342A;
+      --vert-foret: #1B4B3A;
+      --vert-mousse: #4C7A63;
+      --vert-clair: #E8F0EA;
+
+      --fond: #F3F5F2;
+      --papier: #FFFFFF;
+
+      --encre: #1B2420;
+      --encre-douce: #526058;
+      --trait: #E1E5E0;
+
+      --ok-fond: #E6F5EA;
+      --ok-texte: #116B36;
+      --ok-trait: #2EA25B;
+
+      --attn-fond: #FFF4DF;
+      --attn-texte: #8C5300;
+      --attn-trait: #E5A024;
+
+      --alerte-fond: #FCEBEA;
+      --alerte-texte: #B8251B;
+      --alerte-trait: #E5534B;
+
+      --gris-inconnu: #CBD1C9;
+
+      --rayon: 8px;
+      --rayon-lg: 14px;
+      --ombre: 0 2px 8px rgba(20, 35, 25, 0.05), 0 10px 25px rgba(20, 35, 25, 0.05);
+      --ombre-forte: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--fond);
+      color: var(--encre);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+    }
+
+    /* BANDEAU SUPÉRIEUR */
+    header {
+      background: var(--vert-nuit);
+      color: #EFF4F0;
+      padding: 16px 20px;
+      border-bottom: 4px solid var(--vert-mousse);
+      transition: background 0.5s ease;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .header-top {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-badge {
+      background: #FFFFFF;
+      padding: 6px 12px;
+      border-radius: var(--rayon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+
+    .logo-badge img {
+      height: 38px;
+      max-height: 40px;
+      max-width: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .titres-entete {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    header p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: #C2D1C8;
+      font-weight: 500;
+    }
+
+    /* PRÉNOM EN HAUT À DROITE */
+    .header-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #EFF4F0;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      white-space: nowrap;
+    }
+
+    .user-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--ok-trait);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px var(--ok-trait);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px 16px 60px;
+    }
+
+    /* CONNEXION */
+    #connexion {
+      max-width: 440px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--papier);
+      padding: 26px 28px;
+      border-radius: var(--rayon-lg);
+      border: 1px solid var(--trait);
+      box-shadow: var(--ombre);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--vert-nuit);
+    }
+
+    .card > p {
+      margin: 0 0 20px;
+      font-size: 13.5px;
+      color: var(--encre-douce);
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--encre);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #CBD1C9;
+      border-radius: var(--rayon);
+      font-size: 15px;
+      font-family: inherit;
+      background: var(--papier);
+      color: var(--encre);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--vert-mousse);
+      box-shadow: 0 0 0 3px rgba(76, 122, 99, 0.2);
+    }
+
+    .champ {
+      margin-bottom: 18px;
+    }
+
+    #connexionBtn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: var(--rayon);
+      background: var(--vert-foret);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.15s ease;
+    }
+
+    #connexionBtn:hover {
+      background: var(--vert-nuit);
+    }
+
+    .message {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: var(--rayon);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .erreur { background: var(--alerte-fond); color: var(--alerte-texte); border: 1px solid var(--alerte-trait); }
+    .succes { background: var(--ok-fond); color: var(--ok-texte); border: 1px solid var(--ok-trait); }
+    .info { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
+
+    /* BARRE IDENTITÉ ADMIN */
+    .barre-agent {
+      background: var(--papier);
+      padding: 16px 20px;
+      border-radius: var(--rayon-lg);
+      border: 1px solid var(--trait);
+      margin-bottom: 20px;
+      box-shadow: var(--ombre);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .identite-agent {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-agent {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--vert-clair);
+      color: var(--vert-foret);
+      border: 2px solid var(--vert-mousse);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .libelle-agent {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--encre-douce);
+    }
+
+    .email {
+      color: var(--encre);
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .actions-agent {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bouton-action {
+      border: 1px solid var(--trait);
+      border-radius: var(--rayon);
+      padding: 9px 14px;
+      font-weight: 600;
+      font-size: 13.5px;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .deconnexion { background: #F4F6F3; color: var(--encre); }
+    .deconnexion:hover { background: #E8EBE5; }
+    .bouton-agent-link { background: var(--vert-foret); color: white; border-color: var(--vert-foret); }
+    .bouton-agent-link:hover { background: var(--vert-nuit); }
+
+    /* STATISTIQUES GLOBALES */
+    .grille-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--papier);
+      padding: 18px 20px;
+      border-radius: var(--rayon-lg);
+      border: 1px solid var(--trait);
+      box-shadow: var(--ombre);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--rayon);
+      background: var(--fond);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .stat-valeur {
+      font-size: 22px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--encre-douce);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* SECTION NOTIFICATIONS PROFESSIONNELLES */
+    .notif-card {
+      background: var(--papier);
+      padding: 24px;
+      border-radius: var(--rayon-lg);
+      border: 1px solid var(--trait);
+      box-shadow: var(--ombre);
+      margin-bottom: 20px;
+    }
+
+    .liste-demandes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .demande-item {
+      background: #FAFCFA;
+      border: 1px solid var(--trait);
+      border-left: 4px solid var(--alerte-trait);
+      padding: 16px 18px;
+      border-radius: var(--rayon);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .demande-info h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      color: var(--vert-nuit);
+    }
+
+    .demande-meta {
+      font-size: 13px;
+      color: var(--encre-douce);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .code-benne {
+      font-family: 'IBM Plex Mono', monospace;
+      background: #EAEFEA;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: var(--encre);
+    }
+
+    .badge-cutoff {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .badge-j1 {
+      background: var(--ok-fond);
+      color: var(--ok-texte);
+      border: 1px solid var(--ok-trait);
+    }
+
+    .badge-j2 {
+      background: var(--attn-fond);
+      color: var(--attn-texte);
+      border: 1px solid var(--attn-trait);
+    }
+
+    /* ÉTAT GLOBAL (A-Z) & LÉGENDE CORRIGÉE */
+    .bar-legend {
+      display: flex;
+      gap: 18px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--encre-douce);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      background: var(--fond);
+      padding: 10px 14px;
+      border-radius: var(--rayon);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .site-row-az {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--trait);
+    }
+
+    .site-row-az:last-child {
+      border-bottom: none;
+    }
+
+    .site-header-az {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .site-name-az {
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--vert-nuit);
+    }
+
+    .site-details-az {
+      font-size: 12px;
+      color: var(--encre-douce);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .multi-bar-container {
+      height: 10px;
+      width: 100%;
+      background: var(--gris-inconnu);
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .bar-segment {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .bar-segment.disponible { background: var(--ok-trait); }
+    .bar-segment.presque { background: var(--attn-trait); }
+    .bar-segment.pleine { background: var(--alerte-trait); }
+    .bar-segment.inconnu { background: var(--gris-inconnu); }
+
+    /* DEUX CLASSEMENTS DISTINCTS */
+    .grille-classements {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .classement-card {
+      background: var(--papier);
+      padding: 22px;
+      border-radius: var(--rayon-lg);
+      border: 1px solid var(--trait);
+      box-shadow: var(--ombre);
+    }
+
+    .classement-card h3 {
+      margin: 0 0 4px;
+      font-size: 17px;
+      color: var(--vert-nuit);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .classement-card p {
+      margin: 0 0 16px;
+      font-size: 13px;
+      color: var(--encre-douce);
+    }
+
+    .classement-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--trait);
+    }
+
+    .classement-item:last-child {
+      border-bottom: none;
+    }
+
+    .classement-gauche {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .classement-rang {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--fond);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--encre-douce);
+    }
+
+    .classement-nom {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .badge-count {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .count-rouge { background: var(--alerte-fond); color: var(--alerte-texte); border: 1px solid var(--alerte-trait); }
+    .count-orange { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
+
+    /* GRILLE D'AGENTS */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .agent-item {
+      background: #FAFCFA;
+      border: 1px solid var(--trait);
+      padding: 12px 14px;
+      border-radius: var(--rayon);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .agent-avatar-mini {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--vert-clair);
+      color: var(--vert-foret);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .agent-nom {
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .agent-role {
+      font-size: 11px;
+      color: var(--encre-douce);
+    }
+
+    @media (max-width: 600px) {
+      .header-top { justify-content: baseline; }
+      .grille-classements { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <div class="header-inner">
-        <div class="brand">
-            <div class="brand-logo">♻️</div>
-            <div class="brand-title">
-                <h1>SICTOM Zone de Dole</h1>
-                <p>Espace d'Administration & Pilotage</p>
-            </div>
+  <!-- BANDEAU SUPÉRIEUR -->
+  <header>
+    <div class="header-top">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="logo.png" alt="SICTOM Zone de Dole">
         </div>
-        <div class="user-badge" id="userBadge">👑 Administration</div>
+      </div>
+
+      <div class="titres-entete">
+        <h1>Administration</h1>
+        <p>SICTOM Zone de Dole — Pilotage & Enlèvements</p>
+      </div>
+
+      <!-- PRÉNOM DE L'UTILISATEUR EN HAUT À DROITE -->
+      <div class="header-user">
+        <span class="user-dot"></span>
+        <span id="prenomHeader">Chargement...</span>
+      </div>
     </div>
-</header>
+  </header>
 
-<div class="container">
+  <!-- FORMULAIRE DE CONNEXION ADMIN -->
+  <div id="connexion">
+    <div class="card">
+      <h2>Connexion Administrateur</h2>
+      <p>Accès réservé au personnel de supervision du SICTOM.</p>
 
-    <div id="loading" class="card">
-        🔄 Chargement du tableau de bord...
+      <div class="champ">
+        <label for="email">Adresse email</label>
+        <input type="email" id="email" placeholder="prenom.nom@sictom-dole.fr">
+      </div>
+
+      <div class="champ">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" placeholder="Mot de passe">
+      </div>
+
+      <button id="connexionBtn">Se connecter à l'administration</button>
+      <div id="messageConnexion" class="message"></div>
     </div>
+  </div>
 
-    <div id="error" class="error"></div>
+  <!-- APPLICATION COMPLÈTE -->
+  <div id="application" style="display: none;">
+    <div class="container">
 
-    <div id="dashboard">
+      <!-- BARRE PROFIL ADMIN -->
+      <div class="barre-agent">
+        <div class="identite-agent">
+          <div class="avatar-agent" id="avatarAgent">·</div>
+          <div>
+            <div class="libelle-agent">Administrateur connecté</div>
+            <div id="nomAdmin" class="email"></div>
+          </div>
+        </div>
 
-        <!-- =========================
-             1. NOTIFICATIONS / ENLEVEMENTS (PREMIER DANS LA PAGE)
-        ========================= -->
-        <div class="card section-enlèvements">
-            <h2 class="card-title">🚨 Demandes d'enlèvement prioritaires</h2>
-            <p class="card-subtitle">
-                Caissons nécessitant une rotation urgente. Planning automatiquement ajusté selon l'heure de commande (Cutoff : 15h30).
+        <div class="actions-agent">
+          <a href="./agent.html" class="bouton-action bouton-agent-link">👷 Espace Agent</a>
+          <button id="deconnexionBtn" class="bouton-action deconnexion">Se déconnecter</button>
+        </div>
+      </div>
+
+      <!-- 1. NOTIFICATIONS D'ENLÈVEMENT PROFESSIONNELLES -->
+      <div class="notif-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h2 style="margin:0; font-size:19px; color:var(--vert-nuit);">📋 Demandes d'enlèvement prioritaires</h2>
+            <p style="margin:4px 0 0; font-size:13px; color:var(--encre-douce);">
+              Ordres de rotation transmis par les agents sur le terrain (Heure limite de traitement : 15h30).
             </p>
-
-            <div id="enlevementsList">
-                ⏳ Analyse des enlèvements...
-            </div>
+          </div>
         </div>
 
-        <!-- STATISTIQUES GLOBALES -->
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-icon">📍</div>
-                <div>
-                    <div id="statSites" class="stat-number">0</div>
-                    <div class="stat-label">Déchèteries</div>
-                </div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">📦</div>
-                <div>
-                    <div id="statFlux" class="stat-number">0</div>
-                    <div class="stat-label">Flux suivis</div>
-                </div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">🔴</div>
-                <div>
-                    <div id="statPleins" class="stat-number">0</div>
-                    <div class="stat-label">Caissons pleins</div>
-                </div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">🟠</div>
-                <div>
-                    <div id="statPresque" class="stat-number">0</div>
-                    <div class="stat-label">Presque pleins</div>
-                </div>
-            </div>
+        <div id="listeEnlevements" class="liste-demandes">
+          <div class="message info" style="display:block;">Analyse des demandes d'enlèvement...</div>
+        </div>
+      </div>
+
+      <!-- 2. STATISTIQUES GLOBALES -->
+      <div class="grille-stats">
+        <div class="stat-card">
+          <div class="stat-icon">📍</div>
+          <div>
+            <div id="statSites" class="stat-valeur">0</div>
+            <div class="stat-label">Déchèteries activement suivies</div>
+          </div>
         </div>
 
-        <!-- =========================
-             2. ETAT GLOBAL DES DECHETERIES (A-Z + BARS PROPORTIONNELLES)
-        ========================= -->
-        <div class="card">
-            <h2 class="card-title">📊 État global des déchèteries (A-Z)</h2>
-            <p class="card-subtitle">
-                Répartition proportionnelle des états de caissons par site (Vert = Disponible, Orange = Presque plein, Rouge = Plein, Gris = Non renseigné).
-            </p>
-
-            <div class="bar-legend">
-                <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Disponible</div>
-                <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Presque plein</div>
-                <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Plein</div>
-                <div class="legend-item"><div class="legend-dot" style="background:var(--grey)"></div>Non renseigné</div>
-            </div>
-            <br>
-
-            <div id="sitesAZ">
-                ⏳ Chargement des sites...
-            </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔴</div>
+          <div>
+            <div id="statPleins" class="stat-valeur">0</div>
+            <div class="stat-label">Caissons actuellement pleins</div>
+          </div>
         </div>
 
-        <!-- =========================
-             3. CLASSEMENT PAR NIVEAU DE REMPLISSAGE
-        ========================= -->
-        <div class="card">
-            <h2 class="card-title">🏆 Déchèteries les plus sollicitées</h2>
-            <p class="card-subtitle">
-                Classement par nombre de caissons pleins et à surveiller.
-            </p>
-
-            <div id="classementPleins">
-                ⏳ Calcul du classement...
-            </div>
+        <div class="stat-card">
+          <div class="stat-icon">🟠</div>
+          <div>
+            <div id="statPresque" class="stat-valeur">0</div>
+            <div class="stat-label">Caissons presque pleins</div>
+          </div>
         </div>
 
-        <!-- =========================
-             4. LISTE DES AGENTS
-        ========================= -->
-        <div class="card">
-            <h2 class="card-title">👥 Agents et Utilisateurs</h2>
-            <p class="card-subtitle">
-                Comptes enregistrés et rôles associés dans la zone Dole.
-            </p>
+        <div class="stat-card">
+          <div class="stat-icon">🟢</div>
+          <div>
+            <div id="statDispo" class="stat-valeur">0</div>
+            <div class="stat-label">Caissons disponibles</div>
+          </div>
+        </div>
+      </div>
 
-            <div id="agentsGrid" class="agents-grid">
-                ⏳ Chargement des agents...
-            </div>
+      <!-- 3. ÉTAT GLOBAL DES DÉCHÈTERIES (A-Z) AVEC LÉGENDE CORRIGÉE -->
+      <div class="card">
+        <h2>📊 État global des déchèteries (A-Z)</h2>
+        <p>Répartition proportionnelle du statut des caissons par site.</p>
+
+        <!-- LÉGENDE CONFORME : VERT = DISPONIBLE, GRIS = NON RENSEIGNÉ -->
+        <div class="bar-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--ok-trait)"></div> Disponible</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--attn-trait)"></div> Presque pleine</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--alerte-trait)"></div> Pleine</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--gris-inconnu)"></div> Non renseigné</div>
         </div>
 
-        <!-- ACTIONS & NAVIGATION -->
-        <div class="card">
-            <h2 class="card-title">⚙️ Accès rapides</h2>
-            <div class="buttons">
-                <a class="button green-button" href="./agent.html">👷 Espace Agent</a>
-                <a class="button" href="./index.html">🏠 Site public</a>
-                <button id="logout" class="button red-button">🚪 Déconnexion</button>
-            </div>
+        <div id="sitesAZ">
+          <div class="message info" style="display:block;">Chargement de l'état des sites...</div>
         </div>
+      </div>
+
+      <!-- 4. DEUX CLASSEMENTS SEPARÉS -->
+      <div class="grille-classements">
+        <!-- CLASSEMENT 1 : PLEINES -->
+        <div class="classement-card">
+          <h3>🔴 Bennes Pleines</h3>
+          <p>Sites nécessitant des enlèvements urgents.</p>
+          <div id="classementPleines">Chargement...</div>
+        </div>
+
+        <!-- CLASSEMENT 2 : PRESQUE PLEINES -->
+        <div class="classement-card">
+          <h3>🟠 Bennes Presque Pleines</h3>
+          <p>Sites à surveiller pour le prochain tour de collecte.</p>
+          <div id="classementPresques">Chargement...</div>
+        </div>
+      </div>
+
+      <!-- 5. AGENTS ET UTILISATEURS -->
+      <div class="card">
+        <h2>👥 Équipe & Agents enregistrés</h2>
+        <p>Utilisateurs autorisés sur la zone Dole.</p>
+
+        <div id="agentsGrid" class="agents-grid">
+          <div class="message info" style="display:block;">Chargement des agents...</div>
+        </div>
+      </div>
 
     </div>
-</div>
+  </div>
 
-<!-- SDK FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+  <!-- FIREBASE SDK -->
+  <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
 
-<script>
-const firebaseConfig = {
-    apiKey: "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
-    authDomain: "sictom-zone-de-dole-17296.firebaseapp.com",
-    projectId: "sictom-zone-de-dole-17296",
-    storageBucket: "sictom-zone-de-dole-17296.firebasestorage.app",
-    messagingSenderId: "378183859073",
-    appId: "1:378183859073:web:3b347f84a072fb0cb54680"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-const loading = document.getElementById("loading");
-const errorBox = document.getElementById("error");
-const dashboard = document.getElementById("dashboard");
-
-let donneesSites = {};
-
-function nomSite(id) {
-    const noms = {
-        "brevans": "Brevans",
-        "chaussin": "Chaussin",
-        "dampierre": "Dampierre",
-        "dole": "Dole",
-        "mont-sous-vaudrey": "Mont-sous-Vaudrey",
-        "montmirey-le-chateau": "Montmirey-le-Château",
-        "saligney": "Saligney",
-        "tavaux": "Tavaux",
-        "villers-farlay": "Villers-Farlay"
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s",
+      authDomain: "sictom-zone-de-dole-17296.firebaseapp.com",
+      projectId: "sictom-zone-de-dole-17296",
+      storageBucket: "sictom-zone-de-dole-17296.firebasestorage.app",
+      messagingSenderId: "378183859073",
+      appId: "1:378183859073:web:3b347f84a072fb0cb54680"
     };
-    return noms[id] || id.charAt(0).toUpperCase() + id.slice(1);
-}
 
-function nomFlux(id, data) {
-    if (data && data.nom) return data.nom;
-    const noms = {
-        "bois-a": "🪵 Bois A",
-        "bois-b": "🪵 Bois B",
-        "mobilier": "🛋️ Mobilier",
-        "carton": "📦 Carton",
-        "gravats": "🪨 Gravats",
-        "ferraille": "🔩 Ferraille",
-        "plastique-dur": "🧴 Plastique dur",
-        "tout-venant": "🗑️ Tout-venant"
-    };
-    return noms[id] || id;
-}
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-/* =========================
-   LOGIQUE DE PLANNING 15H30
-========================= */
-function evaluerPlanning15h30(timestamp) {
-    if (!timestamp) return { badge: '<span class="planning-badge badge-avant-15h">⚡ Traitement Demain</span>', dateText: 'Non spécifié' };
-    
-    let d;
-    try {
-        d = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    } catch(e) {
-        d = new Date();
+    const connexion = document.getElementById("connexion");
+    const application = document.getElementById("application");
+    const prenomHeader = document.getElementById("prenomHeader");
+    const nomAdmin = document.getElementById("nomAdmin");
+    const avatarAgent = document.getElementById("avatarAgent");
+
+    let donneesSites = {};
+
+    function formatNomSite(id) {
+      const noms = {
+        "brevans": "Brevans", "chaussin": "Chaussin", "dampierre": "Dampierre",
+        "dole": "Dole", "mont-sous-vaudrey": "Mont-sous-Vaudrey",
+        "montmirey-le-chateau": "Montmirey-le-Château", "saligney": "Saligney",
+        "tavaux": "Tavaux", "villers-farlay": "Villers-Farlay"
+      };
+      return noms[id] || id.charAt(0).toUpperCase() + id.slice(1);
     }
 
-    const heures = d.getHours();
-    const minutes = d.getMinutes();
-    const apres15h30 = (heures > 15) || (heures === 15 && minutes >= 30);
-    
-    const dateFormatee = d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }) + ' à ' + 
-                         d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    function formatNomFlux(id, data) {
+      if (data && data.nom) return data.nom;
+      const noms = {
+        "bois-a": "🪵 Bois A", "bois-b": "🪵 Bois B", "mobilier": "🛋️ Mobilier",
+        "carton": "📦 Carton", "gravats": "🪨 Gravats", "ferraille": "🔩 Ferraille",
+        "plastique-dur": "🧴 Plastique dur", "tout-venant": "🗑️ Tout-venant", "platre": "🧱 Plâtre"
+      };
+      return noms[id] || id;
+    }
 
-    if (apres15h30) {
+    /* GESTION DE LA RÈGLE DES 15H30 */
+    function evaluerCutoff15h30(timestamp) {
+      if (!timestamp) return { badge: '<span class="badge-cutoff badge-j1">⚡ Traitement Demain (J+1)</span>', dateFormatee: 'Non daté' };
+      
+      let dateObj = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      const heure = dateObj.getHours();
+      const minute = dateObj.getMinutes();
+      const apres15h30 = (heure > 15) || (heure === 15 && minute >= 30);
+
+      const strDate = dateObj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }) + ' à ' +
+                      dateObj.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+      if (apres15h30) {
         return {
-            badge: '<span class="planning-badge badge-apres-15h">⏰ Commande > 15h30 — Traitement à J+2</span>',
-            dateText: dateFormatee
+          badge: '<span class="badge-cutoff badge-j2">⏰ Traitement à J+2 (Commande après 15h30)</span>',
+          dateFormatee: strDate
         };
-    } else {
+      } else {
         return {
-            badge: '<span class="planning-badge badge-avant-15h">⚡ Commande < 15h30 — Traitement Demain</span>',
-            dateText: dateFormatee
+          badge: '<span class="badge-cutoff badge-j1">⚡ Traitement Demain (J+1)</span>',
+          dateFormatee: strDate
         };
-    }
-}
-
-/* =========================
-   CHARGER & AFFICHER ENLEVEMENTS
-========================= */
-function afficherEnlevementsPrioritaires() {
-    const listContainer = document.getElementById("enlevementsList");
-    let enlevements = [];
-
-    Object.keys(donneesSites).forEach(siteId => {
-        const site = donneesSites[siteId];
-        site.flux.forEach(f => {
-            if (f.data.statut === "pleine") {
-                enlevements.push({
-                    siteId: siteId,
-                    siteNom: nomSite(siteId),
-                    fluxId: f.id,
-                    fluxNom: nomFlux(f.id, f.data),
-                    timestamp: f.data.miseAJour
-                });
-            }
-        });
-    });
-
-    if (enlevements.length === 0) {
-        listContainer.innerHTML = `
-            <div style="background:#e8f5e9; color:#2e7d32; padding:14px; border-radius:12px; font-weight:bold;">
-                ✅ Aucun enlèvement urgent requis pour le moment.
-            </div>
-        `;
-        return;
+      }
     }
 
-    let html = "";
-    enlevements.forEach(item => {
-        const planning = evaluerPlanning15h30(item.timestamp);
-        html += `
-            <div class="enlevement-card">
-                <div class="enlevement-info">
-                    <div class="enlevement-site">📍 Déchèterie de ${item.siteNom}</div>
-                    <div class="enlevement-flux">Caisson : <strong>${item.fluxNom}</strong> (Mise à jour : ${planning.dateText})</div>
-                </div>
-                <div>
-                    ${planning.badge}
-                </div>
-            </div>
-        `;
-    });
+    /* CHARGER LE PROFIL ET AFFICHER LE PRÉNOM EN HAUT À DROITE */
+    async function chargerProfilAdmin(user) {
+      let prenomAffichage = "Admin";
+      let nomComplet = user.email;
 
-    listContainer.innerHTML = html;
-}
+      try {
+        const doc = await db.collection("users").doc(user.uid).get();
+        if (doc.exists) {
+          const data = doc.data();
+          if (data.prenom && data.prenom.trim() !== "") {
+            prenomAffichage = data.prenom.trim();
+          } else if (user.email) {
+            prenomAffichage = user.email.split('@')[0];
+          }
 
-/* =========================
-   CHARGER ETAT GLOBAL A-Z
-========================= */
-function afficherEtatGlobalAZ() {
-    const container = document.getElementById("sitesAZ");
-    const sitesSorted = Object.keys(donneesSites).sort((a, b) => nomSite(a).localeCompare(nomSite(b), 'fr'));
+          if (data.prenom || data.nom) {
+            nomComplet = [data.prenom, data.nom].filter(Boolean).join(" ");
+          }
+        }
+      } catch(e) {
+        console.error("Erreur profil admin:", e);
+      }
 
-    if (sitesSorted.length === 0) {
-        container.innerHTML = '<div style="color:var(--text-muted)">Aucune donnée disponible.</div>';
-        return;
+      // Inscription du prénom en haut à droite
+      prenomHeader.textContent = prenomAffichage;
+      nomAdmin.textContent = nomComplet;
+      avatarAgent.textContent = prenomAffichage.charAt(0).toUpperCase();
     }
 
-    let html = "";
-    sitesSorted.forEach(siteId => {
-        const site = donneesSites[siteId];
-        const total = site.total || 1; 
-        
-        const pctPleine = (site.pleins / total) * 100;
-        const pctPresque = (site.presque / total) * 100;
-        const pctDispo = (site.disponibles / total) * 100;
-        const pctInconnu = (site.inconnus / total) * 100;
+    /* AFFICHER LES DEMANDES D'ENLÈVEMENT ET NOTIFICATIONS */
+    async function chargerDemandesEnlevement() {
+      const container = document.getElementById("listeEnlevements");
+      try {
+        const snapshot = await db.collection("demandes_enlevement")
+                                  .where("statutDemande", "==", "en_attente")
+                                  .get();
 
-        html += `
-            <div class="site-row-az">
-                <div class="site-header-az">
-                    <span class="site-name-az">${nomSite(siteId)}</span>
-                    <span class="site-details-az">${site.pleins} pleins · ${site.presque} presque pleins · ${site.total} caissons</span>
-                </div>
-                <div class="multi-bar-container">
-                    <div class="bar-segment pleine" style="width: ${pctPleine}%" title="Pleins: ${site.pleins}"></div>
-                    <div class="bar-segment presque" style="width: ${pctPresque}%" title="Presque pleins: ${site.presque}"></div>
-                    <div class="bar-segment disponible" style="width: ${pctDispo}%" title="Disponibles: ${site.disponibles}"></div>
-                    <div class="bar-segment inconnu" style="width: ${pctInconnu}%" title="Non renseignés: ${site.inconnus}"></div>
-                </div>
-            </div>
-        `;
-    });
-
-    container.innerHTML = html;
-}
-
-/* =========================
-   CLASSEMENT
-========================= */
-function afficherClassement() {
-    const container = document.getElementById("classementPleins");
-    const liste = Object.keys(donneesSites).map(id => ({
-        id: id,
-        nom: nomSite(id),
-        pleins: donneesSites[id].pleins,
-        presque: donneesSites[id].presque
-    })).sort((a, b) => b.pleins - a.pleins || b.presque - a.presque);
-
-    let html = "";
-    liste.forEach((item, index) => {
-        const badgeClass = item.pleins > 0 ? 'red' : (item.presque > 0 ? 'orange' : 'zero');
-        html += `
-            <div class="classement-item">
-                <div class="classement-gauche">
-                    <div class="classement-rang">${index + 1}</div>
-                    <div>
-                        <strong>${item.nom}</strong>
-                        <div style="font-size:12px; color:var(--text-muted);">${item.presque} caisson(s) presque plein(s)</div>
-                    </div>
-                </div>
-                <div class="classement-score ${badgeClass}">
-                    🔴 ${item.pleins} plein(s)
-                </div>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-/* =========================
-   CHARGER AGENTS
-========================= */
-async function chargerAgents() {
-    const container = document.getElementById("agentsGrid");
-    try {
-        const snapshot = await db.collection("users").get();
         if (snapshot.empty) {
-            container.innerHTML = '<div>Aucun agent inscrit.</div>';
-            return;
+          container.innerHTML = `
+            <div class="message succes" style="display:block;">
+              ✅ Aucune demande d'enlèvement en attente pour le moment.
+            </div>
+          `;
+          return;
         }
 
         let html = "";
         snapshot.forEach(doc => {
-            const data = doc.data();
-            const nom = [data.prenom, data.nom].filter(Boolean).join(" ") || data.email || "Utilisateur";
-            const initiales = nom.substring(0, 2).toUpperCase();
-            const role = data.role === "admin" ? "Admin" : "Agent";
-            const roleClass = data.role === "admin" ? "role-admin" : "role-agent";
+          const d = doc.data();
+          const cutoffInfo = evaluerCutoff15h30(d.dateDemande);
 
-            html += `
-                <div class="agent-card">
-                    <div class="agent-avatar">${initiales}</div>
-                    <div class="agent-details">
-                        <div class="agent-name">${nom}</div>
-                        <div class="agent-email">${data.email || ''}</div>
-                    </div>
-                    <span class="role-tag ${roleClass}">${role}</span>
+          html += `
+            <div class="demande-item">
+              <div class="demande-info">
+                <h4>📍 Déchèterie de ${d.site || formatNomSite(d.siteId)}</h4>
+                <div class="demande-meta">
+                  <span>Flux : <strong>${formatNomFlux(d.flux)}</strong></span>
+                  ${d.numeroBenne ? `<span class="code-benne">Benne ${d.numeroBenne}</span>` : ''}
+                  <span>Par : ${d.agent} (${cutoffInfo.dateFormatee})</span>
                 </div>
-            `;
+              </div>
+              <div>
+                ${cutoffInfo.badge}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch(e) {
+        container.innerHTML = `<div class="message erreur" style="display:block;">Erreur de chargement des demandes : ${e.message}</div>`;
+      }
+    }
+
+    /* AFFICHER ÉTAT GLOBAL (A-Z) AVEC LÉGENDE ET COULEURS EXACTES */
+    function afficherEtatGlobalAZ() {
+      const container = document.getElementById("sitesAZ");
+      const sitesTries = Object.keys(donneesSites).sort((a, b) => formatNomSite(a).localeCompare(formatNomSite(b), 'fr'));
+
+      if (sitesTries.length === 0) {
+        container.innerHTML = `<div class="message info" style="display:block;">Aucune donnée enregistrée dans la base.</div>`;
+        return;
+      }
+
+      let html = "";
+      sitesTries.forEach(siteId => {
+        const site = donneesSites[siteId];
+        const total = site.total || 1;
+
+        const pctDispo = (site.disponibles / total) * 100;
+        const pctPresque = (site.presque / total) * 100;
+        const pctPleine = (site.pleins / total) * 100;
+        const pctInconnu = (site.inconnus / total) * 100;
+
+        html += `
+          <div class="site-row-az">
+            <div class="site-header-az">
+              <span class="site-name-az">${formatNomSite(siteId)}</span>
+              <span class="site-details-az">${site.pleins} pleines · ${site.presque} presque · ${site.disponibles} disponibles</span>
+            </div>
+            <div class="multi-bar-container">
+              <div class="bar-segment disponible" style="width: ${pctDispo}%" title="Disponibles: ${site.disponibles}"></div>
+              <div class="bar-segment presque" style="width: ${pctPresque}%" title="Presque pleines: ${site.presque}"></div>
+              <div class="bar-segment pleine" style="width: ${pctPleine}%" title="Pleines: ${site.pleins}"></div>
+              <div class="bar-segment inconnu" style="width: ${pctInconnu}%" title="Non renseignés: ${site.inconnus}"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    /* AFFICHER DEUX CLASSEMENTS DISTINCTS (PLEINES & PRESQUE) */
+    function afficherDeuxClassements() {
+      const containerPleines = document.getElementById("classementPleines");
+      const containerPresques = document.getElementById("classementPresques");
+
+      const listeSites = Object.keys(donneesSites).map(id => ({
+        id: id,
+        nom: formatNomSite(id),
+        pleins: donneesSites[id].pleins,
+        presque: donneesSites[id].presque
+      }));
+
+      // Classement 1: Bennes Pleines
+      const triePleines = [...listeSites].sort((a, b) => b.pleins - a.pleins);
+      let htmlPleines = "";
+      triePleines.forEach((item, index) => {
+        htmlPleines += `
+          <div class="classement-item">
+            <div class="classement-gauche">
+              <div class="classement-rang">${index + 1}</div>
+              <div class="classement-nom">${item.nom}</div>
+            </div>
+            <div class="badge-count count-rouge">${item.pleins} pleine(s)</div>
+          </div>
+        `;
+      });
+      containerPleines.innerHTML = htmlPleines;
+
+      // Classement 2: Bennes Presque Pleines
+      const triePresques = [...listeSites].sort((a, b) => b.presque - a.presque);
+      let htmlPresques = "";
+      triePresques.forEach((item, index) => {
+        htmlPresques += `
+          <div class="classement-item">
+            <div class="classement-gauche">
+              <div class="classement-rang">${index + 1}</div>
+              <div class="classement-nom">${item.nom}</div>
+            </div>
+            <div class="badge-count count-orange">${item.presque} presque</div>
+          </div>
+        `;
+      });
+      containerPresques.innerHTML = htmlPresques;
+    }
+
+    /* CHARGEMENT DES AGENTS ENREGISTRÉS */
+    async function chargerAgents() {
+      const container = document.getElementById("agentsGrid");
+      try {
+        const snapshot = await db.collection("users").get();
+        if (snapshot.empty) {
+          container.innerHTML = '<div>Aucun agent enregistré.</div>';
+          return;
+        }
+
+        let html = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const prenom = data.prenom || "";
+          const nom = data.nom || "";
+          const nomComplet = [prenom, nom].filter(Boolean).join(" ") || data.email || "Agent";
+          const initiales = prenom ? prenom.charAt(0).toUpperCase() : nomComplet.charAt(0).toUpperCase();
+
+          html += `
+            <div class="agent-item">
+              <div class="agent-avatar-mini">${initiales}</div>
+              <div>
+                <div class="agent-nom">${nomComplet}</div>
+                <div class="agent-role">${data.role === 'admin' ? '👑 Administrateur' : '👷 Agent déchèterie'}</div>
+              </div>
+            </div>
+          `;
         });
         container.innerHTML = html;
-    } catch(e) {
-        container.innerHTML = '<div style="color:var(--red);">Erreur lors du chargement des agents.</div>';
+      } catch(e) {
+        container.innerHTML = '<div class="message erreur" style="display:block;">Erreur chargement agents.</div>';
+      }
     }
-}
 
-/* =========================
-   SYNCHRONISATION FIRESTORE
-========================= */
-function chargerFlux() {
-    db.collectionGroup("flux").onSnapshot(snapshot => {
+    /* SYNCHRONISATION FIRESTORE TEMPS RÉEL */
+    function ecouterFluxTempsReel() {
+      db.collectionGroup("flux").onSnapshot(snapshot => {
         donneesSites = {};
-        let totalFlux = 0, totalPleins = 0, totalPresque = 0;
+        let totalPleins = 0, totalPresque = 0, totalDispo = 0;
 
         snapshot.forEach(doc => {
-            const chemin = doc.ref.path.split("/");
-            if (chemin.length < 4) return;
-            const siteId = chemin[1];
-            const fluxId = chemin[3];
-            const data = doc.data();
+          const pathParts = doc.ref.path.split("/");
+          if (pathParts.length < 4) return;
+          const siteId = pathParts[1];
+          const fluxId = pathParts[3];
+          const data = doc.data();
 
-            if (!donneesSites[siteId]) {
-                donneesSites[siteId] = { flux: [], total: 0, pleins: 0, presque: 0, disponibles: 0, inconnus: 0 };
-            }
+          if (!donneesSites[siteId]) {
+            donneesSites[siteId] = { flux: [], total: 0, pleins: 0, presque: 0, disponibles: 0, inconnus: 0 };
+          }
 
-            donneesSites[siteId].flux.push({ id: fluxId, data: data });
-            donneesSites[siteId].total++;
-            totalFlux++;
+          donneesSites[siteId].flux.push({ id: fluxId, data: data });
+          donneesSites[siteId].total++;
 
-            if (data.statut === "pleine") {
-                donneesSites[siteId].pleins++;
-                totalPleins++;
-            } else if (data.statut === "presque") {
-                donneesSites[siteId].presque++;
-                totalPresque++;
-            } else if (data.statut === "disponible") {
-                donneesSites[siteId].disponibles++;
-            } else {
-                donneesSites[siteId].inconnus++;
-            }
+          if (data.statut === "pleine") {
+            donneesSites[siteId].pleins++;
+            totalPleins++;
+          } else if (data.statut === "presque") {
+            donneesSites[siteId].presque++;
+            totalPresque++;
+          } else if (data.statut === "disponible") {
+            donneesSites[siteId].disponibles++;
+            totalDispo++;
+          } else {
+            donneesSites[siteId].inconnus++;
+          }
         });
 
         document.getElementById("statSites").textContent = Object.keys(donneesSites).length;
-        document.getElementById("statFlux").textContent = totalFlux;
         document.getElementById("statPleins").textContent = totalPleins;
         document.getElementById("statPresque").textContent = totalPresque;
+        document.getElementById("statDispo").textContent = totalDispo;
 
-        afficherEnlevementsPrioritaires();
         afficherEtatGlobalAZ();
-        afficherClassement();
-    });
-}
-
-/* =========================
-   AUTH & INITIALISATION
-========================= */
-auth.onAuthStateChanged(user => {
-    if (!user) {
-        loading.style.display = "none";
-        errorBox.style.display = "block";
-        errorBox.textContent = "❌ Connexion requise.";
-        return;
+        afficherDeuxClassements();
+      });
     }
 
-    db.collection("users").doc(user.uid).get().then(doc => {
-        if (doc.exists && doc.data().role === "admin") {
-            loading.style.display = "none";
-            dashboard.style.display = "block";
-            document.getElementById("userBadge").textContent = "👑 " + (user.email || "Admin");
-            chargerAgents();
-            chargerFlux();
-        } else {
-            loading.style.display = "none";
-            errorBox.style.display = "block";
-            errorBox.textContent = "❌ Accès réservé aux administrateurs.";
-        }
-    });
-});
+    /* AUTHENTIFICATION & DÉCONNEXION */
+    auth.onAuthStateChanged(async user => {
+      if (!user) {
+        connexion.style.display = "block";
+        application.style.display = "none";
+        return;
+      }
 
-document.getElementById("logout").addEventListener("click", () => {
-    auth.signOut().then(() => window.location.href = "./index.html");
-});
-</script>
+      const docUser = await db.collection("users").doc(user.uid).get();
+      if (docUser.exists && docUser.data().role === "admin") {
+        connexion.style.display = "none";
+        application.style.display = "block";
+
+        await chargerProfilAdmin(user);
+        chargerDemandesEnlevement();
+        chargerAgents();
+        ecouterFluxTempsReel();
+      } else {
+        connexion.style.display = "block";
+        application.style.display = "none";
+        const msg = document.getElementById("messageConnexion");
+        msg.className = "message erreur";
+        msg.style.display = "block";
+        msg.textContent = "❌ Accès refusé : Votre compte n'a pas les privilèges administrateur.";
+      }
+    });
+
+    document.getElementById("connexionBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("messageConnexion");
+
+      if (!email || !password) {
+        msg.className = "message erreur";
+        msg.style.display = "block";
+        msg.textContent = "Veuillez renseigner votre email et mot de passe.";
+        return;
+      }
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+      } catch(e) {
+        msg.className = "message erreur";
+        msg.style.display = "block";
+        msg.textContent = "Erreur de connexion : " + e.message;
+      }
+    });
+
+    document.getElementById("deconnexionBtn").addEventListener("click", () => {
+      auth.signOut();
+    });
+  </script>
 </body>
 </html>
