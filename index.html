@@ -13,7 +13,48 @@ rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 >
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
 <style>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root {
+
+    --vert-nuit: #14342A;
+    --vert-foret: #1B4B3A;
+    --vert-mousse: #4C7A63;
+    --vert-clair: #E8F0EA;
+
+    --fond: #F5F6F3;
+    --papier: #FFFFFF;
+
+    --encre: #1B2420;
+    --encre-douce: #5B665F;
+    --trait: #E1E4DF;
+
+    --ok-fond: #E4F3E8;
+    --ok-texte: #1E6B3E;
+    --ok-trait: #B7DEC3;
+
+    --attn-fond: #FDF1DC;
+    --attn-texte: #8A5A00;
+    --attn-trait: #F1D79E;
+
+    --alerte-fond: #FBE6E4;
+    --alerte-texte: #B23227;
+    --alerte-trait: #F0C0BB;
+
+    --rayon: 6px;
+    --rayon-lg: 10px;
+    --ombre: 0 1px 2px rgba(20, 30, 25, 0.06), 0 8px 24px rgba(20, 30, 25, 0.06);
+
+}
+
 
 /* =====================================================
    BASE
@@ -29,17 +70,15 @@ html {
 
 body {
     margin: 0;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-
-    background: #f3f7f4;
-    color: #17231b;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--fond);
+    color: var(--encre);
     line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
 
@@ -48,72 +87,47 @@ body {
 ===================================================== */
 
 header {
-    position: relative;
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(255,255,255,0.14),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(255,255,255,0.10),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #056b34,
-            #12a653
-        );
-
-    color: white;
-
-    padding: 48px 20px 62px;
-
-    text-align: center;
+    background: var(--vert-nuit);
+    color: #EFF4F0;
+    padding: 30px 20px 26px;
+    border-bottom: 3px solid var(--vert-mousse);
 }
 
-header::after {
-    content: "";
+.header-inner {
+    max-width: 1050px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
 
-    position: absolute;
-
-    left: -5%;
-    right: -5%;
-    bottom: -38px;
-
-    height: 75px;
-
-    background: #f3f7f4;
-
-    border-radius: 50% 50% 0 0;
+.marque {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--rayon);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
 }
 
 header h1 {
-    position: relative;
-    z-index: 2;
-
     margin: 0;
-
-    font-size: 34px;
-    font-weight: 800;
-
-    letter-spacing: -0.7px;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 header p {
-    position: relative;
-    z-index: 2;
-
-    margin: 12px auto 0;
-
-    max-width: 600px;
-
-    font-size: 16px;
-
-    opacity: 0.92;
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    color: #B8C7BE;
 }
 
 
@@ -122,14 +136,9 @@ header p {
 ===================================================== */
 
 .container {
-    position: relative;
-    z-index: 3;
-
     max-width: 1050px;
-
     margin: auto;
-
-    padding: 15px 20px 40px;
+    padding: 22px 20px 50px;
 }
 
 
@@ -139,47 +148,25 @@ header p {
 
 .bouton-agent {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 8px;
-
-    margin: 0 auto 22px;
-
-    padding: 14px 18px;
-
-    background: #17231b;
-
-    color: white;
-
+    margin: 0 auto 20px;
+    padding: 12px 18px;
+    background: var(--papier);
+    color: var(--vert-nuit);
     text-decoration: none;
-
-    border-radius: 13px;
-
-    font-weight: 700;
-    font-size: 15px;
-
-    box-shadow:
-        0 6px 18px rgba(23,35,27,0.15);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    border-radius: var(--rayon);
+    border: 1px solid var(--trait);
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: var(--ombre);
+    transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .bouton-agent:hover {
-    background: #0d1711;
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 9px 22px rgba(23,35,27,0.20);
-}
-
-.bouton-agent:active {
-    transform: scale(0.98);
+    border-color: var(--vert-mousse);
+    background: var(--vert-clair);
 }
 
 
@@ -188,56 +175,34 @@ header p {
 ===================================================== */
 
 .search {
-    position: relative;
-
-    background: rgba(255,255,255,0.96);
-
-    padding: 10px;
-
-    border-radius: 17px;
-
-    box-shadow:
-        0 8px 30px rgba(23,35,27,0.08);
-
-    border: 1px solid rgba(0,0,0,0.04);
-
-    backdrop-filter: blur(10px);
+    background: var(--papier);
+    padding: 6px;
+    border-radius: var(--rayon-lg);
+    box-shadow: var(--ombre);
+    border: 1px solid var(--trait);
 }
 
 .search input {
     width: 100%;
-
-    padding: 16px 18px;
-
-    border: 1px solid #e1e7e3;
-
-    border-radius: 12px;
-
-    background: #f8faf9;
-
-    color: #17231b;
-
-    font-size: 16px;
-
+    padding: 13px 15px;
+    border: 1px solid var(--trait);
+    border-radius: var(--rayon);
+    background: var(--fond);
+    color: var(--encre);
+    font-size: 15px;
+    font-family: inherit;
     outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .search input::placeholder {
-    color: #89938d;
+    color: #8E978F;
 }
 
 .search input:focus {
-    background: white;
-
-    border-color: #18a558;
-
-    box-shadow:
-        0 0 0 4px rgba(24,165,88,0.10);
+    background: var(--papier);
+    border-color: var(--vert-mousse);
+    box-shadow: 0 0 0 3px rgba(76, 122, 99, 0.15);
 }
 
 
@@ -246,28 +211,9 @@ header p {
 ===================================================== */
 
 h2 {
-    margin: 32px 0 14px;
-
-    font-size: 24px;
-
-    font-weight: 800;
-
-    letter-spacing: -0.3px;
-}
-
-h2::after {
-    content: "";
-
-    display: block;
-
-    width: 42px;
-    height: 4px;
-
-    margin-top: 7px;
-
-    background: #18a558;
-
-    border-radius: 10px;
+    margin: 30px 0 12px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 
@@ -277,17 +223,11 @@ h2::after {
 
 #map {
     height: 440px;
-
-    border-radius: 20px;
-
-    margin-top: 10px;
-
+    border-radius: var(--rayon-lg);
+    margin-top: 6px;
     overflow: hidden;
-
-    box-shadow:
-        0 10px 30px rgba(23,35,27,0.12);
-
-    border: 4px solid white;
+    box-shadow: var(--ombre);
+    border: 1px solid var(--trait);
 }
 
 
@@ -297,30 +237,21 @@ h2::after {
 
 .leaflet-control-zoom {
     border: none !important;
-
-    box-shadow:
-        0 4px 14px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 2px 10px rgba(20,30,25,0.15) !important;
 }
 
 .leaflet-control-zoom a {
     border: none !important;
-
-    color: #17231b !important;
+    color: var(--encre) !important;
 }
 
 .leaflet-popup-content-wrapper {
-    border-radius: 14px;
+    border-radius: var(--rayon-lg);
 }
 
 .leaflet-popup-content {
-    margin: 15px 18px;
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    margin: 14px 16px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 
@@ -330,63 +261,43 @@ h2::after {
 
 .legend {
     display: flex;
-
     align-items: center;
-
-    gap: 10px 22px;
-
+    gap: 8px 20px;
     flex-wrap: wrap;
-
-    background: white;
-
-    padding: 15px 18px;
-
+    background: var(--papier);
+    padding: 14px 16px;
     margin-top: 14px;
-
-    border-radius: 14px;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,0.06);
-
-    border: 1px solid #edf1ee;
+    border-radius: var(--rayon-lg);
+    box-shadow: var(--ombre);
+    border: 1px solid var(--trait);
 }
 
 .legend span {
     display: flex;
-
     align-items: center;
-
     gap: 7px;
-
     font-size: 13px;
-
     font-weight: 600;
-
-    color: #56635b;
+    color: var(--encre-douce);
 }
 
 .dot {
-    width: 11px;
-    height: 11px;
-
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-
     display: inline-block;
-
-    box-shadow:
-        0 0 0 3px rgba(0,0,0,0.03);
 }
 
 .green {
-    background: #18a558;
+    background: var(--ok-texte);
 }
 
 .orange {
-    background: #f0a500;
+    background: var(--attn-texte);
 }
 
 .red {
-    background: #d62828;
+    background: var(--alerte-texte);
 }
 
 
@@ -395,29 +306,20 @@ h2::after {
 ===================================================== */
 
 .firebase-status {
-    margin-top: 15px;
-
-    padding: 13px 16px;
-
-    background: #eef5f1;
-
-    border: 1px solid #dce9e1;
-
-    border-radius: 12px;
-
+    margin-top: 14px;
+    padding: 12px 15px;
+    background: var(--ok-fond);
+    border: 1px solid var(--ok-trait);
+    color: var(--ok-texte);
+    border-radius: var(--rayon);
     font-size: 13px;
-
     font-weight: 600;
-
-    color: #526159;
 }
 
 .firebase-status.erreur {
-    background: #fff0f0;
-
-    border-color: #ffd0d0;
-
-    color: #c62828;
+    background: var(--alerte-fond);
+    border-color: var(--alerte-trait);
+    color: var(--alerte-texte);
 }
 
 
@@ -426,83 +328,62 @@ h2::after {
 ===================================================== */
 
 .fiche {
-    background: white;
-
-    margin-top: 25px;
-
-    padding: 26px;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 8px 28px rgba(23,35,27,0.08);
-
-    border: 1px solid #e9efeb;
-
-    animation: apparition 0.3s ease;
+    background: var(--papier);
+    margin-top: 22px;
+    padding: 24px;
+    border-radius: var(--rayon-lg);
+    box-shadow: var(--ombre);
+    border: 1px solid var(--trait);
+    animation: apparition 0.25s ease;
 }
 
 @keyframes apparition {
 
     from {
         opacity: 0;
-
-        transform:
-            translateY(8px);
+        transform: translateY(6px);
     }
 
     to {
         opacity: 1;
-
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
+
 }
 
 .fiche h3 {
-    margin: 5px 0 5px;
-
-    font-size: 28px;
-
-    font-weight: 800;
-
-    letter-spacing: -0.5px;
+    margin: 10px 0 4px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .fiche h4 {
-    margin: 24px 0 8px;
-
-    font-size: 17px;
+    margin: 22px 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--encre-douce);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .adresse {
-    color: #69756e;
-
-    margin-bottom: 22px;
-
-    font-size: 14px;
+    color: var(--encre-douce);
+    margin-bottom: 18px;
+    font-size: 13.5px;
 }
 
 .type-site {
     display: inline-flex;
-
     align-items: center;
-
-    padding: 7px 12px;
-
-    background: #e7f5ec;
-
-    color: #087f3d;
-
-    border-radius: 30px;
-
-    font-size: 12px;
-
-    font-weight: 800;
-
+    padding: 6px 11px;
+    background: var(--vert-clair);
+    color: var(--vert-foret);
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 700;
     text-transform: uppercase;
-
-    letter-spacing: 0.4px;
+    letter-spacing: 0.05em;
 }
 
 
@@ -511,28 +392,18 @@ h2::after {
 ===================================================== */
 
 .important {
-    background:
-        linear-gradient(
-            135deg,
-            #effbf3,
-            #e4f7eb
-        );
-
-    border-left: 4px solid #18a558;
-
-    padding: 16px 18px;
-
-    border-radius: 12px;
-
-    margin: 20px 0;
-
-    font-size: 14px;
-
-    color: #31523d;
+    background: var(--attn-fond);
+    border: 1px solid var(--attn-trait);
+    border-left: 3px solid var(--attn-texte);
+    padding: 14px 16px;
+    border-radius: var(--rayon);
+    margin: 18px 0;
+    font-size: 13.5px;
+    color: #6B4A00;
 }
 
 .important strong {
-    color: #087f3d;
+    color: var(--attn-texte);
 }
 
 
@@ -542,67 +413,53 @@ h2::after {
 
 .benne {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    padding: 15px 2px;
-
-    border-top: 1px solid #edf0ee;
-
-    gap: 15px;
-
-    transition:
-        background 0.15s ease;
+    padding: 13px 0;
+    border-top: 1px solid var(--trait);
+    gap: 12px;
 }
 
-.benne:hover {
-    background: #fafcfb;
+.benne:first-of-type {
+    border-top: none;
 }
 
 .benne-name {
-    font-weight: 650;
-
-    font-size: 15px;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .statut {
-    padding: 8px 12px;
-
-    border-radius: 30px;
-
+    padding: 6px 11px;
+    border-radius: 20px;
     font-size: 12px;
-
-    font-weight: 800;
-
+    font-weight: 600;
     white-space: nowrap;
-
-    letter-spacing: 0.1px;
+    border: 1px solid transparent;
 }
 
 .disponible {
-    background: #d9f7e5;
-
-    color: #087f3d;
+    background: var(--ok-fond);
+    color: var(--ok-texte);
+    border-color: var(--ok-trait);
 }
 
 .presque {
-    background: #fff1c7;
-
-    color: #9a6500;
+    background: var(--attn-fond);
+    color: var(--attn-texte);
+    border-color: var(--attn-trait);
 }
 
 .pleine {
-    background: #ffe0e0;
-
-    color: #c62828;
+    background: var(--alerte-fond);
+    color: var(--alerte-texte);
+    border-color: var(--alerte-trait);
 }
 
 .inconnu {
-    background: #eeeeee;
-
-    color: #666;
+    background: #EEF0EC;
+    color: var(--encre-douce);
+    border-color: var(--trait);
 }
 
 
@@ -611,21 +468,17 @@ h2::after {
 ===================================================== */
 
 .mise-a-jour {
-    margin-top: 18px;
-
-    padding: 12px 14px;
-
-    background: #f5f7f6;
-
-    border-radius: 11px;
-
+    margin-top: 16px;
+    padding: 11px 13px;
+    background: var(--fond);
+    border: 1px solid var(--trait);
+    border-radius: var(--rayon);
     font-size: 12px;
-
-    color: #69756e;
+    color: var(--encre-douce);
 }
 
 .mise-a-jour strong {
-    color: #38453d;
+    color: var(--encre);
 }
 
 
@@ -635,47 +488,22 @@ h2::after {
 
 .itineraire {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 7px;
-
-    margin-top: 20px;
-
-    padding: 14px 19px;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #087f3d,
-            #18a558
-        );
-
+    margin-top: 18px;
+    padding: 13px 18px;
+    border-radius: var(--rayon);
+    background: var(--vert-foret);
     color: white;
-
     text-decoration: none;
-
-    font-weight: 750;
-
-    font-size: 14px;
-
-    box-shadow:
-        0 6px 16px rgba(8,127,61,0.20);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: background 0.15s ease;
 }
 
 .itineraire:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 9px 22px rgba(8,127,61,0.27);
+    background: var(--vert-nuit);
 }
 
 
@@ -684,27 +512,12 @@ h2::after {
 ===================================================== */
 
 footer {
-    margin-top: 25px;
-
-    padding: 35px 20px;
-
-    background: #17231b;
-
-    color: #aeb8b2;
-
+    margin-top: 20px;
+    padding: 30px 20px;
+    background: var(--vert-nuit);
+    color: #9FB0A6;
     text-align: center;
-
     font-size: 12px;
-}
-
-footer::before {
-    content: "♻️";
-
-    display: block;
-
-    font-size: 25px;
-
-    margin-bottom: 8px;
 }
 
 
@@ -715,21 +528,19 @@ footer::before {
 @media (max-width: 600px) {
 
     header {
-        padding: 38px 18px 52px;
+        padding: 24px 18px 22px;
     }
 
     header h1 {
-        font-size: 26px;
-
-        line-height: 1.15;
+        font-size: 18px;
     }
 
     header p {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .container {
-        padding: 10px 13px 30px;
+        padding: 16px 14px 40px;
     }
 
     .bouton-agent {
@@ -737,47 +548,38 @@ footer::before {
     }
 
     h2 {
-        font-size: 21px;
-
-        margin-top: 25px;
+        font-size: 16.5px;
+        margin-top: 24px;
     }
 
     #map {
-        height: 350px;
-
-        border-radius: 17px;
-
-        border-width: 3px;
+        height: 340px;
     }
 
     .legend {
-        padding: 13px 15px;
-
-        gap: 10px 16px;
+        padding: 12px 14px;
+        gap: 8px 14px;
     }
 
     .fiche {
-        padding: 20px 17px;
-
-        border-radius: 17px;
+        padding: 18px 16px;
     }
 
     .fiche h3 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .benne {
-        padding: 14px 0;
+        padding: 12px 0;
     }
 
     .benne-name {
-        font-size: 14px;
+        font-size: 13.5px;
     }
 
     .statut {
         font-size: 11px;
-
-        padding: 7px 9px;
+        padding: 6px 9px;
     }
 
     .itineraire {
@@ -786,34 +588,9 @@ footer::before {
 
 }
 
+</style>
 
-/* =====================================================
-   TRES PETITS ECRANS
-===================================================== */
-
-@media (max-width: 380px) {
-
-    header h1 {
-        font-size: 23px;
-    }
-
-    .benne {
-        gap: 8px;
-    }
-
-    .benne-name {
-        font-size: 13px;
-    }
-
-    .statut {
-        font-size: 10px;
-    }
-
-}
-
-   </style>
-
-   </head>
+</head>
 
 
 <body>
@@ -825,13 +602,16 @@ footer::before {
 
 <header>
 
-<h1>
-♻️ SICTOM Zone de Dole
-</h1>
+<div class="header-inner">
 
-<p>
-Vérifiez l'état des déchèteries avant de vous déplacer.
-</p>
+<div class="marque">ST</div>
+
+<div>
+<h1>SICTOM Zone de Dole</h1>
+<p>Vérifiez l'état des déchèteries avant de vous déplacer.</p>
+</div>
+
+</div>
 
 </header>
 
@@ -847,7 +627,7 @@ Vérifiez l'état des déchèteries avant de vous déplacer.
 href="./agent.html"
 class="bouton-agent"
 >
-👷 Espace agent
+Espace agent
 </a>
 
 
@@ -860,7 +640,7 @@ class="bouton-agent"
 <input
 type="text"
 id="search"
-placeholder="🔎 Rechercher une déchèterie ou un déchet..."
+placeholder="Rechercher une déchèterie ou un déchet..."
 >
 
 </div>
@@ -871,7 +651,7 @@ placeholder="🔎 Rechercher une déchèterie ou un déchet..."
 ===================================================== -->
 
 <h2>
-🗺️ Déchèteries
+Déchèteries
 </h2>
 
 <div id="map"></div>
@@ -909,7 +689,7 @@ Pleine
 id="firebaseStatus"
 class="firebase-status"
 >
-🔄 Connexion aux informations en temps réel...
+Connexion aux informations en temps réel...
 </div>
 
 
@@ -929,7 +709,7 @@ class="firebase-status"
 
 <footer>
 
-SICTOM Zone de Dole — Informations sur les déchèteries ♻️
+SICTOM Zone de Dole — Informations sur les déchèteries
 
 </footer>
 
@@ -1343,7 +1123,7 @@ async function afficherFiche(site) {
 
         <h3>
 
-            ♻️ ${site.nom}
+            ${site.nom}
 
         </h3>
 
@@ -1731,7 +1511,7 @@ dechetteries.forEach(
 
             <span
                 style="
-                    color:#087f3d;
+                    color:#1B4B3A;
                     font-weight:bold;
                 "
             >
@@ -1925,5 +1705,4 @@ afficherFiche(
 </body>
 
 </html>
-
    
