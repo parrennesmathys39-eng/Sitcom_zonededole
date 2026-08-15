@@ -954,25 +954,21 @@
       avatarAgent.textContent = prenomAffichage.charAt(0).toUpperCase();
     }
 
-    /* DEMANDES D'ENLÈVEMENT — TEMPS RÉEL */
+    /* DEMANDES D'ENLÈVEMENT — TEMPS RÉEL
+       On écoute toute la collection puis on filtre côté client.
+       Cela évite toute dépendance à un index Firestore et permet
+       d'afficher clairement les erreurs de permissions. */
     function ecouterDemandesEnlevementTempsReel() {
       const container = document.getElementById("listeEnlevements");
 
       db.collection("demandes_enlevement")
-        .where("statutDemande", "==", "en_attente")
         .onSnapshot(snapshot => {
-          if (snapshot.empty) {
-            container.innerHTML = `
-              <div class="message succes" style="display:block;">
-                ✅ Aucune demande d'enlèvement en attente.
-              </div>
-            `;
-            return;
-          }
-
           const demandes = [];
           snapshot.forEach(doc => {
-            demandes.push({ id: doc.id, d: doc.data() });
+            const d = doc.data() || {};
+            if (d.statutDemande === "en_attente" || !d.statutDemande) {
+              demandes.push({ id: doc.id, d: d });
+            }
           });
 
           demandes.sort((a, b) => {
@@ -983,10 +979,14 @@
             return dbb - da;
           });
 
+          if (demandes.length === 0) {
+            container.innerHTML = '<div class="message succes" style="display:block;">✅ Aucune demande d\'enlèvement en attente.</div>';
+            return;
+          }
+
           let html = "";
           demandes.forEach(({ d }) => {
             const cutoffInfo = evaluerCutoff15h30(d.dateDemande);
-
             html += `
               <div class="demande-item">
                 <div class="demande-info">
@@ -997,20 +997,16 @@
                     <span>Par : ${d.agent || 'Agent'} (${cutoffInfo.dateFormatee})</span>
                   </div>
                 </div>
-                <div>
-                  ${cutoffInfo.badge}
-                </div>
-              </div>
-            `;
+                <div>${cutoffInfo.badge}</div>
+              </div>`;
           });
-
           container.innerHTML = html;
         }, error => {
           console.error("Erreur écoute demandes d'enlèvement :", error);
-          const txtErreur = error.code === 'permission-denied'
-            ? "Permission Firestore insuffisante pour lire 'demandes_enlevement'. Vérifiez les règles Firestore."
-            : error.message;
-          container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur demandes : ${txtErreur}</div>`;
+          const detail = error.code === 'permission-denied'
+            ? "Accès refusé par les règles Firestore pour demandes_enlevement."
+            : (error.message || error.code || "Erreur inconnue");
+          container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur demandes : ${detail}</div>`;
         });
     }
 
@@ -1113,7 +1109,6 @@
       const container = document.getElementById("listeHistorique");
 
       db.collection("historique_statuts")
-        .limit(50)
         .onSnapshot(snapshot => {
           if (snapshot.empty) {
             container.innerHTML = '<div class="message info" style="display:block;">Aucun changement de statut récent.</div>';
@@ -1122,24 +1117,19 @@
 
           const elements = [];
           snapshot.forEach(doc => {
-            const d = doc.data();
-            const timestamp = d.dateChangement || d.dateDemande || d.date;
+            const d = doc.data() || {};
+            const timestamp = d.dateChangement || d.dateDemande || d.date || d.miseAJour;
             let dateObj = null;
             let dateStr = "Récemment";
-
             if (timestamp) {
               dateObj = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
               if (!isNaN(dateObj.getTime())) {
                 dateStr = dateObj.toLocaleDateString('fr-FR', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
+                  day: '2-digit', month: '2-digit', year: 'numeric',
+                  hour: '2-digit', minute: '2-digit'
                 });
               }
             }
-
             elements.push({ d, dateObj, dateStr });
           });
 
@@ -1150,7 +1140,7 @@
           });
 
           let html = "";
-          elements.forEach(({ d, dateStr }) => {
+          elements.slice(0, 50).forEach(({ d, dateStr }) => {
             const statut = d.nouveauStatut || d.statut || "Modifié";
             let badgeClass = "statut-attente";
             if (statut === "pleine" || statut === "urgent") badgeClass = "count-rouge";
@@ -1163,20 +1153,16 @@
                   <div class="historique-nom">${d.site || formatNomSite(d.siteId)} — ${formatNomFlux(d.flux, d)}</div>
                   <div class="historique-sub">Modifié par ${d.agent || 'Agent'} le ${dateStr}</div>
                 </div>
-                <div>
-                  <span class="badge-statut ${badgeClass}">${String(statut).toUpperCase()}</span>
-                </div>
-              </div>
-            `;
+                <div><span class="badge-statut ${badgeClass}">${String(statut).toUpperCase()}</span></div>
+              </div>`;
           });
-
           container.innerHTML = html;
         }, error => {
           console.error("Erreur écoute historique :", error);
-          const txtErreur = error.code === 'permission-denied'
-            ? "Permissions insuffisantes pour lire l'historique des statuts."
-            : error.message;
-          container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur historique : ${txtErreur}</div>`;
+          const detail = error.code === 'permission-denied'
+            ? "Accès refusé par les règles Firestore pour historique_statuts."
+            : (error.message || error.code || "Erreur inconnue");
+          container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur historique : ${detail}</div>`;
         });
     }
 
