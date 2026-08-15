@@ -67,36 +67,42 @@
       padding: 16px 20px;
       border-bottom: 4px solid var(--vert-mousse);
       transition: background 0.5s ease;
-      position: relative; /* Défile désormais normalement au scroll */
+      position: relative; /* Défile avec la page (non fixe) */
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
 
-    .entete-contenu {
+    .header-top {
       max-width: 800px;
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
     }
 
     .logo-badge {
       background: #FFFFFF;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: var(--rayon);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       flex-shrink: 0;
-      max-width: 150px;
     }
 
     .logo-badge img {
+      height: 38px;
       max-height: 40px;
       max-width: 100%;
       width: auto;
-      height: auto;
       object-fit: contain;
       display: block;
     }
@@ -104,6 +110,7 @@
     .titres-entete {
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
     }
 
     header h1 {
@@ -119,6 +126,28 @@
       font-size: 13px;
       color: #C2D1C8;
       font-weight: 500;
+    }
+
+    .header-live {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #EFF4F0;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #2EA25B;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #2EA25B;
     }
 
     .container {
@@ -580,22 +609,21 @@
     }
 
     /* ADAPTATIONS MOBILES EN-TÊTE ET BOUTONS */
-    @media (max-width: 480px) {
+    @media (max-width: 580px) {
       header {
         padding: 12px 16px;
       }
 
-      .entete-contenu {
+      .header-top {
         gap: 10px;
       }
 
       .logo-badge {
-        max-width: 110px;
-        padding: 4px 6px;
+        padding: 4px 8px;
       }
 
       .logo-badge img {
-        max-height: 32px;
+        height: 30px;
       }
 
       header h1 {
@@ -604,6 +632,11 @@
 
       header p {
         font-size: 11px;
+      }
+
+      .header-live {
+        font-size: 11px;
+        padding: 4px 8px;
       }
 
       .boutons {
@@ -625,13 +658,21 @@
 
   <!-- BANDEAU HAUT -->
   <header id="bandeau">
-    <div class="entete-contenu">
-      <div class="logo-badge">
-        <img src="logo.png" alt="SICTOM Zone de Dole">
+    <div class="header-top">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="logo.png" alt="SICTOM Zone de Dole">
+        </div>
       </div>
+
       <div class="titres-entete">
         <h1>Espace Agent</h1>
         <p>SICTOM Zone de Dole — Gestion des flux en déchèterie</p>
+      </div>
+
+      <div class="header-live">
+        <span class="live-dot"></span>
+        Données en temps réel
       </div>
     </div>
   </header>
