@@ -58,9 +58,7 @@
       font-family: 'Space Grotesk', 'Inter', sans-serif;
     }
 
-    /* =========================
-       BANDEAU SUPÉRIEUR
-    ========================= */
+    /* BANDEAU SUPÉRIEUR */
     header {
       background: var(--vert-nuit);
       color: #EFF4F0;
@@ -156,9 +154,7 @@
       padding: 20px 16px 60px;
     }
 
-    /* =========================
-       CONNEXION
-    ========================= */
+    /* CONNEXION */
     #connexion {
       max-width: 440px;
       margin: 40px auto;
@@ -280,9 +276,7 @@
       overflow-wrap: anywhere;
     }
 
-    /* =========================
-       APPLICATION & BARRE AGENT
-    ========================= */
+    /* APPLICATION & BARRE AGENT */
     #application {
       display: none;
     }
@@ -405,9 +399,7 @@
       text-decoration: underline;
     }
 
-    /* =========================
-       SÉLECTEUR DE SITE
-    ========================= */
+    /* SÉLECTEUR DE SITE */
     .site-card {
       background: var(--papier);
       padding: 20px 22px;
@@ -455,9 +447,7 @@
       display: none;
     }
 
-    /* =========================
-       GRILLE DE FLUX / BENNES
-    ========================= */
+    /* GRILLE DE FLUX / BENNES */
     .flux-card {
       background: var(--papier);
       padding: 22px;
@@ -607,9 +597,7 @@
       background: white;
     }
 
-    /* =========================
-       MODALE COMMANDER ENLÈVEMENT
-    ========================= */
+    /* MODALE COMMANDER ENLÈVEMENT */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -736,6 +724,14 @@
         padding: 12px 14px;
         font-size: 14px;
         min-height: auto;
+      }
+
+      .modal-actions {
+        flex-direction: column-reverse;
+      }
+
+      .btn-modal {
+        width: 100%;
       }
     }
   </style>
@@ -1023,14 +1019,9 @@
         <input type="text" id="numeroBenne" placeholder="ex: Benne n°4, B-12...">
       </div>
 
-      <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-        <input type="checkbox" id="notifierAdmin" checked style="width: auto; cursor: pointer;">
-        <label for="notifierAdmin" style="margin: 0; cursor: pointer; font-weight: 500; font-size: 14px;">Envoyer une demande d'enlèvement à l'admin</label>
-      </div>
-
       <div class="modal-actions">
-        <button id="btnAnnulerModal" class="btn-modal btn-modal-secondaire">Passer sans commande</button>
-        <button id="btnValiderModal" class="btn-modal btn-modal-primaire">Valider & Enregistrer</button>
+        <button id="btnPasserModal" class="btn-modal btn-modal-secondaire">Passer sans commande</button>
+        <button id="btnValiderModal" class="btn-modal btn-modal-primaire">Valider & Commander</button>
       </div>
     </div>
   </div>
@@ -1076,8 +1067,7 @@
     /* MODALE ENLÈVEMENT */
     const modalEnlevement = document.getElementById("modalEnlevement");
     const numeroBenneInput = document.getElementById("numeroBenne");
-    const notifierAdminCheckbox = document.getElementById("notifierAdmin");
-    const btnAnnulerModal = document.getElementById("btnAnnulerModal");
+    const btnPasserModal = document.getElementById("btnPasserModal");
     const btnValiderModal = document.getElementById("btnValiderModal");
 
     let fluxEnCours = null;
@@ -1343,7 +1333,6 @@
           fluxEnCours = flux;
           statutEnCours = statut;
           numeroBenneInput.value = "";
-          notifierAdminCheckbox.checked = true;
           modalEnlevement.style.display = "flex";
         } else {
           // Processus direct pour "disponible" et "pleine"
@@ -1353,19 +1342,18 @@
     }); 
 
     /* BOUTONS MODALE */
-    btnAnnulerModal.addEventListener("click", function() {
+    btnPasserModal.addEventListener("click", function() {
       modalEnlevement.style.display = "none";
       if (fluxEnCours && statutEnCours) {
-        enregistrerStatut(fluxEnCours, statutEnCours, false);
+        enregistrerStatut(fluxEnCours, statutEnCours, false, "");
       }
     });
 
     btnValiderModal.addEventListener("click", function() {
       modalEnlevement.style.display = "none";
       if (fluxEnCours && statutEnCours) {
-        const faireDemande = notifierAdminCheckbox.checked;
         const numBenne = numeroBenneInput.value;
-        enregistrerStatut(fluxEnCours, statutEnCours, faireDemande, numBenne);
+        enregistrerStatut(fluxEnCours, statutEnCours, true, numBenne);
       }
     });
 
