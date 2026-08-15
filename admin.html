@@ -155,7 +155,7 @@
     .container {
       max-width: 900px;
       margin: auto;
-      padding: 20px 16px 60px;
+      padding: 16px 16px 60px;
     }
 
     /* CONNEXION */
@@ -167,23 +167,23 @@
 
     .card {
       background: var(--papier);
-      padding: 26px 28px;
+      padding: 24px;
       border-radius: var(--rayon-lg);
       border: 1px solid var(--trait);
       box-shadow: var(--ombre);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .card h2 {
       margin: 0 0 4px;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       color: var(--vert-nuit);
     }
 
     .card > p {
-      margin: 0 0 20px;
-      font-size: 13.5px;
+      margin: 0 0 16px;
+      font-size: 13px;
       color: var(--encre-douce);
       line-height: 1.5;
     }
@@ -252,10 +252,10 @@
     /* BARRE IDENTITÉ ADMIN */
     .barre-agent {
       background: var(--papier);
-      padding: 16px 20px;
+      padding: 14px 18px;
       border-radius: var(--rayon-lg);
       border: 1px solid var(--trait);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       box-shadow: var(--ombre);
       display: flex;
       align-items: center;
@@ -271,8 +271,8 @@
     }
 
     .avatar-agent {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: var(--vert-clair);
       color: var(--vert-foret);
@@ -281,7 +281,7 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15px;
       font-family: 'Space Grotesk', sans-serif;
     }
 
@@ -295,7 +295,7 @@
 
     .email {
       color: var(--encre);
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       margin-top: 1px;
     }
@@ -309,9 +309,9 @@
     .bouton-action {
       border: 1px solid var(--trait);
       border-radius: var(--rayon);
-      padding: 9px 14px;
+      padding: 8px 12px;
       font-weight: 600;
-      font-size: 13.5px;
+      font-size: 13px;
       font-family: inherit;
       cursor: pointer;
       text-decoration: none;
@@ -326,91 +326,47 @@
     .bouton-agent-link { background: var(--vert-foret); color: white; border-color: var(--vert-foret); }
     .bouton-agent-link:hover { background: var(--vert-nuit); }
 
-    /* STATISTIQUES GLOBALES */
-    .grille-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .stat-card {
-      background: var(--papier);
-      padding: 18px 20px;
-      border-radius: var(--rayon-lg);
-      border: 1px solid var(--trait);
-      box-shadow: var(--ombre);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .stat-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--rayon);
-      background: var(--fond);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .stat-valeur {
-      font-size: 22px;
-      font-weight: 700;
-      font-family: 'Space Grotesk', sans-serif;
-      line-height: 1.1;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--encre-douce);
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    /* SECTION NOTIFICATIONS PROFESSIONNELLES */
+    /* SECTION DEMANDES D'ENLÈVEMENT (SANS PRIORITAIRES) */
     .notif-card {
       background: var(--papier);
-      padding: 24px;
+      padding: 20px;
       border-radius: var(--rayon-lg);
       border: 1px solid var(--trait);
       box-shadow: var(--ombre);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .liste-demandes {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
     .demande-item {
       background: #FAFCFA;
       border: 1px solid var(--trait);
       border-left: 4px solid var(--alerte-trait);
-      padding: 16px 18px;
+      padding: 14px 16px;
       border-radius: var(--rayon);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .demande-info h4 {
       margin: 0 0 4px;
-      font-size: 15px;
+      font-size: 14.5px;
       color: var(--vert-nuit);
     }
 
     .demande-meta {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--encre-douce);
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -425,9 +381,9 @@
     }
 
     .badge-cutoff {
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
@@ -435,26 +391,112 @@
       white-space: nowrap;
     }
 
-    .badge-j1 {
-      background: var(--ok-fond);
-      color: var(--ok-texte);
-      border: 1px solid var(--ok-trait);
+    .badge-j1 { background: var(--ok-fond); color: var(--ok-texte); border: 1px solid var(--ok-trait); }
+    .badge-j2 { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
+
+    /* STYLE DE TOUS LES ONGLETS DEPLIABLES (ACCORDÉONS MOBILE) */
+    details.accordion-item {
+      background: var(--papier);
+      border: 1px solid var(--trait);
+      border-radius: var(--rayon-lg);
+      margin-bottom: 14px;
+      box-shadow: var(--ombre);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
     }
 
-    .badge-j2 {
-      background: var(--attn-fond);
-      color: var(--attn-texte);
-      border: 1px solid var(--attn-trait);
+    details.accordion-item[open] {
+      border-color: var(--vert-mousse);
     }
 
-    /* ÉTAT GLOBAL (A-Z) & LÉGENDE CORRIGÉE */
+    summary.accordion-header {
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15.5px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--vert-nuit);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      background: var(--papier);
+    }
+
+    summary.accordion-header::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.accordion-header::after {
+      content: "▼";
+      font-size: 11px;
+      color: var(--encre-douce);
+      transition: transform 0.2s ease;
+    }
+
+    details[open] summary.accordion-header::after {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      padding: 0 20px 20px 20px;
+      border-top: 1px solid var(--trait);
+      margin-top: -1px;
+    }
+
+    /* STATISTIQUES GLOBALES */
+    .grille-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--fond);
+      padding: 14px 16px;
+      border-radius: var(--rayon);
+      border: 1px solid var(--trait);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--rayon);
+      background: var(--papier);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .stat-valeur {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: var(--encre-douce);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* ÉTAT GLOBAL : LÉGENDE ET BARRES (ROUGE -> ORANGE -> VERT) */
     .bar-legend {
       display: flex;
-      gap: 18px;
+      gap: 14px;
       font-size: 12px;
       font-weight: 600;
       color: var(--encre-douce);
-      margin-bottom: 16px;
+      margin: 12px 0 16px;
       flex-wrap: wrap;
       background: var(--fond);
       padding: 10px 14px;
@@ -491,12 +533,12 @@
 
     .site-name-az {
       font-weight: 700;
-      font-size: 14.5px;
+      font-size: 14px;
       color: var(--vert-nuit);
     }
 
     .site-details-az {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--encre-douce);
       font-family: 'IBM Plex Mono', monospace;
     }
@@ -515,30 +557,30 @@
       transition: width 0.3s ease;
     }
 
-    .bar-segment.disponible { background: var(--ok-trait); }
-    .bar-segment.presque { background: var(--attn-trait); }
+    /* BARRE ET ORDRE : ROUGE -> ORANGE -> VERT */
     .bar-segment.pleine { background: var(--alerte-trait); }
+    .bar-segment.presque { background: var(--attn-trait); }
+    .bar-segment.disponible { background: var(--ok-trait); }
     .bar-segment.inconnu { background: var(--gris-inconnu); }
 
     /* DEUX CLASSEMENTS DISTINCTS */
     .grille-classements {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
     }
 
     .classement-card {
-      background: var(--papier);
-      padding: 22px;
-      border-radius: var(--rayon-lg);
+      background: var(--fond);
+      padding: 18px;
+      border-radius: var(--rayon);
       border: 1px solid var(--trait);
-      box-shadow: var(--ombre);
     }
 
     .classement-card h3 {
       margin: 0 0 4px;
-      font-size: 17px;
+      font-size: 15.5px;
       color: var(--vert-nuit);
       display: flex;
       align-items: center;
@@ -546,8 +588,8 @@
     }
 
     .classement-card p {
-      margin: 0 0 16px;
-      font-size: 13px;
+      margin: 0 0 14px;
+      font-size: 12.5px;
       color: var(--encre-douce);
     }
 
@@ -555,7 +597,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 0;
+      padding: 8px 0;
       border-bottom: 1px solid var(--trait);
     }
 
@@ -570,55 +612,99 @@
     }
 
     .classement-rang {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
-      background: var(--fond);
+      background: var(--papier);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--encre-douce);
     }
 
     .classement-nom {
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13.5px;
     }
 
     .badge-count {
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 12px;
       font-weight: 700;
-      font-size: 12px;
+      font-size: 11.5px;
       font-family: 'IBM Plex Mono', monospace;
     }
 
     .count-rouge { background: var(--alerte-fond); color: var(--alerte-texte); border: 1px solid var(--alerte-trait); }
     .count-orange { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
 
-    /* GRILLE D'AGENTS */
-    .agents-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px;
+    /* HISTORIQUE */
+    .liste-historique {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-top: 14px;
     }
 
-    .agent-item {
-      background: #FAFCFA;
+    .historique-item {
+      background: var(--fond);
       border: 1px solid var(--trait);
       padding: 12px 14px;
       border-radius: var(--rayon);
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .historique-nom {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--vert-nuit);
+    }
+
+    .historique-sub {
+      font-size: 12px;
+      color: var(--encre-douce);
+      margin-top: 2px;
+    }
+
+    .badge-statut {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .statut-traite { background: var(--ok-fond); color: var(--ok-texte); border: 1px solid var(--ok-trait); }
+    .statut-attente { background: var(--attn-fond); color: var(--attn-texte); border: 1px solid var(--attn-trait); }
+
+    /* GRILLE D'AGENTS */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .agent-item {
+      background: var(--fond);
+      border: 1px solid var(--trait);
+      padding: 10px 12px;
+      border-radius: var(--rayon);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .agent-avatar-mini {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: var(--vert-clair);
       color: var(--vert-foret);
@@ -626,12 +712,12 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     .agent-nom {
       font-weight: 700;
-      font-size: 13.5px;
+      font-size: 13px;
     }
 
     .agent-role {
@@ -642,6 +728,9 @@
     @media (max-width: 600px) {
       .header-top { justify-content: baseline; }
       .grille-classements { grid-template-columns: 1fr; }
+      .container { padding: 12px 10px 50px; }
+      summary.accordion-header { padding: 14px 16px; font-size: 15px; }
+      .accordion-body { padding: 0 14px 16px 14px; }
     }
   </style>
 </head>
@@ -706,19 +795,17 @@
 
         <div class="actions-agent">
           <a href="./agent.html" class="bouton-action bouton-agent-link">👷 Espace Agent</a>
-          <button id="deconnexionBtn" class="bouton-action deconnexion">Se déconnecter</button>
+          <button id="deconnexionBtn" class="bouton-action deconnexion">Déconnexion</button>
         </div>
       </div>
 
-      <!-- 1. NOTIFICATIONS D'ENLÈVEMENT PROFESSIONNELLES -->
+      <!-- 1. PREMIER REQUÉRANT SUR MOBILE : DEMANDES D'ENLÈVEMENT (SANS "PRIORITAIRES") -->
       <div class="notif-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-          <div>
-            <h2 style="margin:0; font-size:19px; color:var(--vert-nuit);">📋 Demandes d'enlèvement prioritaires</h2>
-            <p style="margin:4px 0 0; font-size:13px; color:var(--encre-douce);">
-              Ordres de rotation transmis par les agents sur le terrain (Heure limite de traitement : 15h30).
-            </p>
-          </div>
+        <div>
+          <h2 style="margin:0; font-size:18px; color:var(--vert-nuit);">📋 Demandes d'enlèvement</h2>
+          <p style="margin:4px 0 0; font-size:12.5px; color:var(--encre-douce);">
+            Ordres de rotation transmis par les agents (Heure limite de traitement : 15h30).
+          </p>
         </div>
 
         <div id="listeEnlevements" class="liste-demandes">
@@ -726,85 +813,117 @@
         </div>
       </div>
 
-      <!-- 2. STATISTIQUES GLOBALES -->
-      <div class="grille-stats">
-        <div class="stat-card">
-          <div class="stat-icon">📍</div>
-          <div>
-            <div id="statSites" class="stat-valeur">0</div>
-            <div class="stat-label">Déchèteries activement suivies</div>
+      <!-- ONGLETS DÉPLIABLES POUR MOBILE ET DESKTOP -->
+
+      <!-- ONGLET 1 : ÉTAT GLOBAL (A-Z) ET STATISTIQUES (OUVERT PAR DÉFAUT) -->
+      <details class="accordion-item" open>
+        <summary class="accordion-header">
+          📊 État global des déchèteries & Synthèse
+        </summary>
+        <div class="accordion-body">
+          
+          <!-- STATISTIQUES GLOBALES -->
+          <div class="grille-stats">
+            <div class="stat-card">
+              <div class="stat-icon">📍</div>
+              <div>
+                <div id="statSites" class="stat-valeur">0</div>
+                <div class="stat-label">Sites suivis</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🔴</div>
+              <div>
+                <div id="statPleins" class="stat-valeur">0</div>
+                <div class="stat-label">Bennes pleines</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🟠</div>
+              <div>
+                <div id="statPresque" class="stat-valeur">0</div>
+                <div class="stat-label">Presque pleines</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🟢</div>
+              <div>
+                <div id="statDispo" class="stat-valeur">0</div>
+                <div class="stat-label">Disponibles</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LÉGENDE CORRIGÉE : ROUGE -> ORANGE -> VERT -->
+          <div class="bar-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--alerte-trait)"></div> Pleine</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--attn-trait)"></div> Presque pleine</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--ok-trait)"></div> Disponible</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--gris-inconnu)"></div> Non renseigné</div>
+          </div>
+
+          <div id="sitesAZ">
+            <div class="message info" style="display:block;">Chargement de l'état des sites...</div>
           </div>
         </div>
+      </details>
 
-        <div class="stat-card">
-          <div class="stat-icon">🔴</div>
-          <div>
-            <div id="statPleins" class="stat-valeur">0</div>
-            <div class="stat-label">Caissons actuellement pleins</div>
+      <!-- ONGLET 2 : CLASSEMENTS -->
+      <details class="accordion-item">
+        <summary class="accordion-header">
+          🏆 Classement par taux de remplissage
+        </summary>
+        <div class="accordion-body">
+          <div class="grille-classements">
+            <!-- CLASSEMENT 1 : PLEINES -->
+            <div class="classement-card">
+              <h3>🔴 Bennes Pleines</h3>
+              <p>Sites nécessitant des enlèvements prioritaires.</p>
+              <div id="classementPleines">Chargement...</div>
+            </div>
+
+            <!-- CLASSEMENT 2 : PRESQUE PLEINES -->
+            <div class="classement-card">
+              <h3>🟠 Bennes Presque Pleines</h3>
+              <p>Sites à surveiller pour le prochain tour.</p>
+              <div id="classementPresques">Chargement...</div>
+            </div>
           </div>
         </div>
+      </details>
 
-        <div class="stat-card">
-          <div class="stat-icon">🟠</div>
-          <div>
-            <div id="statPresque" class="stat-valeur">0</div>
-            <div class="stat-label">Caissons presque pleins</div>
+      <!-- ONGLET 3 : HISTORIQUE DES INTERVENTIONS & ENLÈVEMENTS -->
+      <details class="accordion-item">
+        <summary class="accordion-header">
+          📜 Historique des demandes & rotations
+        </summary>
+        <div class="accordion-body">
+          <p style="font-size:13px; color:var(--encre-douce); margin-top:14px; margin-bottom:10px;">
+            Journal d'activité récent des demandes formulées par les agents sur le terrain.
+          </p>
+          <div id="listeHistorique" class="liste-historique">
+            <div class="message info" style="display:block;">Chargement de l'historique...</div>
           </div>
         </div>
+      </details>
 
-        <div class="stat-card">
-          <div class="stat-icon">🟢</div>
-          <div>
-            <div id="statDispo" class="stat-valeur">0</div>
-            <div class="stat-label">Caissons disponibles</div>
+      <!-- ONGLET 4 : ÉQUIPE & AGENTS -->
+      <details class="accordion-item">
+        <summary class="accordion-header">
+          👥 Personnels & Agents enregistrés
+        </summary>
+        <div class="accordion-body">
+          <p style="font-size:13px; color:var(--encre-douce); margin-top:14px; margin-bottom:10px;">
+            Utilisateurs et agents rattachés au secteur Dole.
+          </p>
+          <div id="agentsGrid" class="agents-grid">
+            <div class="message info" style="display:block;">Chargement des agents...</div>
           </div>
         </div>
-      </div>
-
-      <!-- 3. ÉTAT GLOBAL DES DÉCHÈTERIES (A-Z) AVEC LÉGENDE CORRIGÉE -->
-      <div class="card">
-        <h2>📊 État global des déchèteries (A-Z)</h2>
-        <p>Répartition proportionnelle du statut des caissons par site.</p>
-
-        <!-- LÉGENDE CONFORME : VERT = DISPONIBLE, GRIS = NON RENSEIGNÉ -->
-        <div class="bar-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--ok-trait)"></div> Disponible</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--attn-trait)"></div> Presque pleine</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--alerte-trait)"></div> Pleine</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--gris-inconnu)"></div> Non renseigné</div>
-        </div>
-
-        <div id="sitesAZ">
-          <div class="message info" style="display:block;">Chargement de l'état des sites...</div>
-        </div>
-      </div>
-
-      <!-- 4. DEUX CLASSEMENTS SEPARÉS -->
-      <div class="grille-classements">
-        <!-- CLASSEMENT 1 : PLEINES -->
-        <div class="classement-card">
-          <h3>🔴 Bennes Pleines</h3>
-          <p>Sites nécessitant des enlèvements urgents.</p>
-          <div id="classementPleines">Chargement...</div>
-        </div>
-
-        <!-- CLASSEMENT 2 : PRESQUE PLEINES -->
-        <div class="classement-card">
-          <h3>🟠 Bennes Presque Pleines</h3>
-          <p>Sites à surveiller pour le prochain tour de collecte.</p>
-          <div id="classementPresques">Chargement...</div>
-        </div>
-      </div>
-
-      <!-- 5. AGENTS ET UTILISATEURS -->
-      <div class="card">
-        <h2>👥 Équipe & Agents enregistrés</h2>
-        <p>Utilisateurs autorisés sur la zone Dole.</p>
-
-        <div id="agentsGrid" class="agents-grid">
-          <div class="message info" style="display:block;">Chargement des agents...</div>
-        </div>
-      </div>
+      </details>
 
     </div>
   </div>
@@ -856,9 +975,9 @@
       return noms[id] || id;
     }
 
-    /* GESTION DE LA RÈGLE DES 15H30 */
+    /* RÈGLE CUTOFF DE 15H30 */
     function evaluerCutoff15h30(timestamp) {
-      if (!timestamp) return { badge: '<span class="badge-cutoff badge-j1">⚡ Traitement Demain (J+1)</span>', dateFormatee: 'Non daté' };
+      if (!timestamp) return { badge: '<span class="badge-cutoff badge-j1">⚡ Demain (J+1)</span>', dateFormatee: 'Non daté' };
       
       let dateObj = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
       const heure = dateObj.getHours();
@@ -870,18 +989,18 @@
 
       if (apres15h30) {
         return {
-          badge: '<span class="badge-cutoff badge-j2">⏰ Traitement à J+2 (Commande après 15h30)</span>',
+          badge: '<span class="badge-cutoff badge-j2">⏰ J+2 (Après 15h30)</span>',
           dateFormatee: strDate
         };
       } else {
         return {
-          badge: '<span class="badge-cutoff badge-j1">⚡ Traitement Demain (J+1)</span>',
+          badge: '<span class="badge-cutoff badge-j1">⚡ Traitement J+1</span>',
           dateFormatee: strDate
         };
       }
     }
 
-    /* CHARGER LE PROFIL ET AFFICHER LE PRÉNOM EN HAUT À DROITE */
+    /* CHARGER LE PROFIL ET PRENOM */
     async function chargerProfilAdmin(user) {
       let prenomAffichage = "Admin";
       let nomComplet = user.email;
@@ -904,13 +1023,12 @@
         console.error("Erreur profil admin:", e);
       }
 
-      // Inscription du prénom en haut à droite
       prenomHeader.textContent = prenomAffichage;
       nomAdmin.textContent = nomComplet;
       avatarAgent.textContent = prenomAffichage.charAt(0).toUpperCase();
     }
 
-    /* AFFICHER LES DEMANDES D'ENLÈVEMENT ET NOTIFICATIONS */
+    /* DEMANDES D'ENLÈVEMENT (SANS LE MOT PRIORITAIRES) */
     async function chargerDemandesEnlevement() {
       const container = document.getElementById("listeEnlevements");
       try {
@@ -921,7 +1039,7 @@
         if (snapshot.empty) {
           container.innerHTML = `
             <div class="message succes" style="display:block;">
-              ✅ Aucune demande d'enlèvement en attente pour le moment.
+              ✅ Aucune demande d'enlèvement en attente.
             </div>
           `;
           return;
@@ -939,7 +1057,7 @@
                 <div class="demande-meta">
                   <span>Flux : <strong>${formatNomFlux(d.flux)}</strong></span>
                   ${d.numeroBenne ? `<span class="code-benne">Benne ${d.numeroBenne}</span>` : ''}
-                  <span>Par : ${d.agent} (${cutoffInfo.dateFormatee})</span>
+                  <span>Par : ${d.agent || 'Agent'} (${cutoffInfo.dateFormatee})</span>
                 </div>
               </div>
               <div>
@@ -951,17 +1069,17 @@
 
         container.innerHTML = html;
       } catch(e) {
-        container.innerHTML = `<div class="message erreur" style="display:block;">Erreur de chargement des demandes : ${e.message}</div>`;
+        container.innerHTML = `<div class="message erreur" style="display:block;">Erreur chargement : ${e.message}</div>`;
       }
     }
 
-    /* AFFICHER ÉTAT GLOBAL (A-Z) AVEC LÉGENDE ET COULEURS EXACTES */
+    /* BARRE DE STATUT GLOBAL : ORDRE ROUGE -> ORANGE -> VERT */
     function afficherEtatGlobalAZ() {
       const container = document.getElementById("sitesAZ");
       const sitesTries = Object.keys(donneesSites).sort((a, b) => formatNomSite(a).localeCompare(formatNomSite(b), 'fr'));
 
       if (sitesTries.length === 0) {
-        container.innerHTML = `<div class="message info" style="display:block;">Aucune donnée enregistrée dans la base.</div>`;
+        container.innerHTML = `<div class="message info" style="display:block;">Aucune donnée enregistrée.</div>`;
         return;
       }
 
@@ -975,6 +1093,7 @@
         const pctPleine = (site.pleins / total) * 100;
         const pctInconnu = (site.inconnus / total) * 100;
 
+        /* ORDRE EXIGÉ : ROUGE -> ORANGE -> VERT -> GRIS */
         html += `
           <div class="site-row-az">
             <div class="site-header-az">
@@ -982,9 +1101,9 @@
               <span class="site-details-az">${site.pleins} pleines · ${site.presque} presque · ${site.disponibles} disponibles</span>
             </div>
             <div class="multi-bar-container">
-              <div class="bar-segment disponible" style="width: ${pctDispo}%" title="Disponibles: ${site.disponibles}"></div>
-              <div class="bar-segment presque" style="width: ${pctPresque}%" title="Presque pleines: ${site.presque}"></div>
               <div class="bar-segment pleine" style="width: ${pctPleine}%" title="Pleines: ${site.pleins}"></div>
+              <div class="bar-segment presque" style="width: ${pctPresque}%" title="Presque pleines: ${site.presque}"></div>
+              <div class="bar-segment disponible" style="width: ${pctDispo}%" title="Disponibles: ${site.disponibles}"></div>
               <div class="bar-segment inconnu" style="width: ${pctInconnu}%" title="Non renseignés: ${site.inconnus}"></div>
             </div>
           </div>
@@ -994,7 +1113,7 @@
       container.innerHTML = html;
     }
 
-    /* AFFICHER DEUX CLASSEMENTS DISTINCTS (PLEINES & PRESQUE) */
+    /* DEUX CLASSEMENTS DISTINCTS */
     function afficherDeuxClassements() {
       const containerPleines = document.getElementById("classementPleines");
       const containerPresques = document.getElementById("classementPresques");
@@ -1037,6 +1156,51 @@
         `;
       });
       containerPresques.innerHTML = htmlPresques;
+    }
+
+    /* HISTORIQUE COMPLET DES DEMANDES ET INTERVENTIONS */
+    async function chargerHistorique() {
+      const container = document.getElementById("listeHistorique");
+      try {
+        const snapshot = await db.collection("demandes_enlevement")
+                                  .limit(20)
+                                  .get();
+
+        if (snapshot.empty) {
+          container.innerHTML = '<div class="message info" style="display:block;">Aucun historique récent trouvé.</div>';
+          return;
+        }
+
+        let html = "";
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          let dateStr = "Récemment";
+          if (d.dateDemande) {
+            let obj = d.dateDemande.toDate ? d.dateDemande.toDate() : new Date(d.dateDemande);
+            dateStr = obj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit' });
+          }
+
+          const estTraite = d.statutDemande === "traite" || d.statutDemande === "terminee";
+          const badgeClass = estTraite ? "statut-traite" : "statut-attente";
+          const statutTxt = estTraite ? "Traité" : "En attente";
+
+          html += `
+            <div class="historique-item">
+              <div>
+                <div class="historique-nom">${d.site || formatNomSite(d.siteId)} — ${formatNomFlux(d.flux)}</div>
+                <div class="historique-sub">Demandé par ${d.agent || 'Agent'} le ${dateStr}</div>
+              </div>
+              <div>
+                <span class="badge-statut ${badgeClass}">${statutTxt}</span>
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch(e) {
+        container.innerHTML = `<div class="message erreur" style="display:block;">Erreur chargement historique : ${e.message}</div>`;
+      }
     }
 
     /* CHARGEMENT DES AGENTS ENREGISTRÉS */
@@ -1132,6 +1296,7 @@
 
         await chargerProfilAdmin(user);
         chargerDemandesEnlevement();
+        chargerHistorique();
         chargerAgents();
         ecouterFluxTempsReel();
       } else {
@@ -1140,7 +1305,7 @@
         const msg = document.getElementById("messageConnexion");
         msg.className = "message erreur";
         msg.style.display = "block";
-        msg.textContent = "❌ Accès refusé : Votre compte n'a pas les privilèges administrateur.";
+        msg.textContent = "❌ Accès refusé : privilèges administrateur requis.";
       }
     });
 
