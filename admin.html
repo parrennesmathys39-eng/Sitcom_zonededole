@@ -954,53 +954,64 @@
       avatarAgent.textContent = prenomAffichage.charAt(0).toUpperCase();
     }
 
-    /* DEMANDES D'ENLÈVEMENT AVEC GESTION DES ERREURS DE PERMISSION */
-    async function chargerDemandesEnlevement() {
+    /* DEMANDES D'ENLÈVEMENT — TEMPS RÉEL */
+    function ecouterDemandesEnlevementTempsReel() {
       const container = document.getElementById("listeEnlevements");
-      try {
-        const snapshot = await db.collection("demandes_enlevement")
-                                  .where("statutDemande", "==", "en_attente")
-                                  .get();
 
-        if (snapshot.empty) {
-          container.innerHTML = `
-            <div class="message succes" style="display:block;">
-              ✅ Aucune demande d'enlèvement en attente.
-            </div>
-          `;
-          return;
-        }
+      db.collection("demandes_enlevement")
+        .where("statutDemande", "==", "en_attente")
+        .onSnapshot(snapshot => {
+          if (snapshot.empty) {
+            container.innerHTML = `
+              <div class="message succes" style="display:block;">
+                ✅ Aucune demande d'enlèvement en attente.
+              </div>
+            `;
+            return;
+          }
 
-        let html = "";
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const cutoffInfo = evaluerCutoff15h30(d.dateDemande);
+          const demandes = [];
+          snapshot.forEach(doc => {
+            demandes.push({ id: doc.id, d: doc.data() });
+          });
 
-          html += `
-            <div class="demande-item">
-              <div class="demande-info">
-                <h4>📍 Déchèterie de ${d.site || formatNomSite(d.siteId)}</h4>
-                <div class="demande-meta">
-                  <span>Flux : <strong>${formatNomFlux(d.flux)}</strong></span>
-                  ${d.numeroBenne ? `<span class="code-benne">Benne ${d.numeroBenne}</span>` : ''}
-                  <span>Par : ${d.agent || 'Agent'} (${cutoffInfo.dateFormatee})</span>
+          demandes.sort((a, b) => {
+            const ta = a.d.dateDemande;
+            const tb = b.d.dateDemande;
+            const da = ta && ta.toDate ? ta.toDate().getTime() : (ta ? new Date(ta).getTime() : 0);
+            const dbb = tb && tb.toDate ? tb.toDate().getTime() : (tb ? new Date(tb).getTime() : 0);
+            return dbb - da;
+          });
+
+          let html = "";
+          demandes.forEach(({ d }) => {
+            const cutoffInfo = evaluerCutoff15h30(d.dateDemande);
+
+            html += `
+              <div class="demande-item">
+                <div class="demande-info">
+                  <h4>📍 Déchèterie de ${d.site || formatNomSite(d.siteId)}</h4>
+                  <div class="demande-meta">
+                    <span>Flux : <strong>${formatNomFlux(d.flux)}</strong></span>
+                    ${d.numeroBenne ? `<span class="code-benne">Benne ${d.numeroBenne}</span>` : ''}
+                    <span>Par : ${d.agent || 'Agent'} (${cutoffInfo.dateFormatee})</span>
+                  </div>
+                </div>
+                <div>
+                  ${cutoffInfo.badge}
                 </div>
               </div>
-              <div>
-                ${cutoffInfo.badge}
-              </div>
-            </div>
-          `;
-        });
+            `;
+          });
 
-        container.innerHTML = html;
-      } catch(e) {
-        let txtErreur = e.message;
-        if (e.code === 'permission-denied' || txtErreur.includes('permissions')) {
-          txtErreur = "Permission Firestore insuffisante pour lire 'demandes_enlevement'. Vérifiez les règles Firestore.";
-        }
-        container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur chargement : ${txtErreur}</div>`;
-      }
+          container.innerHTML = html;
+        }, error => {
+          console.error("Erreur écoute demandes d'enlèvement :", error);
+          const txtErreur = error.code === 'permission-denied'
+            ? "Permission Firestore insuffisante pour lire 'demandes_enlevement'. Vérifiez les règles Firestore."
+            : error.message;
+          container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur demandes : ${txtErreur}</div>`;
+        });
     }
 
     /* ÉTAT GLOBAL : CLASSÉ PAR NB ROUGE -> NB ORANGE -> NB VERT */
@@ -1097,60 +1108,76 @@
       containerPresques.innerHTML = htmlPresques;
     }
 
-    /* HISTORIQUE DES CHANGEMENTS DE STATUT */
-    async function chargerHistorique() {
+    /* HISTORIQUE DES CHANGEMENTS DE STATUT — TEMPS RÉEL */
+    function ecouterHistoriqueTempsReel() {
       const container = document.getElementById("listeHistorique");
-      try {
-        let snapshot;
-        // Tente la collection "historique_statuts" puis fallback vers "demandes_enlevement" ou "historique"
-        try {
-          snapshot = await db.collection("historique_statuts").limit(20).get();
-        } catch(err) {
-          snapshot = await db.collection("demandes_enlevement").limit(20).get();
-        }
 
-        if (snapshot.empty) {
-          container.innerHTML = '<div class="message info" style="display:block;">Aucun changement de statut récent.</div>';
-          return;
-        }
-
-        let html = "";
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          let dateStr = "Récemment";
-          const timestamp = d.dateChangement || d.dateDemande || d.date;
-          if (timestamp) {
-            let obj = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-            dateStr = obj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit' });
+      db.collection("historique_statuts")
+        .limit(50)
+        .onSnapshot(snapshot => {
+          if (snapshot.empty) {
+            container.innerHTML = '<div class="message info" style="display:block;">Aucun changement de statut récent.</div>';
+            return;
           }
 
-          const statut = d.nouveauStatut || d.statut || d.statutDemande || "Modifié";
-          let badgeClass = "statut-attente";
-          if (statut === "pleine" || statut === "urgent") badgeClass = "count-rouge";
-          else if (statut === "presque") badgeClass = "count-orange";
-          else if (statut === "disponible" || statut === "traite") badgeClass = "statut-traite";
+          const elements = [];
+          snapshot.forEach(doc => {
+            const d = doc.data();
+            const timestamp = d.dateChangement || d.dateDemande || d.date;
+            let dateObj = null;
+            let dateStr = "Récemment";
 
-          html += `
-            <div class="historique-item">
-              <div>
-                <div class="historique-nom">${d.site || formatNomSite(d.siteId)} — ${formatNomFlux(d.flux, d)}</div>
-                <div class="historique-sub">Modifié par ${d.agent || 'Agent'} le ${dateStr}</div>
+            if (timestamp) {
+              dateObj = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+              if (!isNaN(dateObj.getTime())) {
+                dateStr = dateObj.toLocaleDateString('fr-FR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                });
+              }
+            }
+
+            elements.push({ d, dateObj, dateStr });
+          });
+
+          elements.sort((a, b) => {
+            const ta = a.dateObj ? a.dateObj.getTime() : 0;
+            const tb = b.dateObj ? b.dateObj.getTime() : 0;
+            return tb - ta;
+          });
+
+          let html = "";
+          elements.forEach(({ d, dateStr }) => {
+            const statut = d.nouveauStatut || d.statut || "Modifié";
+            let badgeClass = "statut-attente";
+            if (statut === "pleine" || statut === "urgent") badgeClass = "count-rouge";
+            else if (statut === "presque") badgeClass = "count-orange";
+            else if (statut === "disponible" || statut === "traite") badgeClass = "statut-traite";
+
+            html += `
+              <div class="historique-item">
+                <div>
+                  <div class="historique-nom">${d.site || formatNomSite(d.siteId)} — ${formatNomFlux(d.flux, d)}</div>
+                  <div class="historique-sub">Modifié par ${d.agent || 'Agent'} le ${dateStr}</div>
+                </div>
+                <div>
+                  <span class="badge-statut ${badgeClass}">${String(statut).toUpperCase()}</span>
+                </div>
               </div>
-              <div>
-                <span class="badge-statut ${badgeClass}">${statut.toUpperCase()}</span>
-              </div>
-            </div>
-          `;
+            `;
+          });
+
+          container.innerHTML = html;
+        }, error => {
+          console.error("Erreur écoute historique :", error);
+          const txtErreur = error.code === 'permission-denied'
+            ? "Permissions insuffisantes pour lire l'historique des statuts."
+            : error.message;
+          container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur historique : ${txtErreur}</div>`;
         });
-
-        container.innerHTML = html;
-      } catch(e) {
-        let txtErreur = e.message;
-        if (e.code === 'permission-denied' || txtErreur.includes('permissions')) {
-          txtErreur = "Permissions insuffisantes pour lire l'historique des statuts.";
-        }
-        container.innerHTML = `<div class="message erreur" style="display:block;">⚠️ Erreur chargement : ${txtErreur}</div>`;
-      }
     }
 
     /* CHARGEMENT DES AGENTS */
@@ -1248,8 +1275,8 @@
           application.style.display = "block";
 
           await chargerProfilAdmin(user);
-          chargerDemandesEnlevement();
-          chargerHistorique();
+          ecouterDemandesEnlevementTempsReel();
+          ecouterHistoriqueTempsReel();
           chargerAgents();
           ecouterFluxTempsReel();
         } else {
