@@ -39,7 +39,6 @@
       --rayon: 8px;
       --rayon-lg: 14px;
       --ombre: 0 2px 8px rgba(20, 35, 25, 0.05), 0 10px 25px rgba(20, 35, 25, 0.05);
-      --ombre-forte: 0 4px 16px rgba(0, 0, 0, 0.12);
     }
 
     * {
@@ -59,7 +58,7 @@
     }
 
     /* =========================
-       BANDEAU SUPÉRIEUR
+       BANDEAU SUPÉRIEUR & LOGO
     ========================= */
     header {
       background: var(--vert-nuit);
@@ -78,24 +77,27 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .logo-badge {
+    /* Support optimisé pour le logo rectangulaire du SICTOM */
+    .logo-container {
       background: #FFFFFF;
-      padding: 6px 10px;
-      border-radius: var(--rayon);
+      padding: 8px 14px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       flex-shrink: 0;
     }
 
-    .logo-badge img {
-      height: 38px;
+    .logo-img {
+      height: 46px;
       width: auto;
+      max-width: 190px;
       object-fit: contain;
+      display: block;
     }
 
     .titres-entete {
@@ -116,6 +118,18 @@
       font-size: 13px;
       color: #C2D1C8;
       font-weight: 500;
+    }
+
+    @media (max-width: 520px) {
+      .entete-contenu {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      
+      .logo-img {
+        height: 38px;
+      }
     }
 
     .container {
@@ -197,7 +211,7 @@
       font-family: inherit;
       cursor: pointer;
       margin-top: 6px;
-      transition: background 0.15s ease, transform 0.05s ease;
+      transition: background 0.15s ease;
     }
 
     #connexionBtn:hover:not(:disabled) {
@@ -470,12 +484,6 @@
       border-color: #C2CAC0;
     }
 
-    .flux-entete {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
     .flux-nom {
       font-size: 16px;
       font-weight: 700;
@@ -550,7 +558,7 @@
       transform: translateY(-1px);
     }
 
-    /* ÉTATS SÉLECTIONNÉS FORTEMENT VISIBLES */
+    /* ÉTATS SÉLECTIONNÉS VISIBLES */
     .statut.selectionne {
       color: white !important;
       border-width: 2px;
@@ -594,11 +602,12 @@
 
 <body>
 
-  <!-- BANDEAU HAUT -->
+  <!-- BANDEAU HAUT AVEC LOGO SICTOM CORRIGÉ -->
   <header id="bandeau">
     <div class="entete-contenu">
-      <div class="logo-badge">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWIAAAClCAYAAABmxvfCAADFyUlEQVR4nOz9d7xcZ3Xvj7+f..." alt="SICTOM Dole">
+      <div class="logo-container">
+        <!-- Logo SICTOM Zone de Dole -->
+        <img src="logo-sictom.png" alt="SICTOM Zone de Dole" class="logo-img">
       </div>
       <div class="titres-entete">
         <h1>Espace Agent</h1>
@@ -777,19 +786,37 @@
             </div>
           </div>
 
-          <!-- FERRAILLE -->
+          <!-- MÉTAL (Ex Ferraille) -->
           <div class="flux">
             <div class="flux-entete">
-              <div class="flux-nom"><span class="flux-icone">🔩</span> Ferraille</div>
+              <div class="flux-nom"><span class="flux-icone">🔩</span> Métal</div>
             </div>
             <div class="boutons">
-              <button class="statut vert" data-flux="ferraille" data-statut="disponible">
+              <button class="statut vert" data-flux="metal" data-statut="disponible">
                 <span class="pastille"></span> Disponible
               </button>
-              <button class="statut orange" data-flux="ferraille" data-statut="presque">
+              <button class="statut orange" data-flux="metal" data-statut="presque">
                 <span class="pastille"></span> Presque pleine
               </button>
-              <button class="statut rouge" data-flux="ferraille" data-statut="pleine">
+              <button class="statut rouge" data-flux="metal" data-statut="pleine">
+                <span class="pastille"></span> Pleine
+              </button>
+            </div>
+          </div>
+
+          <!-- PLÂTRE (Nouveau) -->
+          <div class="flux">
+            <div class="flux-entete">
+              <div class="flux-nom"><span class="flux-icone">🧱</span> Plâtre</div>
+            </div>
+            <div class="boutons">
+              <button class="statut vert" data-flux="platre" data-statut="disponible">
+                <span class="pastille"></span> Disponible
+              </button>
+              <button class="statut orange" data-flux="platre" data-statut="presque">
+                <span class="pastille"></span> Presque pleine
+              </button>
+              <button class="statut rouge" data-flux="platre" data-statut="pleine">
                 <span class="pastille"></span> Pleine
               </button>
             </div>
@@ -840,14 +867,14 @@
   </div>
 
   <!-- =========================
-       FIREBASE & LOGIQUE SCRIPT
+       FIREBASE & SCRIPTS
   ========================= -->
   <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script> 
 
   <script> 
-    /* FIREBASE CONFIGURATION */ 
+    /* CONFIGURATION FIREBASE */ 
     const firebaseConfig = { 
       apiKey: "AIzaSyC85gp3FkHaVZPm7HdFP8jPlvATT-QH9_s", 
       authDomain: "sictom-zone-de-dole-17296.firebaseapp.com", 
@@ -861,7 +888,7 @@
     const auth = firebase.auth(); 
     const db = firebase.firestore(); 
 
-    /* ÉLÉMENTS DOM */ 
+    /* ÉLÉMENTS DU DOM */ 
     const connexion = document.getElementById("connexion"); 
     const application = document.getElementById("application"); 
     const connexionBtn = document.getElementById("connexionBtn"); 
