@@ -1255,77 +1255,99 @@
       } 
     } 
 
-    /* LOGIQUE D'ENREGISTREMENT FLUX */
+    /* LOGIQUE D'ENREGISTREMENT FLUX — ROBUSTE
+       Chaque opération Firestore est indépendante : une erreur dans
+       l'historique ne bloque jamais une demande d'enlèvement. */
     async function enregistrerStatut(flux, statut, avecCommande = false, numeroBenne = "") {
-      const user = auth.currentUser; 
-      if (!user) return; 
+      const user = auth.currentUser;
+      if (!user) return;
 
-      const site = siteSelect.value; 
-      selectionner(flux, statut); 
+      const site = siteSelect.value;
+      selectionner(flux, statut);
+      message.className = "message info";
+      message.innerHTML = "Enregistrement de " + flux + " pour " + site + "...";
+      message.style.display = "block";
+      boutons.forEach(function(btn) { btn.disabled = true; });
 
-      message.className = "message info"; 
-      message.innerHTML = "Enregistrement de " + flux + " pour " + site + "..."; 
-      message.style.display = "block"; 
+      const nomAgent = nomUtilisateur || user.email || "Utilisateur";
+      const siteIdentifiant = siteId(site);
+      let erreursSecondaires = [];
 
-      boutons.forEach(function(btn) { btn.disabled = true; }); 
+      try {
+        if (!nomUtilisateur || nomUtilisateur === user.email) {
+          await chargerProfilUtilisateur(user);
+        }
+      } catch (e) {
+        console.warn("Profil non chargé, utilisation de l'identité Firebase :", e);
+      }
 
-      try { 
-        if (!nomUtilisateur || nomUtilisateur === user.email) { 
-          await chargerProfilUtilisateur(user); 
-        } 
-
-        // Enregistrement standard de l'état de la benne
-        await db.collection("dechetteries").doc(siteId(site)).collection("flux").doc(flux).set({ 
-          site: site, 
-          flux: flux, 
-          statut: statut, 
-          modifiePar: nomUtilisateur || user.email || "Utilisateur", 
-          modifieParEmail: user.email || "", 
-          miseAJour: firebase.firestore.FieldValue.serverTimestamp() 
-        }, { merge: true }); 
-
-        // Journaliser chaque changement pour alimenter l'historique administrateur
-        await db.collection("historique_statuts").add({
+      try {
+        /* 1 — ÉTAT ACTUEL DE LA BENNE */
+        await db.collection("dechetteries").doc(siteIdentifiant).collection("flux").doc(flux).set({
           site: site,
-          siteId: siteId(site),
           flux: flux,
           statut: statut,
-          nouveauStatut: statut,
-          agent: nomUtilisateur || user.email || "Utilisateur",
-          agentEmail: user.email || "",
-          dateChangement: firebase.firestore.FieldValue.serverTimestamp()
-        });
+          modifiePar: nomAgent,
+          modifieParEmail: user.email || "",
+          miseAJour: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
 
-        let detailCommande = "";
-
-        // Envoi optionnel d'une demande à l'administrateur
-        if (avecCommande) {
-          await db.collection("demandes_enlevement").add({
+        /* 2 — HISTORIQUE : indépendant du reste */
+        try {
+          await db.collection("historique_statuts").add({
             site: site,
-            siteId: siteId(site),
+            siteId: siteIdentifiant,
             flux: flux,
+            ancienStatut: null,
             statut: statut,
-            numeroBenne: numeroBenne.trim(),
-            agent: nomUtilisateur || user.email || "Utilisateur",
+            nouveauStatut: statut,
+            agent: nomAgent,
             agentEmail: user.email || "",
-            statutDemande: "en_attente",
-            dateDemande: firebase.firestore.FieldValue.serverTimestamp()
+            dateChangement: firebase.firestore.FieldValue.serverTimestamp()
           });
-          detailCommande = "<br><small>🔔 Demande d'enlèvement envoyée à l'administration.</small>";
+        } catch (e) {
+          console.error("Échec écriture historique_statuts :", e);
+          erreursSecondaires.push("historique des statuts");
         }
 
-        message.className = "message succes"; 
-        message.innerHTML = "<strong>Enregistré</strong><br><br>" + site + " — " + flux + " → " + statut + detailCommande; 
-        message.style.display = "block"; 
+        /* 3 — DEMANDE D'ENLÈVEMENT : indépendante de l'historique */
+        let detailCommande = "";
+        if (avecCommande) {
+          const numero = String(numeroBenne || "").trim();
+          if (!numero) throw new Error("Le numéro de benne est obligatoire.");
 
-        changerCouleurBandeau(); 
+          try {
+            await db.collection("demandes_enlevement").add({
+              site: site,
+              siteId: siteIdentifiant,
+              flux: flux,
+              statut: statut,
+              numeroBenne: numero,
+              agent: nomAgent,
+              agentEmail: user.email || "",
+              statutDemande: "en_attente",
+              dateDemande: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            detailCommande = "<br><small>🔔 Demande d'enlèvement envoyée à l'administration.</small>";
+          } catch (e) {
+            console.error("Échec écriture demandes_enlevement :", e);
+            throw new Error("La demande d'enlèvement n'a pas pu être créée : " + (e.message || e.code || "erreur Firestore"));
+          }
+        }
 
-      } catch(error) { 
-        console.error("Erreur écriture Firestore :", error); 
-        afficherErreur("Impossible d'enregistrer le flux", error); 
-      } finally { 
-        boutons.forEach(function(btn) { btn.disabled = false; }); 
-      } 
+        message.className = erreursSecondaires.length ? "message info" : "message succes";
+        message.innerHTML = "<strong>Enregistré</strong><br><br>" + site + " — " + flux + " → " + statut + detailCommande;
+        if (erreursSecondaires.length) {
+          message.innerHTML += "<br><small>⚠️ Attention : " + erreursSecondaires.join(", ") + " n'a pas pu être enregistré. Vérifiez les règles Firestore.</small>";
+        }
+        message.style.display = "block";
+        changerCouleurBandeau();
+      } catch(error) {
+        console.error("Erreur écriture Firestore :", error);
+        afficherErreur("Impossible d'enregistrer le flux", error);
+      } finally {
+        boutons.forEach(function(btn) { btn.disabled = false; });
+      }
     }
 
     /* CLIC SUR LES BOUTONS DE STATUT */ 
